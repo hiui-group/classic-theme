@@ -1,0 +1,17 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "loose" : true,
+        "modules": false
+      }
+    ],
+    "stage-0",
+    "react"
+  ],
+  "plugins": [
+    "syntax-dynamic-import",
+    "react-hot-loader/babel"
+  ]
+}

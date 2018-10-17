@@ -1,0 +1,30 @@
+.info-block {
+  padding: 10px;
+  font-size: 13px;
+  .title {
+    margin: 10px 0;
+    font-weight: bold;
+  }
+  ul {
+    width: 100%;
+  }
+  li {
+    display: block;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    div {
+      display: inline-block;
+      overflow: hidden;
+    }
+  }
+  .label {
+    width: 45%;
+    min-width: 60px;
+    overflow: hidden;
+  }
+  .info {
+    width: 55%;
+    min-width: 80px;
+  }
+}
