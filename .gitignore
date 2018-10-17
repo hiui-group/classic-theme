@@ -2,6 +2,7 @@
 
 # Output files
 dist/
+es/
 
 # Editor generate files
 .idea/
