@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './index.scss'
-import Icon from 'hiui/es/icon'
+import Icon from '@hi-ui/hiui/es/icon'
 
 class Sider extends React.Component {
   static defaultProps = {
