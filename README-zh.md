@@ -1,6 +1,6 @@
-# Genuine Theme
+# Classic Theme
 
-Genuine Theme 是基于 React 的 HIUI 主题。
+Classic Theme 是基于 React 的 HIUI 主题。
 
 
 ## 开始
@@ -16,7 +16,9 @@ npm i @hi-ui/classic-theme --save
 主题是组件的形式，可以直接按组件来使用
 
 ```
-import Layout from '@hi-ui/classic-theme'
+import Layout,{Logo, Login,Cascad } from '@hi-ui/classic-theme'
+import Icon from 'hi-ui/es/icon/index'
+import 'hiui/es/nav-menu/style/index.css'
 
 <Layout />
 ```
@@ -58,8 +60,30 @@ const sider = {
 
 ```
 // router.js
-import Home from './Home'
-import Other from './Other'
+
+class Home extends Component{
+  render () {
+    return (
+      <div>
+        <Cascad
+           title='标题'
+           children={<div>hello cascad</div>}
+           status=''
+         />
+      </div>
+    )
+  }
+}
+
+class Other extends Component{
+  render () {
+    return (
+      <div>
+        other
+      </div>
+    )
+  }
+}
 
 const routes = [
   {
@@ -89,8 +113,6 @@ const routes = [
 此属性值为任何元素，没有默认值，完全自由，但是可以引用主题内置组件来自行拼装
 
 ```
-import { Logo, Login } from '@hi-ui/classic-theme'
-
 const login = {
   headUrl: 'your_image_linking',
   name: '叶静静',
@@ -177,7 +199,7 @@ const breadCrumb = {
 ```
 Cascad：带标题的块
 
-<Cascad 
+<Cascad
   title='标题'  // 块标题
   children=''     // 想要嵌入的任意元素
   status=''       // 想要标记的状态文字
@@ -191,5 +213,9 @@ InfoBlock：信息列表块
 />
 
 ```
+
+## 其他主题链接
+
+- [Genuine 主题](https://www.npmjs.com/package/@hi-ui/Genuine-theme)
 
 -- EOF --

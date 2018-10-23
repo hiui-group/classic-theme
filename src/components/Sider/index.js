@@ -212,7 +212,7 @@ class Sider extends React.Component {
 
     return (
       <div className={`sider ${collapse ? 'collapse' : ''}`} style={style}>
-        { top || '' }
+        { top ? <div className='top'>{top}</div> : null}
         { this.renderNavs(items) }
         <span
           className='btn-collapse'
