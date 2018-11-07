@@ -49,6 +49,9 @@ $collapse-time: .2s;
   .sider-list {
     width: 216px + 20px;
     height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
     overflow-x: hidden;
     overflow-y: scroll;
     transition: width $collapse-time;

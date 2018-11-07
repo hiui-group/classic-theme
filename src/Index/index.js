@@ -9,7 +9,7 @@ import Header from '../components/Header'
 import Sider from '../components/Sider'
 import BreadCrumb from '../components/BreadCrumb'
 import Footer from '../components/Footer'
-import '@hi-ui/core-css/lib/index.scss'
+import '@hi-ui/core-css'
 
 class Index extends Component {
   constructor (props) {
