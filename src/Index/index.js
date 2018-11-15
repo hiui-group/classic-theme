@@ -3,7 +3,7 @@ import {
   HashRouter as Router // HashRouter / BrowserRouter
 } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
-
+import PropTypes from 'prop-types'
 import './index.scss'
 import Header from '../components/Header'
 import Sider from '../components/Sider'
@@ -25,7 +25,26 @@ class Index extends Component {
       this.changeFooterPosition = this.changeFooterPosition.bind(this)
     }
   }
-
+  static propTypes = {
+    header: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    routes: PropTypes.array,
+    sider: PropTypes.arrayOf(PropTypes.shape({
+      path: PropTypes.string,
+      to: PropTypes.string
+    })),
+    theme: PropTypes.shape({
+      type: PropTypes.string,
+      color: PropTypes.string
+    }),
+    footer: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    logo: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
+  }
+  static defaultProps = {
+    theme: {
+      type: 'inner',
+      colro: 'white'
+    }
+  }
   componentDidMount () {
     if (this.props.footer) {
       this.changeFooterPosition()
@@ -113,23 +132,16 @@ class Index extends Component {
       hasSub
     } = this.state
     let {
-      header = 'ffd',
-      routes = [],
-      sider = {
-        items: [],
-        top: ''
-      },
-      theme = {
-        type: 'inner',
-        color: 'dark'
-      },
+      header,
+      routes,
+      sider,
+      theme,
       breadCrumb,
       footer,
       logo
     } = this.props
-
-    document.body.classList.add(`theme-${theme.type}`)
-    document.body.classList.add(`theme-${theme.color}`)
+    document.body.classList.add(`theme-${theme.type || 'inner'}`)
+    document.body.classList.add(`theme-${theme.color || 'white'}`)
 
     return (
       <Router>
@@ -140,7 +152,7 @@ class Index extends Component {
           </div>
           <div className='dashboard__body'>
             <Sider
-              current={this.getPage(sider.items)}
+              current={this.getPage(sider)}
               sider={sider}
               changeCollapse={this.changeCollapse.bind(this)}
               showSubnavs={this.showSubnavs.bind(this)}

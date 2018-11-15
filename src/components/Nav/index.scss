@@ -1,4 +1,4 @@
-.nav__item {
+.dashboard__nav {
   flex: 1 1 100%;
   display: flex;
   justify-content: center;
@@ -11,5 +11,9 @@
 
   &--right {
     flex: 0;
+  }
+
+  &-item {
+    padding: 10px;
   }
 }

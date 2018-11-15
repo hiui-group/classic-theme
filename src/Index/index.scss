@@ -31,10 +31,11 @@ body {
   &__top {
     // flex: 1 1 100%;
     height: 64px;
-    background-color: #383e47;
+    background-color: #fff;
     position: relative;
     z-index: 2;
     display: flex;
+    box-shadow: 0 2px 4px 0 #f2f2f2;
   }
 
   &__body {
@@ -68,52 +69,46 @@ body {
 
 // 蓝色主题
 .theme-blue {
-  .header {
+  .dashboard__top {
     color: #fff;
     background-color: #4285f4;
 
-    &-login {
-      &::after {
-        border-top-color: #fff;
-      }
-
-      &-info {
-        color: #333;
-      }
+    a {
+      color: #fff;
     }
 
-    &-login.active {
-      &::after {
-        border-bottom-color: #fff;
-      }
+    .logo {
+      color: #fff;
     }
 
+    .login {
+      color: #fff;
+    }
   }
+
+
 }
 
 
 // 黑色主题
 .theme-dark {
-  .header {
+  .dashboard__top {
     color: #fff;
+    background-color: #383e47;
 
-    &-login {
-      &::after {
-        border-top-color: #fff;
-      }
-
-      &-info {
-        color: #333;
-      }
+    a {
+      color: #fff;
     }
 
-    &-login.active {
-      &::after {
-        border-bottom-color: #fff;
-      }
+    .logo {
+      color: #fff;
     }
 
+    .login {
+      color: #fff;
+    }
   }
+
 }
 
 .theme-inner {

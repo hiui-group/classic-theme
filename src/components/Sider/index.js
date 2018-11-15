@@ -205,15 +205,9 @@ class Sider extends React.Component {
       style
     } = this.props
 
-    const {
-      items = [],
-      top = ''
-    } = sider
-
     return (
       <div className={`sider ${collapse ? 'collapse' : ''}`} style={style}>
-        { top || '' }
-        { this.renderNavs(items) }
+        { this.renderNavs(sider) }
         <span
           className='btn-collapse'
           onClick={e => {
