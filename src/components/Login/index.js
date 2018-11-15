@@ -33,7 +33,8 @@ class Login extends React.Component {
       headUrl = '',
       name = '',
       children = '',
-      style
+      style,
+      icon
     } = this.props
 
     return (
@@ -48,6 +49,9 @@ class Login extends React.Component {
       >
         {
           headUrl ? (<div className='login-img' style={{ backgroundImage: 'url(' + headUrl + ')' }} />) : ''
+        }
+        {
+          icon ? (<div className='login-img' >{icon}</div>) : ''
         }
         {
           name ? (<div className='login-name'>{name}</div>) : ''

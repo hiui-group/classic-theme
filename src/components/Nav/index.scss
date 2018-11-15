@@ -1,0 +1,15 @@
+.nav__item {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+
+  &--left {
+    flex: 1;
+  }
+
+  &--right {
+    flex: 0;
+  }
+}

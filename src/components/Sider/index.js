@@ -227,9 +227,7 @@ class Sider extends React.Component {
             changeCollapse(!collapse)
             showSubnavs(showSub)
           }}
-        >
-          <Icon name='menu' />
-        </span>
+        />
 
         {
           <div className={`sider-subnavs ${showSub ? 'show' : ''}`}>

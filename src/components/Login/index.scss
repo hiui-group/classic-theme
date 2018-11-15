@@ -15,10 +15,12 @@
     height: 24px;
     margin: 0 12px;
     border-radius: 50%;
-    background-color: #4285F4;
+    // background-color: #4285F4;
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: cover;
+    line-height: 24px;
+    text-align: center;
   }
 
   &-name {

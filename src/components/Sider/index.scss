@@ -1,15 +1,10 @@
-$collapse-time: .2s;
+$collapse-time: 0.2s;
 
 // Layout
 .sider {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 1;
+  position: relative;
   box-sizing: border-box;
   width: 216px;
-  height: 100%;
-  padding-top: 56px;
   overflow: hidden;
   background-color: #fff;
   font-size: 14px;
@@ -17,31 +12,34 @@ $collapse-time: .2s;
   color: #383e47;
   box-shadow: inset -1px 0 0 0 #e6e7e8;
   transition: width $collapse-time, overflow .2s linear $collapse-time;
-  &:before,
-  &:after {
-    position: absolute;
-    left: 0;
-    z-index: 1;
-    width: calc(100% - 1px);
-    height: 32px;
-    content: "";
-    pointer-events: none;
-  }
-  &:before {
-    top: 56px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-  }
-  &:after {
-    bottom: 0;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-  }
+
+  // &:before,
+  // &:after {
+  //   position: absolute;
+  //   left: 0;
+  //   z-index: 1;
+  //   width: calc(100% - 1px);
+  //   height: 32px;
+  //   content: "";
+  //   pointer-events: none;
+  // }
+
+  // &:before {
+  //   top: 56px;
+  //   background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+  // }
+
+  // &:after {
+  //   bottom: 0;
+  //   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+  // }
+
   // Add gap for first & last item
-  > .sider-list > li:first-child {
-    margin-top: 16px;
-  }
-  > .sider-list > li:last-child {
+
+  >.sider-list>li:last-child {
     margin-bottom: 48px;
   }
+
   .sider-list {
     width: 216px + 20px;
     height: 100%;
@@ -51,12 +49,14 @@ $collapse-time: .2s;
     overflow-x: hidden;
     overflow-y: scroll;
     transition: width $collapse-time;
+
     &-icon {
       display: inline-block;
       margin-right: 16px;
     }
+
     // Menu Item
-    > li {
+    >li {
       box-sizing: border-box;
       width: 216px;
       user-select: none;
@@ -67,6 +67,7 @@ $collapse-time: .2s;
     .sider-list {
       display: none;
       overflow: hidden;
+
       // Submenu padding
       .sider-list-item {
         padding-left: 48px;
@@ -88,11 +89,13 @@ $collapse-time: .2s;
     color: #383e47;
     cursor: pointer;
     transition: all $collapse-time linear;
+
     &:not(.noaction):hover,
     &.active {
       background-color: rgba(66, 133, 244, 0.08);
       color: #4285f4;
     }
+
     &:before {
       position: absolute;
       top: 0;
@@ -103,14 +106,17 @@ $collapse-time: .2s;
       background-color: #4687f2;
       transition: width .3s linear;
     }
+
     &.active {
       &:before {
         width: 3px;
       }
     }
+
     &.noaction {
       cursor: default;
     }
+
     .mark-arrow {
       position: absolute;
       top: 16px;
@@ -122,18 +128,22 @@ $collapse-time: .2s;
   // Collapsed
   &.collapse {
     width: 48px;
+
     .sider-list {
       width: 48px + 20px;
+
       // Menu Item
-      > li {
+      >li {
         width: 48px;
       }
     }
+
     .sider-list-item {
       padding: 16px 0 16px 16px;
       text-overflow: unset;
       white-space: normal;
     }
+
     .sider-list-title {
       display: none;
     }
@@ -141,13 +151,16 @@ $collapse-time: .2s;
 
     // Tertiary Menu
     .sider-subnavs {
+
       //width: 168px;
       .sider-list {
         //width: 188px;
       }
+
       .sider-list-item {
         //padding: 16px 24px;
       }
+
       .sider-list-title {
         //display: inline;
       }
@@ -157,11 +170,11 @@ $collapse-time: .2s;
   // Collapse Button
   .btn-collapse {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: 10px;
+    right: 14px;
     z-index: 2;
-    width: 48px;
-    height: 48px;
+    width: 20px;
+    height: 20px;
     font-size: 24px;
     color: #383e47;
     line-height: 48px;
@@ -169,6 +182,7 @@ $collapse-time: .2s;
     box-sizing: border-box;
     cursor: pointer;
     transition: right $collapse-time;
+    background: url('../../static/image/expand.png');
   }
 
   // Tertiary Menu
@@ -187,6 +201,7 @@ $collapse-time: .2s;
     box-shadow: inset -1px 0 0 0 #e6e7e8;
     background-color: #fff;
     transition: width, opacity .2s;
+
     &:before,
     &:after {
       position: absolute;
@@ -197,27 +212,33 @@ $collapse-time: .2s;
       content: "";
       pointer-events: none;
     }
+
     &:before {
       top: 56px;
       background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
     }
+
     &:after {
       bottom: 0;
       background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
     }
+
     // Add gap for first item
-    > .sider-list > li:first-child {
+    >.sider-list>li:first-child {
       margin-top: 16px;
     }
+
     .sider-list {
       width: 188px;
-      > li {
+
+      >li {
         //box-sizing: border-box;
         width: 168px;
         //height: 48px;
         //user-select: none;
         //color: #383e47;
       }
+
       .sider-list {
         max-height: 0;
         margin-top: 0;
@@ -228,6 +249,7 @@ $collapse-time: .2s;
         }
       }
     }
+
     .sider-list-item {
       //position: relative;
       //display: block;
@@ -242,8 +264,8 @@ $collapse-time: .2s;
       //transition: padding $collapse-time ease;
       //&:not(.noaction):hover,
       //&.active {
-        //background-color: rgba(66, 133, 244, 0.08);
-        //color: #4285f4;
+      //background-color: rgba(66, 133, 244, 0.08);
+      //color: #4285f4;
       //}
       //&.active {
       //  &:before {
@@ -260,9 +282,11 @@ $collapse-time: .2s;
       //  cursor: default;
       //}
     }
+
     .sider-list-title {
       display: inline;
     }
+
     &.show {
       max-width: 200px;
       right: -168px;
@@ -274,9 +298,7 @@ $collapse-time: .2s;
 
 // Themes
 .sider {
-  &.light {
-
-  }
+  &.light {}
 }
 
 .has-sub {

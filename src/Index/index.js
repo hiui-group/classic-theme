@@ -113,7 +113,7 @@ class Index extends Component {
       hasSub
     } = this.state
     let {
-      header = '',
+      header = 'ffd',
       routes = [],
       sider = {
         items: [],
@@ -124,7 +124,8 @@ class Index extends Component {
         color: 'dark'
       },
       breadCrumb,
-      footer
+      footer,
+      logo
     } = this.props
 
     document.body.classList.add(`theme-${theme.type}`)
@@ -133,29 +134,32 @@ class Index extends Component {
     return (
       <Router>
         <div className={`dashboard ${collapse ? 'collapse' : ''} ${hasSub ? 'has-sub' : ''}`}>
-          <Header
-            header={header}
-          />
-          <Sider
-            current={this.getPage(sider.items)}
-            sider={sider}
-            changeCollapse={this.changeCollapse.bind(this)}
-            showSubnavs={this.showSubnavs.bind(this)}
-          />
-          <div className='main'>
-            {
-              breadCrumb
-                ? (
-                  <BreadCrumb
-                    items={breadCrumb.items}
-                    sign={breadCrumb.sign}
-                  />
-                ) : ''
-            }
-            <div
-              className='content'
-            >
-              {renderRoutes(routes)}
+          <div className='dashboard__top'>
+            {logo}
+            <Header header={header} />
+          </div>
+          <div className='dashboard__body'>
+            <Sider
+              current={this.getPage(sider.items)}
+              sider={sider}
+              changeCollapse={this.changeCollapse.bind(this)}
+              showSubnavs={this.showSubnavs.bind(this)}
+            />
+            <div className='main'>
+              {
+                breadCrumb
+                  ? (
+                    <BreadCrumb
+                      items={breadCrumb.items}
+                      sign={breadCrumb.sign}
+                    />
+                  ) : ''
+              }
+              <div
+                className='content'
+              >
+                {renderRoutes(routes)}
+              </div>
             </div>
           </div>
           {

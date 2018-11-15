@@ -7,7 +7,9 @@
     "test": "node_modules/.bin/standard",
     "fix": "node_modules/.bin/standard --fix",
     "build": "cross-env NODE_ENV=production gulp",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "example": "cd example &&  PORT=4200 node server.js",
+    "start": "webpack-dev-server --config build/webpack.config.js --hot --progress --colors --port=4200"
   },
   "repository": {
     "type": "git",
@@ -24,7 +26,6 @@
   "author": "HIUI <mi-hiui@xiaomi.com>",
   "license": "MIT",
   "dependencies": {
-    "@hi-ui/hiui": "^1.0.0",
     "@hi-ui/core-css": "^0.9.2",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
@@ -33,6 +34,7 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
+    "@hi-ui/hiui": "^1.0.3-beta.3",
     "autoprefixer": "^8.3.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
@@ -65,8 +67,9 @@
     "standard": "^11.0.1",
     "style-loader": "^0.21.0",
     "through2": "^2.0.3",
-    "webpack": "^4.6.0",
-    "webpack-cli": "^2.0.15"
+    "url-loader": "^1.0.1",
+    "webpack": "^3.12.0",
+    "webpack-dev-server": "^2.11.2"
   },
   "standard": {
     "parser": "babel-eslint",
