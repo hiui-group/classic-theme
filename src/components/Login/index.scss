@@ -1,92 +1,81 @@
+@import '@hi-ui/core-css';
+
 .login {
   position: relative;
   display: flex;
   float: right;
   height: 64px;
   align-items: center;
-  padding-right: 16px;
-  font-size: 14px;
-  line-height: 64px;
+  padding-right: $spacer-4;
+  font-size: $font-size-normal;
+  line-height: $line-height-default;
   cursor: pointer;
-  color: #000;
 
-  &-img {
+  &::after {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    display: block;
+    border: 5px solid transparent;
+    border-bottom: 0;
+    content: '';
+    .login--active & {
+      border-top: 0;
+    }
+    .login--no-children & {
+      display: none;
+    }
+  }
+
+  &__img {
     display: inline-block;
     width: 24px;
     height: 24px;
-    margin: 0 12px;
+    margin: 0 $spacer-2;
     border-radius: 50%;
-    // background-color: #4285F4;
+    line-height: 24px;
+    text-align: center;
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: cover;
-    line-height: 24px;
-    text-align: center;
   }
 
-  &-name {
+  &__name {
     display: inline-block;
     max-width: 120px;
-    font-size: 14px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
   }
 
-  &-info {
+  &__info {
     display: none;
     position: absolute;
     right: 10px;
     top: 56px;
     padding: 10px;
-    border: 1px solid rgba(27, 31, 35, 0.15);
+    border: 1px solid $gray;
     border-radius: 4px;
     line-height: 20px;
-    background-color: #fff;
-    color: #333;
+    background-color: $white;
     cursor: default;
 
+    .login--active & {
+      display: block;
+    }
+
     &::before {
-      content: '';
       position: absolute;
       top: -6px;
-      right: 25px;
+      right: 24px;
+      box-sizing: border-box;
       width: 10px;
       height: 10px;
+      border-right: 1px solid $gray;
+      border-top: 1px solid $gray;
+      content: '';
       background-color: #fff;
-      border-right: 1px solid rgba(27, 31, 35, 0.15);
-      border-top: 1px solid rgba(27, 31, 35, 0.15);
       transform: rotate(-45deg)
     }
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    display: block;
-    top: 30px;
-    right: 0;
-    border-top: 5px solid #999;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-  }
-}
-
-.login.active {
-  .login-info {
-    display: block;
-  }
-
-  &::after {
-    border-top: 0;
-    border-bottom: 5px solid #999;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-  }
-}
-
-.login.no-children {
-  &::after {
-    display: none;
   }
 }

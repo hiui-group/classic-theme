@@ -4,14 +4,15 @@ import './index.scss'
 class Header extends Component {
   render () {
     const {
-      header = '',
-      style
+      logo,
+      header = ''
     } = this.props
 
     return (
-      <div className='header' style={style}>
+      <header className='layout__header header'>
+        { logo }
         { header }
-      </div>
+      </header>
     )
   }
 }

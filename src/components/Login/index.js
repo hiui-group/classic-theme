@@ -39,7 +39,7 @@ class Login extends React.Component {
 
     return (
       <div
-        className={`login ${open ? 'active' : ''} ${children ? '' : 'no-children'}`}
+        className={`login ${open ? 'login--active' : ''} ${children ? '' : 'login--no-children'}`}
         style={style}
         onClick={e => {
           e.stopPropagation()
@@ -48,19 +48,19 @@ class Login extends React.Component {
         }}
       >
         {
-          headUrl ? (<div className='login-img' style={{ backgroundImage: 'url(' + headUrl + ')' }} />) : ''
+          headUrl ? (<div className='login__img' style={{ backgroundImage: 'url(' + headUrl + ')' }} />) : ''
         }
         {
-          icon ? (<div className='login-img' >{icon}</div>) : ''
+          icon ? (<div className='login__img' >{icon}</div>) : ''
         }
         {
-          name ? (<div className='login-name'>{name}</div>) : ''
+          name ? (<div className='login__name'>{name}</div>) : ''
         }
         {
           children
             ? (
               <div
-                className='login-info'
+                className='login__info'
                 onClick={e => {
                   e.stopPropagation()
                   e.nativeEvent.stopImmediatePropagation()

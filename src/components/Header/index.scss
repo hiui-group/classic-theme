@@ -1,12 +1,13 @@
+@import '@hi-ui/core-css';
+
 .header {
   box-sizing: border-box;
-  // padding: 0 16px;
-  flex: 1;
-  font-size: 14px;
   display: flex;
-  // flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  align-content: space-between;
-  // box-shadow: inset 0 -1px 0 0 #e6e7e8;
+  width: 100%;
+  min-width: $minPageWidth;
+  height: 64px;
+  padding: 0 16px;
+  border-bottom: 1px solid;
+  font-size: $font-size-normal;
+  line-height: $line-height-default;
 }

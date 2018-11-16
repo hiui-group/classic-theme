@@ -27,7 +27,7 @@ class Sider extends React.Component {
   }
 
   getClickElement (dom) {
-    if (dom.nodeName === 'SPAN' && [].slice.call(dom.classList).indexOf('sider-list-item') > -1) {
+    if (dom.nodeName === 'SPAN' && [].slice.call(dom.classList).indexOf('sidebar__item') > -1) {
       return dom.nextSibling
     } else {
       const parent = dom.parentNode
@@ -74,7 +74,7 @@ class Sider extends React.Component {
     } = this.state
 
     return (
-      <ul className={`sider-list`}>
+      <ul className={`sidebar__list`}>
         {
           items.map((v, i) => (
             <li
@@ -85,7 +85,7 @@ class Sider extends React.Component {
                 v.to
                   ? (
                     <Link
-                      className={`sider-list-item ${active === v.key ? 'active' : ''}${v.noaction ? ' noaction' : ''}`}
+                      className={`sidebar__item ${active === v.key ? 'sidebar__item--active' : ''}${v.noaction ? ' sidebar__item--noaction' : ''}`}
                       to={v.to}
                       onClick={e => {
                         const open = !ctrls[v.key]
@@ -106,15 +106,15 @@ class Sider extends React.Component {
                     >
                       {
                         v.icon
-                          ? (<span className='sider-list-icon'>{v.icon}</span>)
+                          ? (<span className='sidebar__item-icon'>{v.icon}</span>)
                           : ''
                       }
-                      <span className='sider-list-title'>{v.title}</span>
+                      <span className='sidebar__item-title'>{v.title}</span>
                     </Link>
                   )
                   : (
                     <span
-                      className={`sider-list-item ${active === v.key ? 'active' : ''}${v.noaction ? ' noaction' : ''}`}
+                      className={`sidebar__item ${active === v.key ? 'sidebar__item--active' : ''}${v.noaction ? ' sidebar__item--noaction' : ''}`}
                       onClick={e => {
                         if (v.children && v.children.length) {
                           this.LOCK = true
@@ -162,13 +162,13 @@ class Sider extends React.Component {
                     >
                       {
                         v.icon
-                          ? (<span className='sider-list-icon'>{v.icon}</span>)
+                          ? (<span className='sidebar__item-icon'>{v.icon}</span>)
                           : ''
                       }
-                      <span className='sider-list-title'>{v.title}</span>
+                      <span className='sidebar__item-title'>{v.title}</span>
                       {
                         v.children && v.children.length && !collapse && (
-                          <Icon className='mark-arrow' name={`${ctrls[v.key] ? 'up' : 'down'}`} />
+                          <Icon className='sidebar__item-toggle' name={`${ctrls[v.key] ? 'up' : 'down'}`} />
                         )
                       }
                     </span>
@@ -206,7 +206,7 @@ class Sider extends React.Component {
     } = this.props
 
     return (
-      <div className={`sider ${collapse ? 'collapse' : ''}`} style={style}>
+      <aside className={`layout__sidebar sidebar ${collapse ? 'sidebar--collapsed' : ''}`} style={style}>
         { this.renderNavs(sider) }
         <span
           className='btn-collapse'
@@ -230,7 +230,7 @@ class Sider extends React.Component {
             }
           </div>
         }
-      </div>
+      </aside>
 
     )
   }

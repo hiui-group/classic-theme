@@ -3,10 +3,10 @@ import './index.scss'
 
 class Footer extends React.Component {
   render () {
-    const { className, footer } = this.props
+    const { footer } = this.props
 
     return (
-      <div id='J_Footer' className={`footer ${className}`}>
+      <div className='layout__footer footer'>
         {footer}
       </div>
     )

@@ -1,8 +1,7 @@
-var path = require('path')
-var webpack = require('webpack')
-var ROOT_PATH = path.resolve(__dirname)
-var BUILD_PATH = path.resolve(ROOT_PATH, '../dist')
-// var htmlWebpackPlugin =  require('html-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const ROOT_PATH = path.resolve(__dirname)
+const BUILD_PATH = path.resolve(ROOT_PATH, '../dist')
 
 module.exports = {
   entry: [
@@ -16,7 +15,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
+      // exclude: /node_modules/,
       loader: 'babel-loader'
     }, {
       test: /\.css$/,
@@ -25,7 +24,8 @@ module.exports = {
     {
       test: /\.scss$/,
       use: ['style-loader', 'css-loader', 'sass-loader']
-    }, {
+    },
+    {
       test: /\.(png|jpg|gif|svg)$/,
       loader: 'url-loader',
       options: {
@@ -43,7 +43,7 @@ module.exports = {
     inline: true
   },
   plugins: [
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ]
 }

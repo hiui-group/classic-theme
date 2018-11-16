@@ -1,21 +1,19 @@
+@import '@hi-ui/core-css';
+
 .logo {
   display: inline-block;
+  width: 200px;
   height: 64px;
   line-height: 64px;
-  width: 216px;
-  color: #000;
-  text-align: center;
 
-  a {
-    color: inherit;
-  }
-
-  img {
-    margin-right: 16px;
+  &__img {
+    margin-right: $spacer-4;
     vertical-align: middle;
   }
 
-  .logo-title {
+  &__title {
+    font-size: $font-size-large;
+    font-weight: $font-weight-bold;
     vertical-align: middle;
   }
 }

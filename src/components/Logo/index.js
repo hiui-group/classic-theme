@@ -7,6 +7,7 @@ class Logo extends React.Component {
       logoUrl = '',
       text = '',
       alt,
+      title,
       height = '40',
       style,
       url
@@ -14,9 +15,9 @@ class Logo extends React.Component {
 
     return (
       <div className='logo' style={style}>
-        <a href={url}>
-          <img src={logoUrl} alt={alt} height={height} />
-          <span className='logo-title'>{text}</span>
+        <a href={url} title={title}>
+          <img className='logo__img' src={logoUrl} alt={alt} height={height} />
+          <span className='logo__title'>{text}</span>
         </a>
       </div>
     )

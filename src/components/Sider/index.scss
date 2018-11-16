@@ -1,82 +1,86 @@
-$collapse-time: 0.2s;
+@import '@hi-ui/core-css';
+
+// 设置颜色
+@mixin theme-sidebar-style($color: get-color($palette-primary, 'hiui-blue')) {
+  .sidebar {
+    color: get-color($palette-hiui, 'g100');
+  }
+}
+
+@include theme-sidebar-style();
+@each $key, $value in $theme-colors {
+  .theme__#{$key} {
+    @include theme-sidebar-style($value);
+  }
+}
 
 // Layout
-.sider {
-  position: relative;
+.sidebar {
   box-sizing: border-box;
   width: 216px;
+  height: 100%;
+  padding-top: 64px;
   overflow: hidden;
-  background-color: #fff;
   font-size: 14px;
   line-height: 1;
-  color: #383e47;
-  box-shadow: inset -1px 0 0 0 #e6e7e8;
-  transition: width $collapse-time, overflow .2s linear $collapse-time;
+  color: $black;
+  background-color: $white;
+  box-shadow: inset -1px 0 0 0 $gray;
+  transition: width $speed-fast $easing;
 
-  // &:before,
-  // &:after {
-  //   position: absolute;
-  //   left: 0;
-  //   z-index: 1;
-  //   width: calc(100% - 1px);
-  //   height: 32px;
-  //   content: "";
-  //   pointer-events: none;
-  // }
+   &:before,
+   &:after {
+     position: absolute;
+     left: 0;
+     z-index: 1;
+     width: calc(100% - 1px);
+     height: 32px;
+     content: "";
+     pointer-events: none;
+   }
 
-  // &:before {
-  //   top: 56px;
-  //   background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-  // }
+   &:before {
+     top: 56px;
+     background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+   }
 
-  // &:after {
-  //   bottom: 0;
-  //   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-  // }
+   &:after {
+     bottom: 0;
+     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+   }
 
-  // Add gap for first & last item
-
-  >.sider-list>li:last-child {
-    margin-bottom: 48px;
-  }
-
-  .sider-list {
-    width: 216px + 20px;
+  &__list {
+    width: 216px + 20px; // overflow scrollbar
     height: 100%;
     margin: 0;
     padding: 0;
     list-style-type: none;
     overflow-x: hidden;
     overflow-y: scroll;
-    transition: width $collapse-time;
-
-    &-icon {
-      display: inline-block;
-      margin-right: 16px;
-    }
+    transition: width $speed-fast $easing;
 
     // Menu Item
-    >li {
+    > li {
       box-sizing: border-box;
       width: 216px;
       user-select: none;
-      color: #383e47;
+      transition: width $speed-fast $easing;
     }
 
     // Submenu
-    .sider-list {
+    .sidebar__list {
       display: none;
       overflow: hidden;
 
       // Submenu padding
-      .sider-list-item {
+      .sidebar__item {
         padding-left: 48px;
         padding-right: 16px;
       }
     }
   }
 
-  .sider-list-item {
+  &__item {
     position: relative;
     display: block;
     box-sizing: border-box;
@@ -88,15 +92,9 @@ $collapse-time: 0.2s;
     white-space: nowrap;
     color: #383e47;
     cursor: pointer;
-    transition: all $collapse-time linear;
+    transition: all $speed-fast $easing;
 
-    &:not(.noaction):hover,
-    &.active {
-      background-color: rgba(66, 133, 244, 0.08);
-      color: #4285f4;
-    }
-
-    &:before {
+    &::before {
       position: absolute;
       top: 0;
       left: 0;
@@ -107,62 +105,89 @@ $collapse-time: 0.2s;
       transition: width .3s linear;
     }
 
-    &.active {
-      &:before {
+    &--active {
+      &::before {
         width: 3px;
       }
     }
 
-    &.noaction {
+    &--noaction {
       cursor: default;
     }
 
-    .mark-arrow {
-      position: absolute;
-      top: 16px;
-      left: 168px;
-      width: 48px;
+    &:not(&--noaction):hover,
+    &:not(&--noaction):active,
+    &--active {
+      background-color: rgba(66, 133, 244, 0.08);
+      color: #4285f4;
     }
   }
 
+  &__item-icon {
+    display: inline-block;
+    margin-right: 16px;
+  }
+
+  &__item-toggle {
+    position: absolute;
+    top: 16px;
+    left: 168px;
+    width: 48px;
+  }
+
+  // Add gap for first & last item
+  > .sidebar__list > li:first-child {
+    margin-top: 8px;
+  }
+
+  > .sidebar__list > li:last-child {
+    margin-bottom: 48px;
+  }
+
   // Collapsed
-  &.collapse {
+  &--collapsed {
     width: 48px;
 
-    .sider-list {
-      width: 48px + 20px;
+    .layout--has-sub & {
+      overflow: visible;
+    }
+
+    .sidebar__list {
+      width: 48px + 20px; // overflow scrollbar
 
       // Menu Item
-      >li {
+      > li {
         width: 48px;
       }
     }
 
-    .sider-list-item {
-      padding: 16px 0 16px 16px;
-      text-overflow: unset;
+    .sidebar__item {
+      padding-right: 0;
+      text-overflow: clip;
       white-space: normal;
     }
 
-    .sider-list-title {
+    .sidebar__item-title {
       display: none;
     }
 
 
     // Tertiary Menu
     .sider-subnavs {
-
-      //width: 168px;
-      .sider-list {
-        //width: 188px;
+      width: 168px;
+      .sidebar__list {
+        width: 188px;
+        > li {
+          width: 168px;
+        }
       }
 
-      .sider-list-item {
-        //padding: 16px 24px;
+      .sidebar__item {
+        padding: 16px 24px;
       }
 
-      .sider-list-title {
-        //display: inline;
+      .sidebar__item-title {
+        display: inline;
       }
     }
   }
@@ -181,7 +206,7 @@ $collapse-time: 0.2s;
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: right $collapse-time;
+    transition: right $speed-fast linear;
     background: url('../../static/image/expand.png');
   }
 
@@ -190,15 +215,14 @@ $collapse-time: 0.2s;
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 1;
+    z-index: 10;
     box-sizing: border-box;
-    width: 168px;
+    width: 0;
     height: 100%;
-    padding-top: 56px;
-    max-width: 0;
+    padding-top: 64px;
     opacity: 0;
     overflow: hidden;
-    box-shadow: inset -1px 0 0 0 #e6e7e8;
+    box-shadow: inset -1px 0 0 0 $gray;
     background-color: #fff;
     transition: width, opacity .2s;
 
@@ -261,7 +285,7 @@ $collapse-time: 0.2s;
       //white-space: nowrap;
       //cursor: pointer;
       //color: #383e47;
-      //transition: padding $collapse-time ease;
+      //transition: padding $speed-fast ease;
       //&:not(.noaction):hover,
       //&.active {
       //background-color: rgba(66, 133, 244, 0.08);
@@ -288,21 +312,11 @@ $collapse-time: 0.2s;
     }
 
     &.show {
+      width: 168px;
       max-width: 200px;
       right: -168px;
       opacity: 1;
       transition: width .2s, opacity .2s;
     }
-  }
-}
-
-// Themes
-.sider {
-  &.light {}
-}
-
-.has-sub {
-  .sider.collapse {
-    overflow: visible;
   }
 }

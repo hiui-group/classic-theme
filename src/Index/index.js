@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-  HashRouter as Router // HashRouter / BrowserRouter
+  HashRouter as Router
 } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
 import PropTypes from 'prop-types'
@@ -9,7 +9,6 @@ import Header from '../components/Header'
 import Sider from '../components/Sider'
 import BreadCrumb from '../components/BreadCrumb'
 import Footer from '../components/Footer'
-import '@hi-ui/core-css'
 
 class Index extends Component {
   constructor (props) {
@@ -19,12 +18,8 @@ class Index extends Component {
       collapse: false,
       hasSub: false
     }
-
-    if (props.footer) {
-      this.resizeEvent = this.resizeEvent().bind(this)
-      this.changeFooterPosition = this.changeFooterPosition.bind(this)
-    }
   }
+
   static propTypes = {
     header: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     routes: PropTypes.array,
@@ -39,54 +34,11 @@ class Index extends Component {
     footer: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     logo: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
   }
+
   static defaultProps = {
     theme: {
       type: 'inner',
-      colro: 'white'
-    }
-  }
-  componentDidMount () {
-    if (this.props.footer) {
-      this.changeFooterPosition()
-
-      window.addEventListener('hashchange', this.changeFooterPosition)
-      window.addEventListener('resize', this.resizeEvent)
-    }
-  }
-
-  componentWillUnmount () {
-    if (this.props.footer) {
-      window.removeEventListener('hashchange', this.changeFooterPosition)
-      window.removeEventListener('resize', this.resizeEvent)
-      this.resizeEvent = null
-    }
-  }
-
-  changeFooterPosition () {
-    const $footer = document.querySelector('#J_Footer')
-    const $main = document.querySelector('#J_Main')
-
-    const innerHeight = window.innerHeight
-    const footerHeight = $footer.offsetHeight
-    const mainHeight = $main.offsetHeight
-
-    if (innerHeight - mainHeight < footerHeight + 20) {
-      $footer.classList.remove('absolute')
-    } else {
-      $footer.classList.add('absolute')
-    }
-  }
-
-  resizeEvent () {
-    let start = Date.now()
-
-    return function () {
-      let now = Date.now()
-
-      if (now - start > 200) {
-        this.changeFooterPosition()
-        start = now
-      }
+      color: 'white'
     }
   }
 
@@ -140,24 +92,16 @@ class Index extends Component {
       footer,
       logo
     } = this.props
-    document.body.classList.add(`theme-${theme.type || 'inner'}`)
-    document.body.classList.add(`theme-${theme.color || 'white'}`)
+    document.body.classList.add(`theme--content__${theme.type || 'inner'}`)
+    document.body.classList.add(`theme--color__${theme.color || 'white'}`)
 
     return (
       <Router>
-        <div className={`dashboard ${collapse ? 'collapse' : ''} ${hasSub ? 'has-sub' : ''}`}>
-          <div className='dashboard__top'>
-            {logo}
-            <Header header={header} />
-          </div>
-          <div className='dashboard__body'>
-            <Sider
-              current={this.getPage(sider)}
-              sider={sider}
-              changeCollapse={this.changeCollapse.bind(this)}
-              showSubnavs={this.showSubnavs.bind(this)}
-            />
-            <div className='main'>
+        <div className={`layout ${collapse ? 'layout--collapsed' : ''} ${hasSub ? 'layout--has-sub' : ''}`}>
+          <Header header={header} logo={logo} />
+
+          <div className='layout__body'>
+            <main className='layout__main'>
               {
                 breadCrumb
                   ? (
@@ -168,18 +112,27 @@ class Index extends Component {
                   ) : ''
               }
               <div
-                className='content'
+                className='layout__content'
               >
                 {renderRoutes(routes)}
               </div>
-            </div>
+            </main>
+
+            <Sider
+              current={this.getPage(sider)}
+              sider={sider}
+              changeCollapse={this.changeCollapse.bind(this)}
+              showSubnavs={this.showSubnavs.bind(this)}
+            />
+
+            {
+              footer
+                ? (
+                  <Footer footer={footer} />
+                ) : ''
+            }
+
           </div>
-          {
-            footer
-              ? (
-                <Footer footer={footer} />
-              ) : ''
-          }
         </div>
       </Router>
     )
