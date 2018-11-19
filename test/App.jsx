@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Page, { Logo, Login, NavGroup } from './src'
+import Page, { Logo, Login, NavGroup } from '../src'
 import { Icon, ThemeContext } from '@hi-ui/hiui'
-import Home from './src/example/Home'
-import About from './src/example/About'
+import Home from './pages/Home'
+import About from './pages/About'
 
 const routes = [
   {
@@ -20,8 +20,8 @@ const login = {
   name: 'Admin',
   icon: <span className='hi-icon icon-user' />,
   children: [
-    <div key='1' style={{textAlign: 'center', margin: 4, width: '100px'}}>个人信息</div>,
-    <div key='2' style={{textAlign: 'center', margin: 4, width: '100px'}}>注销</div>
+    <div key='1' style={{textAlign: 'center', margin: 4, width: '100px'}}><a href='#'>个人信息</a></div>,
+    <div key='2' style={{textAlign: 'center', margin: 4, width: '100px'}}><a href='#'>注销</a></div>
   ]
 }
 
@@ -34,9 +34,14 @@ const header = (
       <NavGroup.Item>
         <Link to='/about'>关于我们</Link>
       </NavGroup.Item>
-      <NavGroup.Item />
+      <NavGroup.Item>
+        <Link to='/about'>关于我们</Link>
+      </NavGroup.Item>
     </NavGroup>
     <NavGroup pos='right'>
+      <NavGroup.Item>
+        <Link to='/'>主页</Link>
+      </NavGroup.Item>
       <Login {...login} />
     </NavGroup>
   </React.Fragment>

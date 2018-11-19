@@ -3,10 +3,9 @@
 .login {
   position: relative;
   display: flex;
-  float: right;
   height: 64px;
   align-items: center;
-  padding-right: $spacer-4;
+  padding: 0 $spacer-4;
   font-size: $font-size-normal;
   line-height: $line-height-default;
   cursor: pointer;

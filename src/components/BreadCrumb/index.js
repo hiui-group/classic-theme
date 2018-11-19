@@ -22,7 +22,7 @@ class BreadCrumb extends React.Component {
   render () {
     const {
       items = [],
-      sign = '/',
+      separator = '/',
       style
     } = this.props
 
@@ -38,7 +38,7 @@ class BreadCrumb extends React.Component {
                 return (
                   <span
                     key={i}
-                    className='breadcrumb-item'
+                    className='breadcrumb__item'
                   >
                     {
                       v.to
@@ -51,14 +51,14 @@ class BreadCrumb extends React.Component {
                 return (
                   <span
                     key={i}
-                    className='breadcrumb-item'
+                    className='breadcrumb__item'
                   >
                     {
                       v.to
                         ? (<Link to={v.to}>{v.title}</Link>)
                         : (<span>{v.title}</span>)
                     }
-                    <span className='breadcrumb-sign'> {sign} </span>
+                    <span className='breadcrumb__sep'> {separator} </span>
                   </span>
                 )
               }

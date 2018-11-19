@@ -4,7 +4,7 @@ import './index.scss'
 class Item extends React.Component {
   render () {
     return (
-      <div className='dashboard__nav-item'>
+      <div className='header__nav-item'>
         {this.props.children}
       </div>
     )
@@ -13,7 +13,7 @@ class Item extends React.Component {
 class NavGroup extends React.Component {
   render () {
     const {pos} = this.props
-    return <div className={`dashboard__nav dashboard__nav--${pos}`}>
+    return <div className={`header__nav header__nav--${pos}`}>
       {this.props.children}
     </div>
   }

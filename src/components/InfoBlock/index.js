@@ -13,15 +13,15 @@ class InfoBlock extends React.Component {
       <div className='info-block' style={style}>
         {
           title
-            ? (<h4 className='title'>{title}</h4>)
+            ? (<h4 className='info-block__title'>{title}</h4>)
             : ''
         }
         <ul>
           {
             list.map((v, i) => (
               <li key={i}>
-                <div className='label'>{v.label}</div>
-                <div className='info'>{v.info}</div>
+                <div className='info-block__label'>{v.label}</div>
+                <div className='info-block__value'>{v.info}</div>
               </li>
             ))
           }

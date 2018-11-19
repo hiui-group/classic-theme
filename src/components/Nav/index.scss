@@ -1,19 +1,26 @@
-.dashboard__nav {
-  flex: 1 1 100%;
+@import '@hi-ui/core-css';
+
+.header__nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px;
 
   &--left {
-    flex: 1;
+    flex: 2;
+    justify-content: flex-start;
   }
 
   &--right {
-    flex: 0;
+    flex: 1;
+    justify-content: flex-end;
   }
 
   &-item {
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    height: 64px;
+    padding: 0 16px;
+    font-size: $font-size-normal;
+    line-height: $line-height-normal;
   }
 }

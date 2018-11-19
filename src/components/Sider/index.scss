@@ -1,54 +1,56 @@
 @import '@hi-ui/core-css';
 
-// 设置颜色
-@mixin theme-sidebar-style($color: get-color($palette-primary, 'hiui-blue')) {
-  .sidebar {
-    color: get-color($palette-hiui, 'g100');
-  }
-}
-
-@include theme-sidebar-style();
-@each $key, $value in $theme-colors {
-  .theme__#{$key} {
-    @include theme-sidebar-style($value);
-  }
-}
-
 // Layout
 .sidebar {
   box-sizing: border-box;
   width: 216px;
   height: 100%;
   padding-top: 64px;
-  overflow: hidden;
   font-size: 14px;
   line-height: 1;
-  color: $black;
   background-color: $white;
   box-shadow: inset -1px 0 0 0 $gray;
   transition: width $speed-fast $easing;
 
-   &:before,
-   &:after {
-     position: absolute;
-     left: 0;
-     z-index: 1;
-     width: calc(100% - 1px);
-     height: 32px;
-     content: "";
-     pointer-events: none;
-   }
+  &:before,
+  &:after {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    width: calc(100% - 1px);
+    content: "";
+    pointer-events: none;
+  }
 
-   &:before {
-     top: 56px;
-     background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-   }
+  &:before {
+    top: 64px;
+    height: 16px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+  }
 
-   &:after {
-     bottom: 0;
-     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-   }
+  &:after {
+    bottom: 0;
+    height: 32px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+  }
 
+  // Element: wrapper
+  &__wrapper {
+    width: 216px;
+    height: 100%;
+    overflow: hidden;
+
+    // Add gap for first & last item
+    > .sidebar__list > li:first-child {
+      margin-top: 16px;
+    }
+
+    > .sidebar__list > li:last-child {
+      margin-bottom: 48px;
+    }
+  }
+
+  // Element: list
   &__list {
     width: 216px + 20px; // overflow scrollbar
     height: 100%;
@@ -59,16 +61,8 @@
     overflow-y: scroll;
     transition: width $speed-fast $easing;
 
-    // Menu Item
-    > li {
-      box-sizing: border-box;
-      width: 216px;
-      user-select: none;
-      transition: width $speed-fast $easing;
-    }
-
     // Submenu
-    .sidebar__list {
+    & & {
       display: none;
       overflow: hidden;
 
@@ -80,17 +74,19 @@
     }
   }
 
+  // Element: item
   &__item {
     position: relative;
     display: block;
     box-sizing: border-box;
+    width: 216px;
     height: 100%;
     min-height: 48px;
     padding: 16px 48px 16px 16px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #383e47;
+    user-select: none;
     cursor: pointer;
     transition: all $speed-fast $easing;
 
@@ -101,7 +97,6 @@
       width: 0;
       height: 100%;
       content: "";
-      background-color: #4687f2;
       transition: width .3s linear;
     }
 
@@ -113,13 +108,6 @@
 
     &--noaction {
       cursor: default;
-    }
-
-    &:not(&--noaction):hover,
-    &:not(&--noaction):active,
-    &--active {
-      background-color: rgba(66, 133, 244, 0.08);
-      color: #4285f4;
     }
   }
 
@@ -135,83 +123,8 @@
     width: 48px;
   }
 
-  // Add gap for first & last item
-  > .sidebar__list > li:first-child {
-    margin-top: 8px;
-  }
-
-  > .sidebar__list > li:last-child {
-    margin-bottom: 48px;
-  }
-
-  // Collapsed
-  &--collapsed {
-    width: 48px;
-
-    .layout--has-sub & {
-      overflow: visible;
-    }
-
-    .sidebar__list {
-      width: 48px + 20px; // overflow scrollbar
-
-      // Menu Item
-      > li {
-        width: 48px;
-      }
-    }
-
-    .sidebar__item {
-      padding-right: 0;
-      text-overflow: clip;
-      white-space: normal;
-    }
-
-    .sidebar__item-title {
-      display: none;
-    }
-
-
-    // Tertiary Menu
-    .sider-subnavs {
-      width: 168px;
-      .sidebar__list {
-        width: 188px;
-        > li {
-          width: 168px;
-        }
-      }
-
-      .sidebar__item {
-        padding: 16px 24px;
-      }
-
-      .sidebar__item-title {
-        display: inline;
-      }
-    }
-  }
-
-  // Collapse Button
-  .btn-collapse {
-    position: absolute;
-    bottom: 10px;
-    right: 14px;
-    z-index: 2;
-    width: 20px;
-    height: 20px;
-    font-size: 24px;
-    color: #383e47;
-    line-height: 48px;
-    text-align: center;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: right $speed-fast linear;
-    background: url('../../static/image/expand.png');
-  }
-
-  // Tertiary Menu
-  .sider-subnavs {
+  // Element: Collapsed Sub Menu
+  &__subnavs {
     position: absolute;
     top: 0;
     right: 0;
@@ -221,102 +134,145 @@
     height: 100%;
     padding-top: 64px;
     opacity: 0;
+    visibility: hidden;
     overflow: hidden;
     box-shadow: inset -1px 0 0 0 $gray;
-    background-color: #fff;
-    transition: width, opacity .2s;
-
+    background-color: $white;
+    transition: all $speed-fast $easing;
     &:before,
     &:after {
       position: absolute;
       left: 0;
-      z-index: 1;
+      z-index: 10;
       width: calc(100% - 1px);
-      height: 32px;
       content: "";
       pointer-events: none;
     }
-
     &:before {
-      top: 56px;
+      top: 64px;
+      height: 16px;
       background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
     }
-
     &:after {
       bottom: 0;
+      height: 32px;
       background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
     }
 
     // Add gap for first item
-    >.sider-list>li:first-child {
+    > .sidebar__list > li:first-child {
       margin-top: 16px;
     }
 
-    .sider-list {
-      width: 188px;
+    //.sidebar__list {
+    //  & & {
+    //    max-height: 0;
+    //    margin-top: 0;
+    //    transition: all $speed-fast $easing;
+    //
+    //    .sidebar__item {
+    //      padding-left: 54px;
+    //    }
+    //  }
+    //}
 
-      >li {
-        //box-sizing: border-box;
-        width: 168px;
-        //height: 48px;
-        //user-select: none;
-        //color: #383e47;
-      }
-
-      .sider-list {
-        max-height: 0;
-        margin-top: 0;
-        transition: all .2s ease-out;
-
-        .sider-list-item {
-          padding-left: 54px;
-        }
-      }
-    }
-
-    .sider-list-item {
-      //position: relative;
-      //display: block;
-      //box-sizing: border-box;
-      //height: 100%;
-      padding: 16px 24px;
-      //overflow: hidden;
-      //text-overflow: ellipsis;
-      //white-space: nowrap;
-      //cursor: pointer;
-      //color: #383e47;
-      //transition: padding $speed-fast ease;
-      //&:not(.noaction):hover,
-      //&.active {
-      //background-color: rgba(66, 133, 244, 0.08);
-      //color: #4285f4;
-      //}
-      //&.active {
-      //  &:before {
-      //    position: absolute;
-      //    top: 0;
-      //    left: 0;
-      //    width: 3px;
-      //    height: 100%;
-      //    content: "";
-      //    background-color: #4687f2;
-      //  }
-      //}
-      //&.noaction {
-      //  cursor: default;
-      //}
-    }
-
-    .sider-list-title {
-      display: inline;
-    }
-
-    &.show {
+    // Status: Show
+    &--active {
       width: 168px;
       max-width: 200px;
       right: -168px;
       opacity: 1;
-      transition: width .2s, opacity .2s;
+      visibility: visible;
     }
+  }
+
+  // Element: Toggle
+  &__toggle {
+    position: absolute;
+    bottom: 10px;
+    right: 14px;
+    z-index: 2;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    font-size: 24px;
+    line-height: 48px;
+    text-align: center;
+    cursor: pointer;
+    background: url('../../static/image/expand.png');
+    transition: right $speed-fast linear;
+  }
+
+  // Status: Collapsed
+  &--collapsed {
+    width: 48px;
+
+    .sidebar {
+      &__list {
+        width: 48px + 20px; // overflow scrollbar
+      }
+
+      &__item {
+        width: 48px;
+        padding-right: 0;
+        text-overflow: clip;
+        white-space: normal;
+      }
+
+      &__item-title {
+        display: none;
+      }
+
+      // Collapsed Sub Menu
+      &__subnavs--active {
+        .sidebar__list {
+          width: 168px + 20px;
+        }
+
+        .sidebar__item {
+          width: 168px;
+          padding: 16px 24px;
+        }
+
+        .sidebar__item-title {
+          display: inline;
+        }
+      }
+    }
+  }
+}
+
+// Set colors
+@mixin theme-sidebar-style($color: get-color($palette-primary, 'hiui-blue')) {
+  .sidebar {
+    color: map-get(get-palette($color), 'g100');
+
+    &__item {
+      color: map-get(get-palette($color), 'g100');
+
+      &::before {
+        background-color: map-get(get-palette($color), '50');
+      }
+
+      // Status: active
+      &:not(&--noaction):hover,
+      &:not(&--noaction):active,
+      &--active {
+        background-color: rgba(map-get(get-palette($color), '50'), 0.08);
+        color: map-get(get-palette($color), '50');
+      }
+    }
+
+    &__toggle {
+      color: map-get(get-palette($color), 'g100');
+    }
+  }
+}
+
+@include theme-sidebar-style();
+
+@each $key, $value in $theme-colors {
+  .theme__#{$key} {
+    @include theme-sidebar-style($value);
   }
 }

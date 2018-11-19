@@ -79,13 +79,13 @@ $theme-base-colors: (
 }
 
 @each $name, $color in $theme-base-colors {
-  .theme--color__#{$name} {
+  .theme__header__#{$name} {
     @include theme-header-style($color, $name);
   }
 }
 
 // 设置内嵌版式样式
-.theme--content__inner {
+.theme__content__inner {
   background-color: $gray-light;
   .layout {
     &__content {

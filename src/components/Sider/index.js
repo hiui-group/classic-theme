@@ -207,9 +207,11 @@ class Sider extends React.Component {
 
     return (
       <aside className={`layout__sidebar sidebar ${collapse ? 'sidebar--collapsed' : ''}`} style={style}>
-        { this.renderNavs(sider) }
+        <div className='sidebar__wrapper'>
+          { this.renderNavs(sider) }
+        </div>
         <span
-          className='btn-collapse'
+          className='sidebar__toggle'
           onClick={e => {
             if (collapse) {
               showSub = false
@@ -224,7 +226,7 @@ class Sider extends React.Component {
         />
 
         {
-          <div className={`sider-subnavs ${showSub ? 'show' : ''}`}>
+          <div className={`sidebar__subnavs ${showSub ? 'sidebar__subnavs--active' : ''}`}>
             {
               this.renderNavs(subNavs, parent)
             }

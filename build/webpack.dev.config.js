@@ -6,7 +6,7 @@ const BUILD_PATH = path.resolve(ROOT_PATH, '../dist')
 module.exports = {
   entry: [
     'webpack/hot/only-dev-server',
-    path.resolve(ROOT_PATH, '../main.js')
+    path.resolve(ROOT_PATH, '../test/main.js')
   ],
   output: {
     path: BUILD_PATH,
@@ -15,7 +15,6 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.(js|jsx)$/,
-      // exclude: /node_modules/,
       loader: 'babel-loader'
     }, {
       test: /\.css$/,

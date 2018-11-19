@@ -1,7 +1,7 @@
 .info-block {
   padding: 10px;
   font-size: 13px;
-  .title {
+  &__title {
     margin: 10px 0;
     font-weight: bold;
   }
@@ -21,12 +21,12 @@
       overflow: hidden;
     }
   }
-  .label {
+  &__label {
     width: 45%;
     min-width: 60px;
     overflow: hidden;
   }
-  .info {
+  &__value {
     width: 55%;
     min-width: 80px;
   }

@@ -92,8 +92,8 @@ class Index extends Component {
       footer,
       logo
     } = this.props
-    document.body.classList.add(`theme--content__${theme.type || 'inner'}`)
-    document.body.classList.add(`theme--color__${theme.color || 'white'}`)
+    document.body.classList.add(`theme__content__${theme.type || 'inner'}`)
+    document.body.classList.add(`theme__header__${theme.color || 'white'}`)
 
     return (
       <Router>
