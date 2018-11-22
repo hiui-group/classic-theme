@@ -1,7 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import classNames from 'classnames'
 import './index.scss'
-import Icon from '@hi-ui/hiui/es/icon'
 
 class Sider extends React.Component {
   static defaultProps = {
@@ -9,6 +8,7 @@ class Sider extends React.Component {
   }
 
   LOCK = false
+  deep = 0
 
   state = {
     ctrls: {},
@@ -64,128 +64,86 @@ class Sider extends React.Component {
     window.requestAnimationFrame(animate)
   }
 
-  renderNavs (items, parent) {
-    let {
-      ctrls,
-      active,
-      collapse,
-      showSub,
-      prev
-    } = this.state
+  checkActive (currentValue) {
+    const values = [
+      [1, 1]
+    ]
+    let flag = 0
+
+    values.every(value => {
+      flag = 0
+      for (let i = 0; i < currentValue.length; i++) {
+        if (currentValue[i] !== value[i]) {
+          flag = -1
+          break
+        }
+      }
+      if (flag === -1) {
+        return true
+      } else {
+        currentValue.length !== value.length && (flag = 1)
+        return false
+      }
+    })
+    return flag
+  }
+
+  renderNavs (items, currentValue = []) {
+    const navs = []
+    items.slice().map((item, index) => {
+      currentValue.splice(this.deep, 1, index)
+      const hasChildren = Array.isArray(item.children)
+      const activeStatus = this.checkActive(currentValue) // 0代表激活当前项，-1未激活，1激活的是子项
+      const isExpanded = activeStatus >= 0
+      console.log('---------activeStatus', this.deep, activeStatus, currentValue, item.title)
+      const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
+      const _currentValue = currentValue.slice()
+
+      if (hasChildren && isExpanded) {
+        ++this.deep
+      }
+
+      navs.push(
+        <li
+          key={index}
+        >
+          <div
+            className={classNames('sidebar__item-link', 'sidebar__item', {'sidebar__item--active': activeStatus === 0})}
+            onClick={e => {
+              e.stopPropagation()
+              if (item.to) {
+
+              } else {
+                console.log('----------click', _currentValue)
+              }
+            }}
+          >
+            {
+              item.icon
+                ? (<span className='sidebar__item-icon'>{item.icon}</span>)
+                : ''
+            }
+            <span className='sidebar__item-title'>{item.title}</span>
+            {
+              hasChildren &&
+              <i className={classNames('sidebar__item-toggle', 'hi-icon', expandIcon)} />
+            }
+          </div>
+          {
+            hasChildren && isExpanded && this.renderNavs(item.children, currentValue)
+          }
+        </li>
+      )
+
+      if (hasChildren && isExpanded) {
+        currentValue.pop()
+        --this.deep
+      }
+    })
 
     return (
-      <ul className={`sidebar__list`}>
-        {
-          items.map((v, i) => (
-            <li
-              key={i}
-              // className={`${ctrls[v.key] ? 'open' : ''}`}
-            >
-              {
-                v.to
-                  ? (
-                    <Link
-                      className={`sidebar__item ${active === v.key ? 'sidebar__item--active' : ''}${v.noaction ? ' sidebar__item--noaction' : ''}`}
-                      to={v.to}
-                      onClick={e => {
-                        const open = !ctrls[v.key]
-                        ctrls = {}
-                        ctrls[v.key] = open
-                        if (parent) {
-                          ctrls[parent] = open
-                        }
-                        active = v.key
-
-                        if (collapse && !parent) {
-                          showSub = false
-                          this.props.showSubnavs(showSub)
-                        }
-
-                        this.setState({ctrls, active, showSub})
-                      }}
-                    >
-                      {
-                        v.icon
-                          ? (<span className='sidebar__item-icon'>{v.icon}</span>)
-                          : ''
-                      }
-                      <span className='sidebar__item-title'>{v.title}</span>
-                    </Link>
-                  )
-                  : (
-                    <span
-                      className={`sidebar__item ${active === v.key ? 'sidebar__item--active' : ''}${v.noaction ? ' sidebar__item--noaction' : ''}`}
-                      onClick={e => {
-                        if (v.children && v.children.length) {
-                          this.LOCK = true
-                          const el = this.getClickElement(e.target)
-                          if (prev && el && !prev.isSameNode(el)) {
-                            this.toggleSlide(prev, true, null)
-                          }
-                          prev = el
-
-                          if (!collapse) {
-                            const open = !ctrls[v.key]
-
-                            ctrls = {}
-                            ctrls[v.key] = open
-                            if (parent) {
-                              ctrls[parent] = open
-                            }
-                            active = v.key
-
-                            this.setState({ctrls, active, prev})
-                          } else {
-                            let subNavs
-                            let parent
-                            let showSub = false
-
-                            subNavs = subNavs && subNavs.length ? [] : v.children
-                            parent = !!parent || v.key
-                            active = v.key
-
-                            const temp = ctrls[v.key]
-                            if (!temp) {
-                              showSub = true
-                            }
-
-                            ctrls = {}
-                            ctrls[v.key] = !temp
-
-                            this.props.showSubnavs(showSub)
-                            this.setState({subNavs, showSub, active, ctrls, parent, prev})
-                          }
-
-                          el && this.toggleSlide(el, !ctrls[v.key], null, true)
-                        }
-                      }}
-                    >
-                      {
-                        v.icon
-                          ? (<span className='sidebar__item-icon'>{v.icon}</span>)
-                          : ''
-                      }
-                      <span className='sidebar__item-title'>{v.title}</span>
-                      {
-                        v.children && v.children.length && !collapse && (
-                          <Icon className='sidebar__item-toggle' name={`${ctrls[v.key] ? 'up' : 'down'}`} />
-                        )
-                      }
-                    </span>
-                  )
-              }
-              {
-                v.children && v.children.length && !collapse && (
-                  <React.Fragment>
-                    {
-                      this.renderNavs(v.children, v.key)
-                    }
-                  </React.Fragment>
-                )
-              }
-            </li>
-          ))
-        }
+      <ul className='sidebar__list'>
+        {navs}
       </ul>
     )
   }
@@ -193,9 +151,7 @@ class Sider extends React.Component {
   render () {
     let {
       collapse,
-      subNavs,
-      showSub,
-      parent
+      showSub
     } = this.state
 
     let {
@@ -224,14 +180,6 @@ class Sider extends React.Component {
             showSubnavs(showSub)
           }}
         />
-
-        {
-          <div className={`sidebar__subnavs ${showSub ? 'sidebar__subnavs--active' : ''}`}>
-            {
-              this.renderNavs(subNavs, parent)
-            }
-          </div>
-        }
       </aside>
 
     )

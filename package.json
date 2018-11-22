@@ -8,7 +8,7 @@
     "fix": "node_modules/.bin/standard --fix",
     "build": "cross-env NODE_ENV=production gulp",
     "precommit": "lint-staged",
-    "start": "webpack-dev-server --config build/webpack.dev.config.js --hot --progress --colors --port=4200"
+    "start": "webpack-dev-server --config build/webpack.dev.config.js --hot --progress --colors --port=4201"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
   "dependencies": {
     "@hi-ui/core-css": "^1.0.0-beta.2",
     "@hi-ui/hiui": "^1.0.3-beta.3",
+    "classnames": "^2.2.6",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-router-config": "^1.0.0-beta.4",

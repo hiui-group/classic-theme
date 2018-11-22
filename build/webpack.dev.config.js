@@ -41,6 +41,7 @@ module.exports = {
     hot: true,
     inline: true
   },
+  devtool: 'source-map',
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin()
