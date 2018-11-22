@@ -65,26 +65,19 @@ class Sider extends React.Component {
   }
 
   checkActive (currentValue) {
-    const values = [
-      [1, 1]
-    ]
+    const value = [1, 1]
     let flag = 0
 
-    values.every(value => {
-      flag = 0
-      for (let i = 0; i < currentValue.length; i++) {
-        if (currentValue[i] !== value[i]) {
-          flag = -1
-          break
-        }
+    for (let i = 0; i < currentValue.length; i++) {
+      if (currentValue[i] !== value[i]) {
+        flag = -1
+        break
       }
-      if (flag === -1) {
-        return true
-      } else {
-        currentValue.length !== value.length && (flag = 1)
-        return false
-      }
-    })
+    }
+    if (flag !== -1 && currentValue.length !== value.length) {
+      flag = 1
+    }
+
     return flag
   }
 
