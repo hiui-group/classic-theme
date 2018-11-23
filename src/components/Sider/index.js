@@ -16,7 +16,6 @@ class Sider extends React.Component {
     const activeNav = this.getActiveValue(this.props.current, this.props.navs) // 激活的导航所在位置
     const activeNavCache = activeNav.slice() // 缓存激活的导航所在位置，主要用于点击非链接项时子项的选中状态
     const filteredNavs = this.filterNavs(activeNav) // 过滤需要显示和激活的导航
-
     this.state = {
       ctrls: {},
       collapse: false,
@@ -53,13 +52,13 @@ class Sider extends React.Component {
         if (Array.isArray(nav.children)) {
           deep++
           flag = fn(nav.children)
-        } else {
-          value.pop()
+          deep--
         }
 
         return flag
       })
-      deep--
+      flag && value.pop()
+      return flag
     }
     fn(navs.slice())
 
@@ -103,7 +102,7 @@ class Sider extends React.Component {
     }
 
     fn(_navs)
-    // console.log('--------_navs', _navs)
+    console.log('--------_navs', _navs)
 
     return _navs
   }

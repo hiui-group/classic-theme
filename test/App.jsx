@@ -100,6 +100,10 @@ class App extends Component {
                   to: '/inner'
                 },
                 {
+                  title: '内嵌1',
+                  to: '/inner/1'
+                },
+                {
                   title: '外嵌',
                   children: [
                     {
