@@ -1,80 +1,101 @@
 import React from 'react'
 import classNames from 'classnames'
+import history from '../../util/history'
 import './index.scss'
 
 class Sider extends React.Component {
   static defaultProps = {
-    items: []
+    accordion: true
   }
 
   LOCK = false
-  deep = 0
 
   constructor (props) {
     super(props)
 
-    const value = [1, 1]
-    const activeNav = value.slice()
-    const activeNavs = this.getActiveNavs(activeNav)
+    const activeNavCache = this.getActiveValue(this.props.current, this.props.navs)
+    console.log('----------activeNavCache', activeNavCache)
+    const activeNav = activeNavCache.slice()
+    const filteredNavs = this.filterNavs(activeNav)
 
     this.state = {
       ctrls: {},
-      active: '',
       collapse: false,
-      value,
       activeNav,
-      activeNavs,
+      activeNavCache,
+      filteredNavs,
       showSub: false
     }
   }
 
   componentWillReceiveProps (props) {
-
+    console.log('-------componentWillReceiveProps')
+    if (props.current !== this.props.current) {
+      // const current = this.getActiveValue(this.props.current)
+    }
   }
 
   componentDidMount () {
-    let { current, navs } = this.props
-    const { items = [] } = navs
-    current = current || (items[0] ? items[0].key : '')
-
-    this.setState({active: current})
   }
 
-  getActiveNavs (activeNav, navs = this.props.navs) {
+  getActiveValue (current, navs) {
+    let iteration = navs.slice()
+    let deep = 0
+    let value = []
+    while (iteration) {
+      const _iteration = iteration.slice()
+      iteration = false
+      _iteration.every((nav, index) => {
+        value.push(index)
+        if (nav.to === current) {
+          value.splice(deep, 1, index)
+          return false
+        }
+        if (Array.isArray(nav.children)) {
+          iteration = nav.children
+        }
+        return true
+      })
+      deep++
+    }
+    return value
+  }
+
+  filterNavs (activeNav, navs = this.props.navs) {
     const _navs = navs.slice()
-    this.prepareNavs(_navs, activeNav)
+    let deep = 0
+    const fn = (items, currentValue = []) => {
+      items.slice().map((item, index) => {
+        currentValue.splice(deep, 1, index)
+        const hasChildren = Array.isArray(item.children)
+        const activeStatus = this.arrayIndexOf(currentValue, activeNav) // 0代表激活当前项，-1未激活，1激活的是子项
+        console.log('---------activeStatus', deep, activeStatus, currentValue, item.title)
+
+        if (hasChildren && activeStatus >= 0) {
+          ++deep
+        }
+
+        item.HAS_CHILDREN = hasChildren
+        item.ACTIVE_STATUS = activeStatus
+        item.VALUE = currentValue.slice()
+        if (item.IS_EXPANDED) {
+          item.IS_EXPANDED = activeStatus === 1
+        } else {
+          item.IS_EXPANDED = activeStatus >= 0
+        }
+
+        if (hasChildren && activeStatus >= 0) {
+          fn(item.children, currentValue)
+          currentValue.pop()
+          --deep
+        }
+      })
+    }
+
+    fn(_navs)
     console.log('--------_navs', _navs)
+
     return _navs
-  }
-
-  prepareNavs (items, activeNav, currentValue = []) {
-    items.slice().map((item, index) => {
-      currentValue.splice(this.deep, 1, index)
-      const hasChildren = Array.isArray(item.children)
-      const activeStatus = this.checkActive(currentValue, activeNav) // 0代表激活当前项，-1未激活，1激活的是子项
-      const isExpanded = activeStatus >= 0
-      console.log('---------activeStatus', this.deep, activeStatus, currentValue, item.title)
-
-      if (hasChildren && isExpanded) {
-        ++this.deep
-      }
-
-      item.hasChildren = hasChildren
-      item.activeStatus = activeStatus
-      item.value2 = currentValue.slice()
-      // item.isExpanded = activeStatus > 0
-      if (item.isExpanded) {
-        item.isExpanded = false
-      } else {
-        item.isExpanded = activeStatus >= 0
-      }
-
-      if (hasChildren && isExpanded) {
-        this.prepareNavs(item.children, activeNav, currentValue)
-        currentValue.pop()
-        --this.deep
-      }
-    })
   }
 
   getClickElement (dom) {
@@ -115,7 +136,7 @@ class Sider extends React.Component {
     window.requestAnimationFrame(animate)
   }
 
-  checkActive (currentValue, value) { // 0代表激活当前项，-1未激活，1激活的是子项
+  arrayIndexOf (currentValue, value) { // 0代表激活当前项，-1未激活，1激活的是子项
     let flag = 0
 
     for (let i = 0; i < currentValue.length; i++) {
@@ -131,27 +152,12 @@ class Sider extends React.Component {
     return flag
   }
 
-  arrayContain (arr1, arr2) {
-    let flag = true
-    if (arr1.length >= arr2.length) {
-      return false
-    }
-    arr1.every((a, i) => {
-      if (a !== arr2[i]) {
-        flag = false
-        return false
-      }
-      return true
-    })
-    return flag
-  }
-
   renderNavs (items) {
     const navs = []
     items.slice().map((item, index) => {
-      const hasChildren = Array.isArray(item.children)
-      const activeStatus = item.activeStatus
-      const isExpanded = item.isExpanded
+      const hasChildren = item.HAS_CHILDREN
+      const activeStatus = item.ACTIVE_STATUS
+      const isExpanded = item.IS_EXPANDED
       const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
 
       navs.push(
@@ -163,18 +169,27 @@ class Sider extends React.Component {
             onClick={e => {
               e.stopPropagation()
               if (item.to) {
-
-              } else {
-                let value = item.value2
-                if (!isExpanded && this.arrayContain(item.value2, this.state.value)) {
-                  value = this.state.value
-                }
-                const activeNavs = this.getActiveNavs(value)
                 this.setState({
-                  activeNavs,
-                  activeNav: item.value2
+                  activeNav: item.VALUE,
+                  activeNavCache: item.VALUE
+                }, () => {
+                  const filteredNavs = this.filterNavs(item.VALUE)
+                  this.setState({
+                    filteredNavs
+                  })
                 })
-                console.log('----------click', item.value2)
+                history.push(item.to)
+              } else {
+                let value = item.VALUE
+                if (!isExpanded && this.arrayIndexOf(item.VALUE, this.state.activeNavCache) >= 0) {
+                  value = this.state.activeNavCache
+                }
+                const filteredNavs = this.filterNavs(value)
+                this.setState({
+                  filteredNavs,
+                  activeNav: item.VALUE
+                })
+                console.log('----------click', item.VALUE)
               }
             }}
           >

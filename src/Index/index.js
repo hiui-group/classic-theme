@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {
-  HashRouter as Router
+  Router
 } from 'react-router-dom'
+import history from '../util/history'
 import { renderRoutes } from 'react-router-config'
 import PropTypes from 'prop-types'
 import './index.scss'
@@ -42,32 +43,8 @@ class Index extends Component {
     }
   }
 
-  getPage (items) {
-    let pathname = window.location.pathname
-    let hash = window.location.hash
-    let res = ''
-
-    if (hash) {
-      pathname = hash.replace(/#?(.*)/, (a, b) => {
-        return b
-      })
-    }
-
-    const fn = (arr) => {
-      for (let i = 0; i < arr.length; i++) {
-        const cur = arr[i]
-        if (cur.to === pathname) {
-          res = cur.key
-          return
-        } else if (cur.children) {
-          fn(cur.children)
-        }
-      }
-    }
-
-    fn(items)
-
-    return res
+  getCurrentPath () {
+    return window.location.href.split(window.location.origin)[1]
   }
 
   changeCollapse (collapse) {
@@ -96,7 +73,7 @@ class Index extends Component {
     document.body.classList.add(`theme__header__${theme.color || 'white'}`)
 
     return (
-      <Router>
+      <Router history={history}>
         <div className={`layout ${collapse ? 'layout--collapsed' : ''} ${hasSub ? 'layout--has-sub' : ''}`}>
           <Header header={header} logo={logo} />
 
@@ -119,7 +96,7 @@ class Index extends Component {
             </main>
 
             <Sider
-              current={this.getPage(navs)}
+              current={this.getCurrentPath()}
               navs={navs}
               changeCollapse={this.changeCollapse.bind(this)}
               showSubnavs={this.showSubnavs.bind(this)}

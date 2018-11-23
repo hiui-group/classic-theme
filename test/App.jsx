@@ -14,6 +14,14 @@ const routes = [
     path: '/about',
     exact: true,
     component: About
+  }, {
+    path: '/inner',
+    exact: true,
+    component: About
+  }, {
+    path: '/color/blue',
+    exact: true,
+    component: About
   }
 ]
 const login = {
@@ -81,124 +89,42 @@ class App extends Component {
           // footer={footer}
           logo={logo}
           routes={routes}
-          sider={[
-            {key: 1, title: '首页', to: '/', icon: <Icon name='user' />},
+          navs={[
+            {title: '首页', to: '/', icon: <Icon name='user' />},
             {
-              key: 2,
               title: '内嵌',
-              to: '',
               icon: <Icon name='usergroup' />,
               children: [
-                {key: 21,
+                {
                   title: '内嵌',
-                  to: {
-                    hash: 'inner'
-                  }
-                },
-                {key: 22,
-                  title: '外嵌',
-                  to: {
-                    hash: 'outer'
-                  }
+                  to: '/inner'
                 },
                 {
-                  key: 22,
-                  title: '外嵌',
-                  to: {
-                    hash: 'outer'
-                  }
+                  title: '外嵌1',
+                  to: '/outer/1'
                 },
                 {
-                  key: 22,
-                  title: '外嵌',
-                  to: {
-                    hash: 'outer'
-                  }
+                  title: '外嵌2',
+                  to: '/outer/2'
                 },
                 {
-                  key: 22,
-                  title: '外嵌',
-                  to: {
-                    hash: 'outer'
-                  }
-                },
-                {
-                  key: 22,
-                  title: '外嵌',
-                  to: {
-                    hash: 'outer'
-                  }
-                },
-                {
-                  key: 22,
-                  title: '外嵌',
-                  to: {
-                    hash: 'outer'
-                  }
-                },
-                {
-                  key: 22,
-                  title: '外嵌',
-                  to: {
-                    hash: 'outer'
-                  }
-                },
-                {
-                  key: 22,
-                  title: '外嵌',
-                  to: {
-                    hash: 'outer'
-                  }
-                },
-                {
-                  key: 22,
-                  title: '外嵌',
-                  to: {
-                    hash: 'outer'
-                  }
-                },
-                {
-                  key: 22,
-                  title: '外嵌',
-                  to: {
-                    hash: 'outer'
-                  }
-                },
-                {
-                  key: 22,
-                  title: '外嵌',
-                  to: {
-                    hash: 'outer'
-                  }
-                },
-                {
-                  key: 22,
-                  title: '外嵌',
-                  to: {
-                    hash: 'outer'
-                  }
+                  title: '外嵌3',
+                  to: '/outer/3'
                 }
               ]
             },
             {
-              key: 3,
               title: '配色',
               to: '',
               icon: <Icon name='usergroup' />,
               children: [
                 {
-                  key: 31,
                   title: '灰色',
-                  to: {
-                    hash: 'gray'
-                  }
+                  to: '/color/gray'
                 },
                 {
-                  key: 32,
                   title: '蓝色',
-                  to: {
-                    hash: 'blue'
-                  }
+                  to: '/color/blue'
                 }
               ]
             }
