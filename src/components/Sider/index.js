@@ -30,11 +30,11 @@ class Sider extends React.Component {
     const activeNav = this.getActiveValue(props.current, props.navs)
     const activeNavCache = activeNav.slice(0)
     const filteredNavs = this.filterNavs(activeNav)
-    this.state = {
+    this.setState({
       activeNav,
       activeNavCache,
       filteredNavs
-    }
+    })
   }
 
   getActiveValue (current, navs) { // 初始时获取激活导航的value
