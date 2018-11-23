@@ -10,20 +10,71 @@ class Sider extends React.Component {
   LOCK = false
   deep = 0
 
-  state = {
-    ctrls: {},
-    active: '',
-    collapse: false,
-    subNavs: [],
-    showSub: false
+  constructor (props) {
+    super(props)
+
+    const value = [1, 1]
+    const activeNav = value.slice()
+    const activeNavs = this.getActiveNavs(activeNav)
+
+    this.state = {
+      ctrls: {},
+      active: '',
+      collapse: false,
+      value,
+      activeNav,
+      activeNavs,
+      showSub: false
+    }
+  }
+
+  componentWillReceiveProps (props) {
+
   }
 
   componentDidMount () {
-    let { current, sider } = this.props
-    const { items = [] } = sider
+    let { current, navs } = this.props
+    const { items = [] } = navs
     current = current || (items[0] ? items[0].key : '')
 
     this.setState({active: current})
+  }
+
+  getActiveNavs (activeNav, navs = this.props.navs) {
+    const _navs = navs.slice()
+    this.prepareNavs(_navs, activeNav)
+    console.log('--------_navs', _navs)
+    return _navs
+  }
+
+  prepareNavs (items, activeNav, currentValue = []) {
+    items.slice().map((item, index) => {
+      currentValue.splice(this.deep, 1, index)
+      const hasChildren = Array.isArray(item.children)
+      const activeStatus = this.checkActive(currentValue, activeNav) // 0代表激活当前项，-1未激活，1激活的是子项
+      const isExpanded = activeStatus >= 0
+      console.log('---------activeStatus', this.deep, activeStatus, currentValue, item.title)
+
+      if (hasChildren && isExpanded) {
+        ++this.deep
+      }
+
+      item.hasChildren = hasChildren
+      item.activeStatus = activeStatus
+      item.value2 = currentValue.slice()
+      // item.isExpanded = activeStatus > 0
+      if (item.isExpanded) {
+        item.isExpanded = false
+      } else {
+        item.isExpanded = activeStatus >= 0
+      }
+
+      if (hasChildren && isExpanded) {
+        this.prepareNavs(item.children, activeNav, currentValue)
+        currentValue.pop()
+        --this.deep
+      }
+    })
   }
 
   getClickElement (dom) {
@@ -64,8 +115,7 @@ class Sider extends React.Component {
     window.requestAnimationFrame(animate)
   }
 
-  checkActive (currentValue) {
-    const value = [1, 1]
+  checkActive (currentValue, value) { // 0代表激活当前项，-1未激活，1激活的是子项
     let flag = 0
 
     for (let i = 0; i < currentValue.length; i++) {
@@ -81,20 +131,28 @@ class Sider extends React.Component {
     return flag
   }
 
-  renderNavs (items, currentValue = []) {
+  arrayContain (arr1, arr2) {
+    let flag = true
+    if (arr1.length >= arr2.length) {
+      return false
+    }
+    arr1.every((a, i) => {
+      if (a !== arr2[i]) {
+        flag = false
+        return false
+      }
+      return true
+    })
+    return flag
+  }
+
+  renderNavs (items) {
     const navs = []
     items.slice().map((item, index) => {
-      currentValue.splice(this.deep, 1, index)
       const hasChildren = Array.isArray(item.children)
-      const activeStatus = this.checkActive(currentValue) // 0代表激活当前项，-1未激活，1激活的是子项
-      const isExpanded = activeStatus >= 0
-      console.log('---------activeStatus', this.deep, activeStatus, currentValue, item.title)
+      const activeStatus = item.activeStatus
+      const isExpanded = item.isExpanded
       const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
-      const _currentValue = currentValue.slice()
-
-      if (hasChildren && isExpanded) {
-        ++this.deep
-      }
 
       navs.push(
         <li
@@ -107,7 +165,16 @@ class Sider extends React.Component {
               if (item.to) {
 
               } else {
-                console.log('----------click', _currentValue)
+                let value = item.value2
+                if (!isExpanded && this.arrayContain(item.value2, this.state.value)) {
+                  value = this.state.value
+                }
+                const activeNavs = this.getActiveNavs(value)
+                this.setState({
+                  activeNavs,
+                  activeNav: item.value2
+                })
+                console.log('----------click', item.value2)
               }
             }}
           >
@@ -123,15 +190,10 @@ class Sider extends React.Component {
             }
           </div>
           {
-            hasChildren && isExpanded && this.renderNavs(item.children, currentValue)
+            hasChildren && isExpanded && this.renderNavs(item.children)
           }
         </li>
       )
-
-      if (hasChildren && isExpanded) {
-        currentValue.pop()
-        --this.deep
-      }
     })
 
     return (
@@ -148,7 +210,7 @@ class Sider extends React.Component {
     } = this.state
 
     let {
-      sider,
+      navs,
       changeCollapse,
       showSubnavs,
       style
@@ -157,7 +219,7 @@ class Sider extends React.Component {
     return (
       <aside className={`layout__sidebar sidebar ${collapse ? 'sidebar--collapsed' : ''}`} style={style}>
         <div className='sidebar__wrapper'>
-          { this.renderNavs(sider) }
+          { this.renderNavs(navs) }
         </div>
         <span
           className='sidebar__toggle'

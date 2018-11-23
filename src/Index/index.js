@@ -23,7 +23,7 @@ class Index extends Component {
   static propTypes = {
     header: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     routes: PropTypes.array,
-    sider: PropTypes.arrayOf(PropTypes.shape({
+    navs: PropTypes.arrayOf(PropTypes.shape({
       path: PropTypes.string,
       to: PropTypes.string
     })),
@@ -86,7 +86,7 @@ class Index extends Component {
     let {
       header,
       routes,
-      sider,
+      navs,
       theme,
       breadCrumb,
       footer,
@@ -119,8 +119,8 @@ class Index extends Component {
             </main>
 
             <Sider
-              current={this.getPage(sider)}
-              sider={sider}
+              current={this.getPage(navs)}
+              navs={navs}
               changeCollapse={this.changeCollapse.bind(this)}
               showSubnavs={this.showSubnavs.bind(this)}
             />
