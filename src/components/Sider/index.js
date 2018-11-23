@@ -13,10 +13,9 @@ class Sider extends React.Component {
   constructor (props) {
     super(props)
 
-    const activeNavCache = this.getActiveValue(this.props.current, this.props.navs)
-    console.log('----------activeNavCache', activeNavCache)
-    const activeNav = activeNavCache.slice()
-    const filteredNavs = this.filterNavs(activeNav)
+    const activeNav = this.getActiveValue(this.props.current, this.props.navs) // 激活的导航所在位置
+    const activeNavCache = activeNav.slice() // 缓存激活的导航所在位置，主要用于点击非链接项时子项的选中状态
+    const filteredNavs = this.filterNavs(activeNav) // 过滤需要显示和激活的导航
 
     this.state = {
       ctrls: {},
@@ -38,7 +37,7 @@ class Sider extends React.Component {
   componentDidMount () {
   }
 
-  getActiveValue (current, navs) {
+  getActiveValue (current, navs) { // 初始时获取激活导航的value
     let deep = 0
     let value = []
     const fn = iteration => {
@@ -66,8 +65,9 @@ class Sider extends React.Component {
     return value
   }
 
-  filterNavs (activeNav, navs = this.props.navs) {
+  filterNavs (activeNav, navs = this.props.navs) { // 过滤需要显示和激活的导航
     const _navs = navs.slice()
+    const accordion = this.props.accordion
     let deep = 0
     const fn = (items, currentValue = []) => {
       items.slice().map((item, index) => {
@@ -83,8 +83,12 @@ class Sider extends React.Component {
         item.HAS_CHILDREN = hasChildren
         item.ACTIVE_STATUS = activeStatus
         item.VALUE = currentValue.slice()
-        if (item.IS_EXPANDED) {
-          item.IS_EXPANDED = activeStatus === 1
+        if (item.IS_EXPANDED) { // 已展开时需要判断是选中了子项还是折叠
+          if (accordion) { // 手风琴模式
+            item.IS_EXPANDED = activeStatus === 1
+          } else {
+            item.IS_EXPANDED = activeStatus !== 0
+          }
         } else {
           item.IS_EXPANDED = activeStatus >= 0
         }
@@ -101,15 +105,6 @@ class Sider extends React.Component {
     console.log('--------_navs', _navs)
 
     return _navs
-  }
-
-  getClickElement (dom) {
-    if (dom.nodeName === 'SPAN' && [].slice.call(dom.classList).indexOf('sidebar__item') > -1) {
-      return dom.nextSibling
-    } else {
-      const parent = dom.parentNode
-      return this.getClickElement(parent)
-    }
   }
 
   toggleSlide (el, isClose, func, lock) {
@@ -157,13 +152,37 @@ class Sider extends React.Component {
     return flag
   }
 
+  clickNav (e, item) {
+    e.stopPropagation()
+    if (item.to) { // 点击展开或折叠子项
+      this.setState({
+        activeNav: item.VALUE,
+        activeNavCache: item.VALUE
+      }, () => {
+        const filteredNavs = this.filterNavs(item.VALUE)
+        this.setState({
+          filteredNavs
+        })
+      })
+      history.push(item.to)
+    } else { // 点击链接
+      let value = item.VALUE
+      if (!item.IS_EXPANDED && this.arrayIndexOf(item.VALUE, this.state.activeNavCache) >= 0) {
+        value = this.state.activeNavCache
+      }
+      const filteredNavs = this.filterNavs(value)
+      this.setState({
+        filteredNavs,
+        activeNav: item.VALUE
+      })
+      console.log('----------click', item.VALUE)
+    }
+  }
+
   renderNavs (items) {
     const navs = []
     items.slice().map((item, index) => {
-      const hasChildren = item.HAS_CHILDREN
-      const activeStatus = item.ACTIVE_STATUS
-      const isExpanded = item.IS_EXPANDED
-      const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
+      const expandIcon = item.IS_EXPANDED ? 'icon-up' : 'icon-down'
       // console.log('-----------renderNavs', item.title)
 
       navs.push(
@@ -171,33 +190,8 @@ class Sider extends React.Component {
           key={index}
         >
           <div
-            className={classNames('sidebar__item-link', 'sidebar__item', {'sidebar__item--active': activeStatus === 0})}
-            onClick={e => {
-              e.stopPropagation()
-              if (item.to) {
-                this.setState({
-                  activeNav: item.VALUE,
-                  activeNavCache: item.VALUE
-                }, () => {
-                  const filteredNavs = this.filterNavs(item.VALUE)
-                  this.setState({
-                    filteredNavs
-                  })
-                })
-                history.push(item.to)
-              } else {
-                let value = item.VALUE
-                if (!isExpanded && this.arrayIndexOf(item.VALUE, this.state.activeNavCache) >= 0) {
-                  value = this.state.activeNavCache
-                }
-                const filteredNavs = this.filterNavs(value)
-                this.setState({
-                  filteredNavs,
-                  activeNav: item.VALUE
-                })
-                console.log('----------click', item.VALUE)
-              }
-            }}
+            className={classNames('sidebar__item-link', 'sidebar__item', {'sidebar__item--active': !item.HAS_CHILDREN && item.ACTIVE_STATUS === 0})}
+            onClick={e => this.clickNav(e, item)}
           >
             {
               item.icon
@@ -206,12 +200,12 @@ class Sider extends React.Component {
             }
             <span className='sidebar__item-title'>{item.title}</span>
             {
-              hasChildren &&
+              item.HAS_CHILDREN &&
               <i className={classNames('sidebar__item-toggle', 'hi-icon', expandIcon)} />
             }
           </div>
           {
-            hasChildren && isExpanded && this.renderNavs(item.children)
+            item.HAS_CHILDREN && item.IS_EXPANDED && this.renderNavs(item.children)
           }
         </li>
       )
