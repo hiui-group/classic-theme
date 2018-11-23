@@ -39,25 +39,30 @@ class Sider extends React.Component {
   }
 
   getActiveValue (current, navs) {
-    let iteration = navs.slice()
     let deep = 0
     let value = []
-    while (iteration) {
-      const _iteration = iteration.slice()
-      iteration = false
-      _iteration.every((nav, index) => {
-        value.push(index)
+    const fn = iteration => {
+      let flag = true // 用于终止后面的遍历
+      iteration.every((nav, index) => {
+        !nav.to && value.push(index)
         if (nav.to === current) {
           value.splice(deep, 1, index)
+          flag = false
           return false
         }
         if (Array.isArray(nav.children)) {
-          iteration = nav.children
+          deep++
+          flag = fn(nav.children)
+        } else {
+          value.pop()
         }
-        return true
+
+        return flag
       })
-      deep++
+      deep--
     }
+    fn(navs.slice())
+
     return value
   }
 
@@ -69,7 +74,7 @@ class Sider extends React.Component {
         currentValue.splice(deep, 1, index)
         const hasChildren = Array.isArray(item.children)
         const activeStatus = this.arrayIndexOf(currentValue, activeNav) // 0代表激活当前项，-1未激活，1激活的是子项
-        console.log('---------activeStatus', deep, activeStatus, currentValue, item.title)
+        // console.log('---------activeStatus', deep, activeStatus, currentValue, item.title)
 
         if (hasChildren && activeStatus >= 0) {
           ++deep
@@ -159,6 +164,7 @@ class Sider extends React.Component {
       const activeStatus = item.ACTIVE_STATUS
       const isExpanded = item.IS_EXPANDED
       const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
+      // console.log('-----------renderNavs', item.title)
 
       navs.push(
         <li

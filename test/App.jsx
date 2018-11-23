@@ -92,7 +92,7 @@ class App extends Component {
           navs={[
             {title: '首页', to: '/', icon: <Icon name='user' />},
             {
-              title: '内嵌',
+              title: '内外',
               icon: <Icon name='usergroup' />,
               children: [
                 {
