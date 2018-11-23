@@ -14,7 +14,7 @@ class Sider extends React.Component {
     super(props)
 
     const activeNav = this.getActiveValue(this.props.current, this.props.navs) // 激活的导航所在位置
-    const activeNavCache = activeNav.slice() // 缓存激活的导航所在位置，主要用于点击非链接项时子项的选中状态
+    const activeNavCache = activeNav.slice(0) // 缓存激活的导航所在位置，主要用于点击非链接项时子项的选中状态
     const filteredNavs = this.filterNavs(activeNav) // 过滤需要显示和激活的导航
     this.state = {
       ctrls: {},
@@ -28,7 +28,7 @@ class Sider extends React.Component {
 
   componentWillReceiveProps (props) {
     const activeNav = this.getActiveValue(props.current, props.navs)
-    const activeNavCache = activeNav.slice()
+    const activeNavCache = activeNav.slice(0)
     const filteredNavs = this.filterNavs(activeNav)
     this.state = {
       activeNav,
@@ -60,17 +60,17 @@ class Sider extends React.Component {
       flag && value.pop()
       return flag
     }
-    fn(navs.slice())
+    fn(navs)
 
     return value
   }
 
   filterNavs (activeNav, navs = this.props.navs) { // 过滤需要显示和激活的导航
-    const _navs = navs.slice()
+    const _navs = navs.slice(0)
     const accordion = this.props.accordion
     let deep = 0
     const fn = (items, currentValue = []) => {
-      items.slice().map((item, index) => {
+      items.map((item, index) => {
         currentValue.splice(deep, 1, index)
         const hasChildren = Array.isArray(item.children)
         const activeStatus = this.arrayIndexOf(currentValue, activeNav) // 0代表激活当前项，-1未激活，1激活的是子项
@@ -82,7 +82,7 @@ class Sider extends React.Component {
 
         item.HAS_CHILDREN = hasChildren
         item.ACTIVE_STATUS = activeStatus
-        item.VALUE = currentValue.slice()
+        item.VALUE = currentValue.slice(0)
         if (item.IS_EXPANDED) { // 已展开时需要判断是选中了子项还是折叠
           if (accordion) { // 手风琴模式
             item.IS_EXPANDED = activeStatus === 1
@@ -102,7 +102,6 @@ class Sider extends React.Component {
     }
 
     fn(_navs)
-    console.log('--------_navs', _navs)
 
     return _navs
   }
@@ -180,7 +179,7 @@ class Sider extends React.Component {
 
   renderNavs (items) {
     const navs = []
-    items.slice().map((item, index) => {
+    items.map((item, index) => {
       const expandIcon = item.IS_EXPANDED ? 'icon-up' : 'icon-down'
       // console.log('-----------renderNavs', item.title)
 
@@ -220,11 +219,11 @@ class Sider extends React.Component {
   render () {
     let {
       collapse,
-      showSub
+      showSub,
+      filteredNavs
     } = this.state
 
     let {
-      navs,
       changeCollapse,
       showSubnavs,
       style
@@ -233,7 +232,7 @@ class Sider extends React.Component {
     return (
       <aside className={`layout__sidebar sidebar ${collapse ? 'sidebar--collapsed' : ''}`} style={style}>
         <div className='sidebar__wrapper'>
-          { this.renderNavs(navs) }
+          { this.renderNavs(filteredNavs) }
         </div>
         <span
           className='sidebar__toggle'
