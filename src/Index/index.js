@@ -96,7 +96,6 @@ class Index extends Component {
             </main>
 
             <Sider
-              accordion={false}
               current={this.getCurrentPath()}
               navs={navs}
               changeCollapse={this.changeCollapse.bind(this)}

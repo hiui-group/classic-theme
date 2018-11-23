@@ -100,16 +100,21 @@ class App extends Component {
                   to: '/inner'
                 },
                 {
-                  title: '外嵌1',
-                  to: '/outer/1'
-                },
-                {
-                  title: '外嵌2',
-                  to: '/outer/2'
-                },
-                {
-                  title: '外嵌3',
-                  to: '/outer/3'
+                  title: '外嵌',
+                  children: [
+                    {
+                      title: '外嵌1',
+                      to: '/outer/1'
+                    },
+                    {
+                      title: '外嵌2',
+                      to: '/outer/2'
+                    },
+                    {
+                      title: '外嵌3',
+                      to: '/outer/3'
+                    }
+                  ]
                 }
               ]
             },

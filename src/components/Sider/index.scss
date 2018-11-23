@@ -72,6 +72,16 @@
         padding-right: 16px;
       }
     }
+    & & & {
+      // display: none;
+      overflow: hidden;
+
+      // Submenu padding
+      .sidebar__item {
+        padding-left: 84px;
+        padding-right: 16px;
+      }
+    }
   }
 
   // Element: item

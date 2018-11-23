@@ -28,13 +28,14 @@ class Sider extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    console.log('-------componentWillReceiveProps')
-    if (props.current !== this.props.current) {
-      // const current = this.getActiveValue(this.props.current)
+    const activeNav = this.getActiveValue(props.current, props.navs)
+    const activeNavCache = activeNav.slice()
+    const filteredNavs = this.filterNavs(activeNav)
+    this.state = {
+      activeNav,
+      activeNavCache,
+      filteredNavs
     }
-  }
-
-  componentDidMount () {
   }
 
   getActiveValue (current, navs) { // 初始时获取激活导航的value
@@ -102,7 +103,7 @@ class Sider extends React.Component {
     }
 
     fn(_navs)
-    console.log('--------_navs', _navs)
+    // console.log('--------_navs', _navs)
 
     return _navs
   }
@@ -167,7 +168,7 @@ class Sider extends React.Component {
       history.push(item.to)
     } else { // 点击链接
       let value = item.VALUE
-      if (!item.IS_EXPANDED && this.arrayIndexOf(item.VALUE, this.state.activeNavCache) >= 0) {
+      if (!item.IS_EXPANDED && this.arrayIndexOf(item.VALUE, this.state.activeNavCache) >= 0) { // 子选项已被选中
         value = this.state.activeNavCache
       }
       const filteredNavs = this.filterNavs(value)
@@ -175,7 +176,6 @@ class Sider extends React.Component {
         filteredNavs,
         activeNav: item.VALUE
       })
-      console.log('----------click', item.VALUE)
     }
   }
 
