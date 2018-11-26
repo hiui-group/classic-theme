@@ -52,7 +52,7 @@ class Index extends Component {
   }
 
   showSubnavs (hasSub) {
-    this.setState({hasSub})
+    // this.setState({hasSub})
   }
 
   render () {

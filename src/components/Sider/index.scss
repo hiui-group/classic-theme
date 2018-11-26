@@ -36,9 +36,10 @@
 
   // Element: wrapper
   &__wrapper {
-    width: 216px;
+    position: relative;
+    width: 100%;
     height: 100%;
-    overflow: hidden;
+    // overflow: hidden;
 
     // Add gap for first & last item
     > .sidebar__list > li:first-child {
@@ -220,6 +221,20 @@
     .sidebar {
       &__list {
         width: 48px + 20px; // overflow scrollbar
+        &--subs {
+          position: absolute;
+          top: 0px;
+          left: 48px;
+          width: 216px;
+          padding-top: 16px;
+          background-color: #fff;
+          .sidebar__item {
+            width: 216px;
+            .sidebar__item-title {
+              display: inline-block;
+            }
+          }
+        }
       }
 
       &__item {
