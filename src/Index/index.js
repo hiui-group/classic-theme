@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import {
-  HashRouter as Router // HashRouter / BrowserRouter
+  Router
 } from 'react-router-dom'
+import history from '../util/history'
 import { renderRoutes } from 'react-router-config'
-
+import PropTypes from 'prop-types'
 import './index.scss'
 import Header from '../components/Header'
 import Sider from '../components/Sider'
 import BreadCrumb from '../components/BreadCrumb'
 import Footer from '../components/Footer'
-import '@hi-ui/core-css'
 
 class Index extends Component {
   constructor (props) {
@@ -19,84 +19,32 @@ class Index extends Component {
       collapse: false,
       hasSub: false
     }
+  }
 
-    if (props.footer) {
-      this.resizeEvent = this.resizeEvent().bind(this)
-      this.changeFooterPosition = this.changeFooterPosition.bind(this)
+  static propTypes = {
+    header: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    routes: PropTypes.array,
+    navs: PropTypes.arrayOf(PropTypes.shape({
+      path: PropTypes.string,
+      to: PropTypes.string
+    })),
+    theme: PropTypes.shape({
+      type: PropTypes.string,
+      color: PropTypes.string
+    }),
+    footer: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    logo: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
+  }
+
+  static defaultProps = {
+    theme: {
+      type: 'inner',
+      color: 'white'
     }
   }
 
-  componentDidMount () {
-    if (this.props.footer) {
-      this.changeFooterPosition()
-
-      window.addEventListener('hashchange', this.changeFooterPosition)
-      window.addEventListener('resize', this.resizeEvent)
-    }
-  }
-
-  componentWillUnmount () {
-    if (this.props.footer) {
-      window.removeEventListener('hashchange', this.changeFooterPosition)
-      window.removeEventListener('resize', this.resizeEvent)
-      this.resizeEvent = null
-    }
-  }
-
-  changeFooterPosition () {
-    const $footer = document.querySelector('#J_Footer')
-    const $main = document.querySelector('#J_Main')
-
-    const innerHeight = window.innerHeight
-    const footerHeight = $footer.offsetHeight
-    const mainHeight = $main.offsetHeight
-
-    if (innerHeight - mainHeight < footerHeight + 20) {
-      $footer.classList.remove('absolute')
-    } else {
-      $footer.classList.add('absolute')
-    }
-  }
-
-  resizeEvent () {
-    let start = Date.now()
-
-    return function () {
-      let now = Date.now()
-
-      if (now - start > 200) {
-        this.changeFooterPosition()
-        start = now
-      }
-    }
-  }
-
-  getPage (items) {
-    let pathname = window.location.pathname
-    let hash = window.location.hash
-    let res = ''
-
-    if (hash) {
-      pathname = hash.replace(/#?(.*)/, (a, b) => {
-        return b
-      })
-    }
-
-    const fn = (arr) => {
-      for (let i = 0; i < arr.length; i++) {
-        const cur = arr[i]
-        if (cur.to === pathname) {
-          res = cur.key
-          return
-        } else if (cur.children) {
-          fn(cur.children)
-        }
-      }
-    }
-
-    fn(items)
-
-    return res
+  getCurrentPath () {
+    return window.location.href.split(window.location.origin)[1]
   }
 
   changeCollapse (collapse) {
@@ -104,7 +52,7 @@ class Index extends Component {
   }
 
   showSubnavs (hasSub) {
-    this.setState({hasSub})
+    // this.setState({hasSub})
   }
 
   render () {
@@ -113,57 +61,56 @@ class Index extends Component {
       hasSub
     } = this.state
     let {
-      header = '',
-      routes = [],
-      sider = {
-        items: [],
-        top: ''
-      },
-      theme = {
-        type: 'inner',
-        color: 'dark'
-      },
+      header,
+      routes,
+      navs,
+      theme,
       breadCrumb,
-      footer
+      footer,
+      logo
     } = this.props
-
-    document.body.classList.add(`theme-${theme.type}`)
-    document.body.classList.add(`theme-${theme.color}`)
+    document.body.classList.add(`theme__content__${theme.type || 'inner'}`)
+    document.body.classList.add(`theme__header__${theme.color || 'white'}`)
 
     return (
-      <Router>
-        <div className={`dashboard ${collapse ? 'collapse' : ''} ${hasSub ? 'has-sub' : ''}`}>
-          <Header
-            header={header}
-          />
-          <Sider
-            current={this.getPage(sider.items)}
-            sider={sider}
-            changeCollapse={this.changeCollapse.bind(this)}
-            showSubnavs={this.showSubnavs.bind(this)}
-          />
-          <div className='main'>
+      <Router history={history}>
+        <div className={`layout ${collapse ? 'layout--collapsed' : ''} ${hasSub ? 'layout--has-sub' : ''}`}>
+          <Header header={header} logo={logo} />
+
+          <div className='layout__body'>
+            <main className='layout__main'>
+              {
+                breadCrumb
+                  ? (
+                    <BreadCrumb
+                      items={breadCrumb.items}
+                      sign={breadCrumb.sign}
+                    />
+                  ) : ''
+              }
+              <div
+                className='layout__content'
+              >
+                {renderRoutes(routes)}
+              </div>
+            </main>
+
+            <Sider
+              accordion={false}
+              current={this.getCurrentPath()}
+              navs={navs}
+              changeCollapse={this.changeCollapse.bind(this)}
+              showSubnavs={this.showSubnavs.bind(this)}
+            />
+
             {
-              breadCrumb
+              footer
                 ? (
-                  <BreadCrumb
-                    items={breadCrumb.items}
-                    sign={breadCrumb.sign}
-                  />
+                  <Footer footer={footer} />
                 ) : ''
             }
-            <div
-              className='content'
-            >
-              {renderRoutes(routes)}
-            </div>
+
           </div>
-          {
-            footer
-              ? (
-                <Footer footer={footer} />
-              ) : ''
-          }
         </div>
       </Router>
     )

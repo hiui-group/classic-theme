@@ -1,0 +1,26 @@
+@import '@hi-ui/core-css';
+
+.header__nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &--left {
+    flex: 2;
+    justify-content: flex-start;
+  }
+
+  &--right {
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    padding: 0 16px;
+    font-size: $font-size-normal;
+    line-height: $line-height-normal;
+  }
+}
