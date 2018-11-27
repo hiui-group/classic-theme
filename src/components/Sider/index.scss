@@ -75,14 +75,11 @@
         padding-right: 16px;
       }
     }
-    & & & {
-      // display: none;
-      overflow: hidden;
 
+    & & & {
       // Submenu padding
       .sidebar__item {
-        padding-left: 84px;
-        padding-right: 16px;
+        padding-left: 64px;
       }
     }
   }
@@ -103,19 +100,19 @@
     cursor: pointer;
     transition: all $speed-fast $easing;
 
-    &::before {
+    &:before {
       position: absolute;
       top: 0;
       left: 0;
       width: 0;
       height: 100%;
       content: "";
-      transition: width .3s linear;
+      transition: width $speed-fast $easing;
     }
 
     &--active {
-      &::before {
-        width: 3px;
+      &:before {
+        width: 4px;
       }
     }
 
@@ -126,7 +123,7 @@
 
   &__item-icon {
     display: inline-block;
-    margin-right: 16px;
+    margin-right: $spacer-4;
   }
 
   &__item-toggle {
@@ -161,11 +158,13 @@
       content: "";
       pointer-events: none;
     }
+
     &:before {
       top: 64px;
       height: 16px;
       background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
     }
+
     &:after {
       bottom: 0;
       height: 32px;
@@ -213,7 +212,7 @@
     text-align: center;
     cursor: pointer;
     background: url('../../static/image/expand.png');
-    transition: right $speed-fast linear;
+    transition: right $speed-fast $easing;
   }
 
   // Status: Collapsed
@@ -230,37 +229,51 @@
         padding-right: 0;
         text-overflow: clip;
         white-space: normal;
+        &--active {
+          background-color: transparent;
+          &:before {
+            display: none;
+          }
+        }
       }
 
       &__item-title {
         display: none;
       }
     }
-
   }
     
   &__wrapper--subs {
     position: absolute;
-    top: 0px;
+    top: 0;
     left: 48px;
     width: 216px;
     padding-top: 64px;
     background-color: #fff;
     box-shadow: inset -1px 0 0 0 #e7e7e7;
-    &~& {
+    & + & {
       left: 216px + 48px;
     }
-    .sidebar__list {
-      width: 216px + 20px;
-    }
 
-    .sidebar__item {
-      width: 216px;
-      padding: 16px 24px;
-    }
+    .sidebar {
+      &__list {
+        width: 216px + 20px;
+      }
 
-    .sidebar__item-title {
-      display: inline;
+      &__item {
+        width: 216px;
+        padding: 16px 24px;
+
+        &--active {
+          &:before {
+            display: block;
+          }
+        }
+      }
+
+      &__item-title {
+        display: inline;
+      }
     }
   }
 }
@@ -273,7 +286,7 @@
     &__item {
       color: map-get(get-palette($color), 'g100');
 
-      &::before {
+      &:before {
         background-color: map-get(get-palette($color), '50');
       }
 

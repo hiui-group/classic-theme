@@ -10,7 +10,7 @@ class Sider extends React.Component {
   }
 
   isSwitchToggle = false // toggle切换标识
-  collapseCookie = '$$hiui-collapse'
+  collapseCookie = '$$hiui-theme-collapse'
 
   constructor (props) {
     super(props)

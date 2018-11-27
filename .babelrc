@@ -3,13 +3,21 @@
     [
       "env",
       {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "ie >= 10"
+          ]
+        },
         "loose" : true,
-        "modules": false
+        "modules": false,
+        "useBuiltIns": "usage"
       }
     ],
     "stage-0",
     "react"
   ],
+  "compact": false,
   "plugins": [
     "syntax-dynamic-import",
     "react-hot-loader/babel"
