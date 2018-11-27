@@ -1,6 +1,5 @@
 import React from 'react'
 import classNames from 'classnames'
-import cloneDeep from 'lodash/cloneDeep'
 import history from '../../util/history'
 import './index.scss'
 
@@ -9,28 +8,27 @@ class Sider extends React.Component {
     accordion: true
   }
 
+  isSwitchToggle = false // toggle切换标识
+
   constructor (props) {
     super(props)
 
     const activeNav = this.getActiveValue(this.props.current, this.props.navs) // 激活的导航所在位置
     const activeNavCache = activeNav.slice(0) // 缓存激活的导航所在位置，主要用于点击非链接项时子项的选中状态
-    const filteredNavs = this.filterNavs(activeNav) // 过滤需要显示和激活的导航
     this.state = {
+      showSub: true,
       collapse: false,
       activeNav,
-      activeNavCache,
-      filteredNavs
+      activeNavCache
     }
   }
 
   componentWillReceiveProps (props) {
     const activeNav = this.getActiveValue(props.current, props.navs)
     const activeNavCache = activeNav.slice(0)
-    const filteredNavs = this.filterNavs(activeNav, props.navs, true)
     this.setState({
       activeNav,
-      activeNavCache,
-      filteredNavs
+      activeNavCache
     })
   }
 
@@ -62,56 +60,15 @@ class Sider extends React.Component {
     return value
   }
 
-  filterNavs (activeNav, navs = this.props.navs, init = false) { // 过滤需要显示和激活的导航
-    const _navs = cloneDeep(navs)
-    const accordion = this.props.accordion
-    let deep = 0
-    const fn = (items, currentValue = []) => {
-      items.map((item, index) => {
-        currentValue.splice(deep, 1, index)
-        const hasChildren = Array.isArray(item.children)
-        const activeStatus = this.arrayIndexOf(currentValue, activeNav) // 0代表激活当前项，-1未激活，1激活的是子项
-        // console.log('---------activeStatus', init, item.title, item.IS_EXPANDED, activeStatus)
-
-        if (hasChildren) {
-          ++deep
-        }
-
-        item.HAS_CHILDREN = hasChildren
-        item.ACTIVE_STATUS = activeStatus
-        item.VALUE = currentValue.slice(0)
-
-        if (this.state && this.state.collapse) { // 收缩状态
-          if (init) { // 点击收缩按钮，收起所有导航
-            item.IS_EXPANDED = false
-          } else if (item.HAS_CHILDREN && !item.IS_EXPANDED) { // 是否点击当前项
-            item.IS_EXPANDED = activeStatus >= 0
-          } else {
-            item.IS_EXPANDED = false
-          }
-        } else {
-          if (item.IS_EXPANDED) { // 已展开时需要判断是选中了子项还是折叠
-            if (accordion) { // 手风琴模式
-              item.IS_EXPANDED = activeStatus === 1
-            } else {
-              item.IS_EXPANDED = activeStatus !== 0
-            }
-          } else {
-            item.IS_EXPANDED = activeStatus >= 0
-          }
-        }
-
-        if (hasChildren) {
-          fn(item.children, currentValue)
-          currentValue.pop()
-          --deep
-        }
-      })
+  checkExpanded (activeStatus, isLeaf, IS_EXPANDED = undefined) {
+    if (isLeaf || !this.state.showSub) {
+      return false
+    }
+    if (IS_EXPANDED !== undefined && !this.isSwitchToggle) {
+      return activeStatus >= 0 || !this.props.accordion ? IS_EXPANDED : false
     }
 
-    fn(_navs)
-
-    return _navs
+    return activeStatus >= 0
   }
 
   arrayIndexOf (currentValue, value) { // 0代表激活当前项，-1未激活，1激活的是子项
@@ -130,99 +87,155 @@ class Sider extends React.Component {
     return flag
   }
 
-  clickNav (e, item) {
-    e.stopPropagation()
-    const {
-      activeNavCache,
-      filteredNavs
-    } = this.state
+  isLeaf (item) {
+    return !Array.isArray(item.children)
+  }
 
-    if (item.to) { // 点击链接
+  clickNav (e, item, value) {
+    e.stopPropagation()
+    let {
+      collapse,
+      showSub,
+      activeNavCache
+    } = this.state
+    const isLeaf = this.isLeaf(item)
+
+    if (isLeaf) {
       this.setState({
-        activeNav: item.VALUE,
-        activeNavCache: item.VALUE
-      }, () => {
-        const _filteredNavs = this.filterNavs(item.VALUE, filteredNavs)
-        this.setState({
-          filteredNavs: _filteredNavs
-        })
+        activeNavCache: value,
+        activeNav: value,
+        showSub: collapse ? false : showSub
       })
       history.push(item.to)
-    } else { // 点击展开或折叠子项
-      let value = item.VALUE
-      if (!item.IS_EXPANDED && this.arrayIndexOf(item.VALUE, activeNavCache) >= 0) { // 子选项已被选中
+    } else {
+      if (this.arrayIndexOf(value, activeNavCache) >= 0) { // 子选项已被选中
         value = activeNavCache
       }
-      const _filteredNavs = this.filterNavs(value, filteredNavs)
+      item.IS_EXPANDED = !item.IS_EXPANDED
+
       this.setState({
-        filteredNavs: _filteredNavs,
-        activeNav: item.VALUE
+        activeNav: value,
+        showSub: true
       })
     }
   }
 
   renderNavs (items, cls) {
-    const navs = []
+    let deep = -1
     const collapse = this.state.collapse
+    const activeNav = this.state.activeNav
+    let navsContainer = []
 
-    items.map((item, index) => {
-      const expandIcon = item.IS_EXPANDED ? 'icon-up' : 'icon-down'
-      // console.log('----------renderNavs', item.HAS_CHILDREN, item.IS_EXPANDED, item.title)
+    const render = (items, cls = '', currentValue = []) => {
+      const navs = []
+      let subNavs = []
+      let subNavsValue = []
+      ++deep
 
-      navs.push(
-        <li
-          key={index}
-        >
-          <div
-            className={classNames('sidebar__item-link', 'sidebar__item', {'sidebar__item--active': (collapse || !item.HAS_CHILDREN) && item.ACTIVE_STATUS >= 0})}
-            onClick={e => this.clickNav(e, item)}
+      items.map((item, index) => {
+        currentValue.splice(deep, 1, index)
+        const _currentValue = currentValue.slice(0)
+        const isLeaf = this.isLeaf(item)
+        const activeStatus = this.arrayIndexOf(currentValue, activeNav)
+        const isExpanded = this.checkExpanded(activeStatus, isLeaf, item.IS_EXPANDED)
+        console.log('----------renderNavs', activeStatus, currentValue, item.title, isExpanded, item.IS_EXPANDED)
+        const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
+        item.IS_EXPANDED = isExpanded
+
+        if (collapse && !isLeaf && isExpanded) {
+          subNavs = item.children
+          subNavsValue = currentValue.slice(0)
+        }
+
+        navs.push(
+          <li
+            key={index}
           >
+            <div
+              className={classNames('sidebar__item-link', 'sidebar__item', {'sidebar__item--active': (collapse || isLeaf) && activeStatus >= 0})}
+              onClick={e => this.clickNav(e, item, _currentValue)}
+            >
+              {
+                item.icon
+                  ? (<span className='sidebar__item-icon'>{item.icon}</span>)
+                  : ''
+              }
+              <span className='sidebar__item-title'>{item.title}</span>
+              {
+                !isLeaf &&
+                <i className={classNames('sidebar__item-toggle', 'hi-icon', expandIcon)} />
+              }
+            </div>
             {
-              item.icon
-                ? (<span className='sidebar__item-icon'>{item.icon}</span>)
-                : ''
+              !collapse && !isLeaf &&
+              render(item.children, {'sidebar__list--subs': true, 'sidebar__list--collapse': !isExpanded}, currentValue)
             }
-            <span className='sidebar__item-title'>{item.title}</span>
-            {
-              item.HAS_CHILDREN &&
-              <i className={classNames('sidebar__item-toggle', 'hi-icon', expandIcon)} />
-            }
-          </div>
-          {
-            item.HAS_CHILDREN && item.IS_EXPANDED && this.renderNavs(item.children, 'sidebar__list--subs')
-          }
-        </li>
-      )
-    })
+          </li>
+        )
+      })
 
-    return (
-      <ul className={classNames('sidebar__list', cls)}>
-        {navs}
-      </ul>
-    )
+      if (collapse) {
+        navsContainer.push((
+          <div className={classNames('sidebar__wrapper', cls)} key={deep}>
+            <ul className={classNames('sidebar__list')} key={deep}>
+              {navs}
+            </ul>
+          </div>
+        ))
+        if (subNavs && subNavs.length > 0) {
+          render(subNavs, 'sidebar__wrapper--subs', subNavsValue)
+        }
+        // currentValue.pop()
+        // --deep
+        return navsContainer
+      } else {
+        currentValue.pop()
+        --deep
+
+        return (
+          <ul className={classNames('sidebar__list', cls)} key={deep}>
+            {navs}
+          </ul>
+        )
+      }
+    }
+
+    if (collapse) {
+      return render(items)
+    } else {
+      return (
+        <div className='sidebar__wrapper'>
+          {render(items)}
+        </div>
+      )
+    }
   }
 
   render () {
     let {
-      collapse,
-      filteredNavs
+      collapse
     } = this.state
 
     let {
       changeCollapse,
+      navs,
       style
     } = this.props
 
     return (
       <aside className={`layout__sidebar sidebar ${collapse ? 'sidebar--collapsed' : ''}`} style={style}>
-        <div className='sidebar__wrapper'>
-          { this.renderNavs(filteredNavs) }
-        </div>
+        { this.renderNavs(navs) }
         <span
           className='sidebar__toggle'
           onClick={e => {
-            this.setState({collapse: !collapse}, () => {
+            this.isSwitchToggle = true
+
+            this.setState({
+              collapse: !collapse,
+              showSub: collapse
+            }, () => {
               changeCollapse(!collapse)
+              this.isSwitchToggle = true
               // showSubnavs(this.showSub)
             })
           }}
