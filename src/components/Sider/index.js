@@ -61,11 +61,16 @@ class Sider extends React.Component {
   }
 
   checkExpanded (activeStatus, isLeaf, IS_EXPANDED = undefined) { // 检查导航项是否展开
-    if (isLeaf || !this.state.showSub) { // 是叶子节点或者showSub=false
+    const {
+      showSub,
+      collapse
+    } = this.state
+
+    if (isLeaf || !showSub) { // 是叶子节点或者showSub=false
       return false
     }
     if (IS_EXPANDED !== undefined && !this.isSwitchToggle) { // 已判断过且不是切换toggle触发的
-      return activeStatus >= 0 || !this.props.accordion ? IS_EXPANDED : false
+      return activeStatus >= 0 || (!collapse && !this.props.accordion) ? IS_EXPANDED : false
     }
 
     return activeStatus >= 0
@@ -234,7 +239,7 @@ class Sider extends React.Component {
               showSub: collapse
             }, () => {
               changeCollapse(!collapse)
-              this.isSwitchToggle = true
+              this.isSwitchToggle = false
               // showSubnavs(this.showSub)
             })
           }}
