@@ -1,5 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
+import Cookies from 'js-cookie'
 import history from '../../util/history'
 import './index.scss'
 
@@ -9,6 +10,7 @@ class Sider extends React.Component {
   }
 
   isSwitchToggle = false // toggle切换标识
+  collapseCookie = '$$hiui-collapse'
 
   constructor (props) {
     super(props)
@@ -20,6 +22,12 @@ class Sider extends React.Component {
       collapse: false,
       activeNav,
       activeNavCache
+    }
+  }
+
+  componentDidMount () {
+    if (Cookies.get(this.collapseCookie) === 'true') {
+      this.collapseToggle()
     }
   }
 
@@ -125,6 +133,27 @@ class Sider extends React.Component {
     }
   }
 
+  collapseToggle () {
+    const {
+      collapse
+    } = this.state
+    const {
+      changeCollapse
+    } = this.props
+
+    this.isSwitchToggle = true // 切换toggle标识
+    Cookies.set(this.collapseCookie, !collapse)
+
+    this.setState({
+      collapse: !collapse,
+      showSub: collapse
+    }, () => {
+      changeCollapse(!collapse)
+      this.isSwitchToggle = false
+      // showSubnavs(this.showSub)
+    })
+  }
+
   renderNavs (items, cls) {
     let deep = -1
     const collapse = this.state.collapse
@@ -221,7 +250,6 @@ class Sider extends React.Component {
     } = this.state
 
     let {
-      changeCollapse,
       navs,
       style
     } = this.props
@@ -231,18 +259,7 @@ class Sider extends React.Component {
         { this.renderNavs(navs) }
         <span
           className='sidebar__toggle'
-          onClick={e => {
-            this.isSwitchToggle = true // 切换toggle标识
-
-            this.setState({
-              collapse: !collapse,
-              showSub: collapse
-            }, () => {
-              changeCollapse(!collapse)
-              this.isSwitchToggle = false
-              // showSubnavs(this.showSub)
-            })
-          }}
+          onClick={this.collapseToggle.bind(this)}
         />
       </aside>
 
