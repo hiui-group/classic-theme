@@ -60,11 +60,11 @@ class Sider extends React.Component {
     return value
   }
 
-  checkExpanded (activeStatus, isLeaf, IS_EXPANDED = undefined) {
-    if (isLeaf || !this.state.showSub) {
+  checkExpanded (activeStatus, isLeaf, IS_EXPANDED = undefined) { // 检查导航项是否展开
+    if (isLeaf || !this.state.showSub) { // 是叶子节点或者showSub=false
       return false
     }
-    if (IS_EXPANDED !== undefined && !this.isSwitchToggle) {
+    if (IS_EXPANDED !== undefined && !this.isSwitchToggle) { // 已判断过且不是切换toggle触发的
       return activeStatus >= 0 || !this.props.accordion ? IS_EXPANDED : false
     }
 
@@ -104,14 +104,14 @@ class Sider extends React.Component {
       this.setState({
         activeNavCache: value,
         activeNav: value,
-        showSub: collapse ? false : showSub
+        showSub: collapse ? false : showSub // 收缩状态点击叶子节点，则隐藏2，3级项
       })
       history.push(item.to)
     } else {
       if (this.arrayIndexOf(value, activeNavCache) >= 0) { // 子选项已被选中
         value = activeNavCache
       }
-      item.IS_EXPANDED = !item.IS_EXPANDED
+      item.IS_EXPANDED = !item.IS_EXPANDED // 点击同一项则收缩
 
       this.setState({
         activeNav: value,
@@ -138,11 +138,11 @@ class Sider extends React.Component {
         const isLeaf = this.isLeaf(item)
         const activeStatus = this.arrayIndexOf(currentValue, activeNav)
         const isExpanded = this.checkExpanded(activeStatus, isLeaf, item.IS_EXPANDED)
-        console.log('----------renderNavs', activeStatus, currentValue, item.title, isExpanded, item.IS_EXPANDED)
+        // console.log('----------renderNavs', activeStatus, currentValue, item.title, isExpanded, item.IS_EXPANDED)
         const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
         item.IS_EXPANDED = isExpanded
 
-        if (collapse && !isLeaf && isExpanded) {
+        if (collapse && !isLeaf && isExpanded) { // 收缩状态用来记录次级展开项
           subNavs = item.children
           subNavsValue = currentValue.slice(0)
         }
@@ -174,7 +174,7 @@ class Sider extends React.Component {
         )
       })
 
-      if (collapse) {
+      if (collapse) { // 收缩状态
         navsContainer.push((
           <div className={classNames('sidebar__wrapper', cls)} key={deep}>
             <ul className={classNames('sidebar__list')} key={deep}>
@@ -182,11 +182,10 @@ class Sider extends React.Component {
             </ul>
           </div>
         ))
-        if (subNavs && subNavs.length > 0) {
+        if (subNavs && subNavs.length > 0) { // 有次级选择项
           render(subNavs, 'sidebar__wrapper--subs', subNavsValue)
         }
-        // currentValue.pop()
-        // --deep
+
         return navsContainer
       } else {
         currentValue.pop()
@@ -200,7 +199,7 @@ class Sider extends React.Component {
       }
     }
 
-    if (collapse) {
+    if (collapse) { // 收缩状态
       return render(items)
     } else {
       return (
@@ -228,7 +227,7 @@ class Sider extends React.Component {
         <span
           className='sidebar__toggle'
           onClick={e => {
-            this.isSwitchToggle = true
+            this.isSwitchToggle = true // 切换toggle标识
 
             this.setState({
               collapse: !collapse,
