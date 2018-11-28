@@ -70,7 +70,7 @@ class App extends Component {
   constructor () {
     super()
     this.state = {
-      type: 'inner',
+      type: 'flat',
       color: 'blue'
     }
   }
@@ -89,59 +89,60 @@ class App extends Component {
           // footer={footer}
           logo={logo}
           routes={routes}
-          navs={[
-            {title: '首页', to: '/', icon: <Icon name='user' />},
-            {
-              title: '内外',
-              icon: <Icon name='usergroup' />,
-              children: [
-                {
-                  title: '内嵌',
-                  to: '/inner'
-                },
-                {
-                  title: '内嵌1',
-                  to: '/inner/1'
-                },
-                {
-                  title: '外嵌',
-                  children: [
-                    {
-                      title: '外嵌1',
-                      to: '/outer/1'
-                    },
-                    {
-                      title: '外嵌2',
-                      to: '/outer/2'
-                    },
-                    {
-                      title: '外嵌3',
-                      to: '/outer/3'
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              title: '配色',
-              to: '',
-              icon: <Icon name='usergroup' />,
-              children: [
-                {
-                  title: '灰色',
-                  to: '/color/gray'
-                },
-                {
-                  title: '蓝色',
-                  to: '/color/blue'
-                }
-              ]
-            }
-          ]
-          }
+          sider={{
+            items: [
+              { title: '首页', to: '/', icon: <Icon name='user' /> },
+              {
+                title: '内外',
+                icon: <Icon name='usergroup' />,
+                children: [
+                  {
+                    title: '内嵌',
+                    to: '/inner'
+                  },
+                  {
+                    title: '内嵌1',
+                    to: '/inner/1'
+                  },
+                  {
+                    title: '外嵌',
+                    children: [
+                      {
+                        title: '外嵌1',
+                        to: '/outer/1'
+                      },
+                      {
+                        title: '外嵌2',
+                        to: '/outer/2'
+                      },
+                      {
+                        title: '外嵌3',
+                        to: '/outer/3'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                title: '配色',
+                to: '',
+                icon: <Icon name='usergroup' />,
+                children: [
+                  {
+                    title: '灰色',
+                    to: '/color/gray'
+                  },
+                  {
+                    title: '蓝色',
+                    to: '/color/blue'
+                  }
+                ]
+              }
+            ]
+          }}
           theme={{
-            // color: 'dark',
-            // type: 'outer'
+            // color: 'black',
+            // type: 'card'
           }}
         />
       </ThemeContext.Provider>

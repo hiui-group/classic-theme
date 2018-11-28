@@ -15,7 +15,7 @@ class Sider extends React.Component {
   constructor (props) {
     super(props)
 
-    const activeNav = this.getActiveValue(this.props.current, this.props.navs) // 激活的导航所在位置
+    const activeNav = this.getActiveValue(this.props.current, this.props.sider.items) // 激活的导航所在位置
     const activeNavCache = activeNav.slice(0) // 缓存激活的导航所在位置，主要用于点击非链接项时子项的选中状态
     this.state = {
       showSub: true,
@@ -32,7 +32,7 @@ class Sider extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    const activeNav = this.getActiveValue(props.current, props.navs)
+    const activeNav = this.getActiveValue(props.current, props.sider.items)
     const activeNavCache = activeNav.slice(0)
     this.setState({
       activeNav,
@@ -150,7 +150,6 @@ class Sider extends React.Component {
     }, () => {
       changeCollapse(!collapse)
       this.isSwitchToggle = false
-      // showSubnavs(this.showSub)
     })
   }
 
@@ -250,13 +249,13 @@ class Sider extends React.Component {
     } = this.state
 
     let {
-      navs,
+      sider,
       style
     } = this.props
 
     return (
       <aside className={`layout__sidebar sidebar ${collapse ? 'sidebar--collapsed' : ''}`} style={style}>
-        { this.renderNavs(navs) }
+        { this.renderNavs(sider.items) }
         <span
           className='sidebar__toggle'
           onClick={this.collapseToggle.bind(this)}

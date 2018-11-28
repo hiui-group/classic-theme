@@ -16,7 +16,7 @@ npm i @hi-ui/classic-theme --save
 主题是组件的形式，可以直接按组件来使用
 
 ```
-import Layout from '@hi-ui/classic-theme'
+import Layout, {Logo, Login, Cascad } from '@hi-ui/classic-theme'
 
 <Layout />
 ```
@@ -25,7 +25,7 @@ import Layout from '@hi-ui/classic-theme'
 
 添加 `sider` 属性
 
-该属性是一个对象，包含 `items` 和 `top`。`items` 是一个包含多项对象的数组，包含索引值、选项、选项链接和子菜单。`top` 可以是任何元素。
+该属性值是一个对象，包含 `items`。`items` 是一个包含多项对象的数组，包含索引值、选项、选项链接和子菜单。`top` 可以是任何元素。
 
 ```
 const sider = {
@@ -58,8 +58,30 @@ const sider = {
 
 ```
 // router.js
-import Home from './Home'
-import Other from './Other'
+
+class Home extends Component{
+  render () {
+    return (
+      <div>
+        <Cascad
+           title='标题'
+           children={<div>hello cascad</div>}
+           status=''
+         />
+      </div>
+    )
+  }
+}
+
+class Other extends Component{
+  render () {
+    return (
+      <div>
+        other
+      </div>
+    )
+  }
+}
 
 const routes = [
   {
@@ -89,8 +111,6 @@ const routes = [
 此属性值为任何元素，没有默认值，完全自由，但是可以引用主题内置组件来自行拼装
 
 ```
-import { Logo, Login } from '@hi-ui/classic-theme'
-
 const login = {
   headUrl: 'your_image_linking',
   name: '叶静静',
@@ -146,7 +166,7 @@ const breadCrumb = {
 
 添加 `theme` 属性
 
-此属性值为对象，默认为 `{ type: 'inner', color: 'dark' }`
+此属性值为对象，默认为 `{ type: 'flat', color: 'light' }`
 
 ```
 <Layout
@@ -155,19 +175,21 @@ const breadCrumb = {
   sider={sider}
   routes={routes}
   theme={{
-    type: 'outer',
+    type: 'card',
     color: 'blue'
   }}
 />
 ```
 
-> `dark` 深色主题
+> `white` 浅色主题
+>
+> `black` 深色主题
 >
 > `blue` 蓝色主题
 
-> `inner` 扁平主题
+> `flat` 扁平主题
 >
-> `outer` 凹陷主题
+> `card` 卡片主题
 
 
 ## 内部组件

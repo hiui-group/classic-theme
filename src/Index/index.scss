@@ -2,7 +2,7 @@
 
 $theme-base-colors: (
   'blue': get-color($palette-hiui, '50'),
-  'dark': get-color($palette-hiui, 'g100'),
+  'black': get-color($palette-hiui, 'g100'),
   'white': $white
 ) !default;
 
@@ -25,14 +25,10 @@ $theme-base-colors: (
     min-height: 100vh;
     padding-top: 64px;
     padding-left: 216px;
-    transition: padding-left $speed-normal $easing;
+    transition: padding-left $speed-fast $easing;
 
     .layout--collapsed & {
       padding-left: 48px;
-    }
-
-    .layout--has-sub & {
-      padding-left: 216px;
     }
   }
 
@@ -43,7 +39,6 @@ $theme-base-colors: (
 
   &__content {
     box-sizing: border-box;
-    background-color: $white;
   }
 
   &__sidebar {
@@ -66,7 +61,7 @@ $theme-base-colors: (
       color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
 
       &:hover {
-        color: get-color($palette-hiui, '50');
+        color: if($name == 'white', get-color($palette-hiui, '50'), $gray-dark);
       }
     }
   }
@@ -89,13 +84,13 @@ $theme-base-colors: (
 }
 
 @each $name, $color in $theme-base-colors {
-  .theme__header__#{$name} {
+  .theme__header-#{$name} {
     @include theme-header-style($color, $name);
   }
 }
 
 // 设置内嵌版式样式
-.theme__content__inner {
+.theme__content-card {
   background-color: $gray-light;
 
   .layout {

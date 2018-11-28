@@ -16,8 +16,7 @@ class Index extends Component {
     super(props)
 
     this.state = {
-      collapse: false,
-      hasSub: false
+      collapse: false
     }
   }
 
@@ -38,7 +37,7 @@ class Index extends Component {
 
   static defaultProps = {
     theme: {
-      type: 'inner',
+      type: 'flat',
       color: 'white'
     }
   }
@@ -51,30 +50,25 @@ class Index extends Component {
     this.setState({collapse})
   }
 
-  showSubnavs (hasSub) {
-    // this.setState({hasSub})
-  }
-
   render () {
     const {
-      collapse,
-      hasSub
+      collapse
     } = this.state
     let {
       header,
       routes,
-      navs,
+      sider,
       theme,
       breadCrumb,
       footer,
       logo
     } = this.props
-    document.body.classList.add(`theme__content__${theme.type || 'inner'}`)
-    document.body.classList.add(`theme__header__${theme.color || 'white'}`)
+    document.body.classList.add(`theme__content-${theme.type || 'flat'}`)
+    document.body.classList.add(`theme__header-${theme.color || 'white'}`)
 
     return (
       <Router history={history}>
-        <div className={`layout ${collapse ? 'layout--collapsed' : ''} ${hasSub ? 'layout--has-sub' : ''}`}>
+        <div className={`layout ${collapse ? 'layout--collapsed' : ''}`}>
           <Header header={header} logo={logo} />
 
           <div className='layout__body'>
@@ -98,9 +92,8 @@ class Index extends Component {
             <Sider
               accordion={false}
               current={this.getCurrentPath()}
-              navs={navs}
+              sider={sider}
               changeCollapse={this.changeCollapse.bind(this)}
-              showSubnavs={this.showSubnavs.bind(this)}
             />
 
             {
