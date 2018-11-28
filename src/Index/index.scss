@@ -1,4 +1,4 @@
-@import '@hi-ui/core-css/lib/base.scss';
+@import '@hi-ui/core-css/base.scss';
 
 $theme-base-colors: (
   'blue': get-color($palette-hiui, '50'),
@@ -8,7 +8,7 @@ $theme-base-colors: (
 
 // 设置布局
 .layout {
-  min-width: $minPageWidth;
+  min-width: $min-page-width;
   &__header {
     position: fixed;
     top: 0;
