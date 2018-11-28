@@ -4,11 +4,12 @@ $theme-base-colors: (
   'blue': get-color($palette-hiui, '50'),
   'dark': get-color($palette-hiui, 'g100'),
   'white': $white
-);
+) !default;
 
 // 设置布局
 .layout {
   min-width: $min-page-width;
+
   &__header {
     position: fixed;
     top: 0;
@@ -16,6 +17,7 @@ $theme-base-colors: (
     right: 0;
     z-index: 11;
   }
+
   &__body {
     display: flex;
     flex-direction: column;
@@ -23,22 +25,27 @@ $theme-base-colors: (
     min-height: 100vh;
     padding-top: 64px;
     padding-left: 216px;
-    transition: padding-left .3s linear;
+    transition: padding-left $speed-normal $easing;
+
     .layout--collapsed & {
       padding-left: 48px;
     }
+
     .layout--has-sub & {
       padding-left: 216px;
     }
   }
+
   &__main {
     box-sizing: border-box;
     flex: 1;
   }
+
   &__content {
     box-sizing: border-box;
     background-color: $white;
   }
+
   &__sidebar {
     position: fixed;
     left: 0;
@@ -54,10 +61,12 @@ $theme-base-colors: (
     background-color: $color;
     border-color: if($name == 'white', $gray, 'transparent');
     color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+
     a {
       color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+
       &:hover {
-        color: get-color($palette-hiui, '50')
+        color: get-color($palette-hiui, '50');
       }
     }
   }
@@ -66,6 +75,7 @@ $theme-base-colors: (
     &::after {
       border-top-color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
     }
+
     &--active {
       &::after {
         border-bottom-color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
@@ -87,6 +97,7 @@ $theme-base-colors: (
 // 设置内嵌版式样式
 .theme__content__inner {
   background-color: $gray-light;
+
   .layout {
     &__content {
       padding: 20px;

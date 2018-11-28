@@ -18,9 +18,11 @@
     border: 5px solid transparent;
     border-bottom: 0;
     content: '';
+
     .login--active & {
       border-top: 0;
     }
+
     .login--no-children & {
       display: none;
     }
@@ -74,7 +76,7 @@
       border-top: 1px solid $gray;
       content: '';
       background-color: #fff;
-      transform: rotate(-45deg)
+      transform: rotate(-45deg);
     }
   }
 }

@@ -9,6 +9,7 @@
 
     a {
       color: get-color($palette-hiui, 'g80');
+
       &:hover,
       &:active {
         color: get-color($palette-hiui, 'g70');

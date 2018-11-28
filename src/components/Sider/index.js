@@ -202,7 +202,7 @@ class Sider extends React.Component {
             </div>
             {
               !collapse && !isLeaf &&
-              render(item.children, {'sidebar__list--subs': true, 'sidebar__list--collapse': !isExpanded}, currentValue)
+              render(item.children, {'sidebar__list--subs': true, 'sidebar__list--collapsed': !isExpanded}, currentValue)
             }
           </li>
         )

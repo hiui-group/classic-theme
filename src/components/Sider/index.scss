@@ -12,23 +12,23 @@
   box-shadow: inset -1px 0 0 0 $gray;
   transition: width $speed-fast $easing;
 
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     position: absolute;
     left: 0;
     z-index: 1;
     width: calc(100% - 1px);
-    content: "";
+    content: '';
     pointer-events: none;
   }
 
-  &:before {
+  &::before {
     top: 64px;
     height: 16px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
   }
 
-  &:after {
+  &::after {
     bottom: 0;
     height: 32px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
@@ -60,27 +60,14 @@
     overflow-x: hidden;
     overflow-y: scroll;
     transition: width $speed-fast $easing;
-    &--collapse {
+
+    &--collapsed {
       display: none;
     }
 
     // Submenu
     & & {
-      // display: none;
       overflow: hidden;
-
-      // Submenu padding
-      .sidebar__item {
-        padding-left: 48px;
-        padding-right: 16px;
-      }
-    }
-
-    & & & {
-      // Submenu padding
-      .sidebar__item {
-        padding-left: 64px;
-      }
     }
   }
 
@@ -100,24 +87,60 @@
     cursor: pointer;
     transition: all $speed-fast $easing;
 
-    &:before {
+    &::before {
       position: absolute;
       top: 0;
       left: 0;
       width: 0;
       height: 100%;
-      content: "";
+      content: '';
       transition: width $speed-fast $easing;
     }
 
     &--active {
-      &:before {
+      &::before {
         width: 4px;
       }
     }
 
     &--noaction {
       cursor: default;
+    }
+
+    // Narrow Sidebar
+    .sidebar__wrapper--subs & {
+      width: 216px;
+      padding: 16px 24px;
+
+      &--active::before {
+        display: block;
+      }
+    }
+
+    // Collapsed Narrow Sidebar
+    .sidebar__wrapper--collapsed & {
+      width: 48px;
+      padding-right: 0;
+      text-overflow: clip;
+      white-space: normal;
+
+      &--active {
+        background-color: transparent;
+      }
+
+      &--active::before {
+        display: none;
+      }
+    }
+
+    // Submenu padding
+    .sidebar__list .sidebar__list & {
+      padding-left: 48px;
+      padding-right: 16px;
+    }
+
+    .sidebar__list .sidebar__list .sidebar__list & {
+      padding-left: 64px;
     }
   }
 
@@ -149,23 +172,24 @@
     box-shadow: inset -1px 0 0 0 $gray;
     background-color: $white;
     transition: all $speed-fast $easing;
-    &:before,
-    &:after {
+
+    &::before,
+    &::after {
       position: absolute;
       left: 0;
       z-index: 10;
       width: calc(100% - 1px);
-      content: "";
+      content: '';
       pointer-events: none;
     }
 
-    &:before {
+    &::before {
       top: 64px;
       height: 16px;
       background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
     }
 
-    &:after {
+    &::after {
       bottom: 0;
       height: 32px;
       background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
@@ -215,34 +239,6 @@
     transition: right $speed-fast $easing;
   }
 
-  // Status: Collapsed
-  &--collapsed {
-    width: 48px;
-
-    .sidebar {
-      &__list {
-        width: 48px + 20px; // overflow scrollbar
-      }
-
-      &__item {
-        width: 48px;
-        padding-right: 0;
-        text-overflow: clip;
-        white-space: normal;
-        &--active {
-          background-color: transparent;
-          &:before {
-            display: none;
-          }
-        }
-      }
-
-      &__item-title {
-        display: none;
-      }
-    }
-  }
-    
   &__wrapper--subs {
     position: absolute;
     top: 0;
@@ -251,6 +247,7 @@
     padding-top: 64px;
     background-color: #fff;
     box-shadow: inset -1px 0 0 0 #e7e7e7;
+
     & + & {
       left: 216px + 48px;
     }
@@ -260,19 +257,23 @@
         width: 216px + 20px;
       }
 
-      &__item {
-        width: 216px;
-        padding: 16px 24px;
+      &__item-title {
+        display: inline;
+      }
+    }
+  }
 
-        &--active {
-          &:before {
-            display: block;
-          }
-        }
+  // Status: Collapsed
+  &--collapsed {
+    width: 48px;
+
+    .sidebar {
+      &__list {
+        width: 48px + 20px; // overflow scrollbar
       }
 
       &__item-title {
-        display: inline;
+        display: none;
       }
     }
   }
@@ -286,7 +287,7 @@
     &__item {
       color: map-get(get-palette($color), 'g100');
 
-      &:before {
+      &::before {
         background-color: map-get(get-palette($color), '50');
       }
 
