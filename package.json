@@ -25,7 +25,7 @@
   "author": "HIUI <mi-hiui@xiaomi.com>",
   "license": "MIT",
   "dependencies": {
-    "@hi-ui/core-css": "^1.0.0-beta.2",
+    "@hi-ui/core-css": "^1.0.0-beta.8",
     "@hi-ui/hiui": "^1.0.3-beta.3",
     "classnames": "^2.2.6",
     "js-cookie": "^2.2.0",
@@ -70,6 +70,7 @@
     "sass-loader": "^7.0.1",
     "standard": "^11.0.1",
     "style-loader": "^0.21.0",
+    "stylelint-scss": "^3.4.0",
     "through2": "^2.0.3",
     "url-loader": "^1.0.1",
     "webpack": "^3.12.0",
