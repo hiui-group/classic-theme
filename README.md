@@ -25,7 +25,7 @@ import Layout, {Logo, Login, Cascad } from '@hi-ui/classic-theme'
 
 添加 `sider` 属性
 
-该属性值是一个对象，包含 `items`。`items` 是一个包含多项对象的数组，包含索引值、选项、选项链接和子菜单。`top` 可以是任何元素。
+该属性值是一个对象，包含 `items`。`items` 是一个包含多项对象的数组，包含索引值、选项、选项链接和子菜单。
 
 ```
 const sider = {
@@ -40,8 +40,7 @@ const sider = {
         {key: 24, title: '高级表单', to: '/order/super'},
       ]
     },
-  ],
-  top: <a href='#'>HIUI</a>
+  ]
 }
 
 <Layout
