@@ -202,7 +202,7 @@ class Sider extends React.Component {
             </div>
             {
               !collapse && !isLeaf &&
-              render(item.children, {'sidebar__list--subs': true, 'sidebar__list--collapsed': !isExpanded}, currentValue)
+              render(item.children, {'sidebar__list--submenu': true, 'sidebar__list--collapsed': !isExpanded}, currentValue)
             }
           </li>
         )
@@ -217,7 +217,7 @@ class Sider extends React.Component {
           </div>
         ))
         if (subNavs && subNavs.length > 0) { // 有次级选择项
-          render(subNavs, 'sidebar__wrapper--subs', subNavsValue)
+          render(subNavs, 'sidebar__wrapper--submenu', subNavsValue)
         }
 
         return navsContainer
