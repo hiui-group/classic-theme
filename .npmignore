@@ -2,9 +2,6 @@
 
 # output
 dist/
-build/
-src/
-test/
 
 # Editor generate files
 .idea/

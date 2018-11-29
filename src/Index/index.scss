@@ -60,9 +60,17 @@ $theme-base-colors: (
     a {
       color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
 
-      &:hover {
+      &:hover,
+      &.header__nav-link--active {
         color: if($name == 'white', get-color($palette-hiui, '50'), $gray-dark);
       }
+    }
+  }
+
+  .logo {
+    a,
+    a:hover {
+      color: if($name == 'white', get-color($palette-hiui, '50'), $white);
     }
   }
 

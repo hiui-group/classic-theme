@@ -1,7 +1,7 @@
 {
   "extends": ["stylelint-config-standard", "stylelint-config-recommended-scss"],
   "rules": {
-    "max-nesting-depth": 3,
+    "max-nesting-depth": 5,
     "string-quotes": "single",
     "declaration-colon-space-after": "always",
     "declaration-colon-space-before": "never",
@@ -18,6 +18,7 @@
     "function-url-quotes": "always",
     "at-rule-blacklist": "while",
     "selector-list-comma-newline-after": "always",
-    "color-no-invalid-hex": true
+    "color-no-invalid-hex": true,
+    "no-descending-specificity": null
   }
 }
