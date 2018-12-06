@@ -65,11 +65,11 @@
     //}
 
     // Add gap for first & last item
-    > .sidebar__list > li:first-child {
+    >.sidebar__list>li:first-child {
       margin-top: 16px;
     }
 
-    > .sidebar__list > li:last-child {
+    >.sidebar__list>li:last-child {
       margin-bottom: 48px;
     }
   }
@@ -131,6 +131,8 @@
       cursor: default;
     }
 
+   
+
     // Status: Collapsed
     .sidebar--collapsed & {
       width: 48px;
@@ -167,7 +169,10 @@
       padding-left: 64px;
     }
   }
-
+  &__title--noexpand {
+    color: #999;
+    font-size: 12px;
+  }
   &__item-icon {
     display: inline-block;
     margin-right: $spacer-4;
@@ -220,7 +225,7 @@
     background-color: #fff;
     box-shadow: inset -1px 0 0 0 #e7e7e7;
 
-    & + & {
+    &+& {
       left: 216px + 48px;
     }
 
@@ -265,7 +270,8 @@
 
 @include theme-sidebar-style();
 
-@each $key, $value in $theme-colors {
+@each $key,
+$value in $theme-colors {
   .theme__#{$key} {
     @include theme-sidebar-style($value);
   }

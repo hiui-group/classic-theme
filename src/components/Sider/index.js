@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import Cookies from 'js-cookie'
-import history from '../../util/history'
+import historyManager from '../../util/common'
 import './index.scss'
 
 class Sider extends React.Component {
@@ -68,12 +68,14 @@ class Sider extends React.Component {
     return value
   }
 
-  checkExpanded (activeStatus, isLeaf, IS_EXPANDED = undefined) { // 检查导航项是否展开
+  checkExpanded (activeStatus, isLeaf, IS_EXPANDED = undefined, type) { // 检查导航项是否展开
     const {
       showSub,
       collapse
     } = this.state
-
+    if (type === 'title') {
+      return true
+    }
     if (isLeaf || !showSub) { // 是叶子节点或者showSub=false
       return false
     }
@@ -112,14 +114,13 @@ class Sider extends React.Component {
       activeNavCache
     } = this.state
     const isLeaf = this.isLeaf(item)
-
     if (isLeaf) {
       this.setState({
         activeNavCache: value,
         activeNav: value,
         showSub: collapse ? false : showSub // 收缩状态点击叶子节点，则隐藏2，3级项
       })
-      history.push(item.to)
+      historyManager.getHistory().push(item.to)
     } else {
       if (this.arrayIndexOf(value, activeNavCache) >= 0) { // 子选项已被选中
         value = activeNavCache
@@ -170,7 +171,7 @@ class Sider extends React.Component {
         const _currentValue = currentValue.slice(0)
         const isLeaf = this.isLeaf(item)
         const activeStatus = this.arrayIndexOf(currentValue, activeNav)
-        const isExpanded = this.checkExpanded(activeStatus, isLeaf, item.IS_EXPANDED)
+        const isExpanded = this.checkExpanded(activeStatus, isLeaf, item.IS_EXPANDED, item.type)
         // console.log('----------renderNavs', activeStatus, currentValue, item.title, isExpanded, item.IS_EXPANDED)
         const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
         item.IS_EXPANDED = isExpanded
@@ -185,7 +186,7 @@ class Sider extends React.Component {
             key={index}
           >
             <div
-              className={classNames('sidebar__item-link', 'sidebar__item', {'sidebar__item--active': (collapse || isLeaf) && activeStatus >= 0})}
+              className={classNames('sidebar__item-link', 'sidebar__item', {'sidebar__item--active': (collapse || isLeaf) && item.type !== 'title' && activeStatus >= 0})}
               onClick={e => this.clickNav(e, item, _currentValue)}
             >
               {
@@ -193,9 +194,9 @@ class Sider extends React.Component {
                   ? (<span className='sidebar__item-icon'>{item.icon}</span>)
                   : ''
               }
-              <span className='sidebar__item-title'>{item.title}</span>
+              <span className={`sidebar__item-title ${item.type === 'title' && 'sidebar__title--noexpand'}`}>{item.title}</span>
               {
-                !isLeaf &&
+                !isLeaf && item.type !== 'title' &&
                 <i className={classNames('sidebar__item-toggle', 'hi-icon', expandIcon)} />
               }
             </div>

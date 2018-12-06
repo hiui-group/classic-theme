@@ -4,7 +4,6 @@ import Page, { Logo, Login, NavGroup } from '../src'
 import { Icon, ThemeContext } from '@hi-ui/hiui'
 import Home from './pages/Home'
 import About from './pages/About'
-
 const routes = [
   {
     path: '/',
@@ -82,6 +81,7 @@ class App extends Component {
       title='HIUI Classic Theme Demo'
       alt='Project Logo'
     />
+    Page.isHash = true
     return (
       <ThemeContext.Provider value='orange'>
         <Page
@@ -90,10 +90,12 @@ class App extends Component {
           logo={logo}
           routes={routes}
           sider={{
+            isHash: true,
             items: [
               { title: '首页', to: '/', icon: <Icon name='user' /> },
               {
                 title: '内外',
+
                 icon: <Icon name='usergroup' />,
                 children: [
                   {
@@ -106,6 +108,7 @@ class App extends Component {
                   },
                   {
                     title: '外嵌',
+                    type: 'title',
                     children: [
                       {
                         title: '外嵌1',

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import {
-  Router
+  BrowserRouter, HashRouter
 } from 'react-router-dom'
-import history from '../util/history'
 import { renderRoutes } from 'react-router-config'
 import PropTypes from 'prop-types'
 import './index.scss'
@@ -10,6 +9,7 @@ import Header from '../components/Header'
 import Sider from '../components/Sider'
 import BreadCrumb from '../components/BreadCrumb'
 import Footer from '../components/Footer'
+import historManager from '../util/common'
 
 class Index extends Component {
   constructor (props) {
@@ -43,7 +43,18 @@ class Index extends Component {
   }
 
   getCurrentPath () {
-    return window.location.href.split(window.location.origin)[1]
+    const {sider} = this.props
+    const mode = sider.isHash
+
+    let pathname = window.location.pathname
+    let hash = window.location.hash
+
+    if (hash) {
+      pathname = hash.replace(/#?(.*)/, (a, b) => {
+        return b
+      })
+    }
+    return mode ? pathname : window.location.href.split(window.location.origin)[1]
   }
 
   changeCollapse (collapse) {
@@ -65,49 +76,56 @@ class Index extends Component {
     } = this.props
     document.body.classList.add(`theme__content-${theme.type || 'flat'}`)
     document.body.classList.add(`theme__header-${theme.color || 'white'}`)
+    historManager.setHistory(Index.isHash)
+    const _children = (
+      <div className={`layout ${collapse ? 'layout--collapsed' : ''}`}>
+        <Header header={header} logo={logo} />
 
-    return (
-      <Router history={history}>
-        <div className={`layout ${collapse ? 'layout--collapsed' : ''}`}>
-          <Header header={header} logo={logo} />
-
-          <div className='layout__body'>
-            <main className='layout__main'>
-              {
-                breadCrumb
-                  ? (
-                    <BreadCrumb
-                      items={breadCrumb.items}
-                      sign={breadCrumb.sign}
-                    />
-                  ) : ''
-              }
-              <div
-                className='layout__content'
-              >
-                {renderRoutes(routes)}
-              </div>
-            </main>
-
-            <Sider
-              accordion={false}
-              current={this.getCurrentPath()}
-              sider={sider}
-              changeCollapse={this.changeCollapse.bind(this)}
-            />
-
+        <div className='layout__body'>
+          <main className='layout__main'>
             {
-              footer
+              breadCrumb
                 ? (
-                  <Footer footer={footer} />
+                  <BreadCrumb
+                    items={breadCrumb.items}
+                    sign={breadCrumb.sign}
+                  />
                 ) : ''
             }
+            <div
+              className='layout__content'
+            >
+              {renderRoutes(routes)}
+            </div>
+          </main>
 
-          </div>
+          <Sider
+            accordion={false}
+            current={this.getCurrentPath()}
+            sider={sider}
+            changeCollapse={this.changeCollapse.bind(this)}
+          />
+
+          {
+            footer
+              ? (
+                <Footer footer={footer} />
+              ) : ''
+          }
+
         </div>
-      </Router>
+      </div>
+    )
+    return Index.hash ? (
+      <HashRouter>
+        {_children}
+      </HashRouter>
+    ) : (
+      <BrowserRouter>
+        {_children}
+      </BrowserRouter>
     )
   }
 }
-
+Index.hash = false
 export default Index
