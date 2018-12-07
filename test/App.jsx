@@ -89,7 +89,6 @@ class App extends Component {
           logo={logo}
           routes={routes}
           sider={{
-            isHash: true,
             items: [
               { title: '首页', to: '/', icon: <Icon name='user' /> },
               {
@@ -142,8 +141,8 @@ class App extends Component {
               }
             ]
           }}
-          theme={{
-            // color: 'black',
+          config={{
+            // color: 'black'
             // type: 'card'
           }}
         />

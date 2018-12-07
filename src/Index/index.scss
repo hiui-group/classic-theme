@@ -1,7 +1,7 @@
 @import '@hi-ui/core-css/lib/i18n/zh-CN.scss';
 @import '@hi-ui/core-css/base.scss';
 
-$theme-base-colors: (
+$config-header-colors: (
   'blue': get-color($palette-hiui, '50'),
   'black': get-color($palette-hiui, 'g100'),
   'white': $white
@@ -52,7 +52,7 @@ $theme-base-colors: (
 }
 
 // 设置颜色
-@mixin theme-header-style($color, $name) {
+@mixin config-header-style($color, $name) {
   .header {
     background-color: $color;
     border-color: if($name == 'white', $gray, 'transparent');
@@ -92,14 +92,14 @@ $theme-base-colors: (
   }
 }
 
-@each $name, $color in $theme-base-colors {
-  .theme__header-#{$name} {
-    @include theme-header-style($color, $name);
+@each $name, $color in $config-header-colors {
+  .config__header-#{$name} {
+    @include config-header-style($color, $name);
   }
 }
 
 // 设置内嵌版式样式
-.theme__content-card {
+.config__content-card {
   background-color: $gray-light;
 
   .layout {

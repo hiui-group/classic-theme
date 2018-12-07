@@ -10,6 +10,7 @@ import Sider from '../components/Sider'
 import BreadCrumb from '../components/BreadCrumb'
 import Footer from '../components/Footer'
 import historManager from '../util/common'
+import Provider from '@hi-ui/hiui/es/context'
 
 class Index extends Component {
   constructor (props) {
@@ -27,7 +28,7 @@ class Index extends Component {
       path: PropTypes.string,
       to: PropTypes.string
     })),
-    theme: PropTypes.shape({
+    config: PropTypes.shape({
       type: PropTypes.string,
       color: PropTypes.string
     }),
@@ -36,7 +37,7 @@ class Index extends Component {
   }
 
   static defaultProps = {
-    theme: {
+    config: {
       type: 'flat',
       color: 'white'
     }
@@ -69,13 +70,16 @@ class Index extends Component {
       header,
       routes,
       sider,
-      theme,
+      config,
       breadCrumb,
       footer,
+      theme,
       logo
     } = this.props
-    document.body.classList.add(`theme__content-${theme.type || 'flat'}`)
-    document.body.classList.add(`theme__header-${theme.color || 'white'}`)
+
+    document.body.classList.add(`config__content-${config.type || 'flat'}`)
+    document.body.classList.add(`config__header-${config.color || 'white'}`)
+    document.body.classList.add(`theme__${theme || 'hiui-blue'}`)
     const history = historManager.setHistory(Index.isHash)
     const _children = (
       <div className={`layout ${collapse ? 'layout--collapsed' : ''}`}>
@@ -125,4 +129,4 @@ class Index extends Component {
   }
 }
 Index.hash = false
-export default Index
+export default Provider(Index)
