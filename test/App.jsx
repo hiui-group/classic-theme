@@ -36,18 +36,18 @@ const header = (
   <React.Fragment>
     <NavGroup pos='left'>
       <NavGroup.Item>
-        <Link to='/'>首页</Link>
+        <Link to='/' replace>首页</Link>
       </NavGroup.Item>
       <NavGroup.Item>
-        <Link to='/about'>关于我们</Link>
+        <Link to='/about' replace>关于我们</Link>
       </NavGroup.Item>
       <NavGroup.Item>
-        <Link to='/about'>关于我们</Link>
+        <Link to='/about' replace>关于我们</Link>
       </NavGroup.Item>
     </NavGroup>
     <NavGroup pos='right'>
       <NavGroup.Item>
-        <Link to='/'>主页</Link>
+        <Link to='/' replace>主页</Link>
       </NavGroup.Item>
       <Login {...login} />
     </NavGroup>
@@ -81,6 +81,7 @@ class App extends Component {
       title='HIUI Classic Theme Demo'
       alt='Project Logo'
     />
+    Page.isHash = true
     return (
       <ThemeContext.Provider value='orange'>
         <Page

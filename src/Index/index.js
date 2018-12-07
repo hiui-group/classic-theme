@@ -74,8 +74,10 @@ class Index extends Component {
       footer,
       logo
     } = this.props
-
-    const history = historManager.setHistory(Index.isHash)
+    let _h = historManager.getHistory()
+    if (!_h) {
+      _h = historManager.setHistory(Index.isHash)
+    }
     const _children = (
       <div className={`layout ${collapse ? 'layout--collapsed' : ''}`}>
         <Header header={header} logo={logo} />
@@ -121,7 +123,7 @@ class Index extends Component {
     // document.body.classList.add(`theme__${config.theme || 'hiui-blue'}`)
 
     return (
-      <Router history={history}>
+      <Router history={_h}>
         {_children}
       </Router>
     )

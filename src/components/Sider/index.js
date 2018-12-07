@@ -108,6 +108,9 @@ class Sider extends React.Component {
 
   clickNav (e, item, value) {
     e.stopPropagation()
+    if (item.type === 'title') {
+      return
+    }
     let {
       collapse,
       showSub,
