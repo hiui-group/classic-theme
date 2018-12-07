@@ -189,7 +189,11 @@ class Sider extends React.Component {
             key={index}
           >
             <div
-              className={classNames('sidebar__item-link', 'sidebar__item', {'sidebar__item--active': (collapse || isLeaf) && item.type !== 'title' && activeStatus >= 0})}
+              className={classNames(
+                'sidebar__item',
+                {'sidebar__item--active': (collapse || isLeaf) && item.type !== 'title' && activeStatus >= 0},
+                {'sidebar__item--noaction': item.type === 'title'}
+              )}
               onClick={e => this.clickNav(e, item, _currentValue)}
             >
               {
@@ -197,7 +201,7 @@ class Sider extends React.Component {
                   ? (<span className='sidebar__item-icon'>{item.icon}</span>)
                   : ''
               }
-              <span className={`sidebar__item-title ${item.type === 'title' && 'sidebar__title--noexpand'}`}>{item.title}</span>
+              <span className={`sidebar__item-title`}>{item.title}</span>
               {
                 !isLeaf && item.type !== 'title' &&
                 <i className={classNames('sidebar__item-toggle', 'hi-icon', expandIcon)} />
