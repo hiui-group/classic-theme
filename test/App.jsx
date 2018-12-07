@@ -14,9 +14,9 @@ const routes = [
     exact: true,
     component: About
   }, {
-    path: '/inner',
+    path: '/inner/1',
     exact: true,
-    component: About
+    component: Home
   }, {
     path: '/color/blue',
     exact: true,
@@ -81,7 +81,6 @@ class App extends Component {
       title='HIUI Classic Theme Demo'
       alt='Project Logo'
     />
-    Page.isHash = true
     return (
       <ThemeContext.Provider value='orange'>
         <Page

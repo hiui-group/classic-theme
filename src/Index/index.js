@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-  BrowserRouter, HashRouter
+  Router
 } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
 import PropTypes from 'prop-types'
@@ -76,7 +76,7 @@ class Index extends Component {
     } = this.props
     document.body.classList.add(`theme__content-${theme.type || 'flat'}`)
     document.body.classList.add(`theme__header-${theme.color || 'white'}`)
-    historManager.setHistory(Index.isHash)
+    const history = historManager.setHistory(Index.isHash)
     const _children = (
       <div className={`layout ${collapse ? 'layout--collapsed' : ''}`}>
         <Header header={header} logo={logo} />
@@ -116,14 +116,11 @@ class Index extends Component {
         </div>
       </div>
     )
-    return Index.isHash ? (
-      <HashRouter>
+
+    return (
+      <Router history={history}>
         {_children}
-      </HashRouter>
-    ) : (
-      <BrowserRouter>
-        {_children}
-      </BrowserRouter>
+      </Router>
     )
   }
 }
