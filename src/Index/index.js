@@ -116,7 +116,7 @@ class Index extends Component {
         </div>
       </div>
     )
-    return Index.hash ? (
+    return Index.isHash ? (
       <HashRouter>
         {_children}
       </HashRouter>

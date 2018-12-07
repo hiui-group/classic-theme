@@ -120,7 +120,10 @@ class Sider extends React.Component {
         activeNav: value,
         showSub: collapse ? false : showSub // 收缩状态点击叶子节点，则隐藏2，3级项
       })
-      historyManager.getHistory().push(item.to)
+      const _h = historyManager.getHistory()
+      if (_h.location.pathname !== item.to) {
+        _h.push(item.to)
+      }
     } else {
       if (this.arrayIndexOf(value, activeNavCache) >= 0) { // 子选项已被选中
         value = activeNavCache
