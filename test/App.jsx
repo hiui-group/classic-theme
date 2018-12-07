@@ -143,7 +143,8 @@ class App extends Component {
           }}
           config={{
             // color: 'black'
-            // type: 'card'
+            // type: 'card',
+            // theme: 'orange'
           }}
         />
       </ThemeContext.Provider>

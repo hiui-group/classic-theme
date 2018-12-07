@@ -10,7 +10,6 @@ import Sider from '../components/Sider'
 import BreadCrumb from '../components/BreadCrumb'
 import Footer from '../components/Footer'
 import historManager from '../util/common'
-import Provider from '@hi-ui/hiui/es/context'
 
 class Index extends Component {
   constructor (props) {
@@ -73,13 +72,9 @@ class Index extends Component {
       config,
       breadCrumb,
       footer,
-      theme,
       logo
     } = this.props
 
-    document.body.classList.add(`config__content-${config.type || 'flat'}`)
-    document.body.classList.add(`config__header-${config.color || 'white'}`)
-    document.body.classList.add(`theme__${theme || 'hiui-blue'}`)
     const history = historManager.setHistory(Index.isHash)
     const _children = (
       <div className={`layout ${collapse ? 'layout--collapsed' : ''}`}>
@@ -121,6 +116,10 @@ class Index extends Component {
       </div>
     )
 
+    document.body.classList.add(`config__content-${config.type || 'flat'}`)
+    document.body.classList.add(`config__header-${config.color || 'white'}`)
+    // document.body.classList.add(`theme__${config.theme || 'hiui-blue'}`)
+
     return (
       <Router history={history}>
         {_children}
@@ -129,4 +128,4 @@ class Index extends Component {
   }
 }
 Index.hash = false
-export default Provider(Index)
+export default Index
