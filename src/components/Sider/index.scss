@@ -118,7 +118,7 @@
       width: 0;
       height: 100%;
       content: '';
-      transition: width $speed-fast $easing;
+      transition: width $speed-normal $easing;
     }
 
     &--active {
