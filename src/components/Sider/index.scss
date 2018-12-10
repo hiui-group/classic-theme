@@ -25,13 +25,13 @@
   box-sizing: border-box;
   width: 216px;
   height: 100%;
-  padding-top: 64px;
   font-size: 14px;
   line-height: 1;
   background-color: $white;
   box-shadow: inset -1px 0 0 0 $gray;
   transition: width $speed-fast $easing;
-
+  position: relative;
+  padding-top: 64px;
   // Element: wrapper
   &__wrapper {
     position: relative;
@@ -86,7 +86,7 @@
     overflow-x: hidden;
     overflow-y: scroll;
     transition: width $speed-fast $easing;
-
+    color: #fff;
     &--collapsed {
       display: none;
     }
@@ -253,7 +253,7 @@
     color: map-get(get-palette($color), 'g100');
 
     &__item {
-      color: map-get(get-palette($color), 'g100');
+      // color: map-get(get-palette($color), 'g100');
 
       &::before {
         background-color: map-get(get-palette($color), '50');

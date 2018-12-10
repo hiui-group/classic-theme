@@ -1,0 +1,18 @@
+@import '@hi-ui/core-css/lib/i18n/zh-CN.scss';
+@import '@hi-ui/core-css/base.scss';
+
+$config-header-colors: (
+  'blue': get-color($palette-hiui, '50'),
+  'black': get-color($palette-hiui, 'g100'),
+  'white': $white
+) !default;
+
+// 设置布局
+.layout {
+  &--classic {
+    .layout__body {
+      min-height: 0;
+      
+    }
+  }
+}

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Page, { Logo, Login, NavGroup } from '../src'
+import { Logo, Login, NavGroup, Genuine as Page } from '../src'
 import { Icon, ThemeContext } from '@hi-ui/hiui'
 import Home from './pages/Home'
 import About from './pages/About'
+// Hisotry.createHashHistory()
 const routes = [
   {
     path: '/',
@@ -81,12 +82,12 @@ class App extends Component {
       title='HIUI Classic Theme Demo'
       alt='Project Logo'
     />
-    Page.isHash = true
     return (
       <ThemeContext.Provider value='orange'>
         <Page
           header={header}
           // footer={footer}
+          // history={history}
           logo={logo}
           routes={routes}
           sider={{
@@ -104,6 +105,60 @@ class App extends Component {
                   {
                     title: '内嵌1',
                     to: '/inner/1'
+                  },
+                  {
+                    title: '外嵌',
+                    type: 'title',
+                    children: [
+                      {
+                        title: '外嵌1',
+                        to: '/outer/1'
+                      },
+                      {
+                        title: '外嵌2',
+                        to: '/outer/2'
+                      },
+                      {
+                        title: '外嵌3',
+                        to: '/outer/3'
+                      }
+                    ]
+                  },
+                  {
+                    title: '外嵌',
+                    type: 'title',
+                    children: [
+                      {
+                        title: '外嵌1',
+                        to: '/outer/1'
+                      },
+                      {
+                        title: '外嵌2',
+                        to: '/outer/2'
+                      },
+                      {
+                        title: '外嵌3',
+                        to: '/outer/3'
+                      }
+                    ]
+                  },
+                  {
+                    title: '外嵌',
+                    type: 'title',
+                    children: [
+                      {
+                        title: '外嵌1',
+                        to: '/outer/1'
+                      },
+                      {
+                        title: '外嵌2',
+                        to: '/outer/2'
+                      },
+                      {
+                        title: '外嵌3',
+                        to: '/outer/3'
+                      }
+                    ]
                   },
                   {
                     title: '外嵌',
@@ -143,8 +198,8 @@ class App extends Component {
             ]
           }}
           config={{
-            // color: 'black'
-            // type: 'card',
+            color: 'black',
+            type: 'card'
             // theme: 'orange'
           }}
         />

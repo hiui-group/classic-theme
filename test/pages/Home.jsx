@@ -16,10 +16,19 @@ export default class Home extends React.Component {
     return (
       <div>
        欢迎登录系统！！
-        <Stepper
-          list={list}
-          current={1}
-        />
+        <div style={{width: 1500}}>
+          <Stepper
+            list={list}
+            current={1}
+          />
+        </div>
+        <div style={{height: '500px', width: '130px', marginTop: 400}}>
+          <Stepper
+            list={list}
+            current={1}
+            vertical
+          />
+        </div>
       </div>
     )
   }

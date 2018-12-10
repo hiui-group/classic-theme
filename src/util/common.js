@@ -1,8 +1,13 @@
 import {createBrowserHistory, createHashHistory} from 'history'
 const _history = {}
 const historyManager = {
-  setHistory: (_h) => {
-    const h = _h ? createHashHistory() : createBrowserHistory()
+  createBrowserHistory: (_h) => {
+    const h = createBrowserHistory()
+    _history.history = h
+    return h
+  },
+  createHashHistory: () => {
+    const h = createHashHistory()
     _history.history = h
     return h
   },

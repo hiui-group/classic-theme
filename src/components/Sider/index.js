@@ -165,7 +165,8 @@ class Sider extends React.Component {
     const collapse = this.state.collapse
     const activeNav = this.state.activeNav
     let navsContainer = []
-
+    const {logo} = this.props
+    console.log(logo)
     const render = (items, cls = '', currentValue = []) => {
       const navs = []
       let subNavs = []
@@ -220,6 +221,7 @@ class Sider extends React.Component {
       if (collapse) { // 收缩状态
         navsContainer.push((
           <div className={classNames('sidebar__wrapper', cls)} key={deep}>
+
             <ul className={classNames('sidebar__list')} key={deep}>
               {navs}
             </ul>
@@ -247,6 +249,7 @@ class Sider extends React.Component {
     } else {
       return (
         <div className='sidebar__wrapper'>
+          {logo}
           {render(items)}
         </div>
       )
@@ -265,6 +268,7 @@ class Sider extends React.Component {
 
     return (
       <aside className={`layout__sidebar sidebar ${collapse ? 'sidebar--collapsed' : ''}`} style={style}>
+
         { this.renderNavs(sider.items) }
         <span
           className='sidebar__toggle'

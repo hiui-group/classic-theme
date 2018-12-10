@@ -1,0 +1,37 @@
+@import '@hi-ui/core-css/lib/i18n/zh-CN.scss';
+@import '@hi-ui/core-css/base.scss';
+
+
+// 设置布局
+.layout {
+  &--genuine {
+    .layout__header {
+      margin-left: 216px;
+      width: auto;
+      background: #fff;
+      color: #383E47;
+      a {
+        color: #383E47;
+      }
+    }
+    .layout__sidebar {
+      padding-top: 0;
+      background: #383E47;
+      .sidebar__wrapper {
+        display: flex;
+        flex-direction: column;
+        &:before, &:after {
+          display: none;
+        }
+      }
+    }
+    .logo {
+      width: 216px;
+      height: 216px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+  

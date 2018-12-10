@@ -17,6 +17,10 @@ $config-header-colors: (
     left: 0;
     right: 0;
     z-index: 11;
+    transition: margin-left $speed-fast $easing;
+    .layout--collapsed & {
+      margin-left: 48px !important;
+    }
   }
 
   &__body {
@@ -88,23 +92,31 @@ $config-header-colors: (
   }
 
   .sidebar {
-    color: get-color($palette-hiui, 'g100');
+    // color: get-color($palette-hiui, 'g100');
+    color: if($name == 'white', get-color($palette-hiui, 'g100'), $white)
+    // background: $color;
+    // .sidebar__list {
+    //   color: get-color($palette-hiui, 'g100');
+    // }
   }
 }
 
 @each $name, $color in $config-header-colors {
-  .config__header-#{$name} {
+  .layout--#{$name} {
     @include config-header-style($color, $name);
   }
 }
 
 // 设置内嵌版式样式
-.config__content-card {
+.layout--card {
   background-color: $gray-light;
 
-  .layout {
-    &__content {
-      padding: 20px;
+  .layout__body {
+    .layout__content {
+      // padding: 20px;
+      background: white;
+      border: 20px solid #F6F6F6;
+      overflow: auto;
     }
   }
 }
