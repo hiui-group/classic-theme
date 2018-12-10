@@ -10,13 +10,14 @@ class Logo extends React.Component {
       title,
       height = '40',
       style,
-      url
+      url,
+      place = 'horizontal'
     } = this.props
 
     return (
-      <div className='logo' style={style}>
+      <div className={`logo logo__${place}`} style={style}>
+        <img className='logo__img' src={logoUrl} alt={alt} height={height} />
         <a href={url} title={title}>
-          <img className='logo__img' src={logoUrl} alt={alt} height={height} />
           <span className='logo__title'>{text}</span>
         </a>
       </div>

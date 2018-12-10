@@ -33,14 +33,13 @@ class Index extends Component {
     return (
       <div className={lcls}>
         <Header header={header} logo={logo} />
-
+        <Sider
+          accordion={false}
+          current={this.getCurrentPath()}
+          sider={sider}
+          changeCollapse={this.changeCollapse.bind(this)}
+        />
         <div className='layout__body'>
-          <Sider
-            accordion={false}
-            current={this.getCurrentPath()}
-            sider={sider}
-            changeCollapse={this.changeCollapse.bind(this)}
-          />
           <main className='layout__main'>
             {
               breadCrumb

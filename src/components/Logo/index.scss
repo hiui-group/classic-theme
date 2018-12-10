@@ -7,7 +7,7 @@
   line-height: 64px;
 
   &__img {
-    margin-right: $spacer-4;
+    // margin-right: $spacer-4;
     vertical-align: middle;
   }
 
@@ -15,5 +15,15 @@
     font-size: $font-size-large;
     font-weight: $font-weight-bold;
     vertical-align: middle;
+    margin-left: $spacer-4;
   }
+  // &__vertical {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   flex-direction: column;
+  //   .logo__title {
+  //     margin-left: 0;
+  //   }
+  // }
 }

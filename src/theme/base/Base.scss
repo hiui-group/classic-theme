@@ -25,7 +25,7 @@ $config-header-colors: (
 
   &__body {
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
     box-sizing: border-box;
     min-height: 100vh;
     padding-top: 64px;
@@ -36,7 +36,9 @@ $config-header-colors: (
       padding-left: 48px;
     }
   }
-
+  &__content {
+    height: 100%;
+  }
   &__main {
     box-sizing: border-box;
     flex: 1;
@@ -92,12 +94,18 @@ $config-header-colors: (
   }
 
   .sidebar {
-    // color: get-color($palette-hiui, 'g100');
-    color: if($name == 'white', get-color($palette-hiui, 'g100'), $white)
+    color: get-color($palette-hiui, 'g100');
+    // @if $name == 'black' {color: $white}
+    // @else {color: get-color($palette-hiui, 'g100')}
+    // color: if($name == 'white', $white, get-color($palette-hiui, 'g100'));
     // background: $color;
     // .sidebar__list {
     //   color: get-color($palette-hiui, 'g100');
     // }
+    &__list {
+      // @if $name == 'black' {color: $white}
+      // @else {color: get-color($palette-hiui, 'g100')}
+    }
   }
 }
 

@@ -86,7 +86,7 @@
     overflow-x: hidden;
     overflow-y: scroll;
     transition: width $speed-fast $easing;
-    color: #fff;
+    // color: #fff;
     &--collapsed {
       display: none;
     }

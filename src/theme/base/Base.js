@@ -27,7 +27,6 @@ const baseLayout = WrapperComponent => class extends WrapperComponent {
     footer: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     logo: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
   }
-  static isHash = false
   static defaultProps = {
     config: {
       type: 'flat',

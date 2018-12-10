@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Logo, Login, NavGroup, Genuine as Page } from '../src'
+import { Logo, Login, NavGroup, Classic as Page } from '../src'
 import { Icon, ThemeContext } from '@hi-ui/hiui'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -81,6 +81,7 @@ class App extends Component {
       text='HIUI Demo'
       title='HIUI Classic Theme Demo'
       alt='Project Logo'
+      // place='vertical' // logo 图标 与  text 文字 的排列方式  默认水平 ，接受 horizontal | vertical
     />
     return (
       <ThemeContext.Provider value='orange'>
@@ -88,6 +89,7 @@ class App extends Component {
           header={header}
           // footer={footer}
           // history={history}
+          showNav
           logo={logo}
           routes={routes}
           sider={{
@@ -198,7 +200,7 @@ class App extends Component {
             ]
           }}
           config={{
-            color: 'black',
+            // color: 'black',
             type: 'card'
             // theme: 'orange'
           }}
