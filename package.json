@@ -1,6 +1,6 @@
 {
   "name": "@hi-ui/classic-theme",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.8",
   "description": "Classic theme for HIUI",
   "main": "./es/index.js",
   "scripts": {
@@ -36,7 +36,7 @@
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
-    "@hi-ui/hiui": "^1.0.3-beta.3",
+    "@hi-ui/hiui": "^1.1.4",
     "autoprefixer": "^8.3.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
