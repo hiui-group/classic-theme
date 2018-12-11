@@ -18,6 +18,7 @@ $config-header-colors: (
     right: 0;
     z-index: 11;
     transition: margin-left $speed-fast $easing;
+
     .layout--collapsed & {
       margin-left: 48px !important;
     }
@@ -36,16 +37,15 @@ $config-header-colors: (
       padding-left: 48px;
     }
   }
-  &__content {
-    height: 100%;
-  }
-  &__main {
-    box-sizing: border-box;
-    flex: 1;
-  }
 
   &__content {
     box-sizing: border-box;
+    height: 100%;
+  }
+
+  &__main {
+    box-sizing: border-box;
+    flex: 1;
   }
 
   &__sidebar {
@@ -91,6 +91,16 @@ $config-header-colors: (
         border-bottom-color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
       }
     }
+
+    &__info {
+      a {
+        color: get-color($palette-hiui, 'g100');
+
+        &:hover {
+          color: get-color($palette-hiui, 'g90');
+        }
+      }
+    }
   }
 
   .sidebar {
@@ -121,10 +131,10 @@ $config-header-colors: (
 
   .layout__body {
     .layout__content {
-      // padding: 20px;
-      background: white;
-      border: 20px solid #F6F6F6;
+      border: 20px solid $gray-lighter;
       overflow: auto;
+      // padding: 20px;
+      background: $white;
     }
   }
 }

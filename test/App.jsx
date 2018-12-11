@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Logo, Login, NavGroup, Classic as Page } from '../src'
-import { Icon, ThemeContext } from '@hi-ui/hiui'
+import { Icon } from '@hi-ui/hiui'
 import Home from './pages/Home'
 import About from './pages/About'
 // Hisotry.createHashHistory()
@@ -84,128 +84,126 @@ class App extends Component {
       // place='vertical' // logo 图标 与  text 文字 的排列方式  默认水平 ，接受 horizontal | vertical
     />
     return (
-      <ThemeContext.Provider value='orange'>
-        <Page
-          header={header}
-          // footer={footer}
-          // history={history}
-          showNav
-          logo={logo}
-          routes={routes}
-          sider={{
-            items: [
-              { title: '首页', to: '/', icon: <Icon name='user' /> },
-              {
-                title: '内外',
+      <Page
+        header={header}
+        // footer={footer}
+        // history={history}
+        showNav
+        logo={logo}
+        routes={routes}
+        sider={{
+          items: [
+            { title: '首页', to: '/', icon: <Icon name='user' /> },
+            {
+              title: '内外',
 
-                icon: <Icon name='usergroup' />,
-                children: [
-                  {
-                    title: '内嵌',
-                    to: '/inner'
-                  },
-                  {
-                    title: '内嵌1',
-                    to: '/inner/1'
-                  },
-                  {
-                    title: '外嵌',
-                    type: 'title',
-                    children: [
-                      {
-                        title: '外嵌1',
-                        to: '/outer/1'
-                      },
-                      {
-                        title: '外嵌2',
-                        to: '/outer/2'
-                      },
-                      {
-                        title: '外嵌3',
-                        to: '/outer/3'
-                      }
-                    ]
-                  },
-                  {
-                    title: '外嵌',
-                    type: 'title',
-                    children: [
-                      {
-                        title: '外嵌1',
-                        to: '/outer/1'
-                      },
-                      {
-                        title: '外嵌2',
-                        to: '/outer/2'
-                      },
-                      {
-                        title: '外嵌3',
-                        to: '/outer/3'
-                      }
-                    ]
-                  },
-                  {
-                    title: '外嵌',
-                    type: 'title',
-                    children: [
-                      {
-                        title: '外嵌1',
-                        to: '/outer/1'
-                      },
-                      {
-                        title: '外嵌2',
-                        to: '/outer/2'
-                      },
-                      {
-                        title: '外嵌3',
-                        to: '/outer/3'
-                      }
-                    ]
-                  },
-                  {
-                    title: '外嵌',
-                    type: 'title',
-                    children: [
-                      {
-                        title: '外嵌1',
-                        to: '/outer/1'
-                      },
-                      {
-                        title: '外嵌2',
-                        to: '/outer/2'
-                      },
-                      {
-                        title: '外嵌3',
-                        to: '/outer/3'
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                title: '配色',
-                to: '',
-                icon: <Icon name='usergroup' />,
-                children: [
-                  {
-                    title: '灰色',
-                    to: '/color/gray'
-                  },
-                  {
-                    title: '蓝色',
-                    to: '/color/blue'
-                  }
-                ]
-              }
-            ]
-          }}
-          config={{
-            // color: 'black',
-            type: 'card'
-            // theme: 'orange'
-          }}
-        />
-      </ThemeContext.Provider>
+              icon: <Icon name='usergroup' />,
+              children: [
+                {
+                  title: '内嵌',
+                  to: '/inner'
+                },
+                {
+                  title: '内嵌1',
+                  to: '/inner/1'
+                },
+                {
+                  title: '外嵌',
+                  type: 'title',
+                  children: [
+                    {
+                      title: '外嵌1',
+                      to: '/outer/1'
+                    },
+                    {
+                      title: '外嵌2',
+                      to: '/outer/2'
+                    },
+                    {
+                      title: '外嵌3',
+                      to: '/outer/3'
+                    }
+                  ]
+                },
+                {
+                  title: '外嵌',
+                  type: 'title',
+                  children: [
+                    {
+                      title: '外嵌1',
+                      to: '/outer/1'
+                    },
+                    {
+                      title: '外嵌2',
+                      to: '/outer/2'
+                    },
+                    {
+                      title: '外嵌3',
+                      to: '/outer/3'
+                    }
+                  ]
+                },
+                {
+                  title: '外嵌',
+                  type: 'title',
+                  children: [
+                    {
+                      title: '外嵌1',
+                      to: '/outer/1'
+                    },
+                    {
+                      title: '外嵌2',
+                      to: '/outer/2'
+                    },
+                    {
+                      title: '外嵌3',
+                      to: '/outer/3'
+                    }
+                  ]
+                },
+                {
+                  title: '外嵌',
+                  type: 'title',
+                  children: [
+                    {
+                      title: '外嵌1',
+                      to: '/outer/1'
+                    },
+                    {
+                      title: '外嵌2',
+                      to: '/outer/2'
+                    },
+                    {
+                      title: '外嵌3',
+                      to: '/outer/3'
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              title: '配色',
+              to: '',
+              icon: <Icon name='usergroup' />,
+              children: [
+                {
+                  title: '灰色',
+                  to: '/color/gray'
+                },
+                {
+                  title: '蓝色',
+                  to: '/color/blue'
+                }
+              ]
+            }
+          ]
+        }}
+        config={{
+          color: 'black',
+          type: 'card',
+          theme: 'cyan'
+        }}
+      />
     )
   }
 }

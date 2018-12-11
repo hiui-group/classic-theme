@@ -28,7 +28,8 @@ class Index extends Component {
       'layout--classic',
       collapse && 'layout--collapsed',
       config.color ? `layout--${config.color}` : 'layout--white',
-      config.type && `layout--${config.type}`
+      config.type && `layout--${config.type}`,
+      config.theme && `theme__${config.theme}`
     )
     return (
       <div className={lcls}>

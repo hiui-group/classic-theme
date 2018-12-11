@@ -1,7 +1,6 @@
 @import '@hi-ui/core-css/lib/i18n/zh-CN.scss';
 @import '@hi-ui/core-css/base.scss';
 
-
 // 设置布局
 .layout {
   &--genuine {
@@ -11,25 +10,32 @@
       background: #fff;
       color: #383E47;
       border-color: #d8d8d8;
+
       a {
         color: #383E47;
       }
     }
+
     .layout__sidebar {
       padding-top: 0;
       background: #383E47;
       color: #fff;
+
       .sidebar__wrapper {
         display: flex;
         flex-direction: column;
-        &:before, &:after {
+
+        &::before,
+        &::after {
           display: none;
         }
+
         .sidebar__list {
           color: #fff;
         }
       }
     }
+
     .logo {
       width: 216px;
       height: 216px;
@@ -37,10 +43,10 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
+
       &__title {
         margin: 0;
       }
     }
   }
 }
-  
