@@ -61,7 +61,7 @@ $config-header-colors: (
 @mixin config-header-style($color, $name) {
   .header {
     background-color: $color;
-    border-color: if($name == 'white', $gray, 'transparent');
+    border-color: if($name == 'white', $gray, transparent);
     color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
 
     a {
