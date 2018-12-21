@@ -32,12 +32,18 @@ class Index extends React.Component {
       config.color ? `layout--${config.color}` : 'layout--white',
       config.type && `layout--${config.type}`
     )
+    const bodyCls = classNames(
+      'layout__body',
+      header && 'layout__body--containheader'
+    )
     return (
       <div className={cls}>
-        <Header
-          header={header}
-          border={!!breadCrumb}
-        />
+        {
+          header && <Header
+            header={header}
+            border={!!breadCrumb}
+          />
+        }
         <Sider
           current={this.getCurrentPath(sider.items)}
           sider={sider}
@@ -45,7 +51,7 @@ class Index extends React.Component {
           logo={logo}
         />
 
-        <div className='layout__body'>
+        <div className={bodyCls}>
           <main className='layout__main'>
             {
               breadCrumb

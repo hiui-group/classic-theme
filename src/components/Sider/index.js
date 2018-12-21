@@ -6,7 +6,8 @@ import './index.scss'
 
 class Sider extends React.Component {
   static defaultProps = {
-    accordion: true
+    accordion: true,
+    matchPath: ''
   }
 
   isSwitchToggle = false // toggle切换标识
@@ -14,7 +15,6 @@ class Sider extends React.Component {
 
   constructor (props) {
     super(props)
-
     const activeNav = this.getActiveValue(this.props.current, this.props.sider.items) // 激活的导航所在位置
     const activeNavCache = activeNav.slice(0) // 缓存激活的导航所在位置，主要用于点击非链接项时子项的选中状态
     this.state = {
@@ -125,7 +125,7 @@ class Sider extends React.Component {
       })
       const _h = historyManager.getHistory()
       if (_h.location.pathname !== item.to) {
-        _h.push(item.to)
+        _h.replace(item.to)
       }
     } else {
       if (this.arrayIndexOf(value, activeNavCache) >= 0) { // 子选项已被选中
@@ -166,7 +166,6 @@ class Sider extends React.Component {
     const activeNav = this.state.activeNav
     let navsContainer = []
     const {logo} = this.props
-    console.log(logo)
     const render = (items, cls = '', currentValue = []) => {
       const navs = []
       let subNavs = []

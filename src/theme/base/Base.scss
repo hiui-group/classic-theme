@@ -10,7 +10,8 @@ $config-header-colors: (
 // 设置布局
 .layout {
   min-width: $min-page-width;
-
+  overflow: auto;
+  
   &__header {
     position: fixed;
     top: 0;
@@ -19,9 +20,9 @@ $config-header-colors: (
     z-index: 11;
     transition: margin-left $speed-fast $easing;
 
-    .layout--collapsed & {
-      margin-left: 48px !important;
-    }
+    // .layout--collapsed & {
+    //   margin-left: 48px !important;
+    // }
   }
 
   &__body {
@@ -30,12 +31,10 @@ $config-header-colors: (
     box-sizing: border-box;
     min-height: 100vh;
     padding-top: 64px;
-    padding-left: 216px;
+    // padding-left: 216px;
     transition: padding-left $speed-fast $easing;
-
-    .layout--collapsed & {
-      padding-left: 48px;
-    }
+    overflow: auto;
+    background: $white;
   }
 
   &__content {
@@ -46,8 +45,19 @@ $config-header-colors: (
   &__main {
     box-sizing: border-box;
     flex: 1;
+    background: $white;
+    margin-left: 216px;
+    
+    .layout--collapsed & {
+      margin-left: 48px;
+    }
   }
-
+  // &--topnav {
+  //   .layout__main {
+  //     margin: 0;
+  //     padding: 0;
+  //   }
+  // }
   &__sidebar {
     position: fixed;
     left: 0;
@@ -130,11 +140,15 @@ $config-header-colors: (
   background-color: $gray-light;
 
   .layout__body {
+    .layout__main {
+      padding: 20px;
+      background: $gray-light;
+    }
+
     .layout__content {
-      border: 20px solid $gray-lighter;
       overflow: auto;
-      // padding: 20px;
       background: $white;
+      // padding: 20px;
     }
   }
 }

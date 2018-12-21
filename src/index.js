@@ -5,6 +5,6 @@ import InfoBlock from './components/InfoBlock'
 import Logo from './components/Logo'
 import Login from './components/Login'
 import NavGroup from './components/Nav'
-import Hisotry from './util/common'
+import History from './util/common'
 export default Classic
-export {Cascad, InfoBlock, Logo, Login, NavGroup, Hisotry, Genuine, Classic}
+export { Cascad, InfoBlock, Logo, Login, NavGroup, History, Genuine, Classic }

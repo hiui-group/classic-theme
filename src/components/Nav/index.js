@@ -1,4 +1,5 @@
 import React from 'react'
+import classnames from 'classnames'
 import './index.scss'
 
 class Item extends React.Component {
@@ -12,8 +13,13 @@ class Item extends React.Component {
 }
 class NavGroup extends React.Component {
   render () {
-    const {pos} = this.props
-    return <div className={`header__nav header__nav--${pos}`}>
+    const {position, style, className} = this.props
+    const cls = classnames(
+      'header__nav',
+      `header__nav--${position}`,
+      className && className
+    )
+    return <div className={cls} style={{...style}}>
       {this.props.children}
     </div>
   }

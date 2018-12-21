@@ -3,19 +3,29 @@
 
 // 设置布局
 .layout {
-  &--genuine {
-    .layout__header {
+  &__header {
+    a {
+      // color: #383E47 !important;
+    }
+    .layout--genuine & {
       margin-left: 216px;
       width: auto;
       background: #fff;
       color: #383E47;
       border-color: #d8d8d8;
-
-      a {
-        color: #383E47;
+    }
+    .layout--collapsed & {
+      margin-left: 48px;
+    }
+  }
+  &--genuine {
+    .layout__body {
+      padding-top: 0;
+      &--containheader {
+        padding-top: 64px;
       }
     }
-
+    
     .layout__sidebar {
       padding-top: 0;
       background: #383E47;

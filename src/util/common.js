@@ -1,4 +1,4 @@
-import {createBrowserHistory, createHashHistory} from 'history'
+import { createBrowserHistory, createHashHistory } from 'history'
 const _history = {}
 const historyManager = {
   createBrowserHistory: (_h) => {

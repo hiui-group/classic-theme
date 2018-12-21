@@ -36,7 +36,7 @@
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
-    "@hi-ui/hiui": "^1.0.3-beta.3",
+    "@hi-ui/hiui": "^1.2.0-beta.2",
     "autoprefixer": "^8.3.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
@@ -48,6 +48,13 @@
     "clean-webpack-plugin": "^0.1.19",
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-config-standard-jsx": "^6.0.2",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-standard": "^4.0.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",
