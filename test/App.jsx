@@ -1,64 +1,65 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Logo, Login, NavGroup, Classic as Page } from '../src'
+import { Logo, Login, NavGroup, Genuine as Page } from '../src'
 import { Icon } from '@hi-ui/hiui'
 import Home from './pages/Home'
 import About from './pages/About'
 import Template, { Template2 } from './pages/Template'
-import SiderLayout from '../src/components/SiderLayout'
+// import SiderLayout from '../src/components/SiderLayout'
 // History.createHashHistory()
 // 没有顶部一级导航时
-const routes = [
-  {
-    path: '/',
-    exact: true,
-    component: Home
-  }, {
-    path: '/template/t1',
-    exact: true,
-    component: Template
-  }, {
-    path: '/template/t2',
-    exact: true,
-    component: Template2
-  }, {
-    path: '/color/blue',
-    exact: true,
-    component: About
-  }
-]
-console.log(routes)
-// 使用顶部一级导航时
-const headerRoutes = {
-  top: true,
-  routes: [{
-    path: '/',
-    exact: true,
-    component: Home
-  }, {
-    path: '/template',
-    component: SiderLayout,
-    routes: [{
-      path: '/t2',
+const routeConfig = {
+  routes: [
+    {
+      path: '/',
+      exact: true,
+      component: Home
+    }, {
+      path: '/template/t1',
+      exact: true,
+      component: Template
+    }, {
+      path: '/template/t2',
+      exact: true,
       component: Template2
     }, {
-      path: '/t1',
-      // exact: true,
-      component: Template
-    }]
-  }, {
-    path: '/about',
-    component: About
-  }, {
-    path: '/template1',
-    component: SiderLayout,
-    name: 'template1',
-    routes: [{
-      path: '/inner1',
+      path: '/color/blue',
+      exact: true,
       component: About
-    }]
-  }]
+    }
+  ]
 }
+// 使用顶部一级导航时
+// const routeConfig = {
+//   top: true,
+//   routes: [{
+//     path: '/',
+//     exact: true,
+//     component: Home
+//   }, {
+//     path: '/template',
+//     component: SiderLayout,
+//     routes: [{
+//       path: '/t2',
+//       component: Template2
+//     }, {
+//       path: '/t1',
+//       // exact: true,
+//       component: Template
+//     }]
+//   }, {
+//     path: '/about',
+//     component: About
+//   }, {
+//     path: '/template1',
+//     component: SiderLayout,
+//     name: 'template1',
+//     routes: [{
+//       path: '/inner1',
+//       component: About
+//     }]
+//   }]
+// }
 
 const login = {
   name: 'Admin',
@@ -171,7 +172,7 @@ class App extends Component {
         header={header}
         logo={logo}
         // routes={routes}
-        routeConfig={headerRoutes}
+        routeConfig={routeConfig}
         sider={sider}
         config={{
           color: 'blue',

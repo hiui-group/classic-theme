@@ -31,6 +31,7 @@ class Index extends Component {
       routeConfig && routeConfig.top && 'layout--topnav',
       config.theme && `theme__${config.theme}`
     )
+
     return (
       <ContextProvider value={{...this.props}}>
         <div className={layoutClasses}>

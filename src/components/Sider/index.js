@@ -165,7 +165,6 @@ class Sider extends React.Component {
     const collapse = this.state.collapse
     const activeNav = this.state.activeNav
     let navsContainer = []
-    const {logo} = this.props
     const render = (items, cls = '', currentValue = []) => {
       const navs = []
       let subNavs = []
@@ -248,7 +247,6 @@ class Sider extends React.Component {
     } else {
       return (
         <div className='sidebar__wrapper'>
-          {logo}
           {render(items)}
         </div>
       )
@@ -262,12 +260,13 @@ class Sider extends React.Component {
 
     let {
       sider,
-      style
+      style,
+      logo
     } = this.props
 
     return (
       <aside className={`layout__sidebar sidebar ${collapse ? 'sidebar--collapsed' : ''}`} style={style}>
-
+        {!collapse && logo}
         { this.renderNavs(sider.items) }
         <span
           className='sidebar__toggle'

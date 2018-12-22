@@ -15,7 +15,7 @@ class Index extends React.Component {
     } = this.state
     let {
       header = '',
-      routes = [],
+      routeConfig = [],
       sider = {
         items: [],
         top: ''
@@ -63,7 +63,7 @@ class Index extends React.Component {
                 ) : ''
             }
             <div className='layout__content'>
-              {renderRoutes(routes)}
+              {renderRoutes(routeConfig.routes)}
             </div>
           </main>
           {
