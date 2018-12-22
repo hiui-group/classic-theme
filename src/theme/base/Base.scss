@@ -10,19 +10,14 @@ $config-header-colors: (
 // 设置布局
 .layout {
   min-width: $min-page-width;
-  overflow: auto;
-  
+  //overflow: auto;
+
   &__header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 11;
-    transition: margin-left $speed-fast $easing;
-
-    // .layout--collapsed & {
-    //   margin-left: 48px !important;
-    // }
   }
 
   &__body {
@@ -47,7 +42,7 @@ $config-header-colors: (
     flex: 1;
     background: $white;
     margin-left: 216px;
-    
+
     .layout--collapsed & {
       margin-left: 48px;
     }
@@ -64,74 +59,6 @@ $config-header-colors: (
     top: 0;
     bottom: 0;
     z-index: 10;
-  }
-}
-
-// 设置颜色
-@mixin config-header-style($color, $name) {
-  .header {
-    background-color: $color;
-    border-color: if($name == 'white', $gray, 'transparent');
-    color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
-
-    a {
-      color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
-
-      &:hover,
-      &.header__nav-link--active {
-        color: if($name == 'white', get-color($palette-hiui, '50'), $gray-dark);
-      }
-    }
-  }
-
-  .logo {
-    a,
-    a:hover {
-      color: if($name == 'white', get-color($palette-hiui, '50'), $white);
-    }
-  }
-
-  .login {
-    &::after {
-      border-top-color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
-    }
-
-    &--active {
-      &::after {
-        border-bottom-color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
-      }
-    }
-
-    &__info {
-      a {
-        color: get-color($palette-hiui, 'g100');
-
-        &:hover {
-          color: get-color($palette-hiui, 'g90');
-        }
-      }
-    }
-  }
-
-  .sidebar {
-    color: get-color($palette-hiui, 'g100');
-    // @if $name == 'black' {color: $white}
-    // @else {color: get-color($palette-hiui, 'g100')}
-    // color: if($name == 'white', $white, get-color($palette-hiui, 'g100'));
-    // background: $color;
-    // .sidebar__list {
-    //   color: get-color($palette-hiui, 'g100');
-    // }
-    &__list {
-      // @if $name == 'black' {color: $white}
-      // @else {color: get-color($palette-hiui, 'g100')}
-    }
-  }
-}
-
-@each $name, $color in $config-header-colors {
-  .layout--#{$name} {
-    @include config-header-style($color, $name);
   }
 }
 

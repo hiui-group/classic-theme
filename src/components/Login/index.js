@@ -39,7 +39,7 @@ class Login extends React.Component {
 
     return (
       <div
-        className={`login ${open ? 'login--active' : ''} ${children ? '' : 'login--no-children'}`}
+        className={`login ${open ? 'login--active' : ''} ${children ? '' : 'login--empty'}`}
         style={style}
         onClick={e => {
           e.stopPropagation()
