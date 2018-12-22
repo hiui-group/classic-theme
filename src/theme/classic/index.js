@@ -16,12 +16,11 @@ class Index extends Component {
     } = this.state
     let {
       header,
-      routes,
+      routeConfig,
       sider,
       footer,
       logo,
-      config,
-      topNav
+      config
     } = this.props
     const lcls = classNames(
       'layout',
@@ -29,7 +28,7 @@ class Index extends Component {
       collapse && 'layout--collapsed',
       config.color ? `layout--${config.color}` : 'layout--white',
       config.type && `layout--${config.type}`,
-      topNav && 'layout--topnav',
+      routeConfig && routeConfig.top && 'layout--topnav',
       config.theme && `theme__${config.theme}`
     )
     return (
@@ -37,10 +36,10 @@ class Index extends Component {
         <div className={lcls}>
           <Header header={header} logo={logo} />
           {
-            topNav ? <div className='layout__body'>
+            routeConfig && routeConfig.top && routeConfig.routes.length > 0 ? <div className='layout__body'>
 
               {
-                routes.map((route, index) => {
+                routeConfig.routes.map((route, index) => {
                   return <Route
                     key={index}
                     path={route.path}
@@ -63,7 +62,7 @@ class Index extends Component {
                     className='layout__main'
                   >
                     <div className='layout__content'>
-                      {renderRoutes(routes)}
+                      {renderRoutes(routeConfig.routes)}
                     </div>
                   </div>
                   {

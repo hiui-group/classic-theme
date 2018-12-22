@@ -29,33 +29,36 @@ const routes = [
 ]
 console.log(routes)
 // 使用顶部一级导航时
-const headerRoutes = [{
-  path: '/',
-  exact: true,
-  component: Home
-}, {
-  path: '/template',
-  component: SiderLayout,
+const headerRoutes = {
+  top: true,
   routes: [{
-    path: '/t2',
-    component: Template2
+    path: '/',
+    exact: true,
+    component: Home
   }, {
-    path: '/t1',
-    // exact: true,
-    component: Template
-  }]
-}, {
-  path: '/about',
-  component: About
-}, {
-  path: '/template1',
-  component: SiderLayout,
-  name: 'template1',
-  routes: [{
-    path: '/inner1',
+    path: '/template',
+    component: SiderLayout,
+    routes: [{
+      path: '/t2',
+      component: Template2
+    }, {
+      path: '/t1',
+      // exact: true,
+      component: Template
+    }]
+  }, {
+    path: '/about',
     component: About
+  }, {
+    path: '/template1',
+    component: SiderLayout,
+    name: 'template1',
+    routes: [{
+      path: '/inner1',
+      component: About
+    }]
   }]
-}]
+}
 
 const login = {
   name: 'Admin',
@@ -169,8 +172,7 @@ class App extends Component {
         header={header}
         logo={logo}
         // routes={routes}
-        topNav
-        routes={headerRoutes}
+        routeConfig={headerRoutes}
         sider={sider}
         config={{
           color: 'black',

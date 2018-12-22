@@ -20,7 +20,7 @@ class SiderLayout extends React.Component {
     return this.props.location.pathname
   }
   render () {
-    let r = this.props.options.routes.filter((item) => {
+    let r = this.props.options.routeConfig.routes.filter((item) => {
       return item.path === this.props.match.path
     })
     return (
