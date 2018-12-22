@@ -1,13 +1,9 @@
-@import '@hi-ui/core-css';
+@import '@hi-ui/core-css/index.scss';
 
 .logo {
-  display: inline-block;
-  width: 216px;
-  height: 64px;
-  line-height: 64px;
+  box-sizing: border-box;
 
   &__img {
-    // margin-right: $spacer-4;
     vertical-align: middle;
   }
 
@@ -15,8 +11,41 @@
     font-size: $font-size-large;
     font-weight: $font-weight-bold;
     vertical-align: middle;
-    margin-left: $spacer-4;
   }
+
+  .layout--classic & {
+    width: 200px;
+    height: 64px;
+    margin-right: $spacer-5;
+    line-height: 64px;
+
+    &__link {
+      display: flex;
+      align-items: center;
+    }
+
+    &__img + &__title {
+      margin-left: $spacer-4;
+    }
+  }
+
+  .layout--genuine & {
+    width: 216px;
+    padding: 32px 0;
+    //line-height: 64px;
+    margin: 0 auto;
+    text-align: center;
+
+    &__link {
+      display: block;
+    }
+
+    &__img {
+      display: block;
+      margin: 0 auto 16px;
+    }
+  }
+
   // &__vertical {
   //   display: flex;
   //   align-items: center;

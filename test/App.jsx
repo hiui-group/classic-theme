@@ -71,9 +71,9 @@ const login = {
 
 const header = (
   <React.Fragment>
-    <NavGroup position='left' className='otherCls'>
+    <NavGroup position='left'>
       <NavGroup.Item>
-        <a >功能</a>
+        <a href='javascript: void(0)'>左侧导航</a>
       </NavGroup.Item>
     </NavGroup>
     <NavGroup position='center'>
@@ -90,7 +90,7 @@ const header = (
         <Link to='/template1' replace>模板1</Link>
       </NavGroup.Item>
     </NavGroup>
-    <NavGroup position='right' style={{ paddingRight: 10 }}>
+    <NavGroup position='right'>
       <NavGroup.Item>
         <Link to='/' replace>主页</Link>
       </NavGroup.Item>
@@ -165,7 +165,6 @@ class App extends Component {
       text='HIUI Demo'
       title='HIUI Classic Theme Demo'
       alt='Project Logo'
-    // place='vertical' // logo 图标 与  text 文字 的排列方式  默认水平 ，接受 horizontal | vertical
     />
     return (
       <Page
@@ -175,8 +174,8 @@ class App extends Component {
         routeConfig={headerRoutes}
         sider={sider}
         config={{
-          color: 'black',
-          type: 'card',
+          color: 'blue',
+          type: 'flat',
           theme: 'cyan'
         }}
       />

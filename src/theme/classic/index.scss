@@ -8,10 +8,83 @@ $config-header-colors: (
 ) !default;
 
 // 设置布局
-.layout {
-  &--classic {
-    .layout__body {
-      // min-height: 0;
+.layout--classic {
+  .layout {
+    &__header {
+      z-index: 11;
     }
+
+    &__sidebar {
+      z-index: 10;
+    }
+  }
+}
+
+// 设置颜色
+@mixin config-header-style($color, $name) {
+  .header {
+    background-color: $color;
+    border-color: if($name == 'white', $gray, transparent);
+    color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+
+    a {
+      color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+
+      &:hover,
+      &:active,
+      &.header__nav-link--active {
+        color: if($name == 'white', get-color($palette-hiui, '50'), $gray);
+      }
+    }
+  }
+
+  .logo {
+    a,
+    a:hover {
+      color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+    }
+  }
+
+  .login {
+    &::after {
+      border-top-color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+    }
+
+    &--active {
+      &::after {
+        border-bottom-color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+      }
+    }
+
+    &__info {
+      a {
+        color: get-color($palette-hiui, 'g100');
+
+        &:hover {
+          color: get-color($palette-hiui, 'g90');
+        }
+      }
+    }
+  }
+
+  .sidebar {
+    color: get-color($palette-hiui, 'g100');
+    // @if $name == 'black' {color: $white}
+    // @else {color: get-color($palette-hiui, 'g100')}
+    // color: if($name == 'white', $white, get-color($palette-hiui, 'g100'));
+    // background: $color;
+    // .sidebar__list {
+    //   color: get-color($palette-hiui, 'g100');
+    // }
+    &__list {
+      // @if $name == 'black' {color: $white}
+      // @else {color: get-color($palette-hiui, 'g100')}
+    }
+  }
+}
+
+@each $name, $color in $config-header-colors {
+  .layout--classic.layout--#{$name} {
+    @include config-header-style($color, $name);
   }
 }

@@ -22,7 +22,7 @@ class Index extends Component {
       logo,
       config
     } = this.props
-    const lcls = classNames(
+    const layoutClasses = classNames(
       'layout',
       'layout--classic',
       collapse && 'layout--collapsed',
@@ -33,7 +33,7 @@ class Index extends Component {
     )
     return (
       <ContextProvider value={{...this.props}}>
-        <div className={lcls}>
+        <div className={layoutClasses}>
           <Header header={header} logo={logo} />
           {
             routeConfig && routeConfig.top && routeConfig.routes.length > 0 ? <div className='layout__body'>
@@ -51,12 +51,6 @@ class Index extends Component {
 
             </div> : (
               <React.Fragment>
-                <Sider
-                  accordion={false}
-                  current={this.getCurrentPath()}
-                  sider={sider}
-                  changeCollapse={this.changeCollapse.bind(this)}
-                />
                 <div className='layout__body'>
                   <div
                     className='layout__main'
@@ -73,6 +67,13 @@ class Index extends Component {
                   }
 
                 </div>
+
+                <Sider
+                  accordion={false}
+                  current={this.getCurrentPath()}
+                  sider={sider}
+                  changeCollapse={this.changeCollapse.bind(this)}
+                />
               </React.Fragment>
             )
           }
