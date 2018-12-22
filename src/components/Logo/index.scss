@@ -24,8 +24,10 @@
       align-items: center;
     }
 
-    &__img + &__title {
-      margin-left: $spacer-4;
+    &__img {
+      & + .logo__title {
+        margin-left: $spacer-4;
+      }
     }
   }
 

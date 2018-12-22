@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Logo, Login, NavGroup, Genuine as Page } from '../src'
+import { Logo, Login, NavGroup, Classic as Page } from '../src'
 import { Icon } from '@hi-ui/hiui'
 import Home from './pages/Home'
 import About from './pages/About'
 import Template, { Template2 } from './pages/Template'
 // import SiderLayout from '../src/components/SiderLayout'
 // History.createHashHistory()
+
 // 没有顶部一级导航时
 const routeConfig = {
   routes: [
@@ -31,7 +32,7 @@ const routeConfig = {
 }
 // 使用顶部一级导航时
 // const routeConfig = {
-//   top: true,
+//   hasTopNav: true,
 //   routes: [{
 //     path: '/',
 //     exact: true,
@@ -115,11 +116,14 @@ const sider = {
         },
         {
           title: '额外模板',
-          type: 'title',
           children: [
             {
               title: '额外模板一',
               to: '/outer/1'
+            },
+            {
+              title: '虚拟分组',
+              type: 'title'
             },
             {
               title: '额外模板二',
@@ -171,13 +175,11 @@ class App extends Component {
       <Page
         header={header}
         logo={logo}
-        // routes={routes}
         routeConfig={routeConfig}
         sider={sider}
         config={{
-          color: 'blue',
-          type: 'flat',
-          theme: 'cyan'
+          color: 'white',
+          type: 'flat'
         }}
       />
     )

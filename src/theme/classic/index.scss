@@ -7,19 +7,6 @@ $config-header-colors: (
   'white': $white
 ) !default;
 
-// 设置布局
-.layout--classic {
-  .layout {
-    &__header {
-      z-index: 11;
-    }
-
-    &__sidebar {
-      z-index: 10;
-    }
-  }
-}
-
 // 设置颜色
 @mixin config-header-style($color, $name) {
   .header {
@@ -66,25 +53,57 @@ $config-header-colors: (
       }
     }
   }
+}
 
+// Set colors
+@mixin theme-sidebar-style($color: get-color($palette-primary, 'hiui-blue')) {
   .sidebar {
-    color: get-color($palette-hiui, 'g100');
-    // @if $name == 'black' {color: $white}
-    // @else {color: get-color($palette-hiui, 'g100')}
-    // color: if($name == 'white', $white, get-color($palette-hiui, 'g100'));
-    // background: $color;
-    // .sidebar__list {
-    //   color: get-color($palette-hiui, 'g100');
-    // }
-    &__list {
-      // @if $name == 'black' {color: $white}
-      // @else {color: get-color($palette-hiui, 'g100')}
+    color: map-get(get-palette($color), 'g100');
+
+    &__item {
+      &::before {
+        background-color: map-get(get-palette($color), '50');
+      }
+
+      // Status: active
+      &:not(&--noaction):hover,
+      &:not(&--noaction):active,
+      &--active {
+        background-color: rgba(map-get(get-palette($color), '50'), 0.08);
+        color: map-get(get-palette($color), '50');
+      }
+    }
+
+    &__toggle {
+      color: map-get(get-palette($color), 'g100');
     }
   }
 }
 
-@each $name, $color in $config-header-colors {
-  .layout--classic.layout--#{$name} {
-    @include config-header-style($color, $name);
+// 设置布局
+.layout--classic {
+  .layout {
+    &__header {
+      z-index: 11;
+    }
+
+    &__sidebar {
+      z-index: 10;
+    }
+  }
+
+  // Define styles
+  @each $name, $color in $config-header-colors {
+    &.layout--#{$name} {
+      @include config-header-style($color, $name);
+    }
+  }
+
+  @include theme-sidebar-style();
+
+  @each $key, $value in $theme-colors {
+    &.theme__#{$key} {
+      @include theme-sidebar-style($value);
+    }
   }
 }

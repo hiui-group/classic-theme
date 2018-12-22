@@ -248,38 +248,3 @@
     }
   }
 }
-
-// Set colors
-@mixin theme-sidebar-style($color: get-color($palette-primary, 'hiui-blue')) {
-  .sidebar {
-    color: map-get(get-palette($color), 'g100');
-
-    &__item {
-      // color: map-get(get-palette($color), 'g100');
-
-      &::before {
-        background-color: map-get(get-palette($color), '50');
-      }
-
-      // Status: active
-      &:not(&--noaction):hover,
-      &:not(&--noaction):active,
-      &--active {
-        background-color: rgba(map-get(get-palette($color), '50'), 0.08);
-        color: map-get(get-palette($color), '50');
-      }
-    }
-
-    &__toggle {
-      color: map-get(get-palette($color), 'g100');
-    }
-  }
-}
-
-@include theme-sidebar-style();
-
-@each $key, $value in $theme-colors {
-  .theme__#{$key} {
-    @include theme-sidebar-style($value);
-  }
-}

@@ -2,20 +2,90 @@
 @import '@hi-ui/core-css/base.scss';
 
 $config-sidebar-colors: (
-  'blue': get-color($palette-hiui, '50'),
   'black': get-color($palette-hiui, 'g100'),
+  'gray': $gray-lighter,
   'white': $white
 ) !default;
+
+// 设置颜色
+@mixin config-sidebar-style($color, $name) {
+  .logo {
+    a,
+    a:hover {
+      color: if($name == 'black', $white, get-color($palette-hiui, 'g100'));
+    }
+  }
+
+  .sidebar {
+    background-color: $color;
+    box-shadow: if($name == 'white', inset -1px 0 0 0 #d8d8d8, none);
+    color: if($name == 'black', $white, get-color($palette-hiui, 'g100'));
+
+    &__wrapper {
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+
+    &__wrapper:not(.sidebar__wrapper--submenu) {
+      .sidebar__item {
+        &::before {
+          background-color: if($name == 'black', transparent, get-color($palette-hiui, '50'));
+        }
+
+        // Status: active
+        &:not(&--noaction):hover,
+        &:not(&--noaction):active,
+        &--active {
+          background-color: if($name == 'black', rgba(0, 0, 0, 0.15), rgba(get-color($palette-hiui, '50'), 0.08));
+          color: get-color($palette-hiui, '50');
+        }
+      }
+    }
+
+    &__wrapper--submenu {
+      color: get-color($palette-hiui, 'g100');
+
+      .sidebar__item {
+        &::before {
+          background-color: get-color($palette-hiui, '50');
+        }
+
+        // Status: active
+        &:not(&--noaction):hover,
+        &:not(&--noaction):active,
+        &--active {
+          background-color: rgba(get-color($palette-hiui, '50'), 0.08);
+          color: get-color($palette-hiui, '50');
+        }
+      }
+    }
+
+    &__toggle {
+      color: map-get(get-palette($color), 'g100');
+    }
+  }
+}
 
 // 设置布局
 .layout--genuine {
   .layout {
     &__header {
       z-index: 10;
+      margin-left: 216px;
     }
 
     &__sidebar {
       z-index: 11;
+    }
+  }
+
+  &.layout--collapsed {
+    .layout {
+      &__header {
+        margin-left: 48px;
+      }
     }
   }
 
@@ -35,97 +105,16 @@ $config-sidebar-colors: (
   }
 
   .sidebar {
-    padding-top: 0;
-  }
-}
-
-// 设置颜色
-@mixin config-sidebar-style($color, $name) {
-  .logo {
-    a,
-    a:hover {
-      color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+    &,
+    &__wrapper--submenu {
+      padding-top: 0;
     }
   }
 
-  .sidebar {
-    background-color: $color;
-    border-color: if($name == 'white', $gray, transparent);
-    color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
-    //color: get-color($palette-hiui, 'g100');
-    // @if $name == 'black' {color: $white}
-    // @else {color: get-color($palette-hiui, 'g100')}
-    // color: if($name == 'white', $white, get-color($palette-hiui, 'g100'));
-    // background: $color;
-    // .sidebar__list {
-    //   color: get-color($palette-hiui, 'g100');
-    // }
-    &__list {
-      // @if $name == 'black' {color: $white}
-      // @else {color: get-color($palette-hiui, 'g100')}
+  // Set colors
+  @each $name, $color in $config-sidebar-colors {
+    &.layout--#{$name} {
+      @include config-sidebar-style($color, $name);
     }
   }
 }
-
-@each $name, $color in $config-sidebar-colors {
-  .layout--genuine.layout--#{$name} {
-    @include config-sidebar-style($color, $name);
-  }
-}
-
-//.layout {
-//  &__header {
-//    .layout--genuine & {
-//      transition: margin-left $speed-fast $easing;
-//      margin-left: 216px;
-//      width: auto;
-//      background: #fff;
-//      color: #383E47;
-//      border-color: #d8d8d8;
-//    }
-//    .layout--collapsed & {
-//      margin-left: 48px;
-//    }
-//  }
-//  &--genuine {
-//    .layout__body {
-//      padding-top: 0;
-//      &--containheader {
-//        padding-top: 64px;
-//      }
-//    }
-//
-//    .layout__sidebar {
-//      padding-top: 0;
-//      background: #383E47;
-//      color: #fff;
-//
-//      .sidebar__wrapper {
-//        display: flex;
-//        flex-direction: column;
-//
-//        &::before,
-//        &::after {
-//          display: none;
-//        }
-//
-//        .sidebar__list {
-//          color: #fff;
-//        }
-//      }
-//    }
-//
-//    .logo {
-//      width: 216px;
-//      height: 216px;
-//      display: flex;
-//      align-items: center;
-//      justify-content: center;
-//      flex-direction: column;
-//
-//      &__title {
-//        margin: 0;
-//      }
-//    }
-//  }
-//}
