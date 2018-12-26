@@ -29,7 +29,7 @@ const header = (
         <NavLink to='/products' activeClassName='header__nav-link--active'>产品系列</NavLink>
       </NavGroup.Item>
       <NavGroup.Item>
-        <NavLink to='/template1' activeClassName='header__nav-link--active'>统计数据</NavLink>
+        <NavLink to='/statistics' activeClassName='header__nav-link--active'>统计数据</NavLink>
       </NavGroup.Item>
       <NavGroup.Item>
         <NavLink to='/about' activeClassName='header__nav-link--active'>其它</NavLink>

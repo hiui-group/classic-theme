@@ -1,7 +1,7 @@
 import Home from './pages/Home'
 import About from './pages/About'
 
-import Template, { Template2 } from './pages/Template'
+import {Mix3, Mi8, Mi6, TV4A, TV4S, PhoneStatistics, TVStatistics} from './pages/Products'
 import SiderLayout from '../src/components/SiderLayout'
 // 没有顶部一级导航时
 // const routeConfig = {
@@ -30,26 +30,39 @@ const routeConfig = {
   hasTopNav: true,
   routes: [{
     path: '/',
-    component: Home
+    component: Home,
+    exact: true
   }, {
     path: '/products',
     component: SiderLayout,
-    routes: [{path: '/index', component: About}, {
-      path: '/t2',
-      component: Template2
+    routes: [{
+      path: '/mix3',
+      component: Mix3
     }, {
-      path: '/t1',
-      component: Template
+      path: '/mi8',
+      component: Mi8
+    }, {
+      path: '/mi6',
+      component: Mi6
+    }, {
+      path: '/tv4a',
+      component: TV4A
+    }, {
+      path: '/tv4s',
+      component: TV4S
     }]
   }, {
     path: '/about',
     component: About
   }, {
-    path: '/template1',
+    path: '/statistics',
     component: SiderLayout,
     routes: [{
-      path: '/inner1',
-      component: About
+      path: '/phone',
+      component: PhoneStatistics
+    }, {
+      path: '/tv',
+      component: TVStatistics
     }]
   }]
 }

@@ -24,7 +24,6 @@ class SiderLayout extends React.Component {
       return item.path === this.props.match.path
     })
     const sider = this.props.options.sider[this.props.match.path.substr(1)] || this.props.options.sider
-    console.log(this.props.match.path)
     return (
       <React.Fragment>
         <Sider

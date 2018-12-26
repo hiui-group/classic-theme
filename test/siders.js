@@ -3,36 +3,33 @@ import { Icon } from '@hi-ui/hiui'
 const siders = {
   products: {
     items: [
-      {title: '1111', to: '/products/index'},
       {
         title: '小米手机',
         icon: <Icon name='usergroup' />,
         children: [
           {
             title: '小米 MIX3',
-            to: '/products/t1'
+            to: '/products/mix3'
           },
           {
             title: '小米8青春版',
-            to: '/products/t2'
+            to: '/products/mi8'
           },
           {
-            title: '红米',
+            title: '红米系列',
             children: [
               {
                 title: '红米6',
-                to: '/outer/1'
+                to: '/products/mi6'
               },
               {
                 title: '红米6 Pro'
               },
               {
-                title: '红米6A',
-                to: '/outer/2'
+                title: '红米6A'
               },
               {
-                title: '红米 Note5',
-                to: '/outer/3'
+                title: '红米 Note5'
               }
             ]
           }
@@ -40,22 +37,21 @@ const siders = {
       },
       {
         title: '电视品类',
-        to: '',
         icon: <Icon name='usergroup' />,
         children: [
           {
             title: '小米电视4S',
-            to: '/color/gray'
+            to: '/products/tv4s'
           },
           {
             title: '小米电视4A',
-            to: '/color/blue'
+            to: '/products/tv4a'
           }
         ]
       }
     ]
   },
-  template1: {
+  statistics: {
     items: [
       {
         title: '销量统计',
@@ -63,11 +59,11 @@ const siders = {
         children: [
           {
             title: '手机销量',
-            to: '/template/t1'
+            to: '/statistics/phone'
           },
           {
             title: '电视销量',
-            to: '/template/t2'
+            to: '/statistics/tv'
           }
         ]
       }

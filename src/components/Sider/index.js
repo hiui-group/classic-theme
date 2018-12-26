@@ -33,6 +33,7 @@ class Sider extends React.Component {
 
   componentWillReceiveProps (props) {
     const activeNav = this.getActiveValue(props.current, props.sider.items)
+    console.log(activeNav)
     const activeNavCache = activeNav.slice(0)
     this.setState({
       activeNav,
@@ -64,7 +65,6 @@ class Sider extends React.Component {
       return flag
     }
     fn(navs)
-
     return value
   }
 
@@ -132,11 +132,9 @@ class Sider extends React.Component {
         value = activeNavCache
       }
       item.IS_EXPANDED = !item.IS_EXPANDED // 点击同一项则收缩
-
-      this.setState({
-        activeNav: value,
-        showSub: true
-      })
+      const _state = {showSub: true}
+      _state.activeNav = value
+      this.setState(_state)
     }
   }
 
@@ -172,6 +170,9 @@ class Sider extends React.Component {
       ++deep
 
       items.map((item, index) => {
+        if (!item.to && !item.children) {
+          item.onlyTitle = true
+        }
         currentValue.splice(deep, 1, index)
         const _currentValue = currentValue.slice(0)
         const isLeaf = this.isLeaf(item)
@@ -179,12 +180,11 @@ class Sider extends React.Component {
         const isExpanded = this.checkExpanded(activeStatus, isLeaf, item.IS_EXPANDED, item.type)
         const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
         item.IS_EXPANDED = isExpanded
-
+        console.log(collapse, isLeaf, isExpanded, item.title)
         if (collapse && !isLeaf && isExpanded) { // 收缩状态用来记录次级展开项
           subNavs = item.children
           subNavsValue = currentValue.slice(0)
         }
-
         navs.push(
           <li
             key={index}
