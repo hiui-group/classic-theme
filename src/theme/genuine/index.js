@@ -25,6 +25,7 @@ class Index extends React.Component {
       logo,
       config
     } = this.props
+    console.log(routeConfig)
     const cls = classNames(
       'layout',
       'layout--genuine',

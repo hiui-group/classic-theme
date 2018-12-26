@@ -23,12 +23,14 @@ class SiderLayout extends React.Component {
     let r = this.props.options.routeConfig.routes.filter((item) => {
       return item.path === this.props.match.path
     })
+    const sider = this.props.options.sider[this.props.match.path.substr(1)] || this.props.options.sider
+    console.log(this.props.match.path)
     return (
       <React.Fragment>
         <Sider
           accordion={false}
           current={this.getCurrentPath()}
-          sider={this.props.options.sider}
+          sider={sider}
           // changeCollapse={this.changeCollapse.bind(this)}
         />
         <div className='layout__main'>
@@ -44,6 +46,8 @@ class SiderLayout extends React.Component {
                 {r.length > 0 && r[0].routes.map((item, index) => {
                   return <Route
                     key={index}
+                    exact={item.exact}
+                    strict={item.strict}
                     path={`${this.props.match.path}${item.path}`}
                     component={item.component}
                   />

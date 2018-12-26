@@ -66,8 +66,8 @@ $config-header-colors: (
       }
 
       // Status: active
-      &:not(&--noaction):hover,
-      &:not(&--noaction):active,
+      &:not(.sidebar__item--noaction):hover,
+      &:not(.sidebar__item--noaction):active,
       &--active {
         background-color: rgba(map-get(get-palette($color), '50'), 0.08);
         color: map-get(get-palette($color), '50');

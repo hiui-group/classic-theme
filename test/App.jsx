@@ -1,66 +1,9 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Logo, Login, NavGroup, Classic as Page } from '../src'
-import { Icon } from '@hi-ui/hiui'
-import Home from './pages/Home'
-import About from './pages/About'
-import Template, { Template2 } from './pages/Template'
-// import SiderLayout from '../src/components/SiderLayout'
+import siders from './siders'
+import routeConfig from './routes'
 // History.createHashHistory()
-
-// 没有顶部一级导航时
-const routeConfig = {
-  routes: [
-    {
-      path: '/',
-      exact: true,
-      component: Home
-    }, {
-      path: '/template/t1',
-      exact: true,
-      component: Template
-    }, {
-      path: '/template/t2',
-      exact: true,
-      component: Template2
-    }, {
-      path: '/color/blue',
-      exact: true,
-      component: About
-    }
-  ]
-}
-// 使用顶部一级导航时
-// const routeConfig = {
-//   hasTopNav: true,
-//   routes: [{
-//     path: '/',
-//     exact: true,
-//     component: Home
-//   }, {
-//     path: '/template',
-//     component: SiderLayout,
-//     routes: [{
-//       path: '/t2',
-//       component: Template2
-//     }, {
-//       path: '/t1',
-//       // exact: true,
-//       component: Template
-//     }]
-//   }, {
-//     path: '/about',
-//     component: About
-//   }, {
-//     path: '/template1',
-//     component: SiderLayout,
-//     name: 'template1',
-//     routes: [{
-//       path: '/inner1',
-//       component: About
-//     }]
-//   }]
-// }
 
 const login = {
   name: 'Admin',
@@ -75,86 +18,28 @@ const header = (
   <React.Fragment>
     <NavGroup position='left'>
       <NavGroup.Item>
-        <a href='javascript: void(0)'>左侧导航</a>
+        <a href='javascript: void(0)'>切换站点</a>
       </NavGroup.Item>
     </NavGroup>
     <NavGroup position='center'>
       <NavGroup.Item>
-        <Link to='/' replace>首页</Link>
+        <NavLink to='/' exact activeClassName='header__nav-link--active'>首页</NavLink>
       </NavGroup.Item>
       <NavGroup.Item>
-        <Link to='/template' replace>模板</Link>
+        <NavLink to='/products' activeClassName='header__nav-link--active'>产品系列</NavLink>
       </NavGroup.Item>
       <NavGroup.Item>
-        <Link to='/about' replace>关于我们</Link>
+        <NavLink to='/template1' activeClassName='header__nav-link--active'>统计数据</NavLink>
       </NavGroup.Item>
       <NavGroup.Item>
-        <Link to='/template1' replace>模板1</Link>
+        <NavLink to='/about' activeClassName='header__nav-link--active'>其它</NavLink>
       </NavGroup.Item>
     </NavGroup>
     <NavGroup position='right'>
-      <NavGroup.Item>
-        <Link to='/' replace>主页</Link>
-      </NavGroup.Item>
       <Login {...login} />
     </NavGroup>
   </React.Fragment>
 )
-const sider = {
-  items: [
-    {
-      title: '模板',
-      icon: <Icon name='usergroup' />,
-      children: [
-        {
-          title: '模板一',
-          to: '/template/t1'
-        },
-        {
-          title: '模板二',
-          to: '/template/t2'
-        },
-        {
-          title: '额外模板',
-          children: [
-            {
-              title: '额外模板一',
-              to: '/outer/1'
-            },
-            {
-              title: '虚拟分组',
-              type: 'title'
-            },
-            {
-              title: '额外模板二',
-              to: '/outer/2'
-            },
-            {
-              title: '额外模板三',
-              to: '/outer/3'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      title: '配色',
-      to: '',
-      icon: <Icon name='usergroup' />,
-      children: [
-        {
-          title: '灰色',
-          to: '/color/gray'
-        },
-        {
-          title: '蓝色',
-          to: '/color/blue'
-        }
-      ]
-    }
-  ]
-}
-
 class App extends Component {
   constructor () {
     super()
@@ -176,9 +61,9 @@ class App extends Component {
         header={header}
         logo={logo}
         routeConfig={routeConfig}
-        sider={sider}
+        sider={siders}
         config={{
-          color: 'white',
+          color: 'black',
           type: 'flat'
         }}
       />

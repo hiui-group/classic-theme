@@ -28,7 +28,7 @@ class Index extends Component {
       collapse && 'layout--collapsed',
       config.color ? `layout--${config.color}` : 'layout--white',
       config.type && `layout--${config.type}`,
-      routeConfig && routeConfig.top && 'layout--topnav',
+      routeConfig && routeConfig.hasTopNav && 'layout--topnav',
       config.theme && `theme__${config.theme}`
     )
 
@@ -37,7 +37,7 @@ class Index extends Component {
         <div className={layoutClasses}>
           <Header header={header} logo={logo} />
           {
-            routeConfig && routeConfig.top && routeConfig.routes.length > 0 ? <div className='layout__body'>
+            routeConfig && routeConfig.hasTopNav && routeConfig.routes.length > 0 ? <div className='layout__body'>
 
               {
                 routeConfig.routes.map((route, index) => {

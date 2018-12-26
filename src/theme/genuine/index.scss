@@ -73,7 +73,7 @@ $config-sidebar-colors: (
   .layout {
     &__header {
       z-index: 10;
-      margin-left: 216px;
+      padding-left: 216px;
     }
 
     &__sidebar {
@@ -84,7 +84,7 @@ $config-sidebar-colors: (
   &.layout--collapsed {
     .layout {
       &__header {
-        margin-left: 48px;
+        padding-left: 48px;
       }
     }
   }

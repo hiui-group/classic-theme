@@ -108,7 +108,7 @@ class Sider extends React.Component {
 
   clickNav (e, item, value) {
     e.stopPropagation()
-    if (item.type === 'title') {
+    if (!item.to && !item.children) {
       return
     }
     let {
@@ -192,8 +192,8 @@ class Sider extends React.Component {
             <div
               className={classNames(
                 'sidebar__item',
-                {'sidebar__item--active': (collapse || isLeaf) && item.type !== 'title' && activeStatus >= 0},
-                {'sidebar__item--noaction': item.type === 'title'}
+                {'sidebar__item--active': (collapse || isLeaf) && activeStatus >= 0},
+                {'sidebar__item--noaction': !item.to && !item.children}
               )}
               onClick={e => this.clickNav(e, item, _currentValue)}
             >
