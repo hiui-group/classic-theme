@@ -11,7 +11,6 @@ class SiderLayout extends React.Component {
     this.props.options.changeCollapse && this.props.options.changeCollapse(collapse)
   }
   render () {
-    console.log(this.props)
     let r = this.props.options.routeConfig.routes.filter((item) => {
       return item.path === this.props.match.path
     })
@@ -19,7 +18,7 @@ class SiderLayout extends React.Component {
     return (
       <React.Fragment>
         <Sider
-          accordion={false}
+          accordion
           current={this.getCurrentPath()}
           sider={sider}
           changeCollapse={this.changeCollapse.bind(this)}

@@ -73,19 +73,16 @@ class Sider extends React.Component {
     return value
   }
 
-  checkExpanded (activeStatus, isLeaf, IS_EXPANDED = undefined, type) { // 检查导航项是否展开
+  checkExpanded (activeStatus, isLeaf, IS_EXPANDED = undefined) { // 检查导航项是否展开
     const {
       showSub,
       collapse
     } = this.state
-    if (type === 'title') {
-      return true
-    }
     if (isLeaf || !showSub) { // 是叶子节点或者showSub=false
       return false
     }
     if (IS_EXPANDED !== undefined && !this.isSwitchToggle) { // 已判断过且不是切换toggle触发的
-      return activeStatus >= 0 || (!collapse && !this.props.accordion) ? IS_EXPANDED : false
+      return activeStatus >= 0 || ((!collapse && !this.props.accordion) ? IS_EXPANDED : false)
     }
 
     return activeStatus >= 0
@@ -200,7 +197,7 @@ class Sider extends React.Component {
         const isLeaf = this.isLeaf(item)
         const activeNavs = this.getActiveNavs(deep, isLeaf)
         const activeStatus = this.arrayIndexOf(currentValue, activeNavs)
-        const isExpanded = this.checkExpanded(activeStatus, isLeaf, item.IS_EXPANDED, item.type)
+        const isExpanded = this.checkExpanded(activeStatus, isLeaf, item.IS_EXPANDED)
         const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
         item.IS_EXPANDED = isExpanded
         if (collapse && !isLeaf && isExpanded) { // 收缩状态用来记录次级展开项
