@@ -10,6 +10,9 @@ import Base from '../base'
 import { ContextProvider } from '../../util/context'
 class Index extends Component {
   static type = 'classic'
+  changeCollapse (collapse) {
+    this.setState({collapse})
+  }
   render () {
     const {
       collapse
@@ -31,9 +34,8 @@ class Index extends Component {
       routeConfig && routeConfig.hasTopNav && 'layout--topnav',
       config.theme && `theme__${config.theme}`
     )
-
     return (
-      <ContextProvider value={{...this.props}}>
+      <ContextProvider value={{...this.props, changeCollapse: this.changeCollapse.bind(this)}}>
         <div className={layoutClasses}>
           <Header header={header} logo={logo} />
           {
@@ -84,5 +86,4 @@ class Index extends Component {
     )
   }
 }
-Index.isHash = false
 export default Base(Index)
