@@ -10,7 +10,6 @@ $config-header-colors: (
 // 设置布局
 .layout {
   min-width: $min-page-width;
-  //overflow: auto;
 
   &__header {
     position: fixed;
@@ -28,8 +27,7 @@ $config-header-colors: (
     padding-top: 64px;
     // padding-left: 216px;
     transition: padding-left $speed-fast $easing;
-    overflow: auto;
-    background: $white;
+    background-color: $white;
   }
 
   &__content {
@@ -40,19 +38,14 @@ $config-header-colors: (
   &__main {
     box-sizing: border-box;
     flex: 1;
-    background: $white;
+    background-color: $white;
     margin-left: 216px;
 
     .layout--collapsed & {
       margin-left: 48px;
     }
   }
-  // &--topnav {
-  //   .layout__main {
-  //     margin: 0;
-  //     padding: 0;
-  //   }
-  // }
+
   &__sidebar {
     position: fixed;
     left: 0;
@@ -64,34 +57,14 @@ $config-header-colors: (
   // Define card layout styles
   &--card {
     .layout {
-      &__body {
+      &__main {
+        padding: 20px;
         background-color: $gray-light;
       }
 
       &__content {
-        border: 20px solid $gray-lighter;
-        overflow: auto;
-        // padding: 20px;
-        background: $white;
+        background-color: $white;
       }
-    }
-  }
-}
-
-// 设置内嵌版式样式
-.layout--card {
-  background-color: $gray-light;
-
-  .layout__body {
-    .layout__main {
-      padding: 20px;
-      background: $gray-light;
-    }
-
-    .layout__content {
-      overflow: auto;
-      background: $white;
-      // padding: 20px;
     }
   }
 }
