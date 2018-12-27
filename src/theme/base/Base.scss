@@ -60,6 +60,22 @@ $config-header-colors: (
     bottom: 0;
     z-index: 10;
   }
+
+  // Define card layout styles
+  &--card {
+    .layout {
+      &__body {
+        background-color: $gray-light;
+      }
+
+      &__content {
+        border: 20px solid $gray-lighter;
+        overflow: auto;
+        // padding: 20px;
+        background: $white;
+      }
+    }
+  }
 }
 
 // 设置内嵌版式样式
