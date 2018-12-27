@@ -36,7 +36,6 @@ const baseLayout = WrapperComponent => class extends WrapperComponent {
 
   getCurrentPath () {
     const {sider} = this.props
-    console.log(this.props)
     const mode = sider.isHash
 
     let pathname = window.location.pathname
@@ -59,14 +58,15 @@ const baseLayout = WrapperComponent => class extends WrapperComponent {
     if (!_h) {
       _h = historManager.createBrowserHistory()
     }
-    // console.log(this.type)
     // document.body.classList.add(`config__content--${config.type || 'flat'}` )
     // document.body.classList.add(`config__header--${config.color || 'white'}` )
-    // document.body.classList.add(`config__content-${config.type || 'flat'}`)
-    // document.body.classList.add(`config__header-${config.color || 'white'}`)
     return (
       <Router history={_h}>
-        {super.render()}
+        <div>
+          {/* {this.props.headerRoutes && renderRoutes(this.props.headerRoutes)} */}
+          {super.render()}
+        </div>
+
       </Router>
     )
   }

@@ -16,7 +16,7 @@ npm i @hi-ui/classic-theme --save
 主题是组件的形式，可以直接按组件来使用
 
 ```
-import Layout, {Logo, Login, Cascad } from '@hi-ui/classic-theme'
+import {Logo, Login, Cascad, Classic as Page } from '@hi-ui/classic-theme'
 
 <Layout />
 ```

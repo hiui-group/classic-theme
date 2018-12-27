@@ -1,71 +1,45 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Logo, Login, NavGroup, Classic as Page } from '../src'
-import { Icon } from '@hi-ui/hiui'
-import Home from './pages/Home'
-import About from './pages/About'
-// Hisotry.createHashHistory()
-const routes = [
-  {
-    path: '/',
-    exact: true,
-    component: Home
-  }, {
-    path: '/about',
-    exact: true,
-    component: About
-  }, {
-    path: '/inner/1',
-    exact: true,
-    component: Home
-  }, {
-    path: '/color/blue',
-    exact: true,
-    component: About
-  }
-]
+import siders from './siders'
+import routeConfig from './routes'
+// History.createHashHistory()
+
 const login = {
   name: 'Admin',
   icon: <span className='hi-icon icon-user' />,
   children: [
-    <div key='1' style={{textAlign: 'center', margin: 4, width: '100px'}}><a href='#'>个人信息</a></div>,
-    <div key='2' style={{textAlign: 'center', margin: 4, width: '100px'}}><a href='#'>注销</a></div>
+    <div key='1' style={{ textAlign: 'center', margin: 4, 'width': '100px' }}><a href='#'>个人信息</a></div>,
+    <div key='2' style={{ textAlign: 'center', margin: 4, width: 100 }}><a href='#'>注销</a></div>
   ]
 }
 
 const header = (
   <React.Fragment>
-    <NavGroup pos='left'>
+    <NavGroup position='left'>
       <NavGroup.Item>
-        <Link to='/' replace>首页</Link>
-      </NavGroup.Item>
-      <NavGroup.Item>
-        <Link to='/about' replace>关于我们</Link>
-      </NavGroup.Item>
-      <NavGroup.Item>
-        <Link to='/about' replace>关于我们</Link>
+        <a href='javascript: void(0)'>切换站点</a>
       </NavGroup.Item>
     </NavGroup>
-    <NavGroup pos='right'>
+    <NavGroup position='center'>
       <NavGroup.Item>
-        <Link to='/' replace>主页</Link>
+        <NavLink to='/' exact activeClassName='header__nav-link--active'>首页</NavLink>
       </NavGroup.Item>
+      <NavGroup.Item>
+        <NavLink to='/products' activeClassName='header__nav-link--active'>产品系列</NavLink>
+      </NavGroup.Item>
+      <NavGroup.Item>
+        <NavLink to='/statistics' activeClassName='header__nav-link--active'>统计数据</NavLink>
+      </NavGroup.Item>
+      <NavGroup.Item>
+        <NavLink to='/about' activeClassName='header__nav-link--active'>其它</NavLink>
+      </NavGroup.Item>
+    </NavGroup>
+    <NavGroup position='right'>
       <Login {...login} />
     </NavGroup>
   </React.Fragment>
 )
-
-// const Row = Layout.Row
-// const Col = Layout.Col
-// const footer = (
-//   <React.Fragment>
-//     <Row>
-//       <Col span={12}>&copy;2018</Col>
-//       <Col span={12} style={{textAlign: 'right'}}>mi-hiui@xiaomi.com</Col>
-//     </Row>
-//   </React.Fragment>
-// )
-
 class App extends Component {
   constructor () {
     super()
@@ -81,127 +55,16 @@ class App extends Component {
       text='HIUI Demo'
       title='HIUI Classic Theme Demo'
       alt='Project Logo'
-      // place='vertical' // logo 图标 与  text 文字 的排列方式  默认水平 ，接受 horizontal | vertical
     />
     return (
       <Page
         header={header}
-        // footer={footer}
-        // history={history}
-        showNav
         logo={logo}
-        routes={routes}
-        sider={{
-          items: [
-            { title: '首页', to: '/', icon: <Icon name='user' /> },
-            {
-              title: '内外',
-
-              icon: <Icon name='usergroup' />,
-              children: [
-                {
-                  title: '内嵌',
-                  to: '/inner'
-                },
-                {
-                  title: '内嵌1',
-                  to: '/inner/1'
-                },
-                {
-                  title: '外嵌',
-                  type: 'title',
-                  children: [
-                    {
-                      title: '外嵌1',
-                      to: '/outer/1'
-                    },
-                    {
-                      title: '外嵌2',
-                      to: '/outer/2'
-                    },
-                    {
-                      title: '外嵌3',
-                      to: '/outer/3'
-                    }
-                  ]
-                },
-                {
-                  title: '外嵌',
-                  type: 'title',
-                  children: [
-                    {
-                      title: '外嵌1',
-                      to: '/outer/1'
-                    },
-                    {
-                      title: '外嵌2',
-                      to: '/outer/2'
-                    },
-                    {
-                      title: '外嵌3',
-                      to: '/outer/3'
-                    }
-                  ]
-                },
-                {
-                  title: '外嵌',
-                  type: 'title',
-                  children: [
-                    {
-                      title: '外嵌1',
-                      to: '/outer/1'
-                    },
-                    {
-                      title: '外嵌2',
-                      to: '/outer/2'
-                    },
-                    {
-                      title: '外嵌3',
-                      to: '/outer/3'
-                    }
-                  ]
-                },
-                {
-                  title: '外嵌',
-                  type: 'title',
-                  children: [
-                    {
-                      title: '外嵌1',
-                      to: '/outer/1'
-                    },
-                    {
-                      title: '外嵌2',
-                      to: '/outer/2'
-                    },
-                    {
-                      title: '外嵌3',
-                      to: '/outer/3'
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              title: '配色',
-              to: '',
-              icon: <Icon name='usergroup' />,
-              children: [
-                {
-                  title: '灰色',
-                  to: '/color/gray'
-                },
-                {
-                  title: '蓝色',
-                  to: '/color/blue'
-                }
-              ]
-            }
-          ]
-        }}
+        routeConfig={routeConfig}
+        sider={siders}
         config={{
           color: 'black',
-          type: 'card',
-          theme: 'cyan'
+          type: 'flat'
         }}
       />
     )

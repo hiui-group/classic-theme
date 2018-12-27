@@ -10,6 +10,7 @@ $config-header-colors: (
 // 设置布局
 .layout {
   min-width: $min-page-width;
+  //overflow: auto;
 
   &__header {
     position: fixed;
@@ -17,11 +18,6 @@ $config-header-colors: (
     left: 0;
     right: 0;
     z-index: 11;
-    transition: margin-left $speed-fast $easing;
-
-    .layout--collapsed & {
-      margin-left: 48px !important;
-    }
   }
 
   &__body {
@@ -30,12 +26,10 @@ $config-header-colors: (
     box-sizing: border-box;
     min-height: 100vh;
     padding-top: 64px;
-    padding-left: 216px;
+    // padding-left: 216px;
     transition: padding-left $speed-fast $easing;
-
-    .layout--collapsed & {
-      padding-left: 48px;
-    }
+    overflow: auto;
+    background: $white;
   }
 
   &__content {
@@ -46,8 +40,19 @@ $config-header-colors: (
   &__main {
     box-sizing: border-box;
     flex: 1;
-  }
+    background: $white;
+    margin-left: 216px;
 
+    .layout--collapsed & {
+      margin-left: 48px;
+    }
+  }
+  // &--topnav {
+  //   .layout__main {
+  //     margin: 0;
+  //     padding: 0;
+  //   }
+  // }
   &__sidebar {
     position: fixed;
     left: 0;
@@ -73,70 +78,20 @@ $config-header-colors: (
   }
 }
 
-// 设置颜色
-@mixin config-header-style($color, $name) {
-  .header {
-    background-color: $color;
-    border-color: if($name == 'white', $gray, transparent);
-    color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+// 设置内嵌版式样式
+.layout--card {
+  background-color: $gray-light;
 
-    a {
-      color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
-
-      &:hover,
-      &.header__nav-link--active {
-        color: if($name == 'white', get-color($palette-hiui, '50'), $gray-dark);
-      }
-    }
-  }
-
-  .logo {
-    a,
-    a:hover {
-      color: if($name == 'white', get-color($palette-hiui, '50'), $white);
-    }
-  }
-
-  .login {
-    &::after {
-      border-top-color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+  .layout__body {
+    .layout__main {
+      padding: 20px;
+      background: $gray-light;
     }
 
-    &--active {
-      &::after {
-        border-bottom-color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
-      }
+    .layout__content {
+      overflow: auto;
+      background: $white;
+      // padding: 20px;
     }
-
-    &__info {
-      a {
-        color: get-color($palette-hiui, 'g100');
-
-        &:hover {
-          color: get-color($palette-hiui, 'g90');
-        }
-      }
-    }
-  }
-
-  .sidebar {
-    color: get-color($palette-hiui, 'g100');
-    // @if $name == 'black' {color: $white}
-    // @else {color: get-color($palette-hiui, 'g100')}
-    // color: if($name == 'white', $white, get-color($palette-hiui, 'g100'));
-    // background: $color;
-    // .sidebar__list {
-    //   color: get-color($palette-hiui, 'g100');
-    // }
-    &__list {
-      // @if $name == 'black' {color: $white}
-      // @else {color: get-color($palette-hiui, 'g100')}
-    }
-  }
-}
-
-@each $name, $color in $config-header-colors {
-  .layout--#{$name} {
-    @include config-header-style($color, $name);
   }
 }

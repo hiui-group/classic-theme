@@ -1,73 +1,89 @@
 import React, { Component } from 'react'
-
+import { Route } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
 import './index.scss'
 import Header from '../../components/Header'
 import Sider from '../../components/Sider'
-import BreadCrumb from '../../components/BreadCrumb'
 import Footer from '../../components/Footer'
 import classNames from 'classnames'
 import Base from '../base'
+import { ContextProvider } from '../../util/context'
 class Index extends Component {
-  type = 'classic'
+  static type = 'classic'
+  changeCollapse (collapse) {
+    this.setState({collapse})
+  }
   render () {
     const {
       collapse
     } = this.state
     let {
       header,
-      routes,
+      routeConfig,
       sider,
-      breadCrumb,
       footer,
       logo,
       config
     } = this.props
-    const lcls = classNames(
+    const layoutClasses = classNames(
       'layout',
       'layout--classic',
       collapse && 'layout--collapsed',
       config.color ? `layout--${config.color}` : 'layout--white',
       config.type && `layout--${config.type}`,
+      routeConfig && routeConfig.hasTopNav && 'layout--topnav',
       config.theme && `theme__${config.theme}`
     )
     return (
-      <div className={lcls}>
-        <Header header={header} logo={logo} />
-        <Sider
-          accordion={false}
-          current={this.getCurrentPath()}
-          sider={sider}
-          changeCollapse={this.changeCollapse.bind(this)}
-        />
-        <div className='layout__body'>
-          <main className='layout__main'>
-            {
-              breadCrumb
-                ? (
-                  <BreadCrumb
-                    items={breadCrumb.items}
-                    sign={breadCrumb.sign}
-                  />
-                ) : ''
-            }
-            <div
-              className='layout__content'
-            >
-              {renderRoutes(routes)}
-            </div>
-          </main>
+      <ContextProvider value={{...this.props, changeCollapse: this.changeCollapse.bind(this)}}>
+        <div className={layoutClasses}>
+          <Header header={header} logo={logo} />
           {
-            footer
-              ? (
-                <Footer footer={footer} />
-              ) : ''
+            routeConfig && routeConfig.hasTopNav && routeConfig.routes.length > 0 ? <div className='layout__body'>
+
+              {
+                routeConfig.routes.map((route, index) => {
+                  return <Route
+                    key={index}
+                    path={route.path}
+                    exact={route.exact}
+                    component={route.component}
+                  />
+                })
+              }
+
+            </div> : (
+              <React.Fragment>
+                <div className='layout__body'>
+                  <div
+                    className='layout__main'
+                  >
+                    <div className='layout__content'>
+                      {renderRoutes(routeConfig.routes)}
+                    </div>
+                  </div>
+                  {
+                    footer
+                      ? (
+                        <Footer footer={footer} />
+                      ) : ''
+                  }
+
+                </div>
+
+                <Sider
+                  accordion={false}
+                  current={this.getCurrentPath()}
+                  sider={sider}
+                  changeCollapse={this.changeCollapse.bind(this)}
+                />
+              </React.Fragment>
+            )
           }
 
         </div>
-      </div>
+      </ContextProvider>
     )
   }
 }
-Index.isHash = false
 export default Base(Index)

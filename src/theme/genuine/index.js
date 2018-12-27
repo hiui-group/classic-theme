@@ -15,7 +15,7 @@ class Index extends React.Component {
     } = this.state
     let {
       header = '',
-      routes = [],
+      routeConfig = [],
       sider = {
         items: [],
         top: ''
@@ -25,6 +25,7 @@ class Index extends React.Component {
       logo,
       config
     } = this.props
+    console.log(routeConfig)
     const cls = classNames(
       'layout',
       'layout--genuine',
@@ -32,12 +33,18 @@ class Index extends React.Component {
       config.color ? `layout--${config.color}` : 'layout--white',
       config.type && `layout--${config.type}`
     )
+    const bodyCls = classNames(
+      'layout__body',
+      header && 'layout__body--containheader'
+    )
     return (
       <div className={cls}>
-        <Header
-          header={header}
-          border={!!breadCrumb}
-        />
+        {
+          header && <Header
+            header={header}
+            border={!!breadCrumb}
+          />
+        }
         <Sider
           current={this.getCurrentPath(sider.items)}
           sider={sider}
@@ -45,7 +52,7 @@ class Index extends React.Component {
           logo={logo}
         />
 
-        <div className='layout__body'>
+        <div className={bodyCls}>
           <main className='layout__main'>
             {
               breadCrumb
@@ -57,7 +64,7 @@ class Index extends React.Component {
                 ) : ''
             }
             <div className='layout__content'>
-              {renderRoutes(routes)}
+              {renderRoutes(routeConfig.routes)}
             </div>
           </main>
           {

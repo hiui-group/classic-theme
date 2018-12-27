@@ -11,19 +11,21 @@
   cursor: pointer;
 
   &::after {
-    position: absolute;
-    top: 30px;
-    right: 0;
-    display: block;
+    margin-left: $spacer-2;
     border: 5px solid transparent;
-    border-bottom: 0;
+    border-bottom-width: 0;
     content: '';
+  }
 
-    .login--active & {
-      border-top: 0;
+  &--active {
+    &::after {
+      border-top-width: 0;
+      border-bottom-width: 5px;
     }
+  }
 
-    .login--no-children & {
+  &--empty {
+    &::after {
       display: none;
     }
   }
@@ -32,7 +34,7 @@
     display: inline-block;
     width: 24px;
     height: 24px;
-    margin: 0 $spacer-2;
+    margin-right: $spacer-2;
     border-radius: 50%;
     line-height: 24px;
     text-align: center;
