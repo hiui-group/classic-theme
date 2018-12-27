@@ -17,7 +17,6 @@ class Sider extends React.Component {
   constructor (props) {
     super(props)
     const items = cloneDeep(this.props.sider.items)
-    // const items = this.props.sider.items
     const activeNav = this.getActiveValue(this.props.current, items) // 激活的导航所在位置
     const activeNavCache = activeNav.slice(0) // 缓存激活的导航所在位置，主要用于点击非链接项时子项的选中状态
     this.state = {
@@ -38,7 +37,9 @@ class Sider extends React.Component {
   componentWillReceiveProps (props) {
     const activeNav = this.getActiveValue(props.current, this.state.items)
     const activeNavCache = activeNav.slice(0)
+    const items = cloneDeep(this.props.sider.items)
     this.setState({
+      items,
       activeNav,
       activeNavCache
     })
@@ -74,12 +75,11 @@ class Sider extends React.Component {
     return value
   }
 
-  checkExpanded (activeStatus, isLeaf, IS_EXPANDED = undefined) { // 检查导航项是否展开
+  checkExpanded (activeStatus, isLeaf, IS_EXPANDED = undefined, title) { // 检查导航项是否展开
     const {
       showSub,
       collapse
     } = this.state
-
     if (isLeaf || !showSub) { // 是叶子节点或者showSub=false
       return false
     }
@@ -189,7 +189,6 @@ class Sider extends React.Component {
       let subNavs = []
       let subNavsValue = []
       ++deep
-
       items.map((item, index) => {
         if (!item.to && !item.children) {
           item.onlyTitle = true
@@ -199,7 +198,7 @@ class Sider extends React.Component {
         const isLeaf = this.isLeaf(item)
         const activeNavs = this.getActiveNavs(deep, isLeaf)
         const activeStatus = this.arrayIndexOf(currentValue, activeNavs)
-        const isExpanded = this.checkExpanded(activeStatus, isLeaf, item.IS_EXPANDED)
+        const isExpanded = this.checkExpanded(activeStatus, isLeaf, item.IS_EXPANDED, item.title)
         const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
 
         item.IS_EXPANDED = isExpanded
@@ -263,7 +262,6 @@ class Sider extends React.Component {
         )
       }
     }
-
     if (collapse) { // 收缩状态
       return render(items)
     } else {

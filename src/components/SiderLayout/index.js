@@ -18,7 +18,7 @@ class SiderLayout extends React.Component {
     return (
       <React.Fragment>
         <Sider
-          accordion
+          accordion={false}
           current={this.getCurrentPath()}
           sider={sider}
           changeCollapse={this.changeCollapse.bind(this)}
