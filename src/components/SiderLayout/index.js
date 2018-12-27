@@ -5,19 +5,10 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 
 class SiderLayout extends React.Component {
   getCurrentPath () {
-    // const { sider } = this.props.options
-    // const mode = sider.isHash
-
-    // let pathname = window.location.pathname
-    // let hash = window.location.hash
-
-    // if (hash) {
-    //   pathname = hash.replace(/#?(.*)/, (a, b) => {
-    //     return b
-    //   })
-    // }
-    // return mode ? pathname : window.location.href.split(window.location.origin)[1]
     return this.props.location.pathname
+  }
+  changeCollapse (collapse) {
+    this.props.options.changeCollapse && this.props.options.changeCollapse(collapse)
   }
   render () {
     let r = this.props.options.routeConfig.routes.filter((item) => {
@@ -27,10 +18,10 @@ class SiderLayout extends React.Component {
     return (
       <React.Fragment>
         <Sider
-          accordion={false}
+          accordion
           current={this.getCurrentPath()}
           sider={sider}
-          // changeCollapse={this.changeCollapse.bind(this)}
+          changeCollapse={this.changeCollapse.bind(this)}
         />
         <div className='layout__main'>
           <div className='layout__content'>

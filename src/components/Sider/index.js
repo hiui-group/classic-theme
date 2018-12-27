@@ -199,7 +199,7 @@ class Sider extends React.Component {
         const isLeaf = this.isLeaf(item)
         const activeNavs = this.getActiveNavs(deep, isLeaf)
         const activeStatus = this.arrayIndexOf(currentValue, activeNavs)
-        const isExpanded = this.checkExpanded(activeStatus, isLeaf, item.IS_EXPANDED, item.type)
+        const isExpanded = this.checkExpanded(activeStatus, isLeaf, item.IS_EXPANDED)
         const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
 
         item.IS_EXPANDED = isExpanded
