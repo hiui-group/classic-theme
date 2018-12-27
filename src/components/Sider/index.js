@@ -17,6 +17,7 @@ class Sider extends React.Component {
   constructor (props) {
     super(props)
     const items = cloneDeep(this.props.sider.items)
+    // const items = this.props.sider.items
     const activeNav = this.getActiveValue(this.props.current, items) // 激活的导航所在位置
     const activeNavCache = activeNav.slice(0) // 缓存激活的导航所在位置，主要用于点击非链接项时子项的选中状态
     this.state = {
@@ -73,19 +74,17 @@ class Sider extends React.Component {
     return value
   }
 
-  checkExpanded (activeStatus, isLeaf, IS_EXPANDED = undefined, type) { // 检查导航项是否展开
+  checkExpanded (activeStatus, isLeaf, IS_EXPANDED = undefined) { // 检查导航项是否展开
     const {
       showSub,
       collapse
     } = this.state
-    if (type === 'title') {
-      return true
-    }
+
     if (isLeaf || !showSub) { // 是叶子节点或者showSub=false
       return false
     }
     if (IS_EXPANDED !== undefined && !this.isSwitchToggle) { // 已判断过且不是切换toggle触发的
-      return activeStatus >= 0 || (!collapse && !this.props.accordion) ? IS_EXPANDED : false
+      return (activeStatus >= 0 || (!collapse && !this.props.accordion)) ? IS_EXPANDED : false
     }
 
     return activeStatus >= 0
@@ -202,6 +201,7 @@ class Sider extends React.Component {
         const activeStatus = this.arrayIndexOf(currentValue, activeNavs)
         const isExpanded = this.checkExpanded(activeStatus, isLeaf, item.IS_EXPANDED, item.type)
         const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
+
         item.IS_EXPANDED = isExpanded
         if (collapse && !isLeaf && isExpanded) { // 收缩状态用来记录次级展开项
           subNavs = item.children
