@@ -34,6 +34,7 @@ class Index extends Component {
       routeConfig && routeConfig.hasTopNav && 'layout--topnav',
       config.theme && `theme__${config.theme}`
     )
+    console.log(this.props)
     return (
       <ContextProvider value={{...this.props, changeCollapse: this.changeCollapse.bind(this)}}>
         <div className={layoutClasses}>

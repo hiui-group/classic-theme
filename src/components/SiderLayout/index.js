@@ -15,6 +15,7 @@ class SiderLayout extends React.Component {
       return item.path === this.props.match.path
     })
     const sider = this.props.options.sider[this.props.match.path.substr(1)] || this.props.options.sider
+    const extend = this.props.options.sider.extend
     return (
       <React.Fragment>
         <Sider
@@ -22,6 +23,7 @@ class SiderLayout extends React.Component {
           current={this.getCurrentPath()}
           sider={sider}
           changeCollapse={this.changeCollapse.bind(this)}
+          extend={extend}
         />
         <div className='layout__main'>
           <div className='layout__content'>

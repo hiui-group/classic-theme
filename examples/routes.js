@@ -11,17 +11,20 @@ import SiderLayout from '../src/components/SiderLayout'
 //       exact: true,
 //       component: Home
 //     }, {
-//       path: '/template/t1',
-//       exact: true,
-//       component: Template
+//       path: '/products/mix3',
+//       component: Mix3
 //     }, {
-//       path: '/template/t2',
-//       exact: true,
-//       component: Template2
+//       path: '/products/mi8',
+//       component: Mi8
 //     }, {
-//       path: '/color/blue',
-//       exact: true,
-//       component: About
+//       path: '/products/mi6',
+//       component: Mi6
+//     }, {
+//       path: '/products/tv4a',
+//       component: TV4A
+//     }, {
+//       path: '/products/tv4s',
+//       component: TV4S
 //     }
 //   ]
 // }

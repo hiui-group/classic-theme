@@ -75,6 +75,10 @@ $config-sidebar-colors: (
       z-index: 10;
       padding-left: 216px;
     }
+    
+    &__body--noheader {
+      padding-top: 0;
+    }
 
     &__sidebar {
       z-index: 11;

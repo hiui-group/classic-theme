@@ -7,7 +7,7 @@ const BUILD_PATH = path.resolve(ROOT_PATH, '../dist')
 module.exports = {
   entry: [
     'webpack/hot/only-dev-server',
-    path.resolve(ROOT_PATH, '../test/main.js')
+    path.resolve(ROOT_PATH, '../examples/main.js')
   ],
   output: {
     path: BUILD_PATH,
@@ -56,7 +56,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'test/index.html',
+      template: 'examples/index.html',
       inject: false
     })
   ]

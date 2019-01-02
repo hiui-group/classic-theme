@@ -197,12 +197,17 @@
     z-index: 2;
     box-sizing: border-box;
     width: 48px;
-    height: 48px;
+    height: 64px;
     font-size: 24px;
-    line-height: 48px;
+    line-height: 64px;
     text-align: center;
     cursor: pointer;
     background: url('../../static/image/expand.png') no-repeat 50% 50%;
+  }
+
+  &__extend {
+    height: 64px;
+    flex: 0 0 auto;
   }
 
   // Status: Collapsed

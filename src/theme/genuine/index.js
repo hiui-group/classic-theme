@@ -23,7 +23,8 @@ class Index extends React.Component {
       breadCrumb,
       footer,
       logo,
-      config
+      config,
+      extend
     } = this.props
     console.log(routeConfig)
     const cls = classNames(
@@ -35,7 +36,7 @@ class Index extends React.Component {
     )
     const bodyCls = classNames(
       'layout__body',
-      header && 'layout__body--containheader'
+      !header && 'layout__body--noheader'
     )
     return (
       <div className={cls}>
@@ -50,6 +51,7 @@ class Index extends React.Component {
           sider={sider}
           changeCollapse={this.changeCollapse.bind(this)}
           logo={logo}
+          extend={extend}
         />
 
         <div className={bodyCls}>
