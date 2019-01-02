@@ -14,9 +14,9 @@ export default class Home extends React.Component {
       }
     ]
     return (
-      <div>
+      <div style={{padding: 100}}>
        欢迎登录系统！！
-        <div style={{width: 1500}}>
+        <div style={{width: 1200}}>
           <Stepper
             list={list}
             current={1}

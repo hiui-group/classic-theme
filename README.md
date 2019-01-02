@@ -1,220 +1,523 @@
-# Classic Theme
+# Theme
 
-Classic Theme 是基于 React 的 HIUI 主题。
+基于 React 的 HIUI 主题。
+
+> 目前主题提供两种：Classic 、Genuine 
+>
+> Classic 可设置顶部一级导航
+>
+> Genuine 只支持左侧边栏导航
+
+## 示例
+
+**Classic**
+
+![classic-white-flat](/Users/zhangjunjie/Work/hiui-github/classic-theme/public/image/classic-white-flat.png)
 
 
-## 开始
+
+**Genuine**
+
+![genuine-white](/Users/zhangjunjie/Work/hiui-github/classic-theme/public/image/genuine-white.png)
+
+
+
+**Classic（含顶部导航）**
+
+![classic-header](/Users/zhangjunjie/Work/hiui-github/classic-theme/public/image/classic-header.png)
+
+
+
+ ## 开始
+
+
 
 #### Install
 
-```
+```shell
 npm i @hi-ui/classic-theme --save
 ```
 
 #### 使用
 
-主题是组件的形式，可以直接按组件来使用
+ 通过 as 关键字指定为 Page，可快速更改
 
 ```
-import Layout, {Logo, Login, Cascad } from '@hi-ui/classic-theme'
 
-<Layout />
-```
+import { Classic as Page } from '@hi-ui/classic-theme' //经典主题
+import { Genuine as Page } from '@hi-ui/classic-theme' //经典左右分栏主题
 
-#### 添加侧栏菜单
-
-添加 `sider` 属性
-
-该属性值是一个对象，包含 `items`。`items` 是一个包含多项对象的数组，包含索引值、选项、选项链接和子菜单。
+<Page />
 
 ```
-const sider = {
+
+
+
+#### 配置项
+
+##### sider    侧边栏
+
+> sider **Object**   指定侧边栏内容 
+>
+> *extend*  **Element** 侧边栏的扩展元素（出现在侧边栏的左下角）
+>
+> *items* **Array** 侧边栏内容数组
+>
+> ​	*title*  **String | Element**  显示的文字内容 必需
+>
+> ​	*icon* **Element** 文字 icon 可选
+>
+> ​	*children* **Array** 子元素 可选
+>
+> ​	*to* **String** 点击内容要跳转的路由 可选  如未指定 to 及 children，则表示为一个不可响应的纯文字内容
+
+```javascript
+const siders = {
+  extend: <Login {...login} />,
   items: [
-    {key: 1, title: '首页', to: '/', icon: <Icon name='user' />},
     {
-      key: 2, title: '表单', to: '', icon: <Icon name='usergroup' />,
+      title: '小米手机',
+      icon: <Icon name='usergroup' />,
       children: [
-        {key: 21, title: '基础表单', to: '/order/base'},
-        {key: 22, title: '分组表单', to: '/order/group'},
-        {key: 23, title: '步骤表单', to: '/order/step'},
-        {key: 24, title: '高级表单', to: '/order/super'},
+        {
+          title: '小米 MIX3',
+          to: '/products/mix3'
+        },
+      	...
+      	,
+        {
+          title: '红米系列',
+          children: [
+            {
+              title: '红米6',
+              to: '/products/mi6'
+            },
+            ...
+          ]
+        }
       ]
     },
+    {
+     ...
+    }
   ]
 }
 
-<Layout
-  sider={sider}
+// use
+<Page
+	sider={siders}
+    ...
 />
 ```
-`<Icon />` 是引用的 `HIUI` 组件
 
-最多支持二级菜单，第二级菜单不赞成使用任何 icon。
 
-#### 路由
 
-添加路由文件，例如 `router.js`。并在主题组件中使用。
+##### routeConfig   路由
 
-```
-// router.js
+> routeConfig   **Object**    用于侧边栏或顶部导航路由跳转
+>
+> hasTopNav   **Boolean**  是否包含顶部导航 （详见高级使用）
+>
+> routes    **Array**    配置同 React Router Config
 
-class Home extends Component{
-  render () {
-    return (
-      <div>
-        <Cascad
-           title='标题'
-           children={<div>hello cascad</div>}
-           status=''
-         />
-      </div>
-    )
-  }
-}
+```react
+import Home from './pages/Home'
+import About from './pages/About'
 
-class Other extends Component{
-  render () {
-    return (
-      <div>
-        other
-      </div>
-    )
-  }
-}
+import {Mix3, Mi8, Mi6, TV4A, TV4S, PhoneStatistics, TVStatistics} from './pages/Products'
 
-const routes = [
-  {
-    path: '/home',
-    exact: true,
+const routeConfig = {
+  hasTopNav: true,
+  routes: [{
+    path: '/',
     component: Home,
-  },
-  {
-    path: '/others',
-    exact: true,
-    component: Other,
-  }
-]
+    exact: true
+  }, {
+    path: '/products',
+    component: SiderLayout,
+    routes: [{
+      path: '/mix3',
+      component: Mix3
+    }, {
+      path: '/mi8',
+      component: Mi8
+    }, {
+      path: '/mi6',
+      component: Mi6
+    }, {
+      path: '/tv4a',
+      component: TV4A
+    }, {
+      path: '/tv4s',
+      component: TV4S
+    }]
+  }, {
+    path: '/about',
+    component: About
+  }, {
+    path: '/statistics',
+    component: SiderLayout,
+    routes: [{
+      path: '/phone',
+      component: PhoneStatistics
+    }, {
+      path: '/tv',
+      component: TVStatistics
+    }]
+  }]
+}
 
-
-// 引用主题的文件
-<Layout
-  sider={sider}
-  routes={routes}
+// use
+<Page
+	sider={...}
+    routeConfig={routeConfig}
 />
 ```
 
-#### 页面头部自定义配置
+#### 
 
-添加 `header` 属性
+##### header   顶部内容
 
-此属性值为任何元素，没有默认值，完全自由，但是可以引用主题内置组件来自行拼装
+> header 设置顶部 header 区域内容，可设置顶部导航（详见高级使用）。也可以设置任意内容
+>
+> header 可以为任意元素，传入的元素将被放置在除 Logo外的区域内
+>
+> 可以使用主题提供的 NavGroup 及 NavGroup.Item 进行布局
+>
+> **NavGroup**
+>
+> 将自定义内容分组放置，可通过 position 属性设置内容位置，接受 left|center|right 
+>
+> **NavGroup.Item**
+>
+> 无特殊意义，为元素添加了默认间距
 
-```
-const login = {
-  headUrl: 'your_image_linking',
-  name: '叶静静',
-  children: <div style={{width: '100px'}}>这里是登录信息</div>,  // 点击后下拉框显示内容
-}
-
+```react
 const header = (
   <React.Fragment>
-    <Logo
-      url='click_to_skip'
-      logoUrl='your_image_linking'
-      text='describe'
-      title=''
-      alt=''
-    />
-    <Login {...login} />
+    <NavGroup position='left'>
+      <NavGroup.Item>
+        <a href='javascript: void(0)'>切换站点</a>
+      </NavGroup.Item>
+    </NavGroup>
+    <NavGroup position='center'>
+      <NavGroup.Item>
+        <NavLink to='/' exact activeClassName='header__nav-link--active'>首页</NavLink>
+      </NavGroup.Item>
+      <NavGroup.Item>
+        <NavLink to='/products' activeClassName='header__nav-link--active'>产品系列</NavLink>
+      </NavGroup.Item>
+      <NavGroup.Item>
+        <NavLink to='/statistics' activeClassName='header__nav-link--active'>统计数据</NavLink>
+      </NavGroup.Item>
+      <NavGroup.Item>
+        <NavLink to='/about' activeClassName='header__nav-link--active'>其它</NavLink>
+      </NavGroup.Item>
+    </NavGroup>
+    <NavGroup position='right'>
+      <Login {...login} />
+    </NavGroup>
   </React.Fragment>
 )
 
-<Layout
-  header={header}
-  sider={sider}
-  routes={routes}
+// use
+<Page
+	sider={...}
+    routeConfig={...}
+	header={header}
 />
 ```
 
-#### 面包屑
 
-添加 `breadCrumb` 属性
 
-此属性值为对象，没有默认值，不添加该属性即不显示面包屑
+##### logo 系统 LOGO
+
+> 设置系统的 LOGO，根据主题样式的不同，放置方式及位置会不同
+>
+> **Logo** 组件由主题提供
+
+```react
+const logo = <Logo
+      url='...'
+      logoUrl='...'
+      text='HIUI Demo'
+      title='HIUI Classic Theme Demo'
+      alt='Project Logo'
+    />
+      
+// use
+<Page
+	sider={...}
+    routeConfig={...}
+	header={...}
+    logo={logo}
+/>
+```
+
+
+
+##### config 其它配置项
+
+> config 为主题设置其它可配置内容
+>
+> ​	color    **String**    设置主题色  接受  white | black ，默认 white
+>
+> ​	type    **String**    设置内容区域布局方式  接受  card | flat ，默认 flat
+
+```react
+// use
+<Page
+    header={...}
+    logo={...}
+    routeConfig={...}
+    sider={...}
+    config={{
+      color: 'white',
+      type: 'flat'
+    }}
+/>
 
 ```
-const breadCrumb = {
-  items: [
-    {title: '首页', to: '/'},
-    {title: '其他页面', to: ''},
-  ],
-  sign: '/'  // 分隔符号
+
+###### 示例
+
+**Cliassic**
+
+![classic-example](/Users/zhangjunjie/Work/hiui-github/classic-theme/public/image/classic-example.png)
+
+
+
+**Genuine**
+
+![genuine-example](/Users/zhangjunjie/Work/hiui-github/classic-theme/public/image/genuine-example.png)
+
+
+
+
+
+#### 高级使用
+
+> 关于顶部一级导航
+>
+> 由于导航与结构的限制，如需使用顶部一级导航（即在顶部 header 中含有路由跳转功能且需刷新下面的内容区域）则需在使用时进行一些特殊的配置
+
+**一级导航实现的效果**
+
+![topnav](/Users/zhangjunjie/Work/hiui-github/classic-theme/public/image/topnav.gif)
+
+**如何使用顶部一级导航？**
+
+hasTopNav 与 SiderLayout
+
+- hasTopNav  标识一级导航
+- SiderLayout 主题提供的一个特殊组件，用与划分含侧边栏与非侧边栏的内容
+
+> SiderLayout 会将其子元素放置于侧边栏对应的视图范围内
+
+
+
+**Routes Config 区别**
+
+使用顶部一级导航时：
+
+```react
+const routeConfig = {
+  hasTopNav: true, //通过 hasTopNav 标识表明使用顶部一级导航
+  routes: [{
+    path: '/',
+    component: Home,
+    exact: true
+  }, {
+    path: '/products',
+    component: SiderLayout, //通过 SiderLayout 组件实现不同页面效果
+    routes: [{
+      path: '/mix3',
+      component: Mix3
+    }, ...]
+  }, {
+    path: '/about',
+    component: About
+  }, {
+    path: '/statistics',
+    component: SiderLayout,
+    routes: [...]
+  }]
 }
-
-<Layout
-  header={header}
-  breadCrumb={breadCrumb}
-  sider={sider}
-  routes={routes}
-/>
 ```
 
-建议把面包屑选项的值 `breadCrumb.items` 放入 `redux` 控制，并在每个页面的 `componentDidMount` 生命周期来修改
-
-#### 主题色和主题种类
-
-添加 `theme` 属性
-
-此属性值为对象，默认为 `{ type: 'flat', color: 'light' }`
-
-```
-<Layout
-  header={header}
-  breadCrumb={breadCrumb}
-  sider={sider}
-  routes={routes}
-  theme={{
-    type: 'card',
-    color: 'blue'
-  }}
-/>
-```
-
-> `white` 浅色主题
->
-> `black` 深色主题
->
-> `blue` 蓝色主题
-
-> `flat` 扁平主题
->
-> `card` 卡片主题
 
 
-## 内部组件
+使用正常侧边栏导航时：
 
-内部可引用的组件：`Cascad, InfoBlock, Logo, Login, BreadCrumb`
-
-```
-Cascad：带标题的块
-
-<Cascad
-  title='标题'  // 块标题
-  children=''     // 想要嵌入的任意元素
-  status=''       // 想要标记的状态文字
-/>
-
-InfoBlock：信息列表块
-
-<InfoBlock
-  title='标题'  // 块标题
-  list=[{label: '单号', info: '值'}]   // 列表数组
-/>
-
+```react
+//正常侧边栏只含 routes 属性
+const routeConfig = {
+  routes: [{
+      path: '/',
+      exact: true,
+      component: Home
+  }, {
+      path: '/products/mix3',
+      component: Mix3
+  }, {
+      path: '/products/mi8',
+      component: Mi8
+  }, {
+      path: '/products/mi6',
+      component: Mi6
+  }, {
+      path: '/products/tv4a',
+      component: TV4A
+  }, {
+      path: '/products/tv4s',
+      component: TV4S
+  }]
+}
 ```
 
-## 其他主题链接
 
-- [Genuine 主题](https://www.npmjs.com/package/@hi-ui/Genuine-theme)
+
+**Sider Config 区别**
+
+如以上的示例，*产品数据* 与 *销量统计* 是两个分别含有侧边栏的页面，在配置 Sider 时，需配置对应路由需要显示的侧边栏内容
+
+
+
+不使用一级导航 或 只有一个页面含有侧边栏时：
+
+``` react
+const siders = {
+  extend: <Login {...login} />, //侧边栏左下方的额外元素
+  items: [
+    {
+      title: '小米手机',
+      icon: <Icon name='usergroup' />,
+      children: [
+        {
+          title: '小米 MIX3',
+          to: '/products/mix3'
+        },
+        {
+          title: '小米8青春版',
+          to: '/products/mi8'
+        },
+        {
+          title: '红米系列',
+          children: [
+            {
+              title: '红米6',
+              to: '/products/mi6'
+            },
+            {
+              title: '红米6 Pro'
+            },
+            {
+              title: '红米6A'
+            },
+            {
+              title: '红米 Note5'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      title: '电视品类',
+      icon: <Icon name='usergroup' />,
+      children: [
+        {
+          title: '小米电视4S',
+          to: '/products/tv4s'
+        },
+        {
+          title: '小米电视4A',
+          to: '/products/tv4a'
+        }
+      ]
+    }
+  ]
+}
+```
+
+
+
+使用顶部一级导航，且含有两个以上不同的侧边栏页面时：
+
+```react
+const siders = {
+  products: {
+    items: [
+      {
+        title: '小米手机',
+        icon: <Icon name='usergroup' />,
+        children: [
+          {
+            title: '小米 MIX3',
+            to: '/products/mix3'
+          },
+          {
+            title: '小米8青春版',
+            to: '/products/mi8'
+          },
+          {
+            title: '红米系列',
+            children: [
+              {
+                title: '红米6',
+                to: '/products/mi6'
+              },
+              {
+                title: '红米6 Pro'
+              },
+              {
+                title: '红米6A'
+              },
+              {
+                title: '红米 Note5'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        title: '电视品类',
+        icon: <Icon name='usergroup' />,
+        children: [
+          {
+            title: '小米电视4S',
+            to: '/products/tv4s'
+          },
+          {
+            title: '小米电视4A',
+            to: '/products/tv4a'
+          }
+        ]
+      }
+    ]
+  },
+  statistics: {
+    items: [
+      {
+        title: '销量统计',
+        icon: <Icon name='usergroup' />,
+        children: [
+          {
+            title: '手机销量',
+            to: '/statistics/phone'
+          },
+          {
+            title: '电视销量',
+            to: '/statistics/tv'
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+
+
+*以上代码中 products 与 statistics*  与 routeConfig 中的两个 SiderLayout 所对应的 path 一致，系统会根据 path 去寻找对应的 sider 配置
 
 -- EOF --
