@@ -19,6 +19,7 @@ class Sider extends React.Component {
     const items = cloneDeep(this.props.sider.items)
     const activeNav = this.getActiveValue(this.props.current, items) // 激活的导航所在位置
     const activeNavCache = activeNav.slice(0) // 缓存激活的导航所在位置，主要用于点击非链接项时子项的选中状态
+
     this.state = {
       items,
       showSub: true,
@@ -282,13 +283,17 @@ class Sider extends React.Component {
     let {
       // sider,
       style,
-      logo
+      logo,
+      extend
     } = this.props
 
     return (
       <aside className={`layout__sidebar sidebar ${collapse ? 'sidebar--collapsed' : ''}`} style={style}>
         {!collapse && logo}
         { this.renderNavs(items) }
+        <div className='siderbar__extend'>
+          {!collapse && extend}
+        </div>
         <span
           className='sidebar__toggle'
           onClick={this.collapseToggle.bind(this)}
