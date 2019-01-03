@@ -1,12 +1,19 @@
-.breadcrumb {
-  margin-bottom: 14px;
+@import '@hi-ui/core-css/index.scss';
 
-  &-item {
-    font-size: 12px;
-    color: #A9ABAF;
+.breadcrumb {
+  margin-bottom: 16px;
+
+  &__item {
+    font-size: $font-size-small;
+    color: get-color($palette-hiui, 'g80');
 
     a {
-      color: #A9ABAF;
+      color: get-color($palette-hiui, 'g80');
+
+      &:hover,
+      &:active {
+        color: get-color($palette-hiui, 'g70');
+      }
     }
   }
 }

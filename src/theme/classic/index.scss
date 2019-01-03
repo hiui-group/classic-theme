@@ -1,0 +1,109 @@
+@import '@hi-ui/core-css/lib/i18n/zh-CN.scss';
+@import '@hi-ui/core-css/base.scss';
+
+$config-header-colors: (
+  'blue': get-color($palette-hiui, '50'),
+  'black': get-color($palette-hiui, 'g100'),
+  'white': $white
+) !default;
+
+// 设置颜色
+@mixin config-header-style($color, $name) {
+  .header {
+    background-color: $color;
+    border-color: if($name == 'white', $gray, transparent);
+    color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+
+    a {
+      color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+
+      &:hover,
+      &:active,
+      &.header__nav-link--active {
+        color: if($name == 'white', get-color($palette-hiui, '50'), $gray);
+      }
+    }
+  }
+
+  .logo {
+    a,
+    a:hover {
+      color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+    }
+  }
+
+  .login {
+    &::after {
+      border-top-color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+    }
+
+    &--active {
+      &::after {
+        border-bottom-color: if($name == 'white', get-color($palette-hiui, 'g100'), $white);
+      }
+    }
+
+    &__info {
+      a {
+        color: get-color($palette-hiui, 'g100');
+
+        &:hover {
+          color: get-color($palette-hiui, 'g90');
+        }
+      }
+    }
+  }
+}
+
+// Set colors
+@mixin theme-sidebar-style($color: get-color($palette-primary, 'hiui-blue')) {
+  .sidebar {
+    color: map-get(get-palette($color), 'g100');
+
+    &__item {
+      &::before {
+        background-color: map-get(get-palette($color), '50');
+      }
+
+      // Status: active
+      &:not(.sidebar__item--noaction):hover,
+      &:not(.sidebar__item--noaction):active,
+      &--active {
+        background-color: rgba(map-get(get-palette($color), '50'), 0.08);
+        color: map-get(get-palette($color), '50');
+      }
+    }
+
+    &__toggle {
+      color: map-get(get-palette($color), 'g100');
+    }
+  }
+}
+
+// 设置布局
+.layout--classic {
+  .layout {
+    &__header {
+      z-index: 11;
+    }
+
+    &__sidebar {
+      z-index: 10;
+    }
+  }
+
+  // Define styles
+  @each $name, $color in $config-header-colors {
+    &.layout--#{$name} {
+      @include config-header-style($color, $name);
+    }
+  }
+
+  @include theme-sidebar-style();
+
+  @each $key, $value in $theme-colors {
+    &.theme__#{$key} {
+      @include theme-sidebar-style($value);
+    }
+  }
+}

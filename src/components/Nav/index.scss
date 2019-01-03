@@ -1,0 +1,37 @@
+@import '@hi-ui/core-css/index.scss';
+
+.header__nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &--left {
+    flex: 1 0 auto;
+    justify-content: flex-start;
+  }
+
+  &--center {
+    flex: 10 0 auto;
+    justify-content: center;
+  }
+
+  &--right {
+    flex: 1 0 auto;
+    justify-content: flex-end;
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    font-size: $font-size-normal;
+    line-height: $line-height-normal;
+
+    > a {
+      display: block;
+      padding: 0 16px;
+      line-height: 64px;
+      transition: color $speed-fast $easing;
+    }
+  }
+}

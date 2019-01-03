@@ -1,0 +1,70 @@
+@import '@hi-ui/core-css/lib/i18n/zh-CN.scss';
+@import '@hi-ui/core-css/base.scss';
+
+$config-header-colors: (
+  'blue': get-color($palette-hiui, '50'),
+  'black': get-color($palette-hiui, 'g100'),
+  'white': $white
+) !default;
+
+// 设置布局
+.layout {
+  min-width: $min-page-width;
+
+  &__header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 11;
+  }
+
+  &__body {
+    display: flex;
+    // flex-direction: column;
+    box-sizing: border-box;
+    min-height: 100vh;
+    padding-top: 64px;
+    // padding-left: 216px;
+    transition: padding-left $speed-fast $easing;
+    background-color: $white;
+  }
+
+  &__content {
+    box-sizing: border-box;
+    height: 100%;
+  }
+
+  &__main {
+    box-sizing: border-box;
+    flex: 1;
+    background-color: $white;
+    margin-left: 216px;
+
+    .layout--collapsed & {
+      margin-left: 48px;
+    }
+  }
+
+  &__sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+  }
+
+  // Define card layout styles
+  &--card {
+    .layout {
+      &__main {
+        padding: 20px;
+        background-color: $gray-light;
+      }
+
+      &__content {
+        background-color: $white;
+      }
+    }
+  }
+}

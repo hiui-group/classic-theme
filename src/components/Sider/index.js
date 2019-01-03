@@ -1,244 +1,304 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import classNames from 'classnames'
+import Cookies from 'js-cookie'
+import cloneDeep from 'lodash/cloneDeep'
+import historyManager from '../../util/common'
 import './index.scss'
-import Icon from '@hi-ui/hiui/es/icon'
 
 class Sider extends React.Component {
   static defaultProps = {
-    items: []
+    accordion: true,
+    matchPath: ''
   }
 
-  LOCK = false
+  isSwitchToggle = false // toggle切换标识
+  collapseCookie = '$$hiui-theme-collapse'
 
-  state = {
-    ctrls: {},
-    active: '',
-    collapse: false,
-    subNavs: [],
-    showSub: false
+  constructor (props) {
+    super(props)
+    const items = cloneDeep(this.props.sider.items)
+    const activeNav = this.getActiveValue(this.props.current, items) // 激活的导航所在位置
+    const activeNavCache = activeNav.slice(0) // 缓存激活的导航所在位置，主要用于点击非链接项时子项的选中状态
+
+    this.state = {
+      items,
+      showSub: true,
+      collapse: false,
+      activeNav,
+      activeNavCache
+    }
   }
 
   componentDidMount () {
-    let { current, sider } = this.props
-    const { items = [] } = sider
-    current = current || (items[0] ? items[0].key : '')
-
-    this.setState({active: current})
-  }
-
-  getClickElement (dom) {
-    if (dom.nodeName === 'SPAN' && [].slice.call(dom.classList).indexOf('sider-list-item') > -1) {
-      return dom.nextSibling
-    } else {
-      const parent = dom.parentNode
-      return this.getClickElement(parent)
+    if (Cookies.get(this.collapseCookie) === 'true') {
+      this.collapseToggle()
     }
   }
 
-  toggleSlide (el, isClose, func, lock) {
-    if (!isClose) {
-      el.style.display = 'block'
-      el.style.height = 0
-    }
-    const maxDelay = 300
-    const height = el.scrollHeight
-    const speed = Math.max(height / maxDelay, 0.5)
-    let sum = 0
-    let start = null
-    const animate = timestamp => {
-      if (!start) start = timestamp
-      const progress = timestamp - start
-      sum = progress * speed
-      el.style.height = `${isClose ? height - sum : sum}px`
-      if (height < sum) {
-        if (isClose) {
-          el.style.display = 'none'
+  componentWillReceiveProps (props) {
+    const activeNav = this.getActiveValue(props.current, this.state.items)
+    const activeNavCache = activeNav.slice(0)
+    const items = cloneDeep(this.props.sider.items)
+    this.setState({
+      items,
+      activeNav,
+      activeNavCache
+    })
+  }
+
+  getActiveValue (current, navs) { // 初始时获取激活导航的value
+    let deep = 0
+    let value = []
+    const fn = iteration => {
+      let flag = true // 用于终止后面的遍历
+      iteration.every((nav, index) => {
+        if (!nav.to && !nav.children) {
+          return true
         }
-        el.style.height = ''
-        func && func()
-        lock && (this.LOCK = false)
-      } else {
-        window.requestAnimationFrame(animate)
-      }
+        !nav.to && value.push(index)
+        if (nav.to === current) {
+          value.splice(deep, 1, index)
+          flag = false
+          return false
+        }
+        if (Array.isArray(nav.children)) {
+          deep++
+          flag = fn(nav.children)
+          deep--
+        }
+
+        return flag
+      })
+      flag && value.pop()
+      return flag
     }
-    window.requestAnimationFrame(animate)
+    fn(navs)
+    return value
   }
 
-  renderNavs (items, parent) {
+  checkExpanded (activeStatus, isLeaf, IS_EXPANDED = undefined, title) { // 检查导航项是否展开
+    const {
+      showSub,
+      collapse
+    } = this.state
+    if (isLeaf || !showSub) { // 是叶子节点或者showSub=false
+      return false
+    }
+    if (IS_EXPANDED !== undefined && !this.isSwitchToggle) { // 已判断过且不是切换toggle触发的
+      return (activeStatus >= 0 || (!collapse && !this.props.accordion)) ? IS_EXPANDED : false
+    }
+
+    return activeStatus >= 0
+  }
+
+  arrayIndexOf (currentValue, values) { // 0代表激活当前项，-1未激活，1激活的是子项
+    let flag = -1
+    for (let index in values) {
+      const value = values[index]
+      let _flag = 0
+
+      for (let i = 0; i < currentValue.length; i++) {
+        if (currentValue[i] !== value[i]) {
+          _flag = -1
+          break
+        }
+      }
+      if (_flag !== -1 && currentValue.length !== value.length) {
+        _flag = 1
+      }
+      flag = _flag > flag ? _flag : flag
+    }
+
+    return flag
+  }
+
+  isLeaf (item) {
+    return !Array.isArray(item.children)
+  }
+
+  clickNav (e, item, value) {
+    e.stopPropagation()
+    if (!item.to && !item.children) {
+      return
+    }
     let {
-      ctrls,
-      active,
       collapse,
       showSub,
-      prev
+      activeNavCache
     } = this.state
+    const isLeaf = this.isLeaf(item)
+    if (isLeaf) {
+      this.setState({
+        activeNavCache: value,
+        activeNav: value,
+        showSub: collapse ? false : showSub // 收缩状态点击叶子节点，则隐藏2，3级项
+      })
+      const _h = historyManager.getHistory()
+      if (_h.location.pathname !== item.to) {
+        _h.replace(item.to)
+      }
+    } else {
+      if (this.arrayIndexOf(value, [activeNavCache]) >= 0) { // 子选项已被选中
+        value = activeNavCache
+      }
+      item.IS_EXPANDED = !item.IS_EXPANDED // 点击同一项则收缩
+      const _state = {showSub: true}
+      _state.activeNav = value
+      this.setState(_state)
+    }
+  }
 
-    return (
-      <ul className={`sider-list`}>
-        {
-          items.map((v, i) => (
-            <li
-              key={i}
-              // className={`${ctrls[v.key] ? 'open' : ''}`}
+  collapseToggle () {
+    const {
+      collapse
+    } = this.state
+    const {
+      changeCollapse
+    } = this.props
+
+    this.isSwitchToggle = true // 切换toggle标识
+    Cookies.set(this.collapseCookie, !collapse)
+
+    this.setState({
+      collapse: !collapse,
+      showSub: collapse
+    }, () => {
+      changeCollapse(!collapse)
+      this.isSwitchToggle = false
+    })
+  }
+
+  getActiveNavs (deep, isLeaf) {
+    const {
+      activeNavCache,
+      activeNav
+    } = this.state
+    if (this.props.accordion) { // 手风琴模式
+      return isLeaf || activeNav.length >= activeNavCache.length ? [activeNav, activeNavCache] : [activeNav]
+    } else {
+      return [activeNav, activeNavCache]
+    }
+  }
+
+  renderNavs (items, cls) {
+    let deep = -1
+    const collapse = this.state.collapse
+    // const activeNav = this.state.activeNav
+    let navsContainer = []
+    const render = (items, cls = '', currentValue = []) => {
+      const navs = []
+      let subNavs = []
+      let subNavsValue = []
+      ++deep
+      items.map((item, index) => {
+        if (!item.to && !item.children) {
+          item.onlyTitle = true
+        }
+        currentValue.splice(deep, 1, index)
+        const _currentValue = currentValue.slice(0)
+        const isLeaf = this.isLeaf(item)
+        const activeNavs = this.getActiveNavs(deep, isLeaf)
+        const activeStatus = this.arrayIndexOf(currentValue, activeNavs)
+        const isExpanded = this.checkExpanded(activeStatus, isLeaf, item.IS_EXPANDED, item.title)
+        const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
+
+        item.IS_EXPANDED = isExpanded
+        if (collapse && !isLeaf && isExpanded) { // 收缩状态用来记录次级展开项
+          subNavs = item.children
+          subNavsValue = currentValue.slice(0)
+        }
+        navs.push(
+          <li
+            key={index}
+          >
+            <div
+              className={classNames(
+                'sidebar__item',
+                {'sidebar__item--active': (collapse || isLeaf) && activeStatus >= 0},
+                {'sidebar__item--noaction': !item.to && !item.children}
+              )}
+              onClick={e => this.clickNav(e, item, _currentValue)}
             >
               {
-                v.to
-                  ? (
-                    <Link
-                      className={`sider-list-item ${active === v.key ? 'active' : ''}${v.noaction ? ' noaction' : ''}`}
-                      to={v.to}
-                      onClick={e => {
-                        const open = !ctrls[v.key]
-                        ctrls = {}
-                        ctrls[v.key] = open
-                        if (parent) {
-                          ctrls[parent] = open
-                        }
-                        active = v.key
-
-                        if (collapse && !parent) {
-                          showSub = false
-                          this.props.showSubnavs(showSub)
-                        }
-
-                        this.setState({ctrls, active, showSub})
-                      }}
-                    >
-                      {
-                        v.icon
-                          ? (<span className='sider-list-icon'>{v.icon}</span>)
-                          : ''
-                      }
-                      <span className='sider-list-title'>{v.title}</span>
-                    </Link>
-                  )
-                  : (
-                    <span
-                      className={`sider-list-item ${active === v.key ? 'active' : ''}${v.noaction ? ' noaction' : ''}`}
-                      onClick={e => {
-                        if (v.children && v.children.length) {
-                          this.LOCK = true
-                          const el = this.getClickElement(e.target)
-                          if (prev && el && !prev.isSameNode(el)) {
-                            this.toggleSlide(prev, true, null)
-                          }
-                          prev = el
-
-                          if (!collapse) {
-                            const open = !ctrls[v.key]
-
-                            ctrls = {}
-                            ctrls[v.key] = open
-                            if (parent) {
-                              ctrls[parent] = open
-                            }
-                            active = v.key
-
-                            this.setState({ctrls, active, prev})
-                          } else {
-                            let subNavs
-                            let parent
-                            let showSub = false
-
-                            subNavs = subNavs && subNavs.length ? [] : v.children
-                            parent = !!parent || v.key
-                            active = v.key
-
-                            const temp = ctrls[v.key]
-                            if (!temp) {
-                              showSub = true
-                            }
-
-                            ctrls = {}
-                            ctrls[v.key] = !temp
-
-                            this.props.showSubnavs(showSub)
-                            this.setState({subNavs, showSub, active, ctrls, parent, prev})
-                          }
-
-                          el && this.toggleSlide(el, !ctrls[v.key], null, true)
-                        }
-                      }}
-                    >
-                      {
-                        v.icon
-                          ? (<span className='sider-list-icon'>{v.icon}</span>)
-                          : ''
-                      }
-                      <span className='sider-list-title'>{v.title}</span>
-                      {
-                        v.children && v.children.length && !collapse && (
-                          <Icon className='mark-arrow' name={`${ctrls[v.key] ? 'up' : 'down'}`} />
-                        )
-                      }
-                    </span>
-                  )
+                item.icon
+                  ? (<span className='sidebar__item-icon'>{item.icon}</span>)
+                  : ''
               }
+              <span className={`sidebar__item-title`}>{item.title}</span>
               {
-                v.children && v.children.length && !collapse && (
-                  <React.Fragment>
-                    {
-                      this.renderNavs(v.children, v.key)
-                    }
-                  </React.Fragment>
-                )
+                !isLeaf && item.type !== 'title' &&
+                <i className={classNames('sidebar__item-toggle', 'hi-icon', expandIcon)} />
               }
-            </li>
-          ))
+            </div>
+            {
+              !collapse && !isLeaf &&
+              render(item.children, {'sidebar__list--submenu': true, 'sidebar__list--collapsed': !isExpanded}, currentValue)
+            }
+          </li>
+        )
+      })
+
+      if (collapse) { // 收缩状态
+        navsContainer.push((
+          <div className={classNames('sidebar__wrapper', cls)} key={deep}>
+
+            <ul className={classNames('sidebar__list')} key={deep}>
+              {navs}
+            </ul>
+          </div>
+        ))
+        if (subNavs && subNavs.length > 0) { // 有次级选择项
+          render(subNavs, 'sidebar__wrapper--submenu', subNavsValue)
         }
-      </ul>
-    )
+
+        return navsContainer
+      } else {
+        currentValue.pop()
+        --deep
+
+        return (
+          <ul className={classNames('sidebar__list', cls)} key={deep}>
+            {navs}
+          </ul>
+        )
+      }
+    }
+    if (collapse) { // 收缩状态
+      return render(items)
+    } else {
+      return (
+        <div className='sidebar__wrapper'>
+          {render(items)}
+        </div>
+      )
+    }
   }
 
   render () {
     let {
       collapse,
-      subNavs,
-      showSub,
-      parent
+      items
     } = this.state
 
     let {
-      sider,
-      changeCollapse,
-      showSubnavs,
-      style
+      // sider,
+      style,
+      logo,
+      extend
     } = this.props
 
-    const {
-      items = [],
-      top = ''
-    } = sider
-
     return (
-      <div className={`sider ${collapse ? 'collapse' : ''}`} style={style}>
-        { top || '' }
+      <aside className={`layout__sidebar sidebar ${collapse ? 'sidebar--collapsed' : ''}`} style={style}>
+        {!collapse && logo}
         { this.renderNavs(items) }
+        <div className='siderbar__extend'>
+          {!collapse && extend}
+        </div>
         <span
-          className='btn-collapse'
-          onClick={e => {
-            if (collapse) {
-              showSub = false
-            }
-
-            const ctrls = {}
-
-            this.setState({collapse: !collapse, showSub, ctrls})
-            changeCollapse(!collapse)
-            showSubnavs(showSub)
-          }}
-        >
-          <Icon name='menu' />
-        </span>
-
-        {
-          <div className={`sider-subnavs ${showSub ? 'show' : ''}`}>
-            {
-              this.renderNavs(subNavs, parent)
-            }
-          </div>
-        }
-      </div>
+          className='sidebar__toggle'
+          onClick={this.collapseToggle.bind(this)}
+        />
+      </aside>
 
     )
   }
