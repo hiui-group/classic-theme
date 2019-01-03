@@ -35,9 +35,7 @@ const baseLayout = WrapperComponent => class extends WrapperComponent {
   }
 
   getCurrentPath () {
-    const {sider} = this.props
-    const mode = sider.isHash
-
+    // const {sider} = this.props
     let pathname = window.location.pathname
     let hash = window.location.hash
 
@@ -46,7 +44,8 @@ const baseLayout = WrapperComponent => class extends WrapperComponent {
         return b
       })
     }
-    return mode ? pathname : window.location.href.split(window.location.origin)[1]
+    return pathname
+    // return mode ? pathname : window.location.href.split(window.location.origin)[1]
   }
 
   changeCollapse (collapse) {
