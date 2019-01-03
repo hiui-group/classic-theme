@@ -12,19 +12,19 @@
 
 **Classic**
 
-![classic-white-flat](https://raw.githubusercontent.com/hiui-group/classic-theme/develop/public/image/classic-white-flat.png)
+![classic-white-flat](https://raw.githubusercontent.com/hiui-group/classic-theme/master/assets/image/classic-white-flat.png)
 
 
 
 **Genuine**
 
-![genuine-white](https://raw.githubusercontent.com/hiui-group/classic-theme/develop/public/image/genuine-white.png)
+![genuine-white](https://raw.githubusercontent.com/hiui-group/classic-theme/master/assets/image/genuine-white.png)
 
 
 
 **Classic（含顶部导航）**
 
-![classic-header](https://raw.githubusercontent.com/hiui-group/classic-theme/develop/public/image/classic-header.png)
+![classic-header](https://raw.githubusercontent.com/hiui-group/classic-theme/master/assets/image/classic-header.png)
 
 
 
@@ -283,13 +283,13 @@ const logo = <Logo
 
 **Cliassic**
 
-![classic-example](https://raw.githubusercontent.com/hiui-group/classic-theme/develop/public/image/classic-example.png)
+![classic-example](https://raw.githubusercontent.com/hiui-group/classic-theme/master/assets/image/classic-example.png)
 
 
 
 **Genuine**
 
-![genuine-example](https://raw.githubusercontent.com/hiui-group/classic-theme/develop/public/image/genuine-example.png)
+![genuine-example](https://raw.githubusercontent.com/hiui-group/classic-theme/master/assets/image/genuine-example.png)
 
 
 
@@ -303,7 +303,7 @@ const logo = <Logo
 
 **一级导航实现的效果**
 
-![topnav](https://raw.githubusercontent.com/hiui-group/classic-theme/develop/public/image/topnav.gif)
+![topnav](https://raw.githubusercontent.com/hiui-group/classic-theme/master/assets/image/topnav.gif)
 
 **如何使用顶部一级导航？**
 
