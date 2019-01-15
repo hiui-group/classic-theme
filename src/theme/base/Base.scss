@@ -60,7 +60,7 @@ $config-header-colors: (
       &__main {
         padding: 20px;
         background-color: $gray-light;
-        width: 100%;
+        width: calc(100% - 216px);
       }
 
       &__content {
