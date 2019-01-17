@@ -1,25 +1,64 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { renderRoutes } from 'react-router-config'
 import Sider from '../Sider'
 import Provider from '../../util/context'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { matchPath } from 'react-router'
 
 class SiderLayout extends React.Component {
-  getCurrentPath () {
+  static propTypes = {
+    changeCollapse: PropTypes.func,
+    extend: PropTypes.bool,
+    accordion: PropTypes.bool,
+    sider: PropTypes.object
+  }
+  static defaultProps = {
+    changeCollapse: () => {},
+    extend: true,
+    sider: [],
+    accordion: false
+  }
+
+  constructor (props) {
+    super(props)
+    props.options.setCollapse(props.extend)
+  }
+
+  getCurrentPath (routes) {
+    console.log('-----------this.props', this.props)
+    // const match = matchPath(this.props.location.pathname, routes)
+    const match = matchPath(this.props.location.pathname, {
+      path: '/products/:id',
+      exact: true,
+      strict: false,
+      name: 'aaa'
+    })
+    console.log('---------------match', match)
     return this.props.location.pathname
   }
+
   changeCollapse (collapse) {
-    this.props.options.changeCollapse && this.props.options.changeCollapse(collapse)
+    this.props.options.setCollapse(collapse)
+    this.props.changeCollapse(collapse)
   }
+
   render () {
-    let r = this.props.options.routeConfig.routes.filter((item) => {
-      return item.path === this.props.match.path
+    const {
+      sider,
+      extend,
+      options,
+      match,
+      accordion
+    } = this.props
+    let r = options.routeConfig.routes.filter((item) => {
+      return item.path === match.path
     })
-    const sider = this.props.options.sider[this.props.match.path.substr(1)] || this.props.options.sider
-    const extend = this.props.options.sider.extend
+    console.log('---------------r', sider)
+
     return (
       <React.Fragment>
         <Sider
-          accordion={false}
+          accordion={accordion}
           current={this.getCurrentPath()}
           sider={sider}
           changeCollapse={this.changeCollapse.bind(this)}
@@ -28,24 +67,7 @@ class SiderLayout extends React.Component {
         <div className='layout__main'>
           <div className='layout__content'>
             <div className='layout__sider-content'>
-              <Switch>
-                <Route
-                  key={'root'}
-                  path={`${this.props.match.path}`}
-                  exact
-                  render={() => <Redirect to={`${this.props.match.path}${r[0].routes[0].path}`} />}
-                />
-                {r.length > 0 && r[0].routes.map((item, index) => {
-                  return <Route
-                    key={index}
-                    exact={item.exact}
-                    strict={item.strict}
-                    path={`${this.props.match.path}${item.path}`}
-                    component={item.component}
-                  />
-                })
-                }
-              </Switch>
+              {renderRoutes(r[0].routes)}
             </div>
           </div>
         </div>

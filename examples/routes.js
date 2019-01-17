@@ -1,3 +1,5 @@
+import React from 'react'
+import siders from './siders'
 import Home from './pages/Home'
 import About from './pages/About'
 
@@ -37,21 +39,27 @@ const routeConfig = {
     exact: true
   }, {
     path: '/products',
-    component: SiderLayout,
+    component: props => {
+      console.log('-----------render route')
+      return (
+        <SiderLayout sider={siders.products} {...props} />
+      )
+    },
     routes: [{
-      path: '/mix3',
-      component: Mix3
+      path: '/products/mix3',
+      component: Mix3,
+      name: 'test1'
     }, {
-      path: '/mi8',
+      path: '/products/mi8',
       component: Mi8
     }, {
-      path: '/mi6',
+      path: '/products/mi6',
       component: Mi6
     }, {
-      path: '/tv4a',
+      path: '/products/tv4a',
       component: TV4A
     }, {
-      path: '/tv4s',
+      path: '/products/tv4s',
       component: TV4S
     }]
   }, {
@@ -59,12 +67,17 @@ const routeConfig = {
     component: About
   }, {
     path: '/statistics',
-    component: SiderLayout,
+    component: props => {
+      console.log('-----------render route')
+      return (
+        <SiderLayout sider={siders.statistics} {...props} />
+      )
+    },
     routes: [{
-      path: '/phone',
+      path: '/statistics/phone',
       component: PhoneStatistics
     }, {
-      path: '/tv',
+      path: '/statistics/tv',
       component: TVStatistics
     }]
   }]

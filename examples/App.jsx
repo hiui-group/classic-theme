@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Logo, Login, NavGroup, Classic as Page } from '../src'
-import siders from './siders'
 import routeConfig from './routes'
 // History.createHashHistory()
 
@@ -61,7 +60,6 @@ class App extends Component {
         header={header}
         logo={logo}
         routeConfig={routeConfig}
-        sider={siders}
         config={{
           color: 'black',
           type: 'flat'
