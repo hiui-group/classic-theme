@@ -25,10 +25,10 @@ const header = (
         <NavLink to='/' exact activeClassName='header__nav-link--active'>首页</NavLink>
       </NavGroup.Item>
       <NavGroup.Item>
-        <NavLink to='/products' activeClassName='header__nav-link--active'>产品系列</NavLink>
+        <NavLink to='/products/mix3' activeClassName='header__nav-link--active'>产品系列</NavLink>
       </NavGroup.Item>
       <NavGroup.Item>
-        <NavLink to='/statistics' activeClassName='header__nav-link--active'>统计数据</NavLink>
+        <NavLink to='/statistics/phone' activeClassName='header__nav-link--active'>统计数据</NavLink>
       </NavGroup.Item>
       <NavGroup.Item>
         <NavLink to='/about' activeClassName='header__nav-link--active'>其它</NavLink>

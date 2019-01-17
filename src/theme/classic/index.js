@@ -25,7 +25,6 @@ class Index extends Component {
       collapse && 'layout--collapsed',
       config.color ? `layout--${config.color}` : 'layout--white',
       config.type && `layout--${config.type}`,
-      routeConfig && routeConfig.hasTopNav && 'layout--topnav',
       config.theme && `theme__${config.theme}`
     )
 

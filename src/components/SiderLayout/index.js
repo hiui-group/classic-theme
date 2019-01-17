@@ -23,11 +23,12 @@ class SiderLayout extends React.Component {
     props.options.setCollapse(props.extend)
   }
 
-  getCurrentPath (routes) {
+  getCurrentRoute (routes) {
     const branch = matchRoutes(this.getRoutes(), this.props.location.pathname)
-    console.log('---------------matchRoutes', branch)
+    console.log('---------------matchRoutes', branch, this.props.location)
 
-    return branch[0].match.url
+    // return branch[0]&&branch[0].match.url || this.props.location.pathname
+    return branch[0] && branch[0].route
     // return this.props.location.pathname
   }
 
@@ -60,10 +61,11 @@ class SiderLayout extends React.Component {
       <React.Fragment>
         <Sider
           accordion={accordion}
-          current={this.getCurrentPath()}
+          currentRoute={this.getCurrentRoute()}
           sider={sider}
           changeCollapse={this.changeCollapse.bind(this)}
           extend={extend}
+          routes={routes}
         />
         <div className='layout__main'>
           <div className='layout__content'>

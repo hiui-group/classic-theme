@@ -32,7 +32,6 @@ import SiderLayout from '../src/components/SiderLayout'
 // }
 // 使用顶部一级导航时
 const routeConfig = {
-  hasTopNav: true,
   routes: [{
     path: '/',
     component: Home,
