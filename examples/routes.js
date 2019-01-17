@@ -40,9 +40,11 @@ const routeConfig = {
   }, {
     path: '/products',
     component: props => {
-      console.log('-----------render route')
       return (
-        <SiderLayout sider={siders.products} {...props} />
+        <SiderLayout
+          sider={siders.products}
+          {...props}
+        />
       )
     },
     routes: [{
@@ -50,7 +52,7 @@ const routeConfig = {
       component: Mix3,
       name: 'test1'
     }, {
-      path: '/products/mi8',
+      path: '/products/mi8/:id',
       component: Mi8
     }, {
       path: '/products/mi6',
@@ -68,7 +70,6 @@ const routeConfig = {
   }, {
     path: '/statistics',
     component: props => {
-      console.log('-----------render route')
       return (
         <SiderLayout sider={siders.statistics} {...props} />
       )

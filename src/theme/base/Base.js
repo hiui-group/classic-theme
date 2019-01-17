@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Router,
-  matchPath as match
+  Router
 } from 'react-router-dom'
 import historManager from '../../util/common'
 
@@ -33,26 +32,6 @@ const baseLayout = WrapperComponent => class extends WrapperComponent {
       type: 'flat',
       color: 'white'
     }
-  }
-
-  getCurrentPath (routes) {
-    console.log('-----------getCurrentPath')
-    match({ routes, location: window.location.href }, (error, redirectLocation, renderProps) => {
-      console.log('---------------match', error, redirectLocation, renderProps)
-    })
-
-    // const {sider} = this.props
-    // const mode = sider.isHash
-    let pathname = window.location.pathname
-    let hash = window.location.hash
-
-    if (hash) {
-      pathname = hash.replace(/#?(.*)/, (a, b) => {
-        return b
-      })
-    }
-    return pathname
-    // return mode ? pathname : window.location.href.split(window.location.origin)[1]
   }
 
   setCollapse (collapse) {

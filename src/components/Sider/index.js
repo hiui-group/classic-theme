@@ -16,7 +16,7 @@ class Sider extends React.Component {
 
   constructor (props) {
     super(props)
-    const items = cloneDeep(this.props.sider.items)
+    const items = cloneDeep(this.props.sider)
     const activeNav = this.getActiveValue(this.props.current, items) // 激活的导航所在位置
     const activeNavCache = activeNav.slice(0) // 缓存激活的导航所在位置，主要用于点击非链接项时子项的选中状态
 
@@ -38,7 +38,7 @@ class Sider extends React.Component {
   componentWillReceiveProps (props) {
     const activeNav = this.getActiveValue(props.current, this.state.items)
     const activeNavCache = activeNav.slice(0)
-    const items = cloneDeep(this.props.sider.items)
+    const items = cloneDeep(this.props.sider)
     this.setState({
       items,
       activeNav,

@@ -1,23 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { renderRoutes } from 'react-router-config'
+import { renderRoutes, matchRoutes } from 'react-router-config'
 import Sider from '../Sider'
 import Provider from '../../util/context'
-import { matchPath } from 'react-router'
 
 class SiderLayout extends React.Component {
   static propTypes = {
     changeCollapse: PropTypes.func,
-    extend: PropTypes.bool,
     accordion: PropTypes.bool,
-    sider: PropTypes.object
+    sider: PropTypes.array
   }
   static defaultProps = {
     changeCollapse: () => {},
-    extend: true,
     sider: [],
     accordion: false
   }
+
+  routes = false
 
   constructor (props) {
     super(props)
@@ -25,16 +24,23 @@ class SiderLayout extends React.Component {
   }
 
   getCurrentPath (routes) {
-    console.log('-----------this.props', this.props)
-    // const match = matchPath(this.props.location.pathname, routes)
-    const match = matchPath(this.props.location.pathname, {
-      path: '/products/:id',
-      exact: true,
-      strict: false,
-      name: 'aaa'
-    })
-    console.log('---------------match', match)
-    return this.props.location.pathname
+    const branch = matchRoutes(this.getRoutes(), this.props.location.pathname)
+    console.log('---------------matchRoutes', branch)
+
+    return branch[0].match.url
+    // return this.props.location.pathname
+  }
+
+  getRoutes () {
+    if (!this.routes) {
+      let r = this.props.options.routeConfig.routes.filter((item) => {
+        return item.path === this.props.match.path
+      })
+
+      this.routes = r[0].routes
+    }
+
+    return this.routes
   }
 
   changeCollapse (collapse) {
@@ -46,14 +52,9 @@ class SiderLayout extends React.Component {
     const {
       sider,
       extend,
-      options,
-      match,
       accordion
     } = this.props
-    let r = options.routeConfig.routes.filter((item) => {
-      return item.path === match.path
-    })
-    console.log('---------------r', sider)
+    let routes = this.getRoutes()
 
     return (
       <React.Fragment>
@@ -67,7 +68,7 @@ class SiderLayout extends React.Component {
         <div className='layout__main'>
           <div className='layout__content'>
             <div className='layout__sider-content'>
-              {renderRoutes(r[0].routes)}
+              {renderRoutes(routes)}
             </div>
           </div>
         </div>
