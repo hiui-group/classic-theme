@@ -38,7 +38,7 @@ const routeConfig = {
     exact: true
   }, {
     path: '/products',
-    component: props => {
+    render: props => {
       return (
         <SiderLayout
           sider={siders.products}
@@ -68,7 +68,7 @@ const routeConfig = {
     component: About
   }, {
     path: '/statistics',
-    component: props => {
+    render: props => {
       return (
         <SiderLayout sider={siders.statistics} {...props} />
       )

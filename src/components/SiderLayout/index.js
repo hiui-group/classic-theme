@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { renderRoutes, matchRoutes } from 'react-router-config'
+import { matchRoutes } from 'react-router-config'
+import { renderRoutes } from '../../util/router'
+import BreadCrumb from '../../components/BreadCrumb'
 import Sider from '../Sider'
-import Provider from '../../util/context'
 
 class SiderLayout extends React.Component {
   static propTypes = {
@@ -15,17 +16,24 @@ class SiderLayout extends React.Component {
     sider: [],
     accordion: false
   }
+  static displayName = 'HIUI_SiderLayout'
 
   routes = false
 
   constructor (props) {
     super(props)
-    props.options.setCollapse(props.extend)
+    props.setCollapse(props.extend)
+  }
+
+  compomentWillReceiveProps (nextProps) {
+    if (nextProps.extend !== this.props.extend) {
+      nextProps.setCollapse(nextProps.extend)
+    }
   }
 
   getCurrentRoute (routes) {
     const branch = matchRoutes(this.getRoutes(), this.props.location.pathname)
-    console.log('---------------matchRoutes', branch, this.props.location)
+    // console.log('---------------matchRoutes', branch, this.props.location)
 
     // return branch[0]&&branch[0].match.url || this.props.location.pathname
     return branch[0] && branch[0].route
@@ -34,7 +42,7 @@ class SiderLayout extends React.Component {
 
   getRoutes () {
     if (!this.routes) {
-      let r = this.props.options.routeConfig.routes.filter((item) => {
+      let r = this.props.routeConfig.routes.filter((item) => {
         return item.path === this.props.match.path
       })
 
@@ -45,7 +53,7 @@ class SiderLayout extends React.Component {
   }
 
   changeCollapse (collapse) {
-    this.props.options.setCollapse(collapse)
+    this.props.setCollapse(collapse)
     this.props.changeCollapse(collapse)
   }
 
@@ -53,7 +61,8 @@ class SiderLayout extends React.Component {
     const {
       sider,
       extend,
-      accordion
+      accordion,
+      breadcrumb
     } = this.props
     let routes = this.getRoutes()
 
@@ -69,9 +78,8 @@ class SiderLayout extends React.Component {
         />
         <div className='layout__main'>
           <div className='layout__content'>
-            <div className='layout__sider-content'>
-              {renderRoutes(routes)}
-            </div>
+            <BreadCrumb items={breadcrumb} />
+            {renderRoutes(routes)}
           </div>
         </div>
 
@@ -79,4 +87,4 @@ class SiderLayout extends React.Component {
     )
   }
 }
-export default Provider(SiderLayout)
+export default SiderLayout

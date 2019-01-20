@@ -44,7 +44,20 @@ class App extends Component {
     super()
     this.state = {
       type: 'flat',
-      color: 'blue'
+      color: 'blue',
+      breadcrumb: [
+        {
+          to: '/products/mix3',
+          title: '产品系列'
+        },
+        {
+          title: '红米系列'
+        },
+        {
+          to: '/products/mi6',
+          title: '红米6'
+        }
+      ]
     }
   }
   render () {
@@ -55,10 +68,15 @@ class App extends Component {
       title='HIUI Classic Theme Demo'
       alt='Project Logo'
     />
+    const {
+      breadcrumb
+    } = this.state
+
     return (
       <Page
         header={header}
         logo={logo}
+        breadcrumb={breadcrumb}
         routeConfig={routeConfig}
         config={{
           color: 'black',

@@ -1,13 +1,29 @@
 import React, { Component } from 'react'
-import { renderRoutes } from 'react-router-config'
 import Header from '../../components/Header'
+import Footer from '../../components/Footer'
+import BreadCrumb from '../../components/BreadCrumb'
 import classNames from 'classnames'
 import Base from '../base'
-import { ContextProvider } from '../../util/context'
+import { renderRoutes } from '../../util/router'
 import './index.scss'
 
 class Index extends Component {
   static type = 'classic'
+
+  renderProxy (page) {
+    if (page.type.displayName === 'HIUI_SiderLayout') {
+      return page
+    } else {
+      return (
+        <div className='layout__main'>
+          <div className='layout__content'>
+            <BreadCrumb items={this.props.breadcrumb} />
+            {page}
+          </div>
+        </div>
+      )
+    }
+  }
 
   render () {
     const {
@@ -17,7 +33,9 @@ class Index extends Component {
       header,
       routeConfig,
       logo,
-      config
+      footer,
+      config,
+      breadcrumb
     } = this.props
     const layoutClasses = classNames(
       'layout',
@@ -27,16 +45,20 @@ class Index extends Component {
       config.type && `layout--${config.type}`,
       config.theme && `theme__${config.theme}`
     )
+    const extraProps = {
+      setCollapse: this.setCollapse.bind(this),
+      routeConfig,
+      breadcrumb
+    }
 
     return (
-      <ContextProvider value={{...this.props, setCollapse: this.setCollapse.bind(this)}}>
-        <div className={layoutClasses}>
-          <Header header={header} logo={logo} />
-          <div className='layout__body'>
-            {renderRoutes(routeConfig.routes)}
-          </div>
+      <div className={layoutClasses}>
+        <Header header={header} logo={logo} />
+        <div className='layout__body'>
+          {renderRoutes(routeConfig.routes, extraProps, {}, this.renderProxy.bind(this))}
+          { footer && <Footer footer={footer} /> }
         </div>
-      </ContextProvider>
+      </div>
     )
   }
 }
