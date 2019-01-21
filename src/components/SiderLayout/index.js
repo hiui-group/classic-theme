@@ -18,17 +18,6 @@ class SiderLayout extends React.Component {
   }
   static displayName = 'HIUI_SiderLayout'
 
-  constructor (props) {
-    super(props)
-    props.setCollapse(props.extend)
-  }
-
-  compomentWillReceiveProps (nextProps) {
-    if (nextProps.extend !== this.props.extend) {
-      nextProps.setCollapse(nextProps.extend)
-    }
-  }
-
   getCurrentRoute (routes) {
     const branch = matchRoutes(this.getRoutes(), this.props.location.pathname)
     // console.log('---------------matchRoutes', branch, this.props.location)
@@ -52,7 +41,8 @@ class SiderLayout extends React.Component {
       sider,
       extend,
       accordion,
-      breadcrumb
+      breadcrumb,
+      logo
     } = this.props
     let routes = this.getRoutes()
 
@@ -65,6 +55,7 @@ class SiderLayout extends React.Component {
           changeCollapse={this.changeCollapse.bind(this)}
           extend={extend}
           routes={routes}
+          logo={logo}
         />
         <div className='layout__main'>
           <div className='layout__content'>

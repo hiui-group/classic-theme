@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
-import BreadCrumb from '../../components/BreadCrumb'
 import classNames from 'classnames'
 import Base from '../base'
 import { renderRoutes } from '../../util/router'
@@ -9,25 +8,6 @@ import './index.scss'
 
 class Index extends Component {
   static type = 'classic'
-
-  renderProxy (page) {
-    if (page.type.displayName === 'HIUI_SiderLayout') {
-      return page
-    } else {
-      const breadcrumb = this.props.breadcrumb
-
-      return (
-        <div className='layout__main'>
-          <div className='layout__content'>
-            {
-              breadcrumb.length > 0 && <BreadCrumb items={breadcrumb} />
-            }
-            {page}
-          </div>
-        </div>
-      )
-    }
-  }
 
   render () {
     const {

@@ -4,6 +4,7 @@ import {
   Router
 } from 'react-router-dom'
 import historManager from '../../util/common'
+import BreadCrumb from '../../components/BreadCrumb'
 
 const baseLayout = WrapperComponent => class extends WrapperComponent {
   constructor (props) {
@@ -33,11 +34,31 @@ const baseLayout = WrapperComponent => class extends WrapperComponent {
       type: 'flat',
       color: 'white'
     },
-    breadcrumb: []
+    breadcrumb: [],
+    routes: []
   }
 
   setCollapse (collapse) {
     this.setState({collapse})
+  }
+
+  renderProxy (page) {
+    if (page.type.displayName === 'HIUI_SiderLayout') {
+      return page
+    } else {
+      const breadcrumb = this.props.breadcrumb
+
+      return (
+        <div className='layout__main'>
+          <div className='layout__content'>
+            {
+              breadcrumb.length > 0 && <BreadCrumb items={breadcrumb} />
+            }
+            {page}
+          </div>
+        </div>
+      )
+    }
   }
 
   render () {
