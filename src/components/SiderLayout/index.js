@@ -18,8 +18,6 @@ class SiderLayout extends React.Component {
   }
   static displayName = 'HIUI_SiderLayout'
 
-  routes = false
-
   constructor (props) {
     super(props)
     props.setCollapse(props.extend)
@@ -41,15 +39,7 @@ class SiderLayout extends React.Component {
   }
 
   getRoutes () {
-    if (!this.routes) {
-      let r = this.props.routeConfig.routes.filter((item) => {
-        return item.path === this.props.match.path
-      })
-
-      this.routes = r[0].routes
-    }
-
-    return this.routes
+    return this.props.routes
   }
 
   changeCollapse (collapse) {
@@ -78,7 +68,7 @@ class SiderLayout extends React.Component {
         />
         <div className='layout__main'>
           <div className='layout__content'>
-            <BreadCrumb items={breadcrumb} />
+            { breadcrumb.length > 0 && <BreadCrumb items={breadcrumb} /> }
             {renderRoutes(routes)}
           </div>
         </div>

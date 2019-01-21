@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Logo, Login, NavGroup, Classic as Page } from '../src'
-import routeConfig from './routes'
+import routes from './routes'
 // History.createHashHistory()
 
 const login = {
@@ -77,7 +77,7 @@ class App extends Component {
         header={header}
         logo={logo}
         breadcrumb={breadcrumb}
-        routeConfig={routeConfig}
+        routes={routes}
         config={{
           color: 'black',
           type: 'flat'

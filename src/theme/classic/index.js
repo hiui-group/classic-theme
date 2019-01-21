@@ -14,10 +14,14 @@ class Index extends Component {
     if (page.type.displayName === 'HIUI_SiderLayout') {
       return page
     } else {
+      const breadcrumb = this.props.breadcrumb
+
       return (
         <div className='layout__main'>
           <div className='layout__content'>
-            <BreadCrumb items={this.props.breadcrumb} />
+            {
+              breadcrumb.length > 0 && <BreadCrumb items={breadcrumb} />
+            }
             {page}
           </div>
         </div>
@@ -31,7 +35,7 @@ class Index extends Component {
     } = this.state
     let {
       header,
-      routeConfig,
+      routes,
       logo,
       footer,
       config,
@@ -47,7 +51,6 @@ class Index extends Component {
     )
     const extraProps = {
       setCollapse: this.setCollapse.bind(this),
-      routeConfig,
       breadcrumb
     }
 
@@ -55,7 +58,7 @@ class Index extends Component {
       <div className={layoutClasses}>
         <Header header={header} logo={logo} />
         <div className='layout__body'>
-          {renderRoutes(routeConfig.routes, extraProps, {}, this.renderProxy.bind(this))}
+          {renderRoutes(routes, extraProps, {}, this.renderProxy.bind(this))}
           { footer && <Footer footer={footer} /> }
         </div>
       </div>

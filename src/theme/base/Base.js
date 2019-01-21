@@ -25,13 +25,15 @@ const baseLayout = WrapperComponent => class extends WrapperComponent {
       color: PropTypes.string
     }),
     footer: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-    logo: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
+    logo: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    breadcrumb: PropTypes.array
   }
   static defaultProps = {
     config: {
       type: 'flat',
       color: 'white'
-    }
+    },
+    breadcrumb: []
   }
 
   setCollapse (collapse) {
