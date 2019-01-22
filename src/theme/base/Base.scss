@@ -39,12 +39,17 @@ $config-header-colors: (
     box-sizing: border-box;
     flex: 1;
     background-color: $white;
-    margin-left: 216px;
+    // margin-left: 216px;
 
     .layout--collapsed & {
       margin-left: 48px;
     }
+    
+    &--lr {
+      margin-left: 216px;
+    }
   }
+
 
   &__sidebar.sidebar {
     position: fixed;
