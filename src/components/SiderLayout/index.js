@@ -1,52 +1,66 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { matchRoutes } from 'react-router-config'
+import { renderRoutes } from '../../util/router'
+import BreadCrumb from '../../components/BreadCrumb'
 import Sider from '../Sider'
-import Provider from '../../util/context'
-import { Switch, Route, Redirect } from 'react-router-dom'
 
 class SiderLayout extends React.Component {
-  getCurrentPath () {
-    return this.props.location.pathname
+  static propTypes = {
+    changeCollapse: PropTypes.func,
+    accordion: PropTypes.bool,
+    sider: PropTypes.array
   }
+  static defaultProps = {
+    changeCollapse: () => {},
+    sider: [],
+    accordion: false
+  }
+  static displayName = 'HIUI_SiderLayout'
+
+  getCurrentRoute (routes) {
+    const branch = matchRoutes(this.getRoutes(), this.props.location.pathname)
+    // console.log('---------------matchRoutes', branch, this.props.location)
+
+    // return branch[0]&&branch[0].match.url || this.props.location.pathname
+    return branch[0] && branch[0].route
+    // return this.props.location.pathname
+  }
+
+  getRoutes () {
+    return this.props.routes
+  }
+
   changeCollapse (collapse) {
-    this.props.options.changeCollapse && this.props.options.changeCollapse(collapse)
+    this.props.setCollapse(collapse)
+    this.props.changeCollapse(collapse)
   }
+
   render () {
-    let r = this.props.options.routeConfig.routes.filter((item) => {
-      return item.path === this.props.match.path
-    })
-    const sider = this.props.options.sider[this.props.match.path.substr(1)] || this.props.options.sider
-    const extend = this.props.options.sider.extend
+    const {
+      sider,
+      extend,
+      accordion,
+      breadcrumb,
+      logo
+    } = this.props
+    let routes = this.getRoutes()
+
     return (
       <React.Fragment>
         <Sider
-          accordion={false}
-          current={this.getCurrentPath()}
+          accordion={accordion}
+          currentRoute={this.getCurrentRoute()}
           sider={sider}
           changeCollapse={this.changeCollapse.bind(this)}
           extend={extend}
+          routes={routes}
+          logo={logo}
         />
-        <div className='layout__main'>
+        <div className='layout__main layout__main--lr'>
           <div className='layout__content'>
-            <div className='layout__sider-content'>
-              <Switch>
-                <Route
-                  key={'root'}
-                  path={`${this.props.match.path}`}
-                  exact
-                  render={() => <Redirect to={`${this.props.match.path}${r[0].routes[0].path}`} />}
-                />
-                {r.length > 0 && r[0].routes.map((item, index) => {
-                  return <Route
-                    key={index}
-                    exact={item.exact}
-                    strict={item.strict}
-                    path={`${this.props.match.path}${item.path}`}
-                    component={item.component}
-                  />
-                })
-                }
-              </Switch>
-            </div>
+            { breadcrumb.length > 0 && <BreadCrumb items={breadcrumb} /> }
+            {renderRoutes(routes)}
           </div>
         </div>
 
@@ -54,4 +68,4 @@ class SiderLayout extends React.Component {
     )
   }
 }
-export default Provider(SiderLayout)
+export default SiderLayout

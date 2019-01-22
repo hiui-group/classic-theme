@@ -12,7 +12,12 @@ const historyManager = {
     return h
   },
   getHistory: () => {
-    return _history.history
+    return _history.history || historyManager.createBrowserHistory()
+  },
+  listen: callback => {
+    _history.history.listen((location, action) => {
+      callback(location, action)
+    })
   }
 }
 export default historyManager

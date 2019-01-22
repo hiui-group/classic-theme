@@ -1,4 +1,5 @@
 import React from 'react'
+import { matchPath } from 'react-router'
 import classNames from 'classnames'
 import Cookies from 'js-cookie'
 import cloneDeep from 'lodash/cloneDeep'
@@ -7,8 +8,7 @@ import './index.scss'
 
 class Sider extends React.Component {
   static defaultProps = {
-    accordion: true,
-    matchPath: ''
+    accordion: true
   }
 
   isSwitchToggle = false // toggle切换标识
@@ -16,8 +16,8 @@ class Sider extends React.Component {
 
   constructor (props) {
     super(props)
-    const items = cloneDeep(this.props.sider.items)
-    const activeNav = this.getActiveValue(this.props.current, items) // 激活的导航所在位置
+    const items = cloneDeep(this.props.sider)
+    const activeNav = this.getActiveValue(this.props.currentRoute, items) // 激活的导航所在位置
     const activeNavCache = activeNav.slice(0) // 缓存激活的导航所在位置，主要用于点击非链接项时子项的选中状态
 
     this.state = {
@@ -36,9 +36,9 @@ class Sider extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    const activeNav = this.getActiveValue(props.current, this.state.items)
+    const activeNav = this.getActiveValue(props.currentRoute, this.state.items)
     const activeNavCache = activeNav.slice(0)
-    const items = cloneDeep(this.props.sider.items)
+    const items = cloneDeep(this.props.sider)
     this.setState({
       items,
       activeNav,
@@ -46,7 +46,7 @@ class Sider extends React.Component {
     })
   }
 
-  getActiveValue (current, navs) { // 初始时获取激活导航的value
+  getActiveValue (currentRoute, navs) { // 初始时获取激活导航的value
     let deep = 0
     let value = []
     const fn = iteration => {
@@ -56,7 +56,10 @@ class Sider extends React.Component {
           return true
         }
         !nav.to && value.push(index)
-        if (nav.to === current) {
+
+        const match = matchPath(nav.to, currentRoute)
+
+        if (match) {
           value.splice(deep, 1, index)
           flag = false
           return false

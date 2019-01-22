@@ -1,13 +1,12 @@
 import React from 'react'
 
-import { renderRoutes } from 'react-router-config'
 import './index.scss'
-import Sider from '../../components/Sider'
 import Header from '../../components/Header'
-import BreadCrumb from '../../components/BreadCrumb'
 import Footer from '../../components/Footer'
+import { renderRoutes } from '../../util/router'
 import Base from '../base'
 import classNames from 'classnames'
+
 class Index extends React.Component {
   render () {
     const {
@@ -15,18 +14,11 @@ class Index extends React.Component {
     } = this.state
     let {
       header = '',
-      routeConfig = [],
-      sider = {
-        items: [],
-        top: ''
-      },
-      breadCrumb,
+      routes = [],
+      breadcrumb,
       footer,
-      logo,
-      config,
-      extend
+      config
     } = this.props
-    console.log(routeConfig)
     const cls = classNames(
       'layout',
       'layout--genuine',
@@ -38,43 +30,23 @@ class Index extends React.Component {
       'layout__body',
       !header && 'layout__body--noheader'
     )
+    const extraProps = {
+      setCollapse: this.setCollapse.bind(this),
+      breadcrumb
+    }
+
     return (
       <div className={cls}>
         {
           header && <Header
             header={header}
-            border={!!breadCrumb}
+            border={breadcrumb.length > 0}
           />
         }
-        <Sider
-          current={this.getCurrentPath(sider.items)}
-          sider={sider}
-          changeCollapse={this.changeCollapse.bind(this)}
-          logo={logo}
-          extend={extend}
-        />
 
         <div className={bodyCls}>
-          <main className='layout__main'>
-            {
-              breadCrumb
-                ? (
-                  <BreadCrumb
-                    items={breadCrumb.items}
-                    sign={breadCrumb.sign}
-                  />
-                ) : ''
-            }
-            <div className='layout__content'>
-              {renderRoutes(routeConfig.routes)}
-            </div>
-          </main>
-          {
-            footer
-              ? (
-                <Footer footer={footer} />
-              ) : ''
-          }
+          {renderRoutes(routes, extraProps, {}, this.renderProxy.bind(this))}
+          { footer && <Footer footer={footer} /> }
         </div>
       </div>
     )

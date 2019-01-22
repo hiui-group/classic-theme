@@ -4,6 +4,7 @@ import {
   Router
 } from 'react-router-dom'
 import historManager from '../../util/common'
+import BreadCrumb from '../../components/BreadCrumb'
 
 const baseLayout = WrapperComponent => class extends WrapperComponent {
   constructor (props) {
@@ -25,38 +26,44 @@ const baseLayout = WrapperComponent => class extends WrapperComponent {
       color: PropTypes.string
     }),
     footer: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-    logo: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
+    logo: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    breadcrumb: PropTypes.array
   }
   static defaultProps = {
     config: {
       type: 'flat',
       color: 'white'
-    }
+    },
+    breadcrumb: [],
+    routes: []
   }
 
-  getCurrentPath () {
-    // const {sider} = this.props
-    let pathname = window.location.pathname
-    let hash = window.location.hash
-
-    if (hash) {
-      pathname = hash.replace(/#?(.*)/, (a, b) => {
-        return b
-      })
-    }
-    return pathname
-    // return mode ? pathname : window.location.href.split(window.location.origin)[1]
-  }
-
-  changeCollapse (collapse) {
+  setCollapse (collapse) {
     this.setState({collapse})
+  }
+
+  renderProxy (page) {
+    if (page.type.displayName === 'HIUI_SiderLayout') {
+      return page
+    } else {
+      const breadcrumb = this.props.breadcrumb
+
+      return (
+        <div className='layout__main'>
+          <div className='layout__content'>
+            {
+              breadcrumb.length > 0 && <BreadCrumb items={breadcrumb} />
+            }
+            {page}
+          </div>
+        </div>
+      )
+    }
   }
 
   render () {
     let _h = historManager.getHistory()
-    if (!_h) {
-      _h = historManager.createBrowserHistory()
-    }
+
     // document.body.classList.add(`config__content--${config.type || 'flat'}` )
     // document.body.classList.add(`config__header--${config.color || 'white'}` )
     return (
