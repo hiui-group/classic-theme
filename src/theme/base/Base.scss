@@ -44,12 +44,11 @@ $config-header-colors: (
     .layout--collapsed & {
       margin-left: 48px;
     }
-    
+
     &--lr {
       margin-left: 216px;
     }
   }
-
 
   &__sidebar.sidebar {
     position: fixed;
