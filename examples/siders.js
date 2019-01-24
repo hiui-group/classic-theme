@@ -1,16 +1,7 @@
 import React from 'react'
 import { Icon } from '@hi-ui/hiui'
-// import { Login } from '../src'
 // History.createHashHistory()
 
-// const login = {
-//   name: 'Admin',
-//   icon: <span className='hi-icon icon-user' />,
-//   children: [
-//     <div key='1' style={{ textAlign: 'center', margin: 4, 'width': '100px' }}><a href='#'>个人信息</a></div>,
-//     <div key='2' style={{ textAlign: 'center', margin: 4, width: 100 }}><a href='#'>注销</a></div>
-//   ]
-// }
 const siders = {
   products: [
     {
