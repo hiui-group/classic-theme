@@ -57,7 +57,7 @@ class SiderLayout extends React.Component {
           routes={routes}
           logo={logo}
         />
-        <div className='layout__main'>
+        <div className='layout__main layout__main--lr'>
           <div className='layout__content'>
             { breadcrumb.length > 0 && <BreadCrumb items={breadcrumb} /> }
             {renderRoutes(routes)}

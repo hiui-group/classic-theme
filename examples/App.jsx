@@ -1,49 +1,32 @@
 import React, { Component } from 'react'
-import { Logo, Login, NavGroup, NavLink, Classic as Page } from '../src'
+import { Logo, Login, NavGroup, NavLink, Classic, Genuine } from '../src'
+import { Dropdown } from '@hi-ui/hiui'
 import routes from './routes'
+import NavHeader, {NoNavHeader} from './pages/Header'
+import './App.scss'
 // History.createHashHistory()
 
-const login = {
-  name: 'Admin',
-  icon: <span className='hi-icon icon-user' />,
-  children: [
-    <div key='1' style={{ textAlign: 'center', margin: 4, 'width': '100px' }}><a href='#'>个人信息</a></div>,
-    <div key='2' style={{ textAlign: 'center', margin: 4, width: 100 }}><a href='#'>注销</a></div>
-  ]
-}
-
-const header = (
-  <React.Fragment>
-    <NavGroup position='left'>
-      <NavGroup.Item>
-        <a href='javascript: void(0)'>切换站点</a>
-      </NavGroup.Item>
-    </NavGroup>
-    <NavGroup position='center'>
-      <NavGroup.Item>
-        <NavLink to='/' exact activeClassName='header__nav-link--active'>首页</NavLink>
-      </NavGroup.Item>
-      <NavGroup.Item>
-        <NavLink to='/products/mix3' activeClassName='header__nav-link--active'>产品系列</NavLink>
-      </NavGroup.Item>
-      <NavGroup.Item>
-        <NavLink to='/statistics/phone' activeClassName='header__nav-link--active'>统计数据</NavLink>
-      </NavGroup.Item>
-      <NavGroup.Item>
-        <NavLink to='/about' activeClassName='header__nav-link--active'>其它</NavLink>
-      </NavGroup.Item>
-    </NavGroup>
-    <NavGroup position='right'>
-      <Login {...login} />
-    </NavGroup>
-  </React.Fragment>
-)
 class App extends Component {
   constructor () {
     super()
     this.state = {
       type: 'flat',
-      color: 'blue',
+      color: 'black',
+      colors: [{title: 'white'}, {title: 'black'}],
+      layoutName: 'classic',
+      layouts: [{
+        title: '经典布局(平铺式)'
+      }, {
+        title: '经典布局(卡片式)'
+      }, {
+        title: '经典布局(顶部导航)'
+      }, {
+        title: '左右双栏(平铺式)'
+      }, {
+        title: '左右双栏(卡片式)'
+      }, {
+        title: '左右双栏(Header)'
+      }],
       breadcrumb: [
         {
           to: '/products/mix3',
@@ -59,6 +42,53 @@ class App extends Component {
       ]
     }
   }
+  changeLayout (val) {
+    const layouts = this.state.layouts
+    let tile = 'flat'
+    let layout = 'classic'
+    let header = null
+    switch (val) {
+      case layouts[0].title:
+        tile = 'flat'
+        layout = 'classic'
+        break
+      case layouts[1].title:
+        tile = 'card'
+        layout = 'classic'
+        break
+      case layouts[2].title:
+        header = <NavHeader />
+        break
+      case layouts[3].title:
+        tile = 'flat'
+        layout = 'genuine'
+        break
+      case layouts[4].title:
+        tile = 'card'
+        layout = 'genuine'
+        break
+      case layouts[5].title:
+        tile = 'flat'
+        layout = 'genuine'
+        header = <NoNavHeader />
+        break
+      default:
+        break
+    }
+    this.setState({
+      type: tile,
+      header
+    }, () => {
+      this.setState({
+        layoutName: layout
+      })
+    })
+  }
+  changeColor (val) {
+    this.setState({
+      color: val
+    })
+  }
   render () {
     const logo = <Logo
       url='https://xiaomi.github.io/hiui/#/'
@@ -68,20 +98,47 @@ class App extends Component {
       alt='Project Logo'
     />
     const {
-      breadcrumb
+      breadcrumb,
+      colors,
+      layouts,
+      layoutName,
+      color,
+      type,
+      header
     } = this.state
 
     return (
-      <Page
-        header={header}
-        logo={logo}
-        breadcrumb={breadcrumb}
-        routes={routes}
-        config={{
-          color: 'black',
-          type: 'flat'
-        }}
-      />
+      <React.Fragment>
+        <div
+          className='menus'
+        >
+          <Dropdown list={colors} title='更换配色' onClick={this.changeColor.bind(this)} />
+          <Dropdown list={layouts} title='更换布局' onClick={this.changeLayout.bind(this)} />
+        </div>
+        {
+          layoutName === 'classic'
+            ? (<Classic
+              header={header}
+              logo={logo}
+              breadcrumb={breadcrumb}
+              routes={routes}
+              config={{
+                color,
+                type
+              }}
+            />)
+            : <Genuine
+              header={header}
+              logo={logo}
+              breadcrumb={breadcrumb}
+              routes={routes}
+              config={{
+                color,
+                type
+              }}
+            />
+        }
+      </React.Fragment>
     )
   }
 }

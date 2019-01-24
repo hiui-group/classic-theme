@@ -5,6 +5,17 @@ import About from './pages/About'
 
 import {Mix3, Mi8, Mi6, TV4A, TV4S, PhoneStatistics, TVStatistics} from './pages/Products'
 import SiderLayout from '../src/components/SiderLayout'
+import { Login } from '../src'
+// History.createHashHistory()
+
+const login = {
+  name: 'Admin',
+  icon: <span className='hi-icon icon-user' />,
+  children: [
+    <div key='1' style={{ textAlign: 'center', margin: 4, 'width': '100px' }}><a href='#'>个人信息</a></div>,
+    <div key='2' style={{ textAlign: 'center', margin: 4, width: 100 }}><a href='#'>注销</a></div>
+  ]
+}
 // 没有顶部一级导航时
 // const routes = {
 //   routes: [
@@ -41,6 +52,7 @@ const routes = [{
     return (
       <SiderLayout
         sider={siders.products}
+        extend={<Login {...login} />}
         routes={
           [{
             path: '/products/mix3',

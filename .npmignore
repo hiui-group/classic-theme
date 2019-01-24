@@ -1,7 +1,9 @@
 # MIFE dotfiles
 
 # output
+assets/
 dist/
+examples/
 
 # Editor generate files
 .idea/
