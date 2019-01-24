@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
-import { Logo, Login, NavGroup, Classic as Page } from '../src'
+import { Logo, Login, NavGroup, NavLink, Classic as Page } from '../src'
 import routes from './routes'
 // History.createHashHistory()
 
