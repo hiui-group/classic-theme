@@ -135,6 +135,10 @@ class Sider extends React.Component {
     } = this.state
     const isLeaf = this.isLeaf(item)
     if (isLeaf) {
+      if (item.outerChain) {
+        window.location.href = item.to
+        return
+      }
       this.setState({
         activeNavCache: value,
         activeNav: value,
