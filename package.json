@@ -1,6 +1,6 @@
 {
   "name": "@hi-ui/classic-theme",
-  "version": "1.1.1-beta.1",
+  "version": "1.2.1",
   "description": "Classic theme for HIUI",
   "main": "./es/index.js",
   "scripts": {
@@ -32,6 +32,7 @@
     "react": "^16.3.2",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.3.2",
+    "react-router": "^4.3.1",
     "react-router-config": "^4.4.0-beta.6",
     "react-router-dom": "^4.2.2"
   },

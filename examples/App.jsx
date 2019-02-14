@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Logo, Login, NavGroup, NavLink, Classic, Genuine } from '../src'
+import { Logo, Login, NavGroup, NavLink, Classic, Genuine, History } from '../src'
 import { Dropdown } from '@hi-ui/hiui'
 import routes from './routes'
 import NavHeader, {NoNavHeader} from './pages/Header'
 import './App.scss'
-// History.createHashHistory()
+History.createHashHistory()
 
 class App extends Component {
   constructor () {

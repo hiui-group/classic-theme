@@ -8,7 +8,8 @@ import './index.scss'
 
 class Sider extends React.Component {
   static defaultProps = {
-    accordion: true
+    accordion: true,
+    deepClone: true
   }
 
   isSwitchToggle = false // toggle切换标识
@@ -38,9 +39,14 @@ class Sider extends React.Component {
   componentWillReceiveProps (props) {
     const activeNav = this.getActiveValue(props.currentRoute, this.state.items)
     const activeNavCache = activeNav.slice(0)
-    const items = cloneDeep(this.props.sider)
+
+    if (props.deepClone) {
+      const items = cloneDeep(this.props.sider)
+      this.setState({
+        items
+      })
+    }
     this.setState({
-      items,
       activeNav,
       activeNavCache
     })
@@ -56,9 +62,7 @@ class Sider extends React.Component {
           return true
         }
         !nav.to && value.push(index)
-
         const match = matchPath(nav.to, currentRoute)
-
         if (match) {
           value.splice(deep, 1, index)
           flag = false
@@ -131,6 +135,10 @@ class Sider extends React.Component {
     } = this.state
     const isLeaf = this.isLeaf(item)
     if (isLeaf) {
+      if (item.outerChain) {
+        window.location.href = item.to
+        return
+      }
       this.setState({
         activeNavCache: value,
         activeNav: value,
