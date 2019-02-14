@@ -20,9 +20,9 @@ class SiderLayout extends React.Component {
 
   getCurrentRoute (routes) {
     const branch = matchRoutes(this.getRoutes(), this.props.location.pathname)
-    // console.log('---------------matchRoutes', branch, this.props.location)
 
     // return branch[0]&&branch[0].match.url || this.props.location.pathname
+    // console.log(this.getRoutes(), this.props.location.pathname, branch)
     return branch[0] && branch[0].route
     // return this.props.location.pathname
   }
@@ -42,7 +42,8 @@ class SiderLayout extends React.Component {
       extend,
       accordion,
       breadcrumb,
-      logo
+      logo,
+      deepClone
     } = this.props
     let routes = this.getRoutes()
 
@@ -56,6 +57,7 @@ class SiderLayout extends React.Component {
           extend={extend}
           routes={routes}
           logo={logo}
+          deepClone={deepClone}
         />
         <div className='layout__main layout__main--lr'>
           <div className='layout__content'>

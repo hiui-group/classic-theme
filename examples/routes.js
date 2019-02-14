@@ -49,9 +49,11 @@ const routes = [{
 }, {
   path: '/products',
   render: props => {
+    console.log(12)
     return (
       <SiderLayout
         sider={siders.products}
+        accordion={false}
         extend={<Login {...login} />}
         routes={
           [{
