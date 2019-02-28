@@ -1,6 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
-import './index.scss'
+import './style/index'
 
 class Item extends React.Component {
   render () {

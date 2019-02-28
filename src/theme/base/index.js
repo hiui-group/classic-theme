@@ -1,3 +1,3 @@
 import Base from './Base.js'
-import './Base.scss'
+import './style/index'
 export default Base

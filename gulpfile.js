@@ -14,11 +14,12 @@ const esDir = path.join(cwd, 'es')
 const compile = modules => {
   rimraf.sync(modules !== false ? libDir : esDir)
   const sass = gulp
-    .src(['src/**/*.scss'])
+    .src(['src/**/*.scss', '!src/**/_*.scss'])
     .pipe(
       through2.obj(function (file, encoding, next) {
-        this.push(file.clone())
-        if (file.path.match(/\/style\/index\.scss$/)) {
+        // this.push(file.clone())
+
+        if (file.path.match(/\/style\/.*\.scss$/)) {
           transformSass(file.path)
             .then(css => {
               file.contents = Buffer.from(css)
@@ -38,9 +39,6 @@ const compile = modules => {
   const assets = gulp
     .src(['src/**/*.@(png|svg|eot|ttf|woff|woff2|otf)'])
     .pipe(gulp.dest(modules === false ? esDir : libDir))
-  const statics = gulp
-    .src(['src/static/**/*'])
-    .pipe(gulp.dest(modules === false ? esDir + '/static' : libDir + '/static'))
   const js = gulp
     .src('src/**/*.js')
     .pipe(
@@ -50,7 +48,7 @@ const compile = modules => {
             'env',
             {
               targets: {
-                browsers: ['ie >= 8']
+                browsers: ['ie > 8']
               },
               loose: true,
               modules: modules,
@@ -59,12 +57,23 @@ const compile = modules => {
           ],
           'stage-0',
           'react'
-        ]
-        // plugins: [['transform-remove-console', { exclude: ['error', 'warn'] }]]
+        ],
+        plugins: [['transform-remove-console', { exclude: ['error', 'warn'] }]]
       })
     )
+    .pipe(through2.obj(function (file, encoding, next) {
+      if (file.path.match(/\/.*\.js$/)) {
+        const cssContent = file.contents.toString().replace(/\.scss/g, '.css')
+        file.contents = Buffer.from(cssContent)
+        this.push(file)
+        next()
+      } else {
+        this.push(file)
+        next()
+      }
+    }))
     .pipe(gulp.dest(modules === false ? esDir : libDir))
-  return merge2([sass, assets, js, statics])
+  return merge2([sass, assets, js])
 }
 
 gulp.task('compile', () => compile(false))

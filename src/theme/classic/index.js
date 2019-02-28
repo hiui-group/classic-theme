@@ -4,7 +4,7 @@ import Footer from '../../components/Footer'
 import classNames from 'classnames'
 import Base from '../base'
 import { renderRoutes } from '../../util/router'
-import './index.scss'
+import './style/index'
 
 class Index extends Component {
   static type = 'classic'

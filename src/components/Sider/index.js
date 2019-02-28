@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import Cookies from 'js-cookie'
 import cloneDeep from 'lodash/cloneDeep'
 import historyManager from '../../util/common'
-import './index.scss'
+import './style/index'
 
 class Sider extends React.Component {
   static defaultProps = {

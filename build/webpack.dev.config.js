@@ -41,7 +41,7 @@ module.exports = {
   devServer: {
     hot: true,
     inline: true,
-    quiet: true,
+    quiet: false,
     host: '0.0.0.0',
     disableHostCheck: true,
     historyApiFallback: true,

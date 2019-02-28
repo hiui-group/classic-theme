@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './index.scss'
+import './style/index'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import { renderRoutes } from '../../util/router'
