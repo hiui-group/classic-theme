@@ -42,135 +42,52 @@ npm i @hi-ui/classic-theme --save
 
  通过 as 关键字指定为 Page，可快速更改
 
-```
+```jsx
 
 import { Classic as Page } from '@hi-ui/classic-theme' //经典主题
 import { Genuine as Page } from '@hi-ui/classic-theme' //经典左右分栏主题
 
-<Page />
+<Page 
+  header={...}
+  logo={...}
+  breadcrumb={...}
+  routes={...}
+  ...
+/>
 
 ```
 
 
 
-#### 配置项
+##### routes   路由
 
-##### sider    侧边栏
-
-> sider **Object**   指定侧边栏内容 
->
-> *extend*  **Element** 侧边栏的扩展元素（出现在侧边栏的左下角）
->
-> *items* **Array** 侧边栏内容数组
->
-> ​	*title*  **String | Element**  显示的文字内容 必需
->
-> ​	*icon* **Element** 文字 icon 可选
->
-> ​	*children* **Array** 子元素 可选
->
-> ​	*to* **String** 点击内容要跳转的路由 可选  如未指定 to 及 children，则表示为一个不可响应的纯文字内容
+routes 接收一个路由配置数组
 
 ```javascript
-const siders = {
-  extend: <Login {...login} />,
-  items: [
-    {
-      title: '小米手机',
-      icon: <Icon name='usergroup' />,
-      children: [
-        {
-          title: '小米 MIX3',
-          to: '/products/mix3'
-        },
-      	...
-      	,
-        {
-          title: '红米系列',
-          children: [
-            {
-              title: '红米6',
-              to: '/products/mi6'
-            },
-            ...
-          ]
-        }
-      ]
-    },
-    {
-     ...
-    }
-  ]
-}
-
-// use
-<Page
-	sider={siders}
-    ...
-/>
+[{
+    path: String //路径
+    component: React.Component //匹配到对应路径时要渲染的组件
+    exact: Boolean //是否严格匹配
+    render: Function //自定义渲染方法 详见高级使用
+}]
 ```
 
 
 
-##### routeConfig   路由
-
-> routeConfig   **Object**    用于侧边栏或顶部导航路由跳转
->
-> hasTopNav   **Boolean**  是否包含顶部导航 （详见高级使用）
->
-> routes    **Array**    配置同 React Router Config
-
 ```react
-import Home from './pages/Home'
-import About from './pages/About'
-
-import {Mix3, Mi8, Mi6, TV4A, TV4S, PhoneStatistics, TVStatistics} from './pages/Products'
-
-const routeConfig = {
-  hasTopNav: true,
-  routes: [{
-    path: '/',
-    component: Home,
-    exact: true
-  }, {
-    path: '/products',
-    component: SiderLayout,
-    routes: [{
-      path: '/mix3',
-      component: Mix3
-    }, {
-      path: '/mi8',
-      component: Mi8
-    }, {
-      path: '/mi6',
-      component: Mi6
-    }, {
-      path: '/tv4a',
-      component: TV4A
-    }, {
-      path: '/tv4s',
-      component: TV4S
-    }]
-  }, {
-    path: '/about',
-    component: About
-  }, {
-    path: '/statistics',
-    component: SiderLayout,
-    routes: [{
-      path: '/phone',
-      component: PhoneStatistics
-    }, {
-      path: '/tv',
-      component: TVStatistics
-    }]
-  }]
-}
+// 示例:
+const routes = [{
+  path: '/',
+  component: Home,
+  exact: true
+}, {
+  path: '/about',
+  component: About
+}]
 
 // use
 <Page
-	sider={...}
-    routeConfig={routeConfig}
+	routes={routes}
 />
 ```
 
@@ -222,8 +139,7 @@ const header = (
 
 // use
 <Page
-	sider={...}
-    routeConfig={...}
+  routes={...}
 	header={header}
 />
 ```
@@ -247,10 +163,9 @@ const logo = <Logo
       
 // use
 <Page
-	sider={...}
-    routeConfig={...}
+  routes={...}
 	header={...}
-    logo={logo}
+  logo={logo}
 />
 ```
 
@@ -269,8 +184,7 @@ const logo = <Logo
 <Page
     header={...}
     logo={...}
-    routeConfig={...}
-    sider={...}
+    routes={...}
     config={{
       color: 'white',
       type: 'flat'
@@ -305,219 +219,105 @@ const logo = <Logo
 
 ![topnav](https://raw.githubusercontent.com/hiui-group/classic-theme/master/assets/image/topnav.gif)
 
-**如何使用顶部一级导航？**
 
-hasTopNav 与 SiderLayout
 
-- hasTopNav  标识一级导航
-- SiderLayout 主题提供的一个特殊组件，用与划分含侧边栏与非侧边栏的内容
+**如何使用侧边栏导航？**
+
+在 router 配置中使用 render 方法，自定义渲染，在方法中返回 SiderLayout 包裹的元素
 
 > SiderLayout 会将其子元素放置于侧边栏对应的视图范围内
 
 
 
-**Routes Config 区别**
-
-使用顶部一级导航时：
-
 ```react
-const routeConfig = {
-  hasTopNav: true, //通过 hasTopNav 标识表明使用顶部一级导航
-  routes: [{
-    path: '/',
-    component: Home,
-    exact: true
-  }, {
-    path: '/products',
-    component: SiderLayout, //通过 SiderLayout 组件实现不同页面效果
-    routes: [{
-      path: '/mix3',
-      component: Mix3
-    }, ...]
-  }, {
-    path: '/about',
-    component: About
-  }, {
-    path: '/statistics',
-    component: SiderLayout,
-    routes: [...]
-  }]
-}
-```
+// 在 classic-theme 中引入 SiderLayout 组件
+import { SiderLayout } from '@hi-ui/classic-theme'
 
-
-
-使用正常侧边栏导航时：
-
-```react
-//正常侧边栏只含 routes 属性
-const routeConfig = {
-  routes: [{
-      path: '/',
-      exact: true,
-      component: Home
-  }, {
-      path: '/products/mix3',
-      component: Mix3
-  }, {
-      path: '/products/mi8',
-      component: Mi8
-  }, {
-      path: '/products/mi6',
-      component: Mi6
-  }, {
-      path: '/products/tv4a',
-      component: TV4A
-  }, {
-      path: '/products/tv4s',
-      component: TV4S
-  }]
-}
-```
-
-
-
-**Sider Config 区别**
-
-如以上的示例，*产品数据* 与 *销量统计* 是两个分别含有侧边栏的页面，在配置 Sider 时，需配置对应路由需要显示的侧边栏内容
-
-
-
-不使用一级导航 或 只有一个页面含有侧边栏时：
-
-``` react
-const siders = {
-  extend: <Login {...login} />, //侧边栏左下方的额外元素
-  items: [
-    {
-      title: '小米手机',
-      icon: <Icon name='usergroup' />,
-      children: [
-        {
-          title: '小米 MIX3',
-          to: '/products/mix3'
-        },
-        {
-          title: '小米8青春版',
-          to: '/products/mi8'
-        },
-        {
-          title: '红米系列',
-          children: [
-            {
-              title: '红米6',
-              to: '/products/mi6'
-            },
-            {
-              title: '红米6 Pro'
-            },
-            {
-              title: '红米6A'
-            },
-            {
-              title: '红米 Note5'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      title: '电视品类',
-      icon: <Icon name='usergroup' />,
-      children: [
-        {
-          title: '小米电视4S',
-          to: '/products/tv4s'
-        },
-        {
-          title: '小米电视4A',
-          to: '/products/tv4a'
-        }
-      ]
-    }
-  ]
-}
-```
-
-
-
-使用顶部一级导航，且含有两个以上不同的侧边栏页面时：
-
-```react
-const siders = {
-  products: {
-    items: [
+const siders =  [{
+    title: '小米手机',
+    children: [
       {
-        title: '小米手机',
-        icon: <Icon name='usergroup' />,
-        children: [
-          {
-            title: '小米 MIX3',
-            to: '/products/mix3'
-          },
-          {
-            title: '小米8青春版',
-            to: '/products/mi8'
-          },
-          {
-            title: '红米系列',
-            children: [
-              {
-                title: '红米6',
-                to: '/products/mi6'
-              },
-              {
-                title: '红米6 Pro'
-              },
-              {
-                title: '红米6A'
-              },
-              {
-                title: '红米 Note5'
-              }
-            ]
-          }
-        ]
+        title: <i>小米 MIX3</i>,
+        to: '/products/mix3'
       },
       {
-        title: '电视品类',
-        icon: <Icon name='usergroup' />,
+        title: '小米8青春版',
+        to: '/products/mi8/white'
+      },
+      {
+        title: '红米系列',
         children: [
           {
-            title: '小米电视4S',
-            to: '/products/tv4s'
-          },
-          {
-            title: '小米电视4A',
-            to: '/products/tv4a'
+            title: '红米6',
+            to: '/products/mi6'
           }
         ]
       }
     ]
   },
-  statistics: {
-    items: [
+  {
+    title: '电视品类',
+    children: [
       {
-        title: '销量统计',
-        icon: <Icon name='usergroup' />,
-        children: [
-          {
-            title: '手机销量',
-            to: '/statistics/phone'
-          },
-          {
-            title: '电视销量',
-            to: '/statistics/tv'
-          }
-        ]
+        title: '小米电视4S',
+        to: '/products/tv4s'
+      },
+      {
+        title: '小米电视4A',
+        to: '/products/tv4a'
       }
     ]
   }
-}
+]
+
+
+const routes = [{
+  path: '/',
+  component: Home,
+  exact: true
+}, {
+  path: '/products', // 当匹配到 products 路径时，将展现 Sider 布局
+  render: props => {
+    return (
+      <SiderLayout
+        sider={siders}
+        extend={<Login {...login} />}
+        routes={
+          [{
+            path: '/products/mix3',
+            component: Mix3,
+            name: 'test1'
+          }, {
+            path: '/products/mi8/:id',
+            component: Mi8
+          }, {
+            path: '/products/mi6',
+            component: Mi6
+          }, {
+            path: '/products/tv4a',
+            component: TV4A
+          }, {
+            path: '/products/tv4s',
+            component: TV4S
+          }]
+        }
+        {...props}
+      />
+    )
+  }
+},...]
 ```
 
 
 
-*以上代码中 products 与 statistics*  与 routeConfig 中的两个 SiderLayout 所对应的 path 一致，系统会根据 path 去寻找对应的 sider 配置
+**SiderLayout**
+
+>  专门用于生成含侧边栏的组件，通过在 routes 中自定义 render 方法，返回该组件，即可生成含有侧边栏的顶层组件
+
+配置项：
+
+- sider 侧边栏的内容及对应的路径 ，必需
+- extend 额外组件，例如登录信息，可通过 extend 传入，该组件会被渲染至左侧 sider 的下方
+- routes 与 sider 相应的路由匹配
 
 -- EOF --
