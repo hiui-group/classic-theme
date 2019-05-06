@@ -18,7 +18,6 @@ const compile = modules => {
     .pipe(
       through2.obj(function (file, encoding, next) {
         // this.push(file.clone())
-
         if (file.path.match(/\/style\/.*\.scss$/)) {
           transformSass(file.path)
             .then(css => {
@@ -36,6 +35,7 @@ const compile = modules => {
       })
     )
     .pipe(gulp.dest(modules === false ? esDir : libDir))
+
   const assets = gulp
     .src(['src/**/*.@(png|svg|eot|ttf|woff|woff2|otf)'])
     .pipe(gulp.dest(modules === false ? esDir : libDir))
@@ -43,21 +43,7 @@ const compile = modules => {
     .src('src/**/*.js')
     .pipe(
       babel({
-        presets: [
-          [
-            'env',
-            {
-              targets: {
-                browsers: ['ie > 8']
-              },
-              loose: true,
-              modules: modules,
-              useBuiltIns: 'usage'
-            }
-          ],
-          'stage-0',
-          'react'
-        ],
+        presets: ['@babel/preset-env', '@babel/preset-react'],
         plugins: [['transform-remove-console', { exclude: ['error', 'warn'] }]]
       })
     )

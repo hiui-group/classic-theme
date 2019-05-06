@@ -17,7 +17,8 @@ class Index extends React.Component {
       routes = [],
       breadcrumb,
       footer,
-      config
+      config,
+      logo
     } = this.props
     const cls = classNames(
       'layout',
@@ -32,7 +33,8 @@ class Index extends React.Component {
     )
     const extraProps = {
       setCollapse: this.setCollapse.bind(this),
-      breadcrumb
+      breadcrumb,
+      logo
     }
 
     return (

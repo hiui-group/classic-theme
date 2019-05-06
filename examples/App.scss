@@ -1,18 +1,39 @@
-.menus {
+.theme-change {
   position: fixed;
   top: 200px;
   right: 0;
-  background: #fff;
+  height: 84px;
   color: #fff;
   cursor: pointer;
-  width: 200px;
-  border: 1px solid rgba(0, 0, 0, 0.175);
-  height: 64px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  
+  justify-content: start;
+  align-items: center;
+  z-index: 9999;
+
   &:hover {
     right: 0;
   }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    border-radius: 2px;
+    margin: 0;
+    flex: 1;
+    width: 108px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.175);
+
+    li {
+      padding: 10px 5px;
+    }
+  }
+
+  .menu-show {
+    display: block;
+  }
+}
+
+.open {
+  background: url('./open.png');
 }

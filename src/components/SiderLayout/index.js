@@ -46,7 +46,6 @@ class SiderLayout extends React.Component {
       deepClone
     } = this.props
     let routes = this.getRoutes()
-
     return (
       <React.Fragment>
         <Sider

@@ -297,7 +297,6 @@ class Sider extends React.Component {
       logo,
       extend
     } = this.props
-
     return (
       <aside className={`layout__sidebar sidebar ${collapse ? 'sidebar--collapsed' : ''}`} style={style}>
         {!collapse && logo}
