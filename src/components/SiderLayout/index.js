@@ -46,7 +46,6 @@ class SiderLayout extends React.Component {
       genuine,
       color
     } = this.props
-    console.log(this.props.test)
     let routes = this.getRoutes()
     return (
       <React.Fragment>

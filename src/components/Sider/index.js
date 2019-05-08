@@ -8,7 +8,6 @@ import './style/index'
 class Sider extends React.Component {
   constructor (props) {
     super(props)
-    console.log(this.props.currentRoute)
     this.state = {
       items: this.parseSides(this.props.sider),
       showSub: true,
