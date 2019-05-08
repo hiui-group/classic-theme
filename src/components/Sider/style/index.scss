@@ -1,25 +1,5 @@
 @import '@hi-ui/core-css/index.scss';
 
-//@-webkit-keyframes fill-width {
-//  0% {
-//    width: 0;
-//  }
-//
-//  100% {
-//    width: 216px;
-//  }
-//}
-//
-//@keyframes fill-width {
-//  0% {
-//    width: 0;
-//  }
-//
-//  100% {
-//    width: 216px;
-//  }
-//}
-
 // Layout
 .sidebar {
   display: flex;
@@ -30,165 +10,38 @@
   font-size: 14px;
   line-height: 1;
   background-color: $white;
-  box-shadow: inset -1px 0 0 0 $gray;
+  // box-shadow: inset -1px 0 0 0 $gray;
+  border-right: 1px solid $gray;
   transition: width $speed-fast $easing;
   position: relative;
   padding-top: 64px;
-  // Element: wrapper
-  &__wrapper {
-    position: relative;
-    box-sizing: border-box;
+
+  .hi-menu--vertical {
     width: 100%;
+    box-shadow: none;
     height: 100%;
-    overflow: hidden;
+    border: 0;
+  }
 
-    &::before,
-    &::after {
-      position: absolute;
-      left: 0;
-      z-index: 1;
-      width: calc(100% - 1px);
-      content: '';
-      pointer-events: none;
+  &__menu--white {
+    .hi-menu--vertical {
+      background-color: #393d46;
     }
 
-    &::before {
-      top: 0;
-      height: 16px;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-    }
-
-    &::after {
-      bottom: 0;
-      height: 32px;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-    }
-
-    //&--submenu {
-    //  animation: fill-width $speed-fast $easing 1;
-    //}
-
-    // Add gap for first & last item
-    > .sidebar__list > li:first-child {
-      margin-top: 16px;
-    }
-
-    > .sidebar__list > li:last-child {
-      margin-bottom: 48px;
+    .hi-menu__title {
+      color: #fff;
     }
   }
 
-  // Element: list
-  &__list {
-    width: 216px + 20px; // overflow scrollbar
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    transition: width $speed-fast $easing;
-    // color: #fff;
-    &--collapsed {
-      display: none;
+  &__menu--black {
+    .hi-menu--vertical {
+      background-color: #fff;
     }
 
-    // Submenu
-    & & {
-      overflow: hidden;
+    .hi-menu__title {
+      color: #000;
     }
   }
-
-  // Element: item
-  &__item {
-    position: relative;
-    display: block;
-    box-sizing: border-box;
-    width: 216px;
-    height: 100%;
-    min-height: 48px;
-    padding: 16px 48px 16px 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    user-select: none;
-    cursor: pointer;
-    transition: all $speed-fast $easing;
-
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 100%;
-      content: '';
-      transition: width $speed-normal $easing;
-    }
-
-    &--active {
-      &::before {
-        width: 4px;
-      }
-    }
-
-    &--noaction {
-      font-size: $font-size-small;
-      cursor: initial;
-
-      span {
-        color: #999;
-      }
-    }
-
-    // Status: Collapsed
-    .sidebar--collapsed & {
-      width: 48px;
-      padding-right: 0;
-      text-overflow: clip;
-      white-space: normal;
-
-      &--active {
-        background-color: transparent;
-      }
-
-      &--active::before {
-        display: none;
-      }
-    }
-
-    // Narrow Sidebar
-    .sidebar__wrapper--submenu & {
-      width: 216px;
-      padding: 16px 24px;
-
-      &--active::before {
-        display: block;
-      }
-    }
-
-    // Submenu padding
-    .sidebar__list .sidebar__list & {
-      padding-left: 48px;
-      padding-right: 16px;
-    }
-
-    .sidebar__list .sidebar__list .sidebar__list & {
-      padding-left: 64px;
-    }
-  }
-
-  &__item-icon {
-    display: inline-block;
-    margin-right: $spacer-4;
-  }
-
-  &__item-toggle {
-    position: absolute;
-    top: 16px;
-    left: 168px;
-    width: 48px;
-  }
-
   // Element: Toggle
   &__toggle {
     position: absolute;
@@ -207,7 +60,10 @@
 
   &__extend {
     height: 64px;
-    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    width: 168px;
+    flex: 0 0 64px;
   }
 
   // Status: Collapsed
@@ -221,34 +77,6 @@
 
       &__item-title {
         display: none;
-      }
-    }
-  }
-
-  &__wrapper--submenu {
-    position: absolute;
-    top: 0;
-    left: 48px;
-    width: 216px;
-    padding-top: 64px;
-    background-color: #fff;
-    box-shadow: inset -1px 0 0 0 #e7e7e7;
-
-    &::before {
-      top: 64px;
-    }
-
-    & + & {
-      left: 216px + 48px;
-    }
-
-    .sidebar {
-      &__list {
-        width: 216px + 20px;
-      }
-
-      &__item-title {
-        display: inline;
       }
     }
   }

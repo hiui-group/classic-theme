@@ -5,58 +5,58 @@ import { Icon } from '@hi-ui/hiui'
 
 const siders = {
   products: [{
-    title: '其它',
+    content: '其它',
     to: '/other'
   },
   {
-    title: '小米手机',
+    content: '小米手机',
     icon: <Icon name='usergroup' />,
     children: [
       {
-        title: <i>小米官网</i>,
+        content: <i>小米官网</i>,
         to: 'http://mi.com',
         outerChain: true
       },
       {
-        title: <i>小米 MIX3</i>,
+        content: <i>小米 MIX3</i>,
         to: '/products/mix3',
         icon: <Icon name='usergroup' />
       },
       {
-        title: '小米8青春版',
+        content: '小米8青春版',
         to: '/products/mi8/white',
         icon: <Icon name='usergroup' />
       },
       {
-        title: '红米系列',
+        content: '红米系列',
         children: [
           {
-            title: '红米6',
+            content: '红米6',
             to: '/products/mi6'
           },
           {
-            title: '红米6 Pro'
+            content: '红米6 Pro'
           },
           {
-            title: '红米6A'
+            content: '红米6A'
           },
           {
-            title: '红米 Note5'
+            content: '红米 Note5'
           }
         ]
       }
     ]
   },
   {
-    title: '电视品类',
+    content: '电视品类',
     icon: <Icon name='usergroup' />,
     children: [
       {
-        title: '小米电视4S',
+        content: '小米电视4S',
         to: '/products/tv4s'
       },
       {
-        title: '小米电视4A',
+        content: '小米电视4A',
         to: '/products/tv4a'
       }
     ]
@@ -64,15 +64,15 @@ const siders = {
   ],
   statistics: [
     {
-      title: '销量统计',
+      content: '销量统计',
       icon: <Icon name='usergroup' />,
       children: [
         {
-          title: '手机销量',
+          content: '手机销量',
           to: '/statistics/phone'
         },
         {
-          title: '电视销量',
+          content: '电视销量',
           to: '/statistics/tv'
         }
       ]

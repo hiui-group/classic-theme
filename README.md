@@ -32,6 +32,37 @@
 
 
 
+### 快速开始
+
+复制`examples/`对应目录的文件至项目中
+
+修改目录下的`App.jsx`：
+
+```diff
+import React, { Component } from 'react'
+- import { Logo, Login, NavGroup, NavLink, Classic, Genuine, History } from '../src'
++ import { Logo, Login, NavGroup, NavLink, Classic, Genuine, History } from '@hi-ui/classic-theme'
+import { Dropdown } from '@hi-ui/hiui'
+...省略
+```
+
+修改目录下的`routes.js`:
+
+```diff
+import React from 'react'
+import siders from './siders'
+import Home from './pages/Home'
+import About from './pages/About'
+import {Mix3, Mi8, Mi6, TV4A, TV4S, PhoneStatistics, TVStatistics} from './pages/Products'
+- import SiderLayout from '../src/components/SiderLayout'
+- import { Login } from '../src'
++ import { Login, SiderLayout } from '@hi-ui/classic-theme'
+```
+
+启动项目即可
+
+
+
 #### Install
 
 ```shell
@@ -154,9 +185,9 @@ const header = (
 
 ```react
 const logo = <Logo
-      url='...'
-      logoUrl='...'
-      text='HIUI Demo'
+      url='...' // 点击 LOGO 要跳转的链接
+      logoUrl='...' // 图片地址
+      text='HIUI Demo' //LOGO 下显示的文字描述
       title='HIUI Classic Theme Demo'
       alt='Project Logo'
     />
@@ -234,18 +265,18 @@ const logo = <Logo
 import { SiderLayout } from '@hi-ui/classic-theme'
 
 const siders =  [{
-    title: '小米手机',
+    content: '小米手机',
     children: [
       {
-        title: <i>小米 MIX3</i>,
+        content: <i>小米 MIX3</i>,
         to: '/products/mix3'
       },
       {
-        title: '小米8青春版',
+        content: '小米8青春版',
         to: '/products/mi8/white'
       },
       {
-        title: '红米系列',
+        content: '红米系列',
         children: [
           {
             title: '红米6',
@@ -256,14 +287,14 @@ const siders =  [{
     ]
   },
   {
-    title: '电视品类',
+    content: '电视品类',
     children: [
       {
-        title: '小米电视4S',
+        content: '小米电视4S',
         to: '/products/tv4s'
       },
       {
-        title: '小米电视4A',
+        content: '小米电视4A',
         to: '/products/tv4a'
       }
     ]

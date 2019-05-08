@@ -18,7 +18,7 @@ $config-sidebar-colors: (
 
   .sidebar {
     background-color: $color;
-    box-shadow: if($name == 'white', inset -1px 0 0 0 #d8d8d8, none);
+    box-shadow: if($name == 'white', inset 1px 0 0 0 #d8d8d8, none);
     color: if($name == 'black', $white, get-color($palette-hiui, 'g100'));
 
     &__wrapper {

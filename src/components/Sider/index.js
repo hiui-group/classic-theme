@@ -1,164 +1,48 @@
 import React from 'react'
-import { matchPath } from 'react-router'
-import classNames from 'classnames'
 import Cookies from 'js-cookie'
-import cloneDeep from 'lodash/cloneDeep'
 import historyManager from '../../util/common'
+import Menu from '@hi-ui/hiui/es/menu'
+import classNames from 'classnames'
 import './style/index'
 
 class Sider extends React.Component {
-  static defaultProps = {
-    accordion: true,
-    deepClone: true
-  }
-
-  isSwitchToggle = false // toggle切换标识
-  collapseCookie = '$$hiui-theme-collapse'
-
   constructor (props) {
     super(props)
-    const items = cloneDeep(this.props.sider)
-    const activeNav = this.getActiveValue(this.props.currentRoute, items) // 激活的导航所在位置
-    const activeNavCache = activeNav.slice(0) // 缓存激活的导航所在位置，主要用于点击非链接项时子项的选中状态
-
+    console.log(this.props.currentRoute)
     this.state = {
-      items,
+      items: this.parseSides(this.props.sider),
       showSub: true,
       collapse: false,
-      activeNav,
-      activeNavCache
+      activeId: this.props.currentRoute.path,
+      mini: false
     }
+    this.isSwitchToggle = false
+    this.collapseCookie = '$$hiui-theme-collapse'
   }
-
+  parseSides (datas) {
+    // 由于 Menu 的升级，接受数据格式发生变化，现接受 id content  ，下面代码为处理旧代码的兼容
+    return datas.map((m, n) => {
+      if (m.children) {
+        const c = this.parseSides(m.children)
+        return {
+          id: m.to,
+          conent: m.title,
+          ...m,
+          children: c
+        }
+      }
+      return {
+        id: m.to,
+        conent: m.title,
+        ...m
+      }
+    })
+  }
   componentDidMount () {
     if (Cookies.get(this.collapseCookie) === 'true') {
       this.collapseToggle()
     }
   }
-
-  componentWillReceiveProps (props) {
-    const activeNav = this.getActiveValue(props.currentRoute, this.state.items)
-    const activeNavCache = activeNav.slice(0)
-
-    if (props.deepClone) {
-      const items = cloneDeep(this.props.sider)
-      this.setState({
-        items
-      })
-    }
-    this.setState({
-      activeNav,
-      activeNavCache
-    })
-  }
-
-  getActiveValue (currentRoute, navs) { // 初始时获取激活导航的value
-    let deep = 0
-    let value = []
-    const fn = iteration => {
-      let flag = true // 用于终止后面的遍历
-      iteration.every((nav, index) => {
-        if (!nav.to && !nav.children) {
-          return true
-        }
-        !nav.to && value.push(index)
-        const match = matchPath(nav.to, currentRoute)
-        if (match) {
-          value.splice(deep, 1, index)
-          flag = false
-          return false
-        }
-        if (Array.isArray(nav.children)) {
-          deep++
-          flag = fn(nav.children)
-          deep--
-        }
-
-        return flag
-      })
-      flag && value.pop()
-      return flag
-    }
-    fn(navs)
-    return value
-  }
-
-  checkExpanded (activeStatus, isLeaf, IS_EXPANDED = undefined, title) { // 检查导航项是否展开
-    const {
-      showSub,
-      collapse
-    } = this.state
-    if (isLeaf || !showSub) { // 是叶子节点或者showSub=false
-      return false
-    }
-    if (IS_EXPANDED !== undefined && !this.isSwitchToggle) { // 已判断过且不是切换toggle触发的
-      return (activeStatus >= 0 || (!collapse && !this.props.accordion)) ? IS_EXPANDED : false
-    }
-
-    return activeStatus >= 0
-  }
-
-  arrayIndexOf (currentValue, values) { // 0代表激活当前项，-1未激活，1激活的是子项
-    let flag = -1
-    for (let index in values) {
-      const value = values[index]
-      let _flag = 0
-
-      for (let i = 0; i < currentValue.length; i++) {
-        if (currentValue[i] !== value[i]) {
-          _flag = -1
-          break
-        }
-      }
-      if (_flag !== -1 && currentValue.length !== value.length) {
-        _flag = 1
-      }
-      flag = _flag > flag ? _flag : flag
-    }
-
-    return flag
-  }
-
-  isLeaf (item) {
-    return !Array.isArray(item.children)
-  }
-
-  clickNav (e, item, value) {
-    e.stopPropagation()
-    if (!item.to && !item.children) {
-      return
-    }
-    let {
-      collapse,
-      showSub,
-      activeNavCache
-    } = this.state
-    const isLeaf = this.isLeaf(item)
-    if (isLeaf) {
-      if (item.outerChain) {
-        window.location.href = item.to
-        return
-      }
-      this.setState({
-        activeNavCache: value,
-        activeNav: value,
-        showSub: collapse ? false : showSub // 收缩状态点击叶子节点，则隐藏2，3级项
-      })
-      const _h = historyManager.getHistory()
-      if (_h.location.pathname !== item.to) {
-        _h.replace(item.to)
-      }
-    } else {
-      if (this.arrayIndexOf(value, [activeNavCache]) >= 0) { // 子选项已被选中
-        value = activeNavCache
-      }
-      item.IS_EXPANDED = !item.IS_EXPANDED // 点击同一项则收缩
-      const _state = {showSub: true}
-      _state.activeNav = value
-      this.setState(_state)
-    }
-  }
-
   collapseToggle () {
     const {
       collapse
@@ -172,136 +56,74 @@ class Sider extends React.Component {
 
     this.setState({
       collapse: !collapse,
-      showSub: collapse
+      showSub: collapse,
+      mini: !this.state.mini
     }, () => {
       changeCollapse(!collapse)
       this.isSwitchToggle = false
     })
   }
-
-  getActiveNavs (deep, isLeaf) {
-    const {
-      activeNavCache,
-      activeNav
-    } = this.state
-    if (this.props.accordion) { // 手风琴模式
-      return isLeaf || activeNav.length >= activeNavCache.length ? [activeNav, activeNavCache] : [activeNav]
-    } else {
-      return [activeNav, activeNavCache]
-    }
-  }
-
-  renderNavs (items, cls) {
-    let deep = -1
-    const collapse = this.state.collapse
-    // const activeNav = this.state.activeNav
-    let navsContainer = []
-    const render = (items, cls = '', currentValue = []) => {
-      const navs = []
-      let subNavs = []
-      let subNavsValue = []
-      ++deep
-      items.map((item, index) => {
-        if (!item.to && !item.children) {
-          item.onlyTitle = true
-        }
-        currentValue.splice(deep, 1, index)
-        const _currentValue = currentValue.slice(0)
-        const isLeaf = this.isLeaf(item)
-        const activeNavs = this.getActiveNavs(deep, isLeaf)
-        const activeStatus = this.arrayIndexOf(currentValue, activeNavs)
-        const isExpanded = this.checkExpanded(activeStatus, isLeaf, item.IS_EXPANDED, item.title)
-        const expandIcon = isExpanded ? 'icon-up' : 'icon-down'
-
-        item.IS_EXPANDED = isExpanded
-        if (collapse && !isLeaf && isExpanded) { // 收缩状态用来记录次级展开项
-          subNavs = item.children
-          subNavsValue = currentValue.slice(0)
-        }
-        navs.push(
-          <li
-            key={index}
-          >
-            <div
-              className={classNames(
-                'sidebar__item',
-                {'sidebar__item--active': (collapse || isLeaf) && activeStatus >= 0},
-                {'sidebar__item--noaction': !item.to && !item.children}
-              )}
-              onClick={e => this.clickNav(e, item, _currentValue)}
-            >
-              {
-                item.icon
-                  ? (<span className='sidebar__item-icon'>{item.icon}</span>)
-                  : ''
-              }
-              <span className={`sidebar__item-title`}>{item.title}</span>
-              {
-                !isLeaf && item.type !== 'title' &&
-                <i className={classNames('sidebar__item-toggle', 'hi-icon', expandIcon)} />
-              }
-            </div>
-            {
-              !collapse && !isLeaf &&
-              render(item.children, {'sidebar__list--submenu': true, 'sidebar__list--collapsed': !isExpanded}, currentValue)
-            }
-          </li>
-        )
+  componentWillReceiveProps (props) {
+    if (props.deepClone) {
+      const items = this.parseSides(this.props.sider)
+      this.setState({
+        items
       })
-
-      if (collapse) { // 收缩状态
-        navsContainer.push((
-          <div className={classNames('sidebar__wrapper', cls)} key={deep}>
-
-            <ul className={classNames('sidebar__list')} key={deep}>
-              {navs}
-            </ul>
-          </div>
-        ))
-        if (subNavs && subNavs.length > 0) { // 有次级选择项
-          render(subNavs, 'sidebar__wrapper--submenu', subNavsValue)
-        }
-
-        return navsContainer
-      } else {
-        currentValue.pop()
-        --deep
-
-        return (
-          <ul className={classNames('sidebar__list', cls)} key={deep}>
-            {navs}
-          </ul>
-        )
-      }
     }
-    if (collapse) { // 收缩状态
-      return render(items)
-    } else {
-      return (
-        <div className='sidebar__wrapper'>
-          {render(items)}
-        </div>
-      )
-    }
+    // this.setState({
+    //   activeId: props.currentRoute.path
+    // })
   }
 
+  onClick (id, pId, data) {
+    if (!data.to) {
+      return
+    }
+    if (data.outerChain) {
+      window.location.href = data.to
+      return
+    }
+    this.setState({
+      activeId: data.id
+    })
+    const _h = historyManager.getHistory()
+    if (_h.location.pathname !== data.to) {
+      _h.replace(data.to)
+    }
+  }
   render () {
     let {
       collapse,
-      items
+      items,
+      mini,
+      activeId
     } = this.state
 
     let {
-      // sider,
       style,
       logo,
-      extend
+      extend,
+      genuine,
+      color
     } = this.props
+    const sCls = classNames(
+      'layout__sidebar',
+      'sidebar',
+      collapse && 'sidebar--collapsed',
+      genuine && 'sidebar--genuine',
+      color === 'black' ? 'sidebar__menu--white' : 'sidebar__menu--black'
+    )
     return (
-      <aside className={`layout__sidebar sidebar ${collapse ? 'sidebar--collapsed' : ''}`} style={style}>
+      <aside className={sCls} style={style}>
         {!collapse && logo}
-        { this.renderNavs(items) }
-        <div className='siderbar__extend'>
+        <Menu
+          mode='vertical'
+          mini={mini}
+          activeId={activeId}
+          onClick={this.onClick.bind(this)}
+          datas={items}
+        />
+        <div className='sidebar__extend'>
           {!collapse && extend}
         </div>
         <span
@@ -309,9 +131,12 @@ class Sider extends React.Component {
           onClick={this.collapseToggle.bind(this)}
         />
       </aside>
-
     )
   }
 }
 
+Sider.defaultProps = {
+  accordion: true,
+  deepClone: true
+}
 export default Sider
