@@ -9,6 +9,6 @@ import History from './util/common'
 import SiderLayout from './components/SiderLayout'
 export default Classic
 export { SiderLayout, Cascad, InfoBlock, Logo, Login, NavGroup, History, Genuine, Classic }
-export * from 'react-router'
-export * from 'react-router-dom'
-export * from 'react-router-config'
+// export * from 'react-router'
+// export * from 'react-router-dom'
+// export * from 'react-router-config'
