@@ -1,3 +1,30 @@
+> **classic-theme 2.0版本,  sider 数据结构将发生变化**
+>
+> ```diff
+> const siders =  [{
+> - title: '小米手机',
+> + content: '小米手机',
+>   children: [
+>   {
+> -   title: <i>小米 MIX3</i>,
+> +   content: <i>小米 MIX3</i>,
+>     to: '/products/mix3'
+>   },
+>   ...
+> ```
+>
+> **并依赖 HIUI 1.5.0版本及以上**
+>
+> ```diff
+> //package.json
+> "devDependencies": {
+> -  "@hi-ui/hiui": "^1.4.2",
+> +  "@hi-ui/hiui": "^1.5.0-rc.4",
+> 	...
+> ```
+>
+> 
+
 # Theme
 
 基于 React 的 HIUI 主题。
