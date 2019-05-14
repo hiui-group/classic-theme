@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { Logo, Classic, History } from '../../src'
+import { Logo, Classic } from '../../src'
 import routes from './routes'
 import Header from './Header'
 import './index.scss'
+
 // History.createHashHistory()
+
 const logo = <Logo
   url='https://xiaomi.github.io/hiui/#/'
   logoUrl='https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05'

@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import ReactEcharts from 'echarts-for-react'
 import Grid from '@hi-ui/hiui/es/grid'
-import Badge from '@hi-ui/hiui/es/badge'
 import Button from '@hi-ui/hiui/es/button'
 import Dropdown from '@hi-ui/hiui/es/dropdown'
 import Table from '@hi-ui/hiui/es/table'
-import Progress from '@hi-ui/hiui/es/progress'
 import echarts from 'echarts'
 import theme from './echart-theme'
 import './index.scss'
@@ -224,73 +222,73 @@ class HomeDashboard extends Component {
   }
 
   areaOption = {
-    tooltip : {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'cross',
-            label: {
-                backgroundColor: '#6a7985'
-            }
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985'
         }
+      }
     },
     grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
     },
-    xAxis : [
-        {
-            type : 'category',
-            boundaryGap : false
-        }
+    xAxis: [
+      {
+        type: 'category',
+        boundaryGap: false
+      }
     ],
-    yAxis : [
-        {
-            type : 'value'
-        }
+    yAxis: [
+      {
+        type: 'value'
+      }
     ],
-    series : [
-        {
-            type:'line',
-            stack: '总量',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'top'
-                }
-            },
-            areaStyle: {normal: {}},
-            data:[540,732, 1320]
-        }
+    series: [
+      {
+        type: 'line',
+        stack: '总量',
+        label: {
+          normal: {
+            show: true,
+            position: 'top'
+          }
+        },
+        areaStyle: {normal: {}},
+        data: [540, 732, 1320]
+      }
     ]
   }
   gaugeOption = {
-    tooltip : {
-        formatter: "{a} <br/>{b} : {c}%"
+    tooltip: {
+      formatter: '{a} <br/>{b} : {c}%'
     },
     toolbox: {
-        feature: {
-            restore: {},
-            saveAsImage: {}
-        }
+      feature: {
+        restore: {},
+        saveAsImage: {}
+      }
     },
     series: [
-        {
-            name: '完成率',
-            type: 'gauge',
-            splitNumber: 4,
-            detail: {formatter:'{value}%'},
-            data: [{value: 50}],
-            axisLine: {
-              lineStyle: {
-                width: 10
-              }
-            },
-            splitLine: {
-                length: 15
-            }
+      {
+        name: '完成率',
+        type: 'gauge',
+        splitNumber: 4,
+        detail: {formatter: '{value}%'},
+        data: [{value: 50}],
+        axisLine: {
+          lineStyle: {
+            width: 10
+          }
+        },
+        splitLine: {
+          length: 15
         }
+      }
     ]
   }
   render () {
@@ -299,9 +297,9 @@ class HomeDashboard extends Component {
       <div className='page page--dashboard'>
         <Row gutter>
           <Col span={24}>
-            <span className="top-btn">最新报表</span>
-            <span className="top-btn">昨日报表</span>
-            <span className="top-btn">本月报表</span>
+            <span className='top-btn'>最新报表</span>
+            <span className='top-btn'>昨日报表</span>
+            <span className='top-btn'>本月报表</span>
           </Col>
         </Row>
         <Row gutter>
