@@ -19,7 +19,7 @@
 > //package.json
 > "devDependencies": {
 > -  "@hi-ui/hiui": "^1.4.2",
-> +  "@hi-ui/hiui": "^1.5.0-rc.4",
+> +  "@hi-ui/hiui": "^1.5.0-rc.3",
 > 	...
 > ```
 >
