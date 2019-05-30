@@ -37,7 +37,7 @@
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
-    "@hi-ui/hiui": "^1.2.1",
+    "@hi-ui/hiui": "^1.4.4",
     "autoprefixer": "^8.3.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Header from '../../components/Header'
-import Footer from '../../components/Footer'
 import classNames from 'classnames'
 import Base from '../base'
 import { renderRoutes } from '../../util/router'
@@ -31,7 +30,8 @@ class Index extends Component {
     )
     const extraProps = {
       setCollapse: this.setCollapse.bind(this),
-      breadcrumb
+      breadcrumb,
+      footer
     }
 
     return (
@@ -39,7 +39,6 @@ class Index extends Component {
         <Header header={header} logo={logo} />
         <div className='layout__body'>
           {renderRoutes(routes, extraProps, {}, this.renderProxy.bind(this))}
-          { footer && <Footer footer={footer} /> }
         </div>
       </div>
     )

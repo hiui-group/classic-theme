@@ -48,6 +48,12 @@ $config-header-colors: (
     &--lr {
       margin-left: 216px;
     }
+
+    &--footer {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 0 !important;
+    }
   }
 
   &__sidebar.sidebar {

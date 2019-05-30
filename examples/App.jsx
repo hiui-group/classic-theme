@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Logo, Login, NavGroup, NavLink, Classic, Genuine, History } from '../src'
+import { Logo, Classic, Genuine, History } from '../src'
 import { Dropdown } from '@hi-ui/hiui'
 import routes from './routes'
 import NavHeader, {NoNavHeader} from './pages/Header'
@@ -97,6 +97,7 @@ class App extends Component {
       title='HIUI Classic Theme Demo'
       alt='Project Logo'
     />
+    const footer = <div style={{height: 24, lineHeight: '24px', textAlign: 'center'}}>Mi FE &reg;</div>
     const {
       breadcrumb,
       colors,
@@ -122,6 +123,7 @@ class App extends Component {
               logo={logo}
               breadcrumb={breadcrumb}
               routes={routes}
+              footer={footer}
               config={{
                 color,
                 type
@@ -132,6 +134,7 @@ class App extends Component {
               logo={logo}
               breadcrumb={breadcrumb}
               routes={routes}
+              footer={footer}
               config={{
                 color,
                 type

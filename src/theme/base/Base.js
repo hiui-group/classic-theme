@@ -4,7 +4,6 @@ import {
   Router
 } from 'react-router-dom'
 import historManager from '../../util/common'
-import BreadCrumb from '../../components/BreadCrumb'
 
 const baseLayout = WrapperComponent => class extends WrapperComponent {
   constructor (props) {
@@ -46,16 +45,14 @@ const baseLayout = WrapperComponent => class extends WrapperComponent {
     if (page.type.displayName === 'HIUI_SiderLayout') {
       return page
     } else {
-      const breadcrumb = this.props.breadcrumb
+      const {footer} = this.props
 
       return (
         <div className='layout__main'>
           <div className='layout__content'>
-            {
-              breadcrumb.length > 0 && <BreadCrumb items={breadcrumb} />
-            }
             {page}
           </div>
+          { footer }
         </div>
       )
     }
