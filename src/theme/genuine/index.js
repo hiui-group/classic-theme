@@ -34,11 +34,12 @@ class Index extends React.Component {
     const extraProps = {
       setCollapse: this.setCollapse.bind(this),
       breadcrumb,
+      footer,
       logo,
       genuine: true, // genuine 模式下 sider 的字体颜色要改为白色，通过此字段判定
       color: config.color
     }
-
+    console.log(footer)
     return (
       <div className={cls}>
         {
@@ -50,7 +51,6 @@ class Index extends React.Component {
 
         <div className={bodyCls}>
           {renderRoutes(routes, extraProps, {}, this.renderProxy.bind(this))}
-          { footer && <Footer footer={footer} /> }
         </div>
       </div>
     )

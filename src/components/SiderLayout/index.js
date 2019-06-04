@@ -4,6 +4,7 @@ import { matchRoutes } from 'react-router-config'
 import { renderRoutes } from '../../util/router'
 import BreadCrumb from '../../components/BreadCrumb'
 import Sider from '../Sider'
+import classNames from 'classnames'
 
 class SiderLayout extends React.Component {
   static propTypes = {
@@ -44,9 +45,15 @@ class SiderLayout extends React.Component {
       logo,
       deepClone,
       genuine,
-      color
+      color,
+      footer
     } = this.props
     let routes = this.getRoutes()
+    const mCls = classNames(
+      'layout__main',
+      'layout__main--lr',
+      footer && 'layout__main--footer'
+    )
     return (
       <React.Fragment>
         <Sider
@@ -61,11 +68,12 @@ class SiderLayout extends React.Component {
           genuine={genuine}
           color={color}
         />
-        <div className='layout__main layout__main--lr'>
+        <div className={mCls}>
           <div className='layout__content'>
             { breadcrumb.length > 0 && <BreadCrumb items={breadcrumb} /> }
             {renderRoutes(routes)}
           </div>
+          {footer}
         </div>
 
       </React.Fragment>

@@ -14,8 +14,8 @@ class App extends Component {
 
   render () {
     return (
-      // <DefaultTheme />
-      <GenuineTheme />
+      <DefaultTheme />
+      // <GenuineTheme />
     )
   }
 }
