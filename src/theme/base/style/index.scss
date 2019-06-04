@@ -21,11 +21,9 @@ $config-header-colors: (
 
   &__body {
     display: flex;
-    // flex-direction: column;
     box-sizing: border-box;
     min-height: 100vh;
     padding-top: 64px;
-    // padding-left: 216px;
     transition: padding-left $speed-fast $easing;
     background-color: $white;
   }
@@ -39,7 +37,6 @@ $config-header-colors: (
     box-sizing: border-box;
     flex: 1;
     background-color: $white;
-    // margin-left: 216px;
 
     .layout--collapsed & {
       margin-left: 48px;
@@ -62,13 +59,12 @@ $config-header-colors: (
   &--card {
     .layout {
       &__main {
-        padding: 20px;
         background-color: $gray-light;
         width: calc(100% - 216px);
       }
 
       &__content {
-        background-color: $white;
+        background-color: #f6f6f6;
       }
     }
   }
