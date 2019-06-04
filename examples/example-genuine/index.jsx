@@ -38,10 +38,12 @@ class App extends Component {
       type
     } = this.state
     const rs = routes(this.extendCallback.bind(this))
+    const footer = <div>thisfooter</div>
     return (
       <Page
         logo={logo}
         routes={rs}
+        footer={footer}
         config={{
           color,
           type

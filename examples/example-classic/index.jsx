@@ -48,12 +48,14 @@ class App extends Component {
       onColorChange={(color) => { this.setState({color}) }}
       onLayoutChange={type => this.setState({type})}
     />
+    const footer = <div>thisfooter</div>
     return (
       <Classic
         header={header}
         logo={logo}
         breadcrumb={breadcrumb}
         routes={routes}
+        footer={footer}
         config={{
           color,
           type

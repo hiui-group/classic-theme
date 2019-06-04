@@ -45,6 +45,12 @@ $config-header-colors: (
       margin-left: 48px;
     }
 
+    &--footer {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 0 !important;
+    }
+
     &--lr {
       margin-left: 216px;
     }
