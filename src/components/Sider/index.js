@@ -12,7 +12,7 @@ class Sider extends React.Component {
       items: this.parseSides(this.props.sider),
       showSub: true,
       collapse: false,
-      activeId: this.props.currentRoute.path,
+      activeId: this.props.currentRoute && this.props.currentRoute.path,
       mini: false
     }
     this.isSwitchToggle = false
@@ -43,24 +43,23 @@ class Sider extends React.Component {
     }
   }
   collapseToggle () {
-    const {
-      collapse
-    } = this.state
-    const {
-      changeCollapse
-    } = this.props
+    const { collapse } = this.state
+    const { changeCollapse } = this.props
 
     this.isSwitchToggle = true // 切换toggle标识
     Cookies.set(this.collapseCookie, !collapse)
 
-    this.setState({
-      collapse: !collapse,
-      showSub: collapse,
-      mini: !this.state.mini
-    }, () => {
-      changeCollapse(!collapse)
-      this.isSwitchToggle = false
-    })
+    this.setState(
+      {
+        collapse: !collapse,
+        showSub: collapse,
+        mini: !this.state.mini
+      },
+      () => {
+        changeCollapse(!collapse)
+        this.isSwitchToggle = false
+      }
+    )
   }
   componentWillReceiveProps (props) {
     if (props.deepClone) {
@@ -91,20 +90,9 @@ class Sider extends React.Component {
     }
   }
   render () {
-    let {
-      collapse,
-      items,
-      mini,
-      activeId
-    } = this.state
+    let { collapse, items, mini, activeId } = this.state
 
-    let {
-      style,
-      logo,
-      extend,
-      genuine,
-      color
-    } = this.props
+    let { style, logo, extend, genuine, color } = this.props
     const sCls = classNames(
       'layout__sidebar',
       'sidebar',
@@ -122,13 +110,8 @@ class Sider extends React.Component {
           onClick={this.onClick.bind(this)}
           datas={items}
         />
-        <div className='sidebar__extend'>
-          {!collapse && extend}
-        </div>
-        <span
-          className='sidebar__toggle'
-          onClick={this.collapseToggle.bind(this)}
-        />
+        <div className='sidebar__extend'>{!collapse && extend}</div>
+        <span className='sidebar__toggle' onClick={this.collapseToggle.bind(this)} />
       </aside>
     )
   }
