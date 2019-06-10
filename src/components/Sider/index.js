@@ -12,7 +12,6 @@ class Sider extends React.Component {
       items: this.parseSides(this.props.sider),
       showSub: true,
       collapse: false,
-      activeId: this.props.currentRoute.path,
       mini: false
     }
     this.isSwitchToggle = false
@@ -25,14 +24,14 @@ class Sider extends React.Component {
         const c = this.parseSides(m.children)
         return {
           id: m.to,
-          conent: m.title,
+          content: m.title,
           ...m,
           children: c
         }
       }
       return {
         id: m.to,
-        conent: m.title,
+        content: m.title,
         ...m
       }
     })
@@ -43,35 +42,23 @@ class Sider extends React.Component {
     }
   }
   collapseToggle () {
-    const {
-      collapse
-    } = this.state
-    const {
-      changeCollapse
-    } = this.props
+    const { collapse } = this.state
+    const { changeCollapse } = this.props
 
     this.isSwitchToggle = true // 切换toggle标识
     Cookies.set(this.collapseCookie, !collapse)
 
-    this.setState({
-      collapse: !collapse,
-      showSub: collapse,
-      mini: !this.state.mini
-    }, () => {
-      changeCollapse(!collapse)
-      this.isSwitchToggle = false
-    })
-  }
-  componentWillReceiveProps (props) {
-    if (props.deepClone) {
-      const items = this.parseSides(this.props.sider)
-      this.setState({
-        items
-      })
-    }
-    // this.setState({
-    //   activeId: props.currentRoute.path
-    // })
+    this.setState(
+      {
+        collapse: !collapse,
+        showSub: collapse,
+        mini: !this.state.mini
+      },
+      () => {
+        changeCollapse(!collapse)
+        this.isSwitchToggle = false
+      }
+    )
   }
 
   onClick (id, pId, data) {
@@ -82,29 +69,14 @@ class Sider extends React.Component {
       window.location.href = data.to
       return
     }
-    this.setState({
-      activeId: data.id
-    })
     const _h = historyManager.getHistory()
     if (_h.location.pathname !== data.to) {
       _h.replace(data.to)
     }
   }
   render () {
-    let {
-      collapse,
-      items,
-      mini,
-      activeId
-    } = this.state
-
-    let {
-      style,
-      logo,
-      extend,
-      genuine,
-      color
-    } = this.props
+    let { collapse, items, mini } = this.state
+    let { style, logo, extend, genuine, color, currentRoute } = this.props
     const sCls = classNames(
       'layout__sidebar',
       'sidebar',
@@ -118,17 +90,12 @@ class Sider extends React.Component {
         <Menu
           mode='vertical'
           mini={mini}
-          activeId={activeId}
+          activeId={currentRoute}
           onClick={this.onClick.bind(this)}
           datas={items}
         />
-        <div className='sidebar__extend'>
-          {!collapse && extend}
-        </div>
-        <span
-          className='sidebar__toggle'
-          onClick={this.collapseToggle.bind(this)}
-        />
+        <div className='sidebar__extend'>{!collapse && extend}</div>
+        <span className='sidebar__toggle' onClick={this.collapseToggle.bind(this)} />
       </aside>
     )
   }

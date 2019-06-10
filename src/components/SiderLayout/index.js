@@ -19,14 +19,6 @@ class SiderLayout extends React.Component {
   }
   static displayName = 'HIUI_SiderLayout'
 
-  getCurrentRoute (routes) {
-    const branch = matchRoutes(this.getRoutes(), this.props.location.pathname)
-    // return branch[0]&&branch[0].match.url || this.props.location.pathname
-    // console.log(this.getRoutes(), this.props.location.pathname, branch)
-    return branch[0] && branch[0].route
-    // return this.props.location.pathname
-  }
-
   getRoutes () {
     return this.props.routes
   }
@@ -46,19 +38,16 @@ class SiderLayout extends React.Component {
       deepClone,
       genuine,
       color,
-      footer
+      footer,
+      location
     } = this.props
     let routes = this.getRoutes()
-    const mCls = classNames(
-      'layout__main',
-      'layout__main--lr',
-      footer && 'layout__main--footer'
-    )
+    const mCls = classNames('layout__main', 'layout__main--lr', footer && 'layout__main--footer')
     return (
       <React.Fragment>
         <Sider
           accordion={accordion}
-          currentRoute={this.getCurrentRoute()}
+          currentRoute={location.pathname}
           sider={sider}
           changeCollapse={this.changeCollapse.bind(this)}
           extend={extend}
@@ -70,12 +59,11 @@ class SiderLayout extends React.Component {
         />
         <div className={mCls}>
           <div className='layout__content'>
-            { breadcrumb.length > 0 && <BreadCrumb items={breadcrumb} /> }
+            {breadcrumb.length > 0 && <BreadCrumb items={breadcrumb} />}
             {renderRoutes(routes)}
           </div>
           {footer}
         </div>
-
       </React.Fragment>
     )
   }
