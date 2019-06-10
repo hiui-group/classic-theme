@@ -19,11 +19,6 @@ class SiderLayout extends React.Component {
   }
   static displayName = 'HIUI_SiderLayout'
 
-  getCurrentRoute (routes) {
-    const branch = matchRoutes(this.getRoutes(), this.props.location.pathname)
-    return branch[0] && branch[0].route
-  }
-
   getRoutes () {
     return this.props.routes
   }
@@ -43,17 +38,16 @@ class SiderLayout extends React.Component {
       deepClone,
       genuine,
       color,
-      footer
+      footer,
+      location
     } = this.props
     let routes = this.getRoutes()
     const mCls = classNames('layout__main', 'layout__main--lr', footer && 'layout__main--footer')
-    console.log('currentPath', this.props.location.pathname)
     return (
       <React.Fragment>
         <Sider
           accordion={accordion}
-          currentRoute={this.getCurrentRoute()}
-          currentPath={this.props.location.pathname}
+          currentRoute={location.pathname}
           sider={sider}
           changeCollapse={this.changeCollapse.bind(this)}
           extend={extend}
