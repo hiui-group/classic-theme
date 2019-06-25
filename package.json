@@ -1,6 +1,6 @@
 {
   "name": "@hi-ui/classic-theme",
-  "version": "2.0.0-beta.4",
+  "version": "2.0.0-beta.5",
   "description": "Classic theme for HIUI",
   "main": "./es/index.js",
   "scripts": {
@@ -26,7 +26,7 @@
   "author": "HIUI <mi-hiui@xiaomi.com>",
   "license": "MIT",
   "dependencies": {
-    "@hi-ui/core-css": "^2.0.0-beta.2",
+    "@hi-ui/core-css": "^2.0.0-beta.3",
     "@hi-ui/hiui": "^1.5.0",
     "classnames": "^2.2.6",
     "js-cookie": "^2.2.0",
