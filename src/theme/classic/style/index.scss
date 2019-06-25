@@ -1,5 +1,5 @@
 @import '@hi-ui/core-css/lib/i18n/zh-CN.scss';
-@import '@hi-ui/core-css/base.scss';
+@import '@hi-ui/core-css/index.scss';
 
 $config-header-colors: (
   'blue': get-color($palette-hiui, '50'),
