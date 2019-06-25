@@ -13,12 +13,12 @@ const siders = {
     icon: <Icon name='usergroup' />,
     children: [
       {
-        content: <i>小米官网</i>,
+        content: '小米官网',
         to: 'http://mi.com',
         outerChain: true
       },
       {
-        content: <i>小米 MIX3</i>,
+        content: '小米 MIX3',
         to: '/products/mix3',
         icon: <Icon name='usergroup' />
       },
