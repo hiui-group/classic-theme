@@ -10,17 +10,8 @@ class Index extends Component {
   static type = 'classic'
 
   render () {
-    const {
-      collapse
-    } = this.state
-    let {
-      header,
-      routes,
-      logo,
-      footer,
-      config,
-      breadcrumb
-    } = this.props
+    const { collapse } = this.state
+    let { header, routes, logo, footer, config, breadcrumb } = this.props
     const layoutClasses = classNames(
       'layout',
       'layout--classic',
@@ -34,7 +25,7 @@ class Index extends Component {
       breadcrumb,
       footer
     }
-
+    console.log('>>>>>>',layoutClasses)
     return (
       <div className={layoutClasses}>
         <Header header={header} logo={logo} />
