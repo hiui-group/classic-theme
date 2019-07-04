@@ -60,22 +60,20 @@ $config-header-colors: (
   .sidebar {
     color: map-get(get-palette($color), 'g100');
 
-    .hi-submenu__items {
-      .hi-menu-item--active:not(.hi-submenu) {
-        background-color: rgba(map-get(get-palette($color), '50'), 0.08);
-        color: map-get(get-palette($color), '50');
-        position: relative;
+    .hi-menu-item--active:not(.hi-submenu) {
+      background-color: rgba(map-get(get-palette($color), '50'), 0.08);
+      color: map-get(get-palette($color), '50');
+      position: relative;
 
-        &::before {
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 100%;
-          content: '';
-          transition: width 0.3s linear;
-          width: 4px;
-          background-color: map-get(get-palette($color), '50');
-        }
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        content: '';
+        transition: width 0.3s linear;
+        width: 4px;
+        background-color: map-get(get-palette($color), '50');
       }
     }
 
