@@ -25,7 +25,6 @@ class Index extends Component {
       breadcrumb,
       footer
     }
-    console.log('>>>>>>',layoutClasses)
     return (
       <div className={layoutClasses}>
         <Header header={header} logo={logo} />
