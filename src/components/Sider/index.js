@@ -77,6 +77,7 @@ class Sider extends React.Component {
   render () {
     let { collapse, items, mini } = this.state
     let { style, logo, extend, genuine, color, currentRoute } = this.props
+    console.log('currentRoute', currentRoute, items)
     const sCls = classNames(
       'layout__sidebar',
       'sidebar',

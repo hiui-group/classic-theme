@@ -1,0 +1,25 @@
+.hi-theme__header {
+  display: flex;
+  background: #4285f4;
+  height: 64px;
+
+  .hi-theme__menu {
+    flex: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+    .main-menu-item {
+      a {
+        color: #fff;
+      }
+    }
+
+    .active-main-menu {
+      a {
+        color: #ff6700;
+      }
+    }
+  }
+}
