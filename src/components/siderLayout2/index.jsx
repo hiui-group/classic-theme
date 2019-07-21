@@ -6,15 +6,14 @@ import Menu from '@hi-ui/hiui/es/menu'
 class Sider extends Component {
   // TODO: menus 改变的时候需要重置初始化 activeId
   render () {
-    const { siderMenu, activeSiderMenu, logo } = this.props
-    console.log('^^^^^^^^^^^^^^^^^', activeSiderMenu, siderMenu)
+    const { siderMenu, activeSiderMenu, logo, setSiderMenu } = this.props
     return (
       <div>
         {logo}
         <Menu
           mode='vertical'
           activeId={activeSiderMenu}
-          onClick={this.changeActiveId}
+          onClick={id => setSiderMenu(id)}
           datas={siderMenu}
         />
       </div>

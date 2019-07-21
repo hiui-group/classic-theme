@@ -9,7 +9,7 @@
     "compile": "cross-env NODE_ENV=production gulp",
     "build": "cross-env NODE_ENV=production node_modules/.bin/webpack --progress --profile --colors --config ./build/webpack.production.config.js",
     "precommit": "lint-staged",
-    "start": "webpack-dev-server --config build/webpack.dev.config.js --hot --progress --colors --port=4201"
+    "start": "webpack-dev-server --config build/webpack.dev.config.js --hot --progress --colors --port=4202"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "@hi-ui/core-css": "^2.0.0-beta.3",
     "@hi-ui/hiui": "^1.5.0",
     "classnames": "^2.2.6",
+    "history": "^4.9.0",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.11",
     "react": "^16.8.6",
