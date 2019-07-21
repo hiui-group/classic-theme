@@ -9,7 +9,10 @@ class App extends Component {
   render () {
     return (
       <Router history={_history}>
-        <Route path='/' component={() => <Layout menu={routeConfig} />} />
+        <Route
+          path='/'
+          component={props => <Layout menu={routeConfig} {...props} />}
+        />
       </Router>
     )
   }
