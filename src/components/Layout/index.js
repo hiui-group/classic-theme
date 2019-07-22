@@ -12,9 +12,10 @@ class Layout extends React.Component {
   }
 
   componentDidMount () {
-    const { menu, history } = this.props
+    const { menu, history, location } = this.props
     const mainMenu = this.getMainMenu(menu)
-    const activeMainMenu = mainMenu[0].id
+    const currentLocation = mainMenu.find(item => item.pathname === location.pathname)
+    const activeMainMenu = (currentLocation && currentLocation.id) || mainMenu[0].id
     const siderMenu = this.getSiderMenu(menu, activeMainMenu)
     const activeSiderMenu = this.getDefaultActiveSiderMenu(siderMenu)
     const routes = this.getRoutes(menu, [])
