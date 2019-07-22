@@ -7,16 +7,20 @@ class Layout extends React.Component {
     activeMainMenu: '',
     activeSiderMenu: '',
     mainMenu: [],
-    siderMenu: []
+    siderMenu: [],
+    routes: []
   }
 
   componentDidMount () {
-    const { menu } = this.props
+    const { menu, history } = this.props
     const mainMenu = this.getMainMenu(menu)
     const activeMainMenu = mainMenu[0].id
     const siderMenu = this.getSiderMenu(menu, activeMainMenu)
     const activeSiderMenu = this.getDefaultActiveSiderMenu(siderMenu)
-    this.setState({ mainMenu, activeMainMenu, siderMenu, activeSiderMenu })
+    const routes = this.getRoutes(menu, [])
+    this.setState({ mainMenu, activeMainMenu, siderMenu, activeSiderMenu, routes })
+    const initNav = siderMenu.find(item => item.id === activeSiderMenu)
+    history.push(initNav.pathname)
   }
   setMainMenu = activeMainMenu => {
     const siderMenu = this.getSiderMenu(this.props.menu, activeMainMenu)
@@ -37,8 +41,7 @@ class Layout extends React.Component {
       return {
         content: m.name,
         id: m.id,
-        pathname:
-          m.path || (m.children && m.children[0] && m.children[0].path) || ''
+        pathname: m.path || (m.children && m.children[0] && m.children[0].path) || ''
       }
     })
   }
@@ -48,9 +51,21 @@ class Layout extends React.Component {
     return siderMenu.map(m => {
       return {
         content: m.name,
-        id: m.id
+        id: m.id,
+        pathname: m.path
       }
     })
+  }
+  getRoutes = (menu, routes = []) => {
+    menu.forEach(item => {
+      if (item.component) {
+        routes.push(item)
+      }
+      if (item.children) {
+        this.getRoutes(item.children, routes)
+      }
+    })
+    return routes
   }
   getFirstChild = (arr, result = []) => {
     result.push(arr[0].id)
@@ -64,29 +79,40 @@ class Layout extends React.Component {
     return activeSiders[activeSiders.length - 1]
   }
   render () {
-    const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu } = this.state
+    const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes } = this.state
+    const { location, history } = this.props
     return (
       <div>
         <Header
           mainMenu={mainMenu}
           activeMainMenu={activeMainMenu}
           setMainMenu={this.setMainMenu}
+          location={location}
+          history={history}
         />
-        <div>
+        <div style={{ display: 'flex' }}>
           {siderMenu.length > 0 && (
             <Sider
               siderMenu={siderMenu}
               activeSiderMenu={activeSiderMenu}
               setSiderMenu={this.setSiderMenu}
+              location={location}
+              history={history}
             />
           )}
           <div>
-            <Route exact path='/a' component={A} />
+            {routes.map((route, index) => (
+              <Route
+                key={index}
+                path={route.path}
+                component={route.component}
+                exact={!!route.exact}
+              />
+            ))}
           </div>
         </div>
       </div>
     )
   }
 }
-const A = () => <div>A</div>
 export default Layout
