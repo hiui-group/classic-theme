@@ -13,7 +13,7 @@ class Theme extends Component {
       historyType = 'browserHistory',
       routes = [],
       type = 'classic',
-      apperance = { color: 'dark', background: 'dark' }
+      apperance = { color: 'light', background: 'dark' }
     } = this.props
     const Layout = layout[type]
     return (

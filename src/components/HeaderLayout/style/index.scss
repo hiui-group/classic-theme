@@ -13,6 +13,43 @@
     background: get-color($palette-hiui, 'g100');
   }
 
+  &.blue {
+    background: get-color($palette-hiui, '50');
+  }
+
+  &.light {
+    background: $white;
+
+    .hi-theme__menu {
+      flex: 1;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      margin-left: 24px;
+
+      .main-menu-item {
+        display: flex;
+
+        a {
+          color: get-color($palette-hiui, 'g100');
+          padding: 0 16px;
+          transition: color 0.3s;
+
+          &:hover {
+            color: get-color($palette-hiui, '50');
+          }
+        }
+      }
+
+      .active-main-menu {
+        a {
+          color: get-color($palette-hiui, '50');
+        }
+      }
+    }
+  }
+
   .hi-theme__logo {
     flex: 0 0 216px;
   }

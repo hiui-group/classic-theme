@@ -7,7 +7,7 @@ class Header extends Component {
   render () {
     const { mainMenu, activeMainMenu, logo, login, setMainMenu } = this.props
     return (
-      <div className='hi-theme__header dark'>
+      <div className='hi-theme__header light'>
         {logo && <div className='hi-theme__logo'>{logo}</div>}
 
         {mainMenu && (
