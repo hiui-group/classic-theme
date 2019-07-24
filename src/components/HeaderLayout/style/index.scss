@@ -1,7 +1,21 @@
+@import '@hi-ui/core-css/index.scss';
+
 .hi-theme__header {
   display: flex;
   background: #4285f4;
   height: 64px;
+  line-height: 64px;
+  position: fixed;
+  width: 100%;
+  font-size: $font-size-normal;
+
+  &.dark {
+    background: get-color($palette-hiui, 'g100');
+  }
+
+  .hi-theme__logo {
+    flex: 0 0 216px;
+  }
 
   .hi-theme__menu {
     flex: 1;
@@ -9,16 +23,25 @@
     margin: 0;
     padding: 0;
     display: flex;
+    margin-left: 24px;
 
     .main-menu-item {
+      display: flex;
+
       a {
         color: #fff;
+        padding: 0 16px;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #d8d8d8;
+        }
       }
     }
 
     .active-main-menu {
       a {
-        color: #ff6700;
+        color: #d8d8d8;
       }
     }
   }

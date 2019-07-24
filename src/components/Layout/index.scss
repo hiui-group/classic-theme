@@ -1,0 +1,29 @@
+@import '@hi-ui/core-css/lib/i18n/zh-CN.scss';
+@import '@hi-ui/core-css/base.scss';
+
+.hi-theme--classic {
+  display: flex;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding-top: 64px;
+
+  .hi-theme__content {
+    flex: 1;
+  }
+}
+
+.hi-theme--geniue {
+  display: flex;
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  .hi-theme__container {
+    flex: 1;
+    display: flex;
+
+    .hi-theme__content {
+      flex: 1;
+      padding-top: 64px;
+    }
+  }
+}
