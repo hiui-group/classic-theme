@@ -5,7 +5,17 @@
   .sider__logo {
     height: 136px;
   }
+  .sider__footer {
+    height: 40px;
+    text-align: right;
 
+    &__toggle {
+      cursor: pointer;
+      font-size: 16px;
+      padding: 0 10px;
+      display: inline-block;
+    }
+  }
   .hi-menu--vertical {
     box-shadow: none;
     border: none;
@@ -15,8 +25,6 @@
 
   .hi-menu-item--active:not(.hi-submenu) {
     background: rgba(66, 133, 244, 0.08);
-    // background-color: rgba(map-get(get-palette($color), '50'), 0.08);
-    // color: map-get(get-palette($color), '50');
     position: relative;
 
     &::before {

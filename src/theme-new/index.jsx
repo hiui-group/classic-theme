@@ -12,7 +12,7 @@ class Theme extends Component {
     const {
       historyType = 'browserHistory',
       routes = [],
-      type = 'classic',
+      type = 'geniue',
       apperance = { color: 'light', background: 'dark' }
     } = this.props
     const Layout = layout[type]
@@ -20,7 +20,14 @@ class Theme extends Component {
       <Router history={history[historyType]}>
         <Route
           path='/'
-          component={props => <Layout menu={routes} type={type} apperance={apperance} {...props} />}
+          component={props => (
+            <Layout
+              menu={routes}
+              type={type}
+              apperance={apperance}
+              {...props}
+            />
+          )}
         />
       </Router>
     )

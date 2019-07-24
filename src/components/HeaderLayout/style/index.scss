@@ -6,8 +6,10 @@
   height: 64px;
   line-height: 64px;
   position: fixed;
+  top: 0;
   width: 100%;
   font-size: $font-size-normal;
+  box-sizing: border-box;
 
   &.dark {
     background: get-color($palette-hiui, 'g100');
@@ -19,6 +21,7 @@
 
   &.light {
     background: $white;
+    border: 1px solid #e7e7e7;
 
     .hi-theme__menu {
       flex: 1;

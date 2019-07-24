@@ -9,18 +9,28 @@ class ClassicLayout extends React.Component {
     activeSiderMenu: '',
     mainMenu: [],
     siderMenu: [],
-    routes: []
+    routes: [],
+    mini: false
   }
 
   componentDidMount () {
     const { menu, history, location } = this.props
     const mainMenu = this.getMainMenu(menu)
-    const currentLocation = mainMenu.find(item => item.pathname === location.pathname)
-    const activeMainMenu = (currentLocation && currentLocation.id) || mainMenu[0].id
+    const currentLocation = mainMenu.find(
+      item => item.pathname === location.pathname
+    )
+    const activeMainMenu =
+      (currentLocation && currentLocation.id) || mainMenu[0].id
     const siderMenu = this.getSiderMenu(menu, activeMainMenu)
     const activeSiderMenu = this.getDefaultActiveSiderMenu(siderMenu)
     const routes = this.getRoutes(menu, [])
-    this.setState({ mainMenu, activeMainMenu, siderMenu, activeSiderMenu, routes })
+    this.setState({
+      mainMenu,
+      activeMainMenu,
+      siderMenu,
+      activeSiderMenu,
+      routes
+    })
     const initNav = this.getInitNav(siderMenu, activeSiderMenu)
     history.push(initNav.pathname)
   }
@@ -43,7 +53,8 @@ class ClassicLayout extends React.Component {
       return {
         content: m.name,
         id: m.id,
-        pathname: m.path || (m.children && m.children[0] && m.children[0].path) || ''
+        pathname:
+          m.path || (m.children && m.children[0] && m.children[0].path) || ''
       }
     })
   }
@@ -95,8 +106,18 @@ class ClassicLayout extends React.Component {
     const activeSiders = this.getFirstChild(currentSiderMenu)
     return activeSiders[activeSiders.length - 1]
   }
+  miniToggle = () => {
+    this.setState({ mini: !this.state.mini })
+  }
   render () {
-    const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes } = this.state
+    const {
+      activeMainMenu,
+      activeSiderMenu,
+      mainMenu,
+      siderMenu,
+      routes,
+      mini
+    } = this.state
     const { location, history, apperance } = this.props
     return [
       <Header
@@ -116,6 +137,8 @@ class ClassicLayout extends React.Component {
             location={location}
             history={history}
             getInitNav={this.getInitNav}
+            mini={mini}
+            miniToggle={this.miniToggle}
           />
         )}
         <div className='hi-theme__content'>

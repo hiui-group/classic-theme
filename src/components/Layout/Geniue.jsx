@@ -7,7 +7,8 @@ class GeniueLayout extends React.Component {
   state = {
     activeSiderMenu: '',
     siderMenu: [],
-    routes: []
+    routes: [],
+    mini: false
   }
 
   componentDidMount () {
@@ -15,7 +16,8 @@ class GeniueLayout extends React.Component {
     const siderMenu = this.getMenu(menu)
     const currentRoute = this.getCurrentRoute(siderMenu, location.pathname)
     const activeSiderMenu =
-      (currentRoute && currentRoute.id) || this.getDefaultActiveSiderMenu(siderMenu)
+      (currentRoute && currentRoute.id) ||
+      this.getDefaultActiveSiderMenu(siderMenu)
 
     const routes = this.getRoutes(menu, [])
     this.setState({ siderMenu, activeSiderMenu, routes })
@@ -32,7 +34,8 @@ class GeniueLayout extends React.Component {
       return {
         content: m.name,
         id: m.id,
-        pathname: m.path || (m.children && m.children[0] && m.children[0].path) || ''
+        pathname:
+          m.path || (m.children && m.children[0] && m.children[0].path) || ''
       }
     })
   }
@@ -103,8 +106,11 @@ class GeniueLayout extends React.Component {
     const activeSiders = this.getFirstChild(currentSiderMenu)
     return activeSiders[activeSiders.length - 1]
   }
+  miniToggle = () => {
+    this.setState({ mini: !this.state.mini })
+  }
   render () {
-    const { activeSiderMenu, siderMenu, routes } = this.state
+    const { activeSiderMenu, siderMenu, routes, mini } = this.state
     const { location, history, apperance } = this.props
     return [
       <div key='container' className='hi-theme--geniue'>
@@ -116,10 +122,16 @@ class GeniueLayout extends React.Component {
             location={location}
             history={history}
             getInitNav={this.getInitNav}
+            mini={mini}
+            miniToggle={this.miniToggle}
           />
         )}
         <div className='hi-theme__container'>
-          <Header setMainMenu={this.setMainMenu} location={location} history={history} />
+          <Header
+            setMainMenu={this.setMainMenu}
+            location={location}
+            history={history}
+          />
           <div className='hi-theme__content'>
             {routes.map((route, index) => (
               <Route

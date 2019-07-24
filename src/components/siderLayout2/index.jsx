@@ -1,17 +1,28 @@
 import React, { Component } from 'react'
 import Menu from '@hi-ui/hiui/es/menu'
+import Icon from '@hi-ui/hiui/es/icon'
 // import ClassNames from 'classnames'
 import './style/index.scss'
 
 class Sider extends Component {
-  // TODO: menus 改变的时候需要重置初始化 activeId
   render () {
-    const { siderMenu, activeSiderMenu, logo, setSiderMenu, history, getInitNav } = this.props
+    const {
+      siderMenu,
+      activeSiderMenu,
+      logo,
+      setSiderMenu,
+      history,
+      getInitNav,
+      mini,
+      miniToggle
+    } = this.props
+
     return (
       <div className='hi-theme__sider'>
         {logo && <div className='sider__logo'>{logo}</div>}
         <Menu
           mode='vertical'
+          mini={mini}
           activeId={activeSiderMenu}
           onClick={id => {
             setSiderMenu(id)
@@ -20,6 +31,12 @@ class Sider extends Component {
           }}
           datas={siderMenu}
         />
+
+        <div className='sider__footer'>
+          <span className='sider__footer__toggle' onClick={miniToggle}>
+            <Icon name='list' />
+          </span>
+        </div>
       </div>
     )
   }
