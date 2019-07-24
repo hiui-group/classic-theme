@@ -2,6 +2,19 @@
   display: flex;
   flex-direction: column;
 
+  &.dark {
+    .hi-menu--vertical {
+      background-color: #393d46;
+    }
+    .hi-menu__title {
+      color: #fff;
+    }
+    .sider__footer {
+      background-color: #393d46;
+      color: #fff;
+    }
+  }
+
   .sider__logo {
     height: 136px;
   }
@@ -36,7 +49,6 @@
       transition: width 0.3s linear;
       width: 4px;
       background: #4285f4;
-      // background-color: map-get(get-palette($color), '50');
     }
   }
 

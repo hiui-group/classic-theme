@@ -18,7 +18,7 @@ class Sider extends Component {
     } = this.props
 
     return (
-      <div className='hi-theme__sider'>
+      <div className='hi-theme__sider dark'>
         {logo && <div className='sider__logo'>{logo}</div>}
         <Menu
           mode='vertical'
