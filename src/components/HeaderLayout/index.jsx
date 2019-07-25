@@ -26,7 +26,7 @@ class Header extends Component {
             ))}
           </ul>
         )}
-        {login}
+        {login && <div className='hi-theme__login'>{login}</div>}
       </div>
     )
   }

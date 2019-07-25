@@ -6,10 +6,13 @@
     .hi-menu--vertical {
       background-color: #393d46;
     }
+
     .hi-menu__title {
       color: #fff;
     }
-    .sider__footer {
+
+    .sider__footer,
+    .sider__logo {
       background-color: #393d46;
       color: #fff;
     }
@@ -17,7 +20,12 @@
 
   .sider__logo {
     height: 136px;
+
+    &.mini {
+      width: 48px;
+    }
   }
+
   .sider__footer {
     height: 40px;
     text-align: right;
@@ -29,6 +37,7 @@
       display: inline-block;
     }
   }
+
   .hi-menu--vertical {
     box-shadow: none;
     border: none;

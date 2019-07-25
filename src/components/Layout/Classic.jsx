@@ -107,7 +107,7 @@ class ClassicLayout extends React.Component {
   }
   render () {
     const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
-    const { location, history, apperance } = this.props
+    const { location, history, apperance, logo } = this.props
     return [
       <Header
         key='header'
@@ -117,6 +117,7 @@ class ClassicLayout extends React.Component {
         location={location}
         history={history}
         color={apperance.color}
+        logo={logo}
       />,
       <div key='container' className='hi-theme--classic'>
         {siderMenu.length > 0 && (

@@ -109,7 +109,7 @@ class GeniueLayout extends React.Component {
   }
   render () {
     const { activeSiderMenu, siderMenu, routes, mini } = this.state
-    const { location, history, apperance } = this.props
+    const { location, history, apperance, logo } = this.props
     return [
       <div key='container' className='hi-theme--geniue'>
         {siderMenu.length > 0 && (
@@ -123,6 +123,7 @@ class GeniueLayout extends React.Component {
             mini={mini}
             miniToggle={this.miniToggle}
             color={apperance.color}
+            logo={logo}
           />
         )}
         <div className='hi-theme__container'>

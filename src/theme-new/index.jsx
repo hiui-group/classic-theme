@@ -8,19 +8,22 @@ const hashHistory = createHashHistory()
 const history = { browserHistory, hashHistory }
 
 class Theme extends Component {
-  render() {
+  render () {
     const {
       historyType = 'browserHistory',
       routes = [],
       type = 'classic',
-      apperance = { color: 'dark', background: 'dark' }
+      apperance = { color: 'dark', background: 'dark' },
+      logo
     } = this.props
     const Layout = layout[type]
     return (
       <Router history={history[historyType]}>
         <Route
-          path="/"
-          component={props => <Layout menu={routes} type={type} apperance={apperance} {...props} />}
+          path='/'
+          component={props => (
+            <Layout menu={routes} type={type} apperance={apperance} logo={logo} {...props} />
+          )}
         />
       </Router>
     )
