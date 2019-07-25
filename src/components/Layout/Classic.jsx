@@ -16,11 +16,8 @@ class ClassicLayout extends React.Component {
   componentDidMount () {
     const { menu, history, location } = this.props
     const mainMenu = this.getMainMenu(menu)
-    const currentLocation = mainMenu.find(
-      item => item.pathname === location.pathname
-    )
-    const activeMainMenu =
-      (currentLocation && currentLocation.id) || mainMenu[0].id
+    const currentLocation = mainMenu.find(item => item.pathname === location.pathname)
+    const activeMainMenu = (currentLocation && currentLocation.id) || mainMenu[0].id
     const siderMenu = this.getSiderMenu(menu, activeMainMenu)
     const activeSiderMenu = this.getDefaultActiveSiderMenu(siderMenu)
     const routes = this.getRoutes(menu, [])
@@ -53,8 +50,7 @@ class ClassicLayout extends React.Component {
       return {
         content: m.name,
         id: m.id,
-        pathname:
-          m.path || (m.children && m.children[0] && m.children[0].path) || ''
+        pathname: m.path || (m.children && m.children[0] && m.children[0].path) || ''
       }
     })
   }
@@ -110,14 +106,7 @@ class ClassicLayout extends React.Component {
     this.setState({ mini: !this.state.mini })
   }
   render () {
-    const {
-      activeMainMenu,
-      activeSiderMenu,
-      mainMenu,
-      siderMenu,
-      routes,
-      mini
-    } = this.state
+    const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
     const { location, history, apperance } = this.props
     return [
       <Header
@@ -127,6 +116,7 @@ class ClassicLayout extends React.Component {
         setMainMenu={this.setMainMenu}
         location={location}
         history={history}
+        color={apperance.color}
       />,
       <div key='container' className='hi-theme--classic'>
         {siderMenu.length > 0 && (
@@ -139,6 +129,7 @@ class ClassicLayout extends React.Component {
             getInitNav={this.getInitNav}
             mini={mini}
             miniToggle={this.miniToggle}
+            color='light'
           />
         )}
         <div className='hi-theme__content'>

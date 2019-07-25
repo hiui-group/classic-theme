@@ -16,8 +16,7 @@ class GeniueLayout extends React.Component {
     const siderMenu = this.getMenu(menu)
     const currentRoute = this.getCurrentRoute(siderMenu, location.pathname)
     const activeSiderMenu =
-      (currentRoute && currentRoute.id) ||
-      this.getDefaultActiveSiderMenu(siderMenu)
+      (currentRoute && currentRoute.id) || this.getDefaultActiveSiderMenu(siderMenu)
 
     const routes = this.getRoutes(menu, [])
     this.setState({ siderMenu, activeSiderMenu, routes })
@@ -34,8 +33,7 @@ class GeniueLayout extends React.Component {
       return {
         content: m.name,
         id: m.id,
-        pathname:
-          m.path || (m.children && m.children[0] && m.children[0].path) || ''
+        pathname: m.path || (m.children && m.children[0] && m.children[0].path) || ''
       }
     })
   }
@@ -124,6 +122,7 @@ class GeniueLayout extends React.Component {
             getInitNav={this.getInitNav}
             mini={mini}
             miniToggle={this.miniToggle}
+            color={apperance.color}
           />
         )}
         <div className='hi-theme__container'>
@@ -131,6 +130,7 @@ class GeniueLayout extends React.Component {
             setMainMenu={this.setMainMenu}
             location={location}
             history={history}
+            color='light'
           />
           <div className='hi-theme__content'>
             {routes.map((route, index) => (

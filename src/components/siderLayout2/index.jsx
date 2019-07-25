@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Menu from '@hi-ui/hiui/es/menu'
 import Icon from '@hi-ui/hiui/es/icon'
-// import ClassNames from 'classnames'
+import ClassNames from 'classnames'
 import './style/index.scss'
 
 class Sider extends Component {
@@ -14,11 +14,12 @@ class Sider extends Component {
       history,
       getInitNav,
       mini,
-      miniToggle
+      miniToggle,
+      color
     } = this.props
 
     return (
-      <div className='hi-theme__sider dark'>
+      <div className={ClassNames('hi-theme__sider', color)}>
         {logo && <div className='sider__logo'>{logo}</div>}
         <Menu
           mode='vertical'
