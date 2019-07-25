@@ -28,4 +28,12 @@
       padding-top: 64px;
     }
   }
+
+  .sider__logo {
+    &.mini {
+      .logo__link {
+        display: flex;
+      }
+    }
+  }
 }
