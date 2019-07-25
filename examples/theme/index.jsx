@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Theme from '../../src/theme-new'
+import Theme from '../../src/theme'
 import routeConfig from './routes-config'
 import { Logo } from '../../src'
 
@@ -14,7 +14,7 @@ const logo = (
 )
 class App extends Component {
   render () {
-    return <Theme routes={routeConfig} logo={logo} />
+    return <Theme routes={routeConfig} logo={logo} historyType='hashHistory' type='classic' />
   }
 }
 
