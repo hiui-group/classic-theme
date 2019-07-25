@@ -1,29 +1,8 @@
-@import '@hi-ui/core-css/index.scss';
-
-// Layout
-.sidebar {
+.hi-theme__sider {
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-  width: 216px;
-  height: 100%;
-  font-size: 14px;
-  line-height: 1;
-  background-color: $white;
-  // box-shadow: inset -1px 0 0 0 $gray;
-  border-right: 1px solid $gray;
-  transition: width $speed-fast $easing;
-  position: relative;
-  padding-top: 64px;
 
-  .hi-menu--vertical {
-    width: 100%;
-    box-shadow: none;
-    height: 100%;
-    border: 0;
-  }
-
-  &__menu--white {
+  &.dark {
     .hi-menu--vertical {
       background-color: #393d46;
     }
@@ -31,53 +10,89 @@
     .hi-menu__title {
       color: #fff;
     }
-  }
 
-  &__menu--black {
-    .hi-menu--vertical {
-      background-color: #fff;
-    }
-
-    .hi-menu__title {
-      color: #000;
+    .sider__footer,
+    .sider__logo {
+      background-color: #393d46;
+      color: #fff;
     }
   }
-  // Element: Toggle
-  &__toggle {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    z-index: 2;
-    box-sizing: border-box;
-    width: 48px;
-    height: 64px;
-    font-size: 24px;
-    line-height: 64px;
-    text-align: center;
-    cursor: pointer;
-    background: url('../../../static/image/expand.png') no-repeat 50% 50%;
-  }
 
-  &__extend {
+  .sider__logo {
     height: 64px;
     display: flex;
-    align-items: center;
-    width: 168px;
-    flex: 0 0 64px;
-  }
 
-  // Status: Collapsed
-  &--collapsed {
-    width: 48px;
+    .logo {
+      flex: 1;
+      display: flex;
 
-    .sidebar {
-      &__list {
-        width: 48px + 20px; // overflow scrollbar
+      .logo__link {
+        flex: 1;
+        align-items: center;
+        display: flex;
+        padding: 0 16px;
       }
 
-      &__item-title {
+      .logo__img {
+        margin-right: 10px;
+      }
+    }
+
+    &.mini {
+      width: 48px;
+
+      .logo__link {
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        padding: 0;
+      }
+
+      .logo__title {
         display: none;
+      }
+
+      .logo__img {
+        margin-right: 0;
       }
     }
   }
+
+  .sider__footer {
+    height: 40px;
+    text-align: right;
+
+    &__toggle {
+      cursor: pointer;
+      font-size: 16px;
+      padding: 0 10px;
+      display: inline-block;
+    }
+  }
+
+  .hi-menu--vertical {
+    box-shadow: none;
+    border: none;
+    flex: 1;
+    overflow: auto;
+  }
+
+  .hi-menu-item--active:not(.hi-submenu) {
+    background: rgba(66, 133, 244, 0.08);
+    position: relative;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      content: '';
+      transition: width 0.3s linear;
+      width: 4px;
+      background: #4285f4;
+    }
+  }
+
+  border-right: 1px solid #d8d8d8;
 }

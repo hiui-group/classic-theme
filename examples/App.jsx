@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './App.scss'
-import DefaultTheme from './example-classic'
-// import GenuineTheme from './example-genuine'
+import Theme from './theme'
 
 class App extends Component {
   constructor () {
@@ -13,10 +12,7 @@ class App extends Component {
   }
 
   render () {
-    return (
-      <DefaultTheme />
-      // <GenuineTheme />
-    )
+    return <Theme />
   }
 }
 
