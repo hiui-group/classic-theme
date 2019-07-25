@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from '../HeaderLayout'
-import Sider from '../SiderLayout2'
+import Header from '../Header'
+import Sider from '../Sider'
 import { Route } from 'react-router-dom'
 import './index.scss'
 class GeniueLayout extends React.Component {
