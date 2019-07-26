@@ -29,7 +29,7 @@ const login = <Login {...loginConfig} />
 
 class App extends Component {
   render () {
-    return <Theme routes={routeConfig} logo={logo} login={login} type='classic' />
+    return <Theme routes={routeConfig} logo={logo} login={login} type='genuine' />
   }
 }
 
