@@ -14,7 +14,7 @@ const logo = (
 )
 class App extends Component {
   render () {
-    return <Theme routes={routeConfig} logo={logo} historyType='hashHistory' type='geniue' />
+    return <Theme routes={routeConfig} logo={logo} historyType='hashHistory' type='genuine' />
   }
 }
 
