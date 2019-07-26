@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Theme from '../../src/theme'
 import routeConfig from './routes-config'
-import { Logo } from '../../src'
+import { Logo, Login } from '../../src'
 
 const logo = (
   <Logo
@@ -12,9 +12,24 @@ const logo = (
     alt='Project Logo'
   />
 )
+
+const loginConfig = {
+  name: 'Mi Guest',
+  icon: <span className='hi-icon icon-user' />,
+  children: [
+    <div key='1' style={{ textAlign: 'center', margin: 4, width: '100px' }}>
+      <a href='#info'>个人信息</a>
+    </div>,
+    <div key='2' style={{ textAlign: 'center', margin: 4, width: 100 }}>
+      <a href='#logout'>注销</a>
+    </div>
+  ]
+}
+const login = <Login {...loginConfig} />
+
 class App extends Component {
   render () {
-    return <Theme routes={routeConfig} logo={logo} historyType='hashHistory' type='genuine' />
+    return <Theme routes={routeConfig} logo={logo} login={login} type='classic' />
   }
 }
 

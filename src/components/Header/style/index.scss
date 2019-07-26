@@ -13,10 +13,18 @@
 
   &.dark {
     background: get-color($palette-hiui, 'g100');
+
+    .hi-theme__login {
+      color: #fff;
+    }
   }
 
   &.blue {
     background: get-color($palette-hiui, '50');
+
+    .hi-theme__login {
+      color: #fff;
+    }
   }
 
   &.light {

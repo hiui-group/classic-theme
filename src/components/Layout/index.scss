@@ -29,6 +29,11 @@
     }
   }
 
+  .hi-theme__header {
+    justify-content: flex-end;
+    width: calc(100% - 216px);
+  }
+
   .sider__logo {
     &.mini {
       .logo__link {

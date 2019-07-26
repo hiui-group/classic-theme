@@ -11,7 +11,7 @@ class GenuineLayout extends React.Component {
     mini: false
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { menu, history, location } = this.props
     const siderMenu = this.getMenu(menu)
     const currentRoute = this.getCurrentRoute(siderMenu, location.pathname)
@@ -107,11 +107,11 @@ class GenuineLayout extends React.Component {
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
   }
-  render () {
+  render() {
     const { activeSiderMenu, siderMenu, routes, mini } = this.state
-    const { location, history, apperance, logo } = this.props
+    const { location, history, apperance, logo, login } = this.props
     return [
-      <div key='container' className='hi-theme--genuine'>
+      <div key="container" className="hi-theme--genuine">
         {siderMenu.length > 0 && (
           <Sider
             siderMenu={siderMenu}
@@ -126,14 +126,15 @@ class GenuineLayout extends React.Component {
             logo={logo}
           />
         )}
-        <div className='hi-theme__container'>
+        <div className="hi-theme__container">
           <Header
             setMainMenu={this.setMainMenu}
             location={location}
             history={history}
-            color='light'
+            color="light"
+            login={login}
           />
-          <div className='hi-theme__content'>
+          <div className="hi-theme__content">
             {routes.map((route, index) => (
               <Route
                 key={index}
