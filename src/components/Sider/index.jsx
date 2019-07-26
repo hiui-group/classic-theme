@@ -5,7 +5,7 @@ import ClassNames from 'classnames'
 import './style/index.scss'
 
 class Sider extends Component {
-  render() {
+  render () {
     const {
       siderMenu,
       activeSiderMenu,
@@ -17,12 +17,11 @@ class Sider extends Component {
       miniToggle,
       color
     } = this.props
-    console.log('mini', mini)
     return (
       <div className={ClassNames('hi-theme__sider', color)}>
         {logo && <div className={ClassNames('sider__logo', { mini: mini })}>{logo}</div>}
         <Menu
-          mode="vertical"
+          mode='vertical'
           mini={mini}
           activeId={activeSiderMenu}
           onClick={id => {
@@ -33,9 +32,9 @@ class Sider extends Component {
           datas={siderMenu}
         />
 
-        <div className="sider__footer">
-          <span className="sider__footer__toggle" onClick={miniToggle}>
-            <Icon name="list" />
+        <div className='sider__footer'>
+          <span className='sider__footer__toggle' onClick={miniToggle}>
+            <Icon name='list' />
           </span>
         </div>
       </div>
