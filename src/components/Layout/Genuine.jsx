@@ -40,7 +40,8 @@ class GenuineLayout extends React.Component {
     return menu.map(m => {
       let _menu = {
         content: m.name,
-        id: m.id
+        id: m.id,
+        icon: m.icon
       }
       if (m.path) {
         _menu.pathname = m.path
