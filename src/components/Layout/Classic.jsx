@@ -60,6 +60,7 @@ class ClassicLayout extends React.Component {
       return {
         content: m.name,
         id: m.id,
+        icon: m.icon,
         pathname: m.path
       }
     })
