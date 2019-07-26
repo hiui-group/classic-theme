@@ -13,7 +13,7 @@
   }
 }
 
-.hi-theme--geniue {
+.hi-theme--genuine {
   display: flex;
   height: 100vh;
   box-sizing: border-box;
@@ -27,6 +27,11 @@
       flex: 1;
       padding-top: 64px;
     }
+  }
+
+  .hi-theme__header {
+    justify-content: flex-end;
+    width: calc(100% - 216px);
   }
 
   .sider__logo {

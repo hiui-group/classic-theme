@@ -41,7 +41,6 @@ class ClassicLayout extends React.Component {
     }
   }
   setSiderMenu = activeSiderMenu => {
-    console.log('clickSiderMenu', activeSiderMenu)
     this.setState({ activeSiderMenu })
   }
 
@@ -107,7 +106,7 @@ class ClassicLayout extends React.Component {
   }
   render () {
     const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
-    const { location, history, apperance, logo } = this.props
+    const { location, history, apperance, logo, login } = this.props
     return [
       <Header
         key='header'
@@ -118,6 +117,7 @@ class ClassicLayout extends React.Component {
         history={history}
         color={apperance.color}
         logo={logo}
+        login={login}
       />,
       <div key='container' className='hi-theme--classic'>
         {siderMenu.length > 0 && (

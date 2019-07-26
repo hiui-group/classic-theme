@@ -14,7 +14,8 @@ class Theme extends Component {
       routes = [],
       type = 'classic',
       apperance = { color: 'dark', background: 'dark' },
-      logo
+      logo,
+      login
     } = this.props
     const Layout = layout[type]
     return (
@@ -22,7 +23,14 @@ class Theme extends Component {
         <Route
           path='/'
           component={props => (
-            <Layout menu={routes} type={type} apperance={apperance} logo={logo} {...props} />
+            <Layout
+              menu={routes}
+              type={type}
+              apperance={apperance}
+              logo={logo}
+              login={login}
+              {...props}
+            />
           )}
         />
       </Router>

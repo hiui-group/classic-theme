@@ -3,7 +3,7 @@ import Header from '../Header'
 import Sider from '../Sider'
 import { Route } from 'react-router-dom'
 import './index.scss'
-class GeniueLayout extends React.Component {
+class GenuineLayout extends React.Component {
   state = {
     activeSiderMenu: '',
     siderMenu: [],
@@ -24,7 +24,6 @@ class GeniueLayout extends React.Component {
     history.push(initNav.pathname)
   }
   setSiderMenu = activeSiderMenu => {
-    console.log('clickSiderMenu', activeSiderMenu)
     this.setState({ activeSiderMenu })
   }
 
@@ -109,9 +108,9 @@ class GeniueLayout extends React.Component {
   }
   render () {
     const { activeSiderMenu, siderMenu, routes, mini } = this.state
-    const { location, history, apperance, logo } = this.props
+    const { location, history, apperance, logo, login } = this.props
     return [
-      <div key='container' className='hi-theme--geniue'>
+      <div key='container' className='hi-theme--genuine'>
         {siderMenu.length > 0 && (
           <Sider
             siderMenu={siderMenu}
@@ -132,6 +131,7 @@ class GeniueLayout extends React.Component {
             location={location}
             history={history}
             color='light'
+            login={login}
           />
           <div className='hi-theme__content'>
             {routes.map((route, index) => (
@@ -148,4 +148,4 @@ class GeniueLayout extends React.Component {
     ]
   }
 }
-export default GeniueLayout
+export default GenuineLayout

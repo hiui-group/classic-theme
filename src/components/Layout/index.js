@@ -1,8 +1,8 @@
-import Geniue from './Geniue'
+import Genuine from './Genuine'
 import Classic from './Classic'
 
 const layout = {
-  geniue: Geniue,
+  genuine: Genuine,
   classic: Classic
 }
 
