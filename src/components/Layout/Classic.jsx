@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../Header'
 import Sider from '../Sider'
 import { Route } from 'react-router-dom'
-import './index.scss'
+import './style/index'
 class ClassicLayout extends React.Component {
   state = {
     activeMainMenu: '',

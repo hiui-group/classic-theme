@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory, createHashHistory } from 'history'
-import layout from '../../src/components/Layout'
+import layout from '../components/Layout'
 const browserHistory = createBrowserHistory()
 const hashHistory = createHashHistory()
 const history = { browserHistory, hashHistory }
