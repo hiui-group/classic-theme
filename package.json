@@ -26,8 +26,8 @@
   "author": "HIUI <mi-hiui@xiaomi.com>",
   "license": "MIT",
   "dependencies": {
-    "@hi-ui/core-css": "^2.0.0-beta.3",
-    "@hi-ui/hiui": "^2.0.0-beta.6",
+    "@hi-ui/core-css": "^2.0.0",
+    "@hi-ui/hiui": "^2.0.0-rc.2",
     "classnames": "^2.2.6",
     "history": "^4.9.0",
     "js-cookie": "^2.2.0",
