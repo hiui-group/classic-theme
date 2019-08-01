@@ -9,6 +9,7 @@ const Player = () => <div>小米音响</div>
 const Robot = () => <div>米家扫地机器人</div>
 
 const config = [
+  { name: '电视', path: '/tv', component: TV },
   {
     name: '手机',
     children: [
@@ -17,7 +18,6 @@ const config = [
       { name: '黑鲨', path: '/black-shark', component: BlackShark }
     ]
   },
-  { name: '电视', path: '/tv', component: TV },
   {
     name: '智能硬件',
     children: [
