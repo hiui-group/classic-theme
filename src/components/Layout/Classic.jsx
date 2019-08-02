@@ -30,9 +30,9 @@ class ClassicLayout extends React.Component {
       routes
     })
     const initNav = siderMenu.length
-      ? this.getInitNav(siderMenu, activeSiderMenu)
+      ? this.getInitNav(siderMenu, activeSiderMenu).path
       : mainMenu[0].pathname
-    history.push(initNav.pathname)
+    history.push(initNav)
   }
   setMainMenu = activeMainMenu => {
     const siderMenu = this.getSiderMenu(this.props.menu, activeMainMenu)

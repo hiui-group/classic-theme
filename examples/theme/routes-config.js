@@ -7,14 +7,13 @@ const BlackShark = () => <div>黑鲨手机</div>
 const TV = () => <div>小米电视</div>
 const SoundBox = () => (
   <div>
-    小米音响<Link to='/robot-detail'>去详情页</Link>
+    小米音响<Link to='/robot-detail/1'>去详情页</Link>
   </div>
 )
 const Robot = () => <div>米家扫地机器人</div>
 const RobotDetail = () => <div>米家扫地机器人详情页</div>
 
 const config = [
-  { name: '电视', path: '/tv', component: TV },
   {
     name: '手机',
     children: [
@@ -23,6 +22,7 @@ const config = [
       { name: '黑鲨', path: '/black-shark', component: BlackShark }
     ]
   },
+  { name: '电视', path: '/tv', component: TV },
   {
     name: '智能硬件',
     children: [
