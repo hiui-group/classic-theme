@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import Icon from '@hi-ui/hiui/es/icon'
 import ClassNames from 'classnames'
 import './style/index'
 
@@ -20,6 +21,7 @@ class Header extends Component {
                 })}
               >
                 <Link to={menu.pathname} onClick={() => setMainMenu(menu.id)}>
+                  {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
                   {menu.content}
                 </Link>
               </li>
