@@ -13,7 +13,7 @@ class ClassicLayout extends React.Component {
     mini: false
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const { menu, history, location } = this.props
     const mainMenu = this.getMainMenu(menu)
     const currentLocation = mainMenu.find(item => item.pathname === location.pathname)
@@ -109,12 +109,12 @@ class ClassicLayout extends React.Component {
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
   }
-  render() {
+  render () {
     const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
     const { location, history, apperance, logo, login } = this.props
     return [
       <Header
-        key="header"
+        key='header'
         mainMenu={mainMenu}
         activeMainMenu={activeMainMenu}
         setMainMenu={this.setMainMenu}
@@ -124,7 +124,7 @@ class ClassicLayout extends React.Component {
         logo={logo}
         login={login}
       />,
-      <div key="container" className="hi-theme--classic">
+      <div key='container' className='hi-theme--classic'>
         {siderMenu.length > 0 && (
           <Sider
             siderMenu={siderMenu}
@@ -135,10 +135,10 @@ class ClassicLayout extends React.Component {
             getInitNav={this.getInitNav}
             mini={mini}
             miniToggle={this.miniToggle}
-            color="light"
+            color='light'
           />
         )}
-        <div className="hi-theme__content">
+        <div className='hi-theme__content'>
           {routes.map((route, index) => (
             <Route
               key={index}

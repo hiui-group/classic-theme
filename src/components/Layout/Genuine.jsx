@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../Header'
 import Sider from '../Sider'
 import { Route } from 'react-router-dom'
+import ClassNames from 'classnames'
 import './style/index'
 class GenuineLayout extends React.Component {
   state = {
@@ -109,7 +110,18 @@ class GenuineLayout extends React.Component {
   }
   render () {
     const { activeSiderMenu, siderMenu, routes, mini } = this.state
-    const { location, history, apperance, logo, login } = this.props
+    const { location, history, apperance, logo, login, header } = this.props
+    const _header =
+      header === null ||
+      (header || (
+        <Header
+          setMainMenu={this.setMainMenu}
+          location={location}
+          history={history}
+          color='light'
+          login={login}
+        />
+      ))
     return [
       <div key='container' className='hi-theme--genuine'>
         {siderMenu.length > 0 && (
@@ -126,15 +138,11 @@ class GenuineLayout extends React.Component {
             logo={logo}
           />
         )}
-        <div className='hi-theme__container'>
-          <Header
-            setMainMenu={this.setMainMenu}
-            location={location}
-            history={history}
-            color='light'
-            login={login}
-          />
-          <div className='hi-theme__content'>
+        <div className={ClassNames('hi-theme__container')}>
+          {_header}
+          <div
+            className={ClassNames('hi-theme__content', { 'hi-theme--no-header': header === null })}
+          >
             {routes.map((route, index) => (
               <Route
                 key={index}

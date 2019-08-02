@@ -17,7 +17,6 @@
   display: flex;
   height: 100vh;
   box-sizing: border-box;
-  overflow: scroll;
 
   .hi-theme__container {
     flex: 1;
@@ -26,6 +25,11 @@
     .hi-theme__content {
       flex: 1;
       padding-top: 64px;
+      overflow: scroll;
+    }
+
+    .hi-theme--no-header {
+      padding-top: 0;
     }
   }
 

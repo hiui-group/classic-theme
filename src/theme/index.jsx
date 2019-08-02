@@ -15,7 +15,8 @@ class Theme extends Component {
       type = 'classic',
       apperance = { color: 'dark', background: 'dark' },
       logo,
-      login
+      login,
+      header
     } = this.props
     const Layout = layout[type]
     return (
@@ -29,6 +30,7 @@ class Theme extends Component {
               apperance={apperance}
               logo={logo}
               login={login}
+              header={header}
               {...props}
             />
           )}
