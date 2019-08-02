@@ -1,23 +1,9 @@
-import { createBrowserHistory, createHashHistory } from 'history'
-const _history = {}
-const historyManager = {
-  createBrowserHistory: (_h) => {
-    const h = createBrowserHistory()
-    _history.history = h
-    return h
-  },
-  createHashHistory: () => {
-    const h = createHashHistory()
-    _history.history = h
-    return h
-  },
-  getHistory: () => {
-    return _history.history || historyManager.createBrowserHistory()
-  },
-  listen: callback => {
-    _history.history.listen((location, action) => {
-      callback(location, action)
-    })
-  }
+export const transformConfig = (config, parentId) => {
+  config.forEach((c, index) => {
+    c.id = c.id || (parentId || parentId === 0 ? `${parentId}-${index}` : index)
+    if (c.children) {
+      transformConfig(c.children, c.id)
+    }
+  })
+  return config
 }
-export default historyManager

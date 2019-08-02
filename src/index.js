@@ -1,5 +1,4 @@
-import Theme from './theme'
+import Theme, { history } from './theme'
 import Logo from './components/Logo'
 import Login from './components/Login'
-import History from './util/common'
-export { Theme, Logo, Login, History }
+export { Theme, Logo, Login, history as History }
