@@ -20,7 +20,7 @@ render(<Theme />, document.getElementById('app'))
 
 ```jsx
 import React, { Component } from 'react'
-import { Theme, Logo, Login } from '@hi-ui/classic-theme'
+import { Theme, Login } from '@hi-ui/classic-theme'
 import { Link } from 'react-router-dom'
 
 const Mi = () => <div>小米手机</div>
@@ -55,17 +55,15 @@ const routeConfig = [
   }
 ]
 
-const logo = (
-  <Logo
-    url='https://xiaomi.github.io/hiui/#/'
-    logoUrl='https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05'
-    text='HIUI Demo'
-  />
-)
+const logoConfig = {
+  logoUrl: 'https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05',
+  name: 'HIUI Theme',
+  url: 'https://xiaomi.github.io/hiui/#/'
+}
 
 const loginConfig = {
   name: 'Mi Guest',
-  icon: <span className='hi-icon icon-user' />,
+  icon: 'user',
   children: [
     <div key='1' style={{ textAlign: 'center', margin: 4, width: '100px' }}>
       <a href='#info'>个人信息</a>
@@ -75,10 +73,9 @@ const loginConfig = {
     </div>
   ]
 }
-const login = <Login {...loginConfig} />
 class App extends Component {
   render() {
-    return <Theme routes={routeConfig} logo={logo} login={login} type='classic' />
+    return <Theme routes={routeConfig} logo={logoConfig} login={loginConfig} />
   }
 }
 
@@ -87,7 +84,7 @@ export default App
 
 ## API
 
-Theme
+### Theme
 
 | 属性名      | 描述                       | 类型                              | 默认值                      |
 | ----------- | -------------------------- | --------------------------------- | --------------------------- |
@@ -97,8 +94,11 @@ Theme
 | login       | 系统登录配置项             | ReactNode                         | -                           |
 | historyType | 路由跳转类型               | 'hashHistory' \| 'browserHistory' | 'browserHistory'            |
 | header      | genuine 类型下的顶部功能栏 | ReactNode \| null                 | 不传时默认为主题自带 header |
+| apperance   | 主题外观配置项             | Apperance                         | {color:'dark'}              |
+| logo        | 主题 logo 配置项           | Logo                              | -                           |
+| login       | 主题登录信息配置项         | Login                             | -                           |
 
-Route
+### type: Route
 
 | 属性名    | 描述                                     | 类型      | 默认值 |
 | --------- | ---------------------------------------- | --------- | ------ |
@@ -108,3 +108,25 @@ Route
 | path      | 菜单跳转路径                             | string    | -      |
 | exact     | 菜单跳转路径是否严格匹配对应的 component | boolean   | true   |
 | component | 菜单对应页面组件                         | ReactNode | -      |
+
+### type: Apperance
+
+| 属性名 | 描述     | 类型              | 默认值 |
+| ------ | -------- | ----------------- | ------ |
+| color  | 主题颜色 | 'dark' \| 'light' | 'dark' |
+
+### tye: Logo
+
+| 属性名  | 描述               | 类型   | 默认值 |
+| ------- | ------------------ | ------ | ------ |
+| name    | 系统名称           | string | -      |
+| logoUrl | logo 图片地址      | string | -      |
+| url     | 点击 logo 跳转地址 | string | -      |
+
+### type: Login
+
+| 属性名   | 描述          | 类型        | 默认值 |
+| -------- | ------------- | ----------- | ------ |
+| name     | 登录用户姓名  | string      | -      |
+| icon     | 登录用户 icon | string      | -      |
+| children | 登录菜单项    | ReactNode[] | -      |

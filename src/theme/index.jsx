@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory, createHashHistory } from 'history'
 import layout from '../components/Layout'
+import Login from '../components/Login'
+import Logo from '../components/Logo'
 import { transformConfig } from '../util/common'
 const browserHistory = createBrowserHistory()
 const hashHistory = createHashHistory()
@@ -13,7 +15,7 @@ class Theme extends Component {
       historyType = 'browserHistory',
       routes = [],
       type = 'classic',
-      apperance = { color: 'dark', background: 'dark' },
+      apperance = { color: 'dark' },
       logo,
       login,
       header
@@ -28,8 +30,8 @@ class Theme extends Component {
               menu={transformConfig(routes)}
               type={type}
               apperance={apperance}
-              logo={logo}
-              login={login}
+              logo={logo && <Logo {...logo} />}
+              login={login && <Login {...login} />}
               header={header}
               {...props}
             />
