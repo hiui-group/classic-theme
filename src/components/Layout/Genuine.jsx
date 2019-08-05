@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../Header'
 import Sider from '../Sider'
 import { Route } from 'react-router-dom'
+import { matchPath } from 'react-router'
 import ClassNames from 'classnames'
 import './style/index'
 class GenuineLayout extends React.Component {
@@ -12,7 +13,7 @@ class GenuineLayout extends React.Component {
     mini: false
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { menu, history, location } = this.props
     const siderMenu = this.getMenu(menu)
     const currentRoute = this.getCurrentRoute(siderMenu, location.pathname)
@@ -21,22 +22,15 @@ class GenuineLayout extends React.Component {
 
     const routes = this.getRoutes(menu, [])
     this.setState({ siderMenu, activeSiderMenu, routes })
-    const initNav = this.getInitNav(siderMenu, activeSiderMenu)
-    history.push(initNav.pathname)
+    if (!currentRoute) {
+      const initNav = this.getInitNav(siderMenu, activeSiderMenu)
+      history.push(initNav.pathname)
+    }
   }
   setSiderMenu = activeSiderMenu => {
     this.setState({ activeSiderMenu })
   }
 
-  getMainMenu = menu => {
-    return menu.map(m => {
-      return {
-        content: m.name,
-        id: m.id,
-        pathname: m.path || (m.children && m.children[0] && m.children[0].path) || ''
-      }
-    })
-  }
   getMenu = menu => {
     return menu.map(m => {
       let _menu = {
@@ -56,7 +50,13 @@ class GenuineLayout extends React.Component {
   getCurrentRoute = (menu, pathname) => {
     let currentRoute
     menu.forEach(m => {
-      if (m.pathname === pathname) {
+      if (
+        m.pathname === pathname ||
+        matchPath(pathname, {
+          path: m.pathname,
+          exact: true
+        })
+      ) {
         currentRoute = m
       } else if (m.children) {
         if (this.getCurrentRoute(m.children, pathname)) {
@@ -108,7 +108,7 @@ class GenuineLayout extends React.Component {
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
   }
-  render () {
+  render() {
     const { activeSiderMenu, siderMenu, routes, mini } = this.state
     const { location, history, apperance, logo, login, header } = this.props
     const _header =
@@ -118,12 +118,12 @@ class GenuineLayout extends React.Component {
           setMainMenu={this.setMainMenu}
           location={location}
           history={history}
-          color='light'
+          color="light"
           login={login}
         />
       ))
     return [
-      <div key='container' className='hi-theme--genuine'>
+      <div key="container" className="hi-theme--genuine">
         {siderMenu.length > 0 && (
           <Sider
             siderMenu={siderMenu}
