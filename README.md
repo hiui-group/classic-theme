@@ -9,9 +9,9 @@ yarn add @hi-ui/classic-theme
 ```
 
 ```jsx
-import HIUITheme from '@hi-ui/classic-theme'
+import Theme from '@hi-ui/classic-theme'
 
-render(<HIUITheme />, document.getElementById('app'))
+render(<Theme />, document.getElementById('app'))
 ```
 
 ## 示例
