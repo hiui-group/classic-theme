@@ -16,6 +16,8 @@ render(<HIUITheme />, document.getElementById('app'))
 
 ## 示例
 
+基于配置化实现主题布局和菜单匹配，数组中元素的层级即代表其在菜单中的层级
+
 ```jsx
 import React, { Component } from 'react'
 import { Theme, Logo, Login } from '@hi-ui/classic-theme'
