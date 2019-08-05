@@ -29,13 +29,7 @@ class Login extends React.Component {
 
   render () {
     const open = this.state.open
-    const {
-      headUrl = '',
-      name = '',
-      children = '',
-      style,
-      icon
-    } = this.props
+    const { headUrl = '', name = '', children = '', style, icon } = this.props
 
     return (
       <div
@@ -47,29 +41,26 @@ class Login extends React.Component {
           this.setState({ open: !open })
         }}
       >
-        {
-          headUrl ? (<div className='login__img' style={{ backgroundImage: 'url(' + headUrl + ')' }} />) : ''
-        }
-        {
-          icon ? (<div className='login__img' >{icon}</div>) : ''
-        }
-        {
-          name ? (<div className='login__name'>{name}</div>) : ''
-        }
-        {
-          children
-            ? (
-              <div
-                className='login__info'
-                onClick={e => {
-                  e.stopPropagation()
-                  e.nativeEvent.stopImmediatePropagation()
-                }}
-              >
-                { children }
-              </div>
-            ) : ''
-        }
+        {headUrl ? (
+          <div className='login__img' style={{ backgroundImage: 'url(' + headUrl + ')' }} />
+        ) : (
+          ''
+        )}
+        {icon ? <div className='login__img'>{icon}</div> : ''}
+        {name ? <div className='login__name'>{name}</div> : ''}
+        {children ? (
+          <div
+            className='login__info'
+            onClick={e => {
+              e.stopPropagation()
+              e.nativeEvent.stopImmediatePropagation()
+            }}
+          >
+            {children}
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     )
   }
