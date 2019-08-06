@@ -60,14 +60,19 @@
   }
 
   .sider__footer {
-    height: 40px;
+    height: 48px;
     text-align: right;
+    position: relative;
 
     &__toggle {
       cursor: pointer;
-      font-size: 16px;
-      padding: 0 10px;
-      display: inline-block;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      background: url('../../../static/image/menu.png') no-repeat;
+      background-size: cover;
     }
   }
 

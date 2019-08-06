@@ -33,9 +33,7 @@ class Sider extends Component {
         />
 
         <div className='sider__footer'>
-          <span className='sider__footer__toggle' onClick={miniToggle}>
-            <Icon name='list' />
-          </span>
+          <span className='sider__footer__toggle' onClick={miniToggle} />
         </div>
       </div>
     )
