@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import Menu from '@hi-ui/hiui/es/menu'
-import Icon from '@hi-ui/hiui/es/icon'
+import { Menu } from '@hi-ui/hiui/es'
 import ClassNames from 'classnames'
 import './style/index.scss'
 
@@ -21,15 +20,15 @@ class Sider extends Component {
       <div className={ClassNames('hi-theme__sider', color)}>
         {logo && <div className={ClassNames('sider__logo', { mini: mini })}>{logo}</div>}
         <Menu
-          mode='vertical'
-          mini={mini}
+          placement='vertical'
+          collapsed={mini}
           activeId={activeSiderMenu}
           onClick={id => {
             setSiderMenu(id)
             const navTo = getInitNav(siderMenu, id)
             history.push(navTo.pathname)
           }}
-          datas={siderMenu}
+          data={siderMenu}
         />
 
         <div className='sider__footer'>

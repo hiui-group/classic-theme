@@ -21,9 +21,7 @@ class ClassicLayout extends React.Component {
     const ancestor = this.getAncestor(location.pathname, menu).reverse()
     const mainMenu = this.getMainMenu(menu)
     const activeMainMenu =
-      (ancestor[0] && ancestor[0].id) ||
-      (currentMenu && currentMenu.id) ||
-      mainMenu[0].id
+      (ancestor[0] && ancestor[0].id) || (currentMenu && currentMenu.id) || mainMenu[0].id
     const siderMenu = this.getSiderMenu(menu, activeMainMenu)
 
     const activeSiderMenu = siderMenu.length
@@ -39,6 +37,7 @@ class ClassicLayout extends React.Component {
       activeSiderMenu,
       routes
     })
+
     if (!currentMenu) {
       const initNav = siderMenu.length
         ? this.getInitNav(siderMenu, activeSiderMenu).pathname
@@ -50,8 +49,9 @@ class ClassicLayout extends React.Component {
   // 寻找某一节点的所有祖先节点
   getAncestor = (path, data, arr = []) => {
     if (this.getParent(path, data)) {
-      arr.push(this.getParent(path, data))
-      this.getAncestor(this.getParent(path, data), data, arr)
+      const parent = this.getParent(path, data)
+      arr.push(parent)
+      this.getAncestor(parent.path, data, arr)
     }
     return arr
   }
@@ -118,21 +118,26 @@ class ClassicLayout extends React.Component {
         content: m.name,
         id: m.id,
         icon: m.icon,
-        pathname:
-          m.path || (m.children && m.children[0] && m.children[0].path) || ''
+        pathname: m.path || (m.children && m.children[0] && m.children[0].path) || ''
       }
     })
   }
   getSiderMenu = (menu, activeMainMenu) => {
     const _activeMainMenu = menu.find(m => m.id === activeMainMenu)
     const siderMenu = (_activeMainMenu && _activeMainMenu.children) || []
-    return siderMenu.map(m => {
-      return {
-        content: m.name,
-        id: m.id,
-        icon: m.icon,
-        pathname: m.path
-      }
+    return this.transformMenu(siderMenu)
+  }
+  transformMenu = menu => {
+    return menu.map(m => {
+      return m.children
+        ? {
+          content: m.name,
+          id: m.id,
+          icon: m.icon,
+          children: this.transformMenu(m.children),
+          pathname: m.path
+        }
+        : { content: m.name, id: m.id, icon: m.icon, pathname: m.path }
     })
   }
   getRoutes = (menu, routes = []) => {
@@ -176,14 +181,7 @@ class ClassicLayout extends React.Component {
     this.setState({ mini: !this.state.mini })
   }
   render () {
-    const {
-      activeMainMenu,
-      activeSiderMenu,
-      mainMenu,
-      siderMenu,
-      routes,
-      mini
-    } = this.state
+    const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
     const { location, history, apperance, logo, login } = this.props
     return [
       <Header
