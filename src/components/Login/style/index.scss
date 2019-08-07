@@ -15,12 +15,15 @@
     border: 5px solid transparent;
     border-bottom-width: 0;
     content: '';
+    border-top-color: #fff;
   }
 
   &--active {
     &::after {
       border-top-width: 0;
       border-bottom-width: 5px;
+      border-top-color: #fff;
+      border-bottom-color: #fff;
     }
   }
 
