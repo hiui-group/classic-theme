@@ -13,7 +13,7 @@ class GenuineLayout extends React.Component {
     mini: false
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const { menu, history, location } = this.props
     const siderMenu = this.getMenu(menu)
     const currentRoute = this.getCurrentRoute(siderMenu, location.pathname)
@@ -108,9 +108,11 @@ class GenuineLayout extends React.Component {
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
   }
-  render() {
+  render () {
     const { activeSiderMenu, siderMenu, routes, mini } = this.state
     const { location, history, apperance, logo, login, header } = this.props
+    const currentRoute = this.findMenu(location.pathname, routes)
+    const isWithoutLayout = currentRoute && currentRoute.withoutLayout
     const _header =
       header === null ||
       (header || (
@@ -118,42 +120,53 @@ class GenuineLayout extends React.Component {
           setMainMenu={this.setMainMenu}
           location={location}
           history={history}
-          color="light"
+          color='light'
           login={login}
         />
       ))
     return [
-      <div key="container" className="hi-theme--genuine">
-        {siderMenu.length > 0 && (
-          <Sider
-            siderMenu={siderMenu}
-            activeSiderMenu={activeSiderMenu}
-            setSiderMenu={this.setSiderMenu}
-            location={location}
-            history={history}
-            getInitNav={this.getInitNav}
-            mini={mini}
-            miniToggle={this.miniToggle}
-            color={apperance.color}
-            logo={logo}
-          />
-        )}
-        <div className={ClassNames('hi-theme__container')}>
-          {_header}
-          <div
-            className={ClassNames('hi-theme__content', { 'hi-theme--no-header': header === null })}
-          >
-            {routes.map((route, index) => (
-              <Route
-                key={index}
-                path={route.path}
-                component={route.component}
-                exact={!!route.exact}
-              />
-            ))}
+      (!isWithoutLayout && (
+        <div key='container' className='hi-theme--genuine'>
+          {siderMenu.length > 0 && (
+            <Sider
+              siderMenu={siderMenu}
+              activeSiderMenu={activeSiderMenu}
+              setSiderMenu={this.setSiderMenu}
+              location={location}
+              history={history}
+              getInitNav={this.getInitNav}
+              mini={mini}
+              miniToggle={this.miniToggle}
+              color={apperance.color}
+              logo={logo}
+            />
+          )}
+          <div className={ClassNames('hi-theme__container')}>
+            {_header}
+            <div
+              className={ClassNames('hi-theme__content', {
+                'hi-theme--no-header': header === null
+              })}
+            >
+              {routes.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  component={route.component}
+                  exact={!!route.exact}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )) || (
+        <Route
+          key='withoutLayout'
+          path={currentRoute && currentRoute.path}
+          component={currentRoute && currentRoute.component}
+          exact={!!currentRoute && currentRoute.exact}
+        />
+      )
     ]
   }
 }

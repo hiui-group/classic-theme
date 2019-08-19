@@ -15,7 +15,7 @@ class ClassicLayout extends React.Component {
     mini: false
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { menu, history, location } = this.props
     const currentMenu = this.findMenu(location.pathname, menu)
     const ancestor = this.getAncestor(location.pathname, menu).reverse()
@@ -131,12 +131,12 @@ class ClassicLayout extends React.Component {
     return menu.map(m => {
       return m.children
         ? {
-          content: m.name,
-          id: m.id,
-          icon: m.icon,
-          children: this.transformMenu(m.children),
-          pathname: m.path
-        }
+            content: m.name,
+            id: m.id,
+            icon: m.icon,
+            children: this.transformMenu(m.children),
+            pathname: m.path
+          }
         : { content: m.name, id: m.id, icon: m.icon, pathname: m.path }
     })
   }
@@ -180,46 +180,60 @@ class ClassicLayout extends React.Component {
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
   }
-  render () {
+  render() {
     const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
+
     const { location, history, apperance, logo, login } = this.props
+    const currentRoute = this.findMenu(location.pathname, routes)
+    const isWithoutLayout = currentRoute && currentRoute.withoutLayout
     return [
-      <Header
-        key='header'
-        mainMenu={mainMenu}
-        activeMainMenu={activeMainMenu}
-        setMainMenu={this.setMainMenu}
-        location={location}
-        history={history}
-        color={apperance.color}
-        logo={logo}
-        login={login}
-      />,
-      <div key='container' className='hi-theme--classic'>
-        {siderMenu.length > 0 && (
-          <Sider
-            siderMenu={siderMenu}
-            activeSiderMenu={activeSiderMenu}
-            setSiderMenu={this.setSiderMenu}
-            location={location}
-            history={history}
-            getInitNav={this.getInitNav}
-            mini={mini}
-            miniToggle={this.miniToggle}
-            color='light'
-          />
-        )}
-        <div className='hi-theme__content'>
-          {routes.map((route, index) => (
-            <Route
-              key={index}
-              path={route.path}
-              component={route.component}
-              exact={!!route.exact}
+      !isWithoutLayout && (
+        <Header
+          key="header"
+          mainMenu={mainMenu}
+          activeMainMenu={activeMainMenu}
+          setMainMenu={this.setMainMenu}
+          location={location}
+          history={history}
+          color={apperance.color}
+          logo={logo}
+          login={login}
+        />
+      ),
+      (!isWithoutLayout && (
+        <div key="container" className="hi-theme--classic">
+          {siderMenu.length > 0 && (
+            <Sider
+              siderMenu={siderMenu}
+              activeSiderMenu={activeSiderMenu}
+              setSiderMenu={this.setSiderMenu}
+              location={location}
+              history={history}
+              getInitNav={this.getInitNav}
+              mini={mini}
+              miniToggle={this.miniToggle}
+              color="light"
             />
-          ))}
+          )}
+          <div className="hi-theme__content">
+            {routes.map((route, index) => (
+              <Route
+                key={index}
+                path={route.path}
+                component={route.component}
+                exact={!!route.exact}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )) || (
+        <Route
+          key="withoutLayout"
+          path={currentRoute && currentRoute.path}
+          component={currentRoute && currentRoute.component}
+          exact={!!currentRoute && currentRoute.exact}
+        />
+      )
     ]
   }
 }

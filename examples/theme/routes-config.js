@@ -1,15 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Mi = () => <div>小米手机</div>
-
 const CC = () => <div>小米CC</div>
 const RedMi = () => <div>红米手机</div>
 const BlackShark = () => <div>黑鲨手机</div>
 const TV = () => <div>小米电视</div>
 const SoundBox = () => (
   <div>
-    小米音响<Link to="/robot-detail/1">去详情页</Link>
+    小米音响<Link to='/robot-detail/1'>去详情页</Link>
   </div>
 )
 const Robot = () => <div>米家扫地机器人</div>
@@ -24,7 +22,7 @@ const config = [
         path: '/mi',
         children: [{ name: '小米CC', path: '/cc', component: CC }]
       },
-      { name: '红米', path: '/red-mi', component: RedMi },
+      { name: '红米', path: '/red-mi', component: RedMi, withoutLayout: true },
       { name: '黑鲨', path: '/black-shark', component: BlackShark }
     ]
   },
