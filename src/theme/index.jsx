@@ -25,7 +25,7 @@ class Theme extends Component {
       <Router history={history[historyType]}>
         <Route
           path='/'
-          component={props => (
+          render={props => (
             <Layout
               menu={transformConfig(routes)}
               type={type}

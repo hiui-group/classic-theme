@@ -9,6 +9,7 @@ class GenuineLayout extends React.Component {
   state = {
     activeSiderMenu: '',
     siderMenu: [],
+    filtedSiderMenu: [],
     routes: [],
     mini: false
   }
@@ -16,12 +17,13 @@ class GenuineLayout extends React.Component {
   componentDidMount () {
     const { menu, history, location } = this.props
     const siderMenu = this.getMenu(menu)
+    const filtedSiderMenu = this.filterMenu(siderMenu)
     const currentRoute = this.getCurrentRoute(siderMenu, location.pathname)
     const activeSiderMenu =
       (currentRoute && currentRoute.id) || this.getDefaultActiveSiderMenu(siderMenu)
 
     const routes = this.getRoutes(menu, [])
-    this.setState({ siderMenu, activeSiderMenu, routes })
+    this.setState({ siderMenu, activeSiderMenu, routes, filtedSiderMenu })
     if (!currentRoute) {
       const initNav = this.getInitNav(siderMenu, activeSiderMenu)
       history.push(initNav.pathname)
@@ -45,6 +47,14 @@ class GenuineLayout extends React.Component {
         _menu.children = this.getMenu(m.children)
       }
       return _menu
+    })
+  }
+  filterMenu = menu => {
+    return menu.filter(item => {
+      if (item.children) {
+        item.children = this.filterMenu(item.children)
+      }
+      return item.content
     })
   }
   getCurrentRoute = (menu, pathname) => {
@@ -109,9 +119,9 @@ class GenuineLayout extends React.Component {
     this.setState({ mini: !this.state.mini })
   }
   render () {
-    const { activeSiderMenu, siderMenu, routes, mini } = this.state
+    const { activeSiderMenu, siderMenu, routes, mini, filtedSiderMenu } = this.state
     const { location, history, apperance, logo, login, header } = this.props
-    const currentRoute = this.findMenu(location.pathname, routes)
+    const currentRoute = this.getCurrentRoute(routes, location.pathname)
     const isWithoutLayout = currentRoute && currentRoute.withoutLayout
     const _header =
       header === null ||
@@ -129,7 +139,7 @@ class GenuineLayout extends React.Component {
         <div key='container' className='hi-theme--genuine'>
           {siderMenu.length > 0 && (
             <Sider
-              siderMenu={siderMenu}
+              siderMenu={filtedSiderMenu}
               activeSiderMenu={activeSiderMenu}
               setSiderMenu={this.setSiderMenu}
               location={location}

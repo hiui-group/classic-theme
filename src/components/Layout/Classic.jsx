@@ -15,7 +15,7 @@ class ClassicLayout extends React.Component {
     mini: false
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const { menu, history, location } = this.props
     const currentMenu = this.findMenu(location.pathname, menu)
     const ancestor = this.getAncestor(location.pathname, menu).reverse()
@@ -128,17 +128,19 @@ class ClassicLayout extends React.Component {
     return this.transformMenu(siderMenu)
   }
   transformMenu = menu => {
-    return menu.map(m => {
-      return m.children
-        ? {
+    return menu
+      .map(m => {
+        return m.children
+          ? {
             content: m.name,
             id: m.id,
             icon: m.icon,
             children: this.transformMenu(m.children),
             pathname: m.path
           }
-        : { content: m.name, id: m.id, icon: m.icon, pathname: m.path }
-    })
+          : { content: m.name, id: m.id, icon: m.icon, pathname: m.path }
+      })
+      .filter(item => item.content)
   }
   getRoutes = (menu, routes = []) => {
     menu.forEach(item => {
@@ -180,7 +182,7 @@ class ClassicLayout extends React.Component {
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
   }
-  render() {
+  render () {
     const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
 
     const { location, history, apperance, logo, login } = this.props
@@ -189,7 +191,7 @@ class ClassicLayout extends React.Component {
     return [
       !isWithoutLayout && (
         <Header
-          key="header"
+          key='header'
           mainMenu={mainMenu}
           activeMainMenu={activeMainMenu}
           setMainMenu={this.setMainMenu}
@@ -201,7 +203,7 @@ class ClassicLayout extends React.Component {
         />
       ),
       (!isWithoutLayout && (
-        <div key="container" className="hi-theme--classic">
+        <div key='container' className='hi-theme--classic'>
           {siderMenu.length > 0 && (
             <Sider
               siderMenu={siderMenu}
@@ -212,10 +214,10 @@ class ClassicLayout extends React.Component {
               getInitNav={this.getInitNav}
               mini={mini}
               miniToggle={this.miniToggle}
-              color="light"
+              color='light'
             />
           )}
-          <div className="hi-theme__content">
+          <div className='hi-theme__content'>
             {routes.map((route, index) => (
               <Route
                 key={index}
@@ -228,7 +230,7 @@ class ClassicLayout extends React.Component {
         </div>
       )) || (
         <Route
-          key="withoutLayout"
+          key='withoutLayout'
           path={currentRoute && currentRoute.path}
           component={currentRoute && currentRoute.component}
           exact={!!currentRoute && currentRoute.exact}
