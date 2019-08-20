@@ -12,17 +12,17 @@ const loginConfig = {
   name: 'Mi Guest',
   icon: 'user',
   children: [
-    <div key='1' style={{ textAlign: 'center', margin: 4, width: '100px' }}>
-      <a href='#info'>个人信息</a>
+    <div key="1" style={{ textAlign: 'center', margin: 4, width: '100px' }}>
+      <a href="#info">个人信息</a>
     </div>,
-    <div key='2' style={{ textAlign: 'center', margin: 4, width: 100 }}>
-      <a href='#logout'>注销</a>
+    <div key="2" style={{ textAlign: 'center', margin: 4, width: 100 }}>
+      <a href="#logout">注销</a>
     </div>
   ]
 }
 class App extends Component {
-  render () {
-    return <Theme routes={routeConfig} logo={logoConfig} login={loginConfig} type='classic' />
+  render() {
+    return <Theme routes={routeConfig} logo={logoConfig} login={loginConfig} type="genuine" />
   }
 }
 

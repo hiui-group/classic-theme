@@ -9,7 +9,7 @@
 
   .hi-theme__content {
     flex: 1;
-    overflow: scroll;
+    overflow: auto;
   }
 }
 
@@ -25,7 +25,7 @@
     .hi-theme__content {
       flex: 1;
       padding-top: 64px;
-      overflow: scroll;
+      overflow: auto;
     }
 
     .hi-theme--no-header {
