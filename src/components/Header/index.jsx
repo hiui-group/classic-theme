@@ -6,7 +6,7 @@ import './style/index'
 
 class Header extends Component {
   render () {
-    const { mainMenu, activeMainMenu, logo, login, setMainMenu, color } = this.props
+    const { mainMenu, activeMainMenu, logo, login, setMainMenu, color, toolbar } = this.props
     return (
       <div className={ClassNames('hi-theme__header', color)}>
         {logo && <div className='hi-theme__logo'>{logo}</div>}
@@ -28,6 +28,7 @@ class Header extends Component {
             ))}
           </ul>
         )}
+        <div className='hi-theme__toolbar'>{toolbar}</div>
         {login && <div className='hi-theme__login'>{login}</div>}
       </div>
     )

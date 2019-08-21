@@ -185,7 +185,7 @@ class ClassicLayout extends React.Component {
   render () {
     const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
 
-    const { location, history, apperance, logo, login } = this.props
+    const { location, history, apperance, logo, login, toolbar } = this.props
     const currentRoute = this.findMenu(location.pathname, routes)
     const isWithoutLayout = currentRoute && currentRoute.withoutLayout
     return [
@@ -200,6 +200,7 @@ class ClassicLayout extends React.Component {
           color={apperance.color}
           logo={logo}
           login={login}
+          toolbar={toolbar}
         />
       ),
       (!isWithoutLayout && (

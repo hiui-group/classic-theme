@@ -62,8 +62,9 @@ class GenuineLayout extends React.Component {
     menu.forEach(m => {
       if (
         m.pathname === pathname ||
+        m.path === pathname ||
         matchPath(pathname, {
-          path: m.pathname,
+          path: m.pathname || m.path,
           exact: true
         })
       ) {
@@ -120,7 +121,7 @@ class GenuineLayout extends React.Component {
   }
   render () {
     const { activeSiderMenu, siderMenu, routes, mini, filtedSiderMenu } = this.state
-    const { location, history, apperance, logo, login, header } = this.props
+    const { location, history, apperance, logo, login, header, toolbar } = this.props
     const currentRoute = this.getCurrentRoute(routes, location.pathname)
     const isWithoutLayout = currentRoute && currentRoute.withoutLayout
     const _header =
@@ -132,6 +133,7 @@ class GenuineLayout extends React.Component {
           history={history}
           color='light'
           login={login}
+          toolbar={toolbar}
         />
       ))
     return [

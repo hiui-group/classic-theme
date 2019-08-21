@@ -93,6 +93,12 @@
     flex: 0 0 64px;
   }
 
+  .hi-theme__toolbar {
+    display: flex;
+    color: #fff;
+    align-items: center;
+  }
+
   .hi-theme__menu {
     flex: 1;
     list-style: none;

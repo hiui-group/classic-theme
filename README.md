@@ -20,8 +20,9 @@ render(<Theme />, document.getElementById('app'))
 
 ```jsx
 import React, { Component } from 'react'
-import { Theme, Login } from '@hi-ui/classic-theme'
+import { Theme } from '@hi-ui/classic-theme'
 import { Link } from 'react-router-dom'
+import { Input, Icon } from '@hi-ui/hiui'
 
 const Mi = () => <div>小米手机</div>
 const RedMi = () => <div>红米手机</div>
@@ -40,7 +41,7 @@ const routeConfig = [
     name: '手机',
     children: [
       { name: '小米', path: '/mi', component: Mi },
-      { name: '红米', path: '/red-mi', component: RedMi },
+      { name: '红米', path: '/red-mi', component: RedMi，withoutLayout:true },
       { name: '黑鲨', path: '/black-shark', component: BlackShark }
     ]
   },
@@ -73,9 +74,11 @@ const loginConfig = {
     </div>
   ]
 }
+const toolbar = [<Input key='1' />, <Icon key='2' name='prompt' />]
+
 class App extends Component {
   render() {
-    return <Theme routes={routeConfig} logo={logoConfig} login={loginConfig} />
+    return <Theme routes={routeConfig} logo={logoConfig} login={loginConfig} toolbar={toolbar} />
   }
 }
 
@@ -100,14 +103,16 @@ export default App
 
 ### type: Route
 
-| 属性名    | 描述                                     | 类型      | 默认值 |
-| --------- | ---------------------------------------- | --------- | ------ |
-| name      | 菜单名称                                 | string    | -      |
-| icon      | 菜单 icon                                | string    | -      |
-| children  | 子菜单配置项                             | Route[]   | -      |
-| path      | 菜单跳转路径                             | string    | -      |
-| exact     | 菜单跳转路径是否严格匹配对应的 component | boolean   | true   |
-| component | 菜单对应页面组件                         | ReactNode | -      |
+| 属性名        | 描述                                     | 类型      | 默认值 |
+| ------------- | ---------------------------------------- | --------- | ------ |
+| name          | 菜单名称                                 | string    | -      |
+| icon          | 菜单 icon                                | string    | -      |
+| children      | 子菜单配置项                             | Route[]   | -      |
+| path          | 菜单跳转路径                             | string    | -      |
+| exact         | 菜单跳转路径是否严格匹配对应的 component | boolean   | true   |
+| component     | 菜单对应页面组件                         | ReactNode | -      |
+| toolbar       | 顶部工具栏，一般用于放置通知、全局搜索等 | ReactNode | -      |
+| withoutLayout | 页面组件渲染时，不显示顶部导航栏和侧边栏 | boolean   | false  |
 
 ### type: Apperance
 

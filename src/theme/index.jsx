@@ -18,7 +18,8 @@ class Theme extends Component {
       apperance = { color: 'dark' },
       logo,
       login,
-      header
+      header,
+      toolbar
     } = this.props
     const Layout = layout[type]
     return (
@@ -28,6 +29,7 @@ class Theme extends Component {
           render={props => (
             <Layout
               menu={transformConfig(routes)}
+              toolbar={toolbar}
               type={type}
               apperance={apperance}
               logo={logo && <Logo {...logo} />}
