@@ -28,7 +28,7 @@ class Header extends Component {
             ))}
           </ul>
         )}
-        <div className='hi-theme__toolbar'>{toolbar}</div>
+        {toolbar && <div className='hi-theme__toolbar'>{toolbar}</div>}
         {login && <div className='hi-theme__login'>{login}</div>}
       </div>
     )

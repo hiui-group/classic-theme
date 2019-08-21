@@ -113,6 +113,7 @@ export default App
 | component     | 菜单对应页面组件                         | ReactNode | -      |
 | toolbar       | 顶部工具栏，一般用于放置通知、全局搜索等 | ReactNode | -      |
 | withoutLayout | 页面组件渲染时，不显示顶部导航栏和侧边栏 | boolean   | false  |
+| extraData     | 向路由匹配的页面组件注入额外的数据       | object    | -      |
 
 ### type: Apperance
 

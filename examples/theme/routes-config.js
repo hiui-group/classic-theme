@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 
 const CC = () => <div>小米CC</div>
 const RedMi = () => <div>红米手机</div>
-const BlackShark = () => <div>黑鲨手机</div>
+const BlackShark = props => {
+  return <div>黑鲨手机</div>
+}
 const TV = () => <div>小米电视</div>
 const SoundBox = () => (
   <div>
@@ -23,7 +25,7 @@ const config = [
         children: [{ name: '小米CC', path: '/cc', component: CC }]
       },
       { name: '红米', path: '/red-mi', component: RedMi, withoutLayout: true },
-      { name: '黑鲨', path: '/black-shark', component: BlackShark }
+      { name: '黑鲨', path: '/black-shark', component: BlackShark, extraData: { abc: 1 } }
     ]
   },
   { name: '电视', path: '/tv', component: TV },

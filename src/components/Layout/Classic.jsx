@@ -223,8 +223,8 @@ class ClassicLayout extends React.Component {
               <Route
                 key={index}
                 path={route.path}
-                component={route.component}
                 exact={!!route.exact}
+                render={props => <route.component {...props} extraData={route.extraData} />}
               />
             ))}
           </div>

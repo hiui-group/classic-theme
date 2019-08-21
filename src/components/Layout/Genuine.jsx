@@ -164,7 +164,7 @@ class GenuineLayout extends React.Component {
                 <Route
                   key={index}
                   path={route.path}
-                  component={route.component}
+                  render={props => <route.component {...props} extraData={route.extraData} />}
                   exact={!!route.exact}
                 />
               ))}
