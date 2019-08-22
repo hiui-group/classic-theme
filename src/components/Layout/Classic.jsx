@@ -52,19 +52,42 @@ class ClassicLayout extends React.Component {
       history.push(location.pathname)
     }
   }
+  componentWillReceiveProps (nextProps) {
+    if (this.props.location.pathname !== nextProps.location.pathname) {
+      const { location, menu } = nextProps
+      const currentMenu = this.findMenu(location.pathname, menu)
+      const ancestor = this.getAncestor(location.pathname, menu).reverse()
+      const mainMenu = this.getMainMenu(menu)
+      const activeMainMenu =
+        (ancestor[0] && ancestor[0].id) || (currentMenu && currentMenu.id) || mainMenu[0].id
+      const siderMenu = this.getSiderMenu(menu, activeMainMenu)
+
+      const activeSiderMenu = siderMenu.length
+        ? (this.findMenu(location.pathname, siderMenu) &&
+            this.findMenu(location.pathname, siderMenu).id) ||
+          this.getDefaultActiveSiderMenu(siderMenu)
+        : ''
+
+      this.setState({
+        activeMainMenu,
+        activeSiderMenu
+      })
+    }
+  }
   componentDidUpdate (prevProps, prevState) {
+    const { menu, history } = this.props
     if (!_.isEqual(prevProps.menu, this.props.menu)) {
-      const { menu, history } = this.props
       const { originLocation } = this.state
       this.handleMenuChange(originLocation, menu, history)
     }
   }
   // 寻找某一节点的所有祖先节点
   getAncestor = (path, data, arr = []) => {
+    console.log('data')
     if (this.getParent(path, data)) {
       const parent = this.getParent(path, data)
       arr.push(parent)
-      this.getAncestor(parent.path, data, arr)
+      this.getAncestor(parent.path || parent.id, data, arr)
     }
     return arr
   }
@@ -96,12 +119,13 @@ class ClassicLayout extends React.Component {
       if (item.children) {
         if (
           item.children.some(
-            item =>
-              item.path === path ||
+            child =>
+              child.path === path ||
               matchPath(path, {
-                path: item.path,
+                path: child.path,
                 exact: true
-              })
+              }) ||
+              child.id === path
           )
         ) {
           parent = item

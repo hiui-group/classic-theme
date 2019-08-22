@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Theme from '../../src/theme'
+import Theme, { history } from '../../src/theme'
 import _routeConfig from './routes-config'
-import { Input, Icon } from '@hi-ui/hiui'
+import { Input, Icon, Select } from '@hi-ui/hiui'
 
 const logoConfig = {
   logoUrl: 'https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05',
@@ -21,7 +21,25 @@ const loginConfig = {
     </div>
   ]
 }
-const toolbar = [<Input key='1' />, <Icon key='2' name='prompt' />]
+const toolbar = [
+  <Input key='1' />,
+  <Icon key='2' name='prompt' />,
+  <Select
+    type='single'
+    clearable={false}
+    style={{ width: 200 }}
+    onChange={() => {
+      history.browserHistory.push('/robot-detail/1')
+    }}
+    data={[
+      { title: '电视', id: '3', disabled: true },
+      { title: '手机', id: '2' },
+      { title: '笔记本', id: '4', disabled: true },
+      { title: '生活周边', id: '5' },
+      { title: '办公', id: '6' }
+    ]}
+  />
+]
 const TV = () => <div>小米电视</div>
 class App extends Component {
   state = {
@@ -36,6 +54,7 @@ class App extends Component {
     return (
       <Theme
         routes={this.state.routeConfig}
+        // routes={_routeConfig}
         logo={logoConfig}
         login={loginConfig}
         type='classic'
