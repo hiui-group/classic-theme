@@ -89,17 +89,18 @@ export default App
 
 ### Theme
 
-| 属性名      | 描述                       | 类型                              | 默认值                      |
-| ----------- | -------------------------- | --------------------------------- | --------------------------- |
-| type        | 主题类型                   | 'classic' \| 'genuine'            | 'classic'                   |
-| routes      | 路由配置项                 | Route[]                           | -                           |
-| logo        | 系统 logo                  | ReactNode                         | -                           |
-| login       | 系统登录配置项             | ReactNode                         | -                           |
-| historyType | 路由跳转类型               | 'hashHistory' \| 'browserHistory' | 'browserHistory'            |
-| header      | genuine 类型下的顶部功能栏 | ReactNode \| null                 | 不传时默认为主题自带 header |
-| apperance   | 主题外观配置项             | Apperance                         | {color:'dark'}              |
-| logo        | 主题 logo 配置项           | Logo                              | -                           |
-| login       | 主题登录信息配置项         | Login                             | -                           |
+| 属性名      | 描述                                     | 类型                              | 默认值                      |
+| ----------- | ---------------------------------------- | --------------------------------- | --------------------------- |
+| type        | 主题类型                                 | 'classic' \| 'genuine'            | 'classic'                   |
+| routes      | 路由配置项                               | Route[]                           | -                           |
+| logo        | 系统 logo                                | ReactNode                         | -                           |
+| login       | 系统登录配置项                           | ReactNode                         | -                           |
+| historyType | 路由跳转类型                             | 'hashHistory' \| 'browserHistory' | 'browserHistory'            |
+| header      | genuine 类型下的顶部功能栏               | ReactNode \| null                 | 不传时默认为主题自带 header |
+| apperance   | 主题外观配置项                           | Apperance                         | {color:'dark'}              |
+| logo        | 主题 logo 配置项                         | Logo                              | -                           |
+| login       | 主题登录信息配置项                       | Login                             | -                           |
+| toolbar     | 顶部工具栏，一般用于放置通知、全局搜索等 | ReactNode                         | -                           |
 
 ### type: Route
 
@@ -111,7 +112,6 @@ export default App
 | path          | 菜单跳转路径                             | string    | -      |
 | exact         | 菜单跳转路径是否严格匹配对应的 component | boolean   | true   |
 | component     | 菜单对应页面组件                         | ReactNode | -      |
-| toolbar       | 顶部工具栏，一般用于放置通知、全局搜索等 | ReactNode | -      |
 | withoutLayout | 页面组件渲染时，不显示顶部导航栏和侧边栏 | boolean   | false  |
 | extraData     | 向路由匹配的页面组件注入额外的数据       | object    | -      |
 
