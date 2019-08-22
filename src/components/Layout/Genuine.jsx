@@ -12,17 +12,20 @@ class GenuineLayout extends React.Component {
     siderMenu: [],
     filtedSiderMenu: [],
     routes: [],
+    originLocation: null,
     mini: false
   }
 
   componentDidMount () {
     const { menu, history, location } = this.props
+    this.setState({ originLocation: location })
     this.handleMenuChange(location, menu, history)
   }
   componentDidUpdate (prevProps, prevState) {
     if (!_.isEqual(prevProps.menu, this.props.menu)) {
-      const { menu, history, location } = this.props
-      this.handleMenuChange(location, menu, history)
+      const { menu, history } = this.props
+      const { originLocation } = this.state
+      this.handleMenuChange(originLocation, menu, history)
     }
   }
   handleMenuChange = (location, menu, history) => {
@@ -37,6 +40,8 @@ class GenuineLayout extends React.Component {
     if (!currentRoute) {
       const initNav = this.getInitNav(siderMenu, activeSiderMenu)
       history.push(initNav.pathname)
+    } else {
+      history.push(location.pathname)
     }
   }
   setSiderMenu = activeSiderMenu => {

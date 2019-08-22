@@ -13,11 +13,13 @@ class ClassicLayout extends React.Component {
     mainMenu: [],
     siderMenu: [],
     routes: [],
+    originLocation: null,
     mini: false
   }
 
   componentDidMount () {
     const { menu, history, location } = this.props
+    this.setState({ originLocation: location })
     this.handleMenuChange(location, menu, history)
   }
   handleMenuChange = (location, menu, history) => {
@@ -41,18 +43,20 @@ class ClassicLayout extends React.Component {
       activeSiderMenu,
       routes
     })
-
     if (!currentMenu) {
       const initNav = siderMenu.length
         ? this.getInitNav(siderMenu, activeSiderMenu).pathname
         : mainMenu.find(item => item.id === activeMainMenu).pathname
       history.push(initNav)
+    } else {
+      history.push(location.pathname)
     }
   }
   componentDidUpdate (prevProps, prevState) {
     if (!_.isEqual(prevProps.menu, this.props.menu)) {
-      const { menu, history, location } = this.props
-      this.handleMenuChange(location, menu, history)
+      const { menu, history } = this.props
+      const { originLocation } = this.state
+      this.handleMenuChange(originLocation, menu, history)
     }
   }
   // 寻找某一节点的所有祖先节点
