@@ -41,7 +41,7 @@ const routeConfig = [
     name: '手机',
     children: [
       { name: '小米', path: '/mi', component: Mi },
-      { name: '红米', path: '/red-mi', component: RedMi，withoutLayout:true },
+      { name: '红米', path: '/red-mi', component: RedMi, withoutLayout: true },
       { name: '黑鲨', path: '/black-shark', component: BlackShark }
     ]
   },
