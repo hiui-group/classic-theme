@@ -10,7 +10,7 @@ const hashHistory = createHashHistory()
 export const history = { browserHistory, hashHistory }
 
 class Theme extends Component {
-  render () {
+  render() {
     const {
       historyType = 'browserHistory',
       routes = [],
@@ -25,7 +25,7 @@ class Theme extends Component {
     return (
       <Router history={history[historyType]}>
         <Route
-          path='/'
+          path="/"
           render={props => (
             <Layout
               menu={transformConfig(routes)}

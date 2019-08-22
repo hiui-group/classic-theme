@@ -3,6 +3,7 @@ import Header from '../Header'
 import Sider from '../Sider'
 import { Route } from 'react-router-dom'
 import { matchPath } from 'react-router'
+import _ from 'lodash'
 import './style/index'
 
 class ClassicLayout extends React.Component {
@@ -17,6 +18,9 @@ class ClassicLayout extends React.Component {
 
   componentDidMount () {
     const { menu, history, location } = this.props
+    this.handleMenuChange(location, menu, history)
+  }
+  handleMenuChange = (location, menu, history) => {
     const currentMenu = this.findMenu(location.pathname, menu)
     const ancestor = this.getAncestor(location.pathname, menu).reverse()
     const mainMenu = this.getMainMenu(menu)
@@ -45,7 +49,12 @@ class ClassicLayout extends React.Component {
       history.push(initNav)
     }
   }
-
+  componentDidUpdate (prevProps, prevState) {
+    if (!_.isEqual(prevProps.menu, this.props.menu)) {
+      const { menu, history, location } = this.props
+      this.handleMenuChange(location, menu, history)
+    }
+  }
   // 寻找某一节点的所有祖先节点
   getAncestor = (path, data, arr = []) => {
     if (this.getParent(path, data)) {

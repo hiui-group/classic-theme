@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Theme from '../../src/theme'
-import routeConfig from './routes-config'
+import _routeConfig from './routes-config'
 import { Input, Icon } from '@hi-ui/hiui'
 
 const logoConfig = {
@@ -22,11 +22,20 @@ const loginConfig = {
   ]
 }
 const toolbar = [<Input key='1' />, <Icon key='2' name='prompt' />]
+const TV = () => <div>小米电视</div>
 class App extends Component {
+  state = {
+    routeConfig: [{ name: '电视', path: '/tv', component: TV }]
+  }
+  componentDidMount () {
+    setTimeout(() => {
+      this.setState({ routeConfig: _routeConfig })
+    }, 5000)
+  }
   render () {
     return (
       <Theme
-        routes={routeConfig}
+        routes={this.state.routeConfig}
         logo={logoConfig}
         login={loginConfig}
         type='classic'

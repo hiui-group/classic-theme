@@ -6,10 +6,10 @@ const RedMi = () => <div>红米手机</div>
 const BlackShark = props => {
   return <div>黑鲨手机</div>
 }
-const TV = () => <div>小米电视</div>
+// const TV = () => <div>小米电视</div>
 const SoundBox = () => (
   <div>
-    小米音响<Link to='/robot-detail/1'>去详情页</Link>
+    小米音响<Link to="/robot-detail/1">去详情页</Link>
   </div>
 )
 const Robot = () => <div>米家扫地机器人</div>
@@ -28,7 +28,7 @@ const config = [
       { name: '黑鲨', path: '/black-shark', component: BlackShark, extraData: { abc: 1 } }
     ]
   },
-  { name: '电视', path: '/tv', component: TV },
+  // { name: '电视', path: '/tv', component: TV },
   {
     name: '智能硬件',
     children: [

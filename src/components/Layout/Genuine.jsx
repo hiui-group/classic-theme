@@ -3,6 +3,7 @@ import Header from '../Header'
 import Sider from '../Sider'
 import { Route } from 'react-router-dom'
 import { matchPath } from 'react-router'
+import _ from 'lodash'
 import ClassNames from 'classnames'
 import './style/index'
 class GenuineLayout extends React.Component {
@@ -16,6 +17,15 @@ class GenuineLayout extends React.Component {
 
   componentDidMount () {
     const { menu, history, location } = this.props
+    this.handleMenuChange(location, menu, history)
+  }
+  componentDidUpdate (prevProps, prevState) {
+    if (!_.isEqual(prevProps.menu, this.props.menu)) {
+      const { menu, history, location } = this.props
+      this.handleMenuChange(location, menu, history)
+    }
+  }
+  handleMenuChange = (location, menu, history) => {
     const siderMenu = this.getMenu(menu)
     const filtedSiderMenu = this.filterMenu(siderMenu)
     const currentRoute = this.getCurrentRoute(siderMenu, location.pathname)
