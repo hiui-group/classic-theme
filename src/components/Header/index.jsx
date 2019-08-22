@@ -6,7 +6,15 @@ import './style/index'
 
 class Header extends Component {
   render () {
-    const { mainMenu, activeMainMenu, logo, login, setMainMenu, color, toolbar } = this.props
+    const {
+      mainMenu,
+      activeMainMenu,
+      logo,
+      login,
+      setMainMenu,
+      color,
+      toolbar
+    } = this.props
     return (
       <div className={ClassNames('hi-theme__header', color)}>
         {logo && <div className='hi-theme__logo'>{logo}</div>}
@@ -21,7 +29,9 @@ class Header extends Component {
                 })}
               >
                 <Link to={menu.pathname} onClick={() => setMainMenu(menu.id)}>
-                  {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
+                  {menu.icon && (
+                    <Icon name={menu.icon} style={{ marginRight: 4 }} />
+                  )}
                   {menu.content}
                 </Link>
               </li>
