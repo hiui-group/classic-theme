@@ -32,7 +32,6 @@
     "history": "^4.9.0",
     "lodash": "^4.17.11",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "react-router": "^4.3.1",
     "react-router-config": "^4.4.0-beta.8",
     "react-router-dom": "^4.2.2"
@@ -49,6 +48,7 @@
     "babel-plugin-transform-remove-console": "^6.9.4",
     "clean-webpack-plugin": "^2.0.1",
     "cross-env": "^5.2.0",
+    "react-dom": "^16.8.6",
     "css-loader": "^0.28.11",
     "echarts": "^4.2.1",
     "echarts-for-react": "^2.0.15-beta.0",
