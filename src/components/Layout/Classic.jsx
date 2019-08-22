@@ -67,9 +67,10 @@ class ClassicLayout extends React.Component {
             this.findMenu(location.pathname, siderMenu).id) ||
           this.getDefaultActiveSiderMenu(siderMenu)
         : ''
-
       this.setState({
+        mainMenu,
         activeMainMenu,
+        siderMenu,
         activeSiderMenu
       })
     }
