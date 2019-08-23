@@ -14,13 +14,39 @@ class GenuineLayout extends React.Component {
     routes: [],
     originLocation: null,
     mini: false
-  }
+  };
 
   componentDidMount () {
     const { menu, history, location } = this.props
     this.setState({ originLocation: location })
     this.handleMenuChange(location, menu, history)
   }
+
+  componentWillReceiveProps (nextProps) {
+    if (this.props.location.pathname !== nextProps.location.pathname) {
+      const { location, menu } = nextProps
+      const siderMenu = this.getMenu(menu)
+      const _siderMenu = this.getMenu(menu)
+
+      const filtedSiderMenu = this.filterMenu(siderMenu)
+
+      const currentRoute = this.getCurrentRoute(_siderMenu, location.pathname)
+      const _currentMenu = this.getCurrentRoute(
+        filtedSiderMenu,
+        location.pathname
+      )
+      const activeSiderMenu =
+        (_currentMenu && _currentMenu.id) ||
+        (currentRoute &&
+          currentRoute.id &&
+          this.getParent(location.pathname, _siderMenu) &&
+          this.getParent(location.pathname, _siderMenu).id) ||
+        this.getDefaultActiveSiderMenu(siderMenu)
+      const routes = this.getRoutes(menu, [])
+      this.setState({ siderMenu, activeSiderMenu, routes, filtedSiderMenu })
+    }
+  }
+
   componentDidUpdate (prevProps, prevState) {
     if (!_.isEqual(prevProps.menu, this.props.menu)) {
       const { menu, history } = this.props
@@ -30,11 +56,22 @@ class GenuineLayout extends React.Component {
   }
   handleMenuChange = (location, menu, history) => {
     const siderMenu = this.getMenu(menu)
-    const filtedSiderMenu = this.filterMenu(siderMenu)
-    const currentRoute = this.getCurrentRoute(siderMenu, location.pathname)
-    const activeSiderMenu =
-      (currentRoute && currentRoute.id) || this.getDefaultActiveSiderMenu(siderMenu)
+    const _siderMenu = this.getMenu(menu)
 
+    const filtedSiderMenu = this.filterMenu(siderMenu)
+
+    const currentRoute = this.getCurrentRoute(_siderMenu, location.pathname)
+    const _currentMenu = this.getCurrentRoute(
+      filtedSiderMenu,
+      location.pathname
+    )
+    const activeSiderMenu =
+      (_currentMenu && _currentMenu.id) ||
+      (currentRoute &&
+        currentRoute.id &&
+        this.getParent(location.pathname, _siderMenu) &&
+        this.getParent(location.pathname, _siderMenu).id) ||
+      this.getDefaultActiveSiderMenu(siderMenu)
     const routes = this.getRoutes(menu, [])
     this.setState({ siderMenu, activeSiderMenu, routes, filtedSiderMenu })
     if (!currentRoute) {
@@ -43,10 +80,10 @@ class GenuineLayout extends React.Component {
     } else {
       history.push(location.pathname)
     }
-  }
+  };
   setSiderMenu = activeSiderMenu => {
     this.setState({ activeSiderMenu })
-  }
+  };
 
   getMenu = menu => {
     return menu.map(m => {
@@ -63,7 +100,7 @@ class GenuineLayout extends React.Component {
       }
       return _menu
     })
-  }
+  };
   filterMenu = menu => {
     return menu.filter(item => {
       if (item.children) {
@@ -71,7 +108,7 @@ class GenuineLayout extends React.Component {
       }
       return item.content
     })
-  }
+  };
   getCurrentRoute = (menu, pathname) => {
     let currentRoute
     menu.forEach(m => {
@@ -93,7 +130,7 @@ class GenuineLayout extends React.Component {
     if (currentRoute) {
       return currentRoute
     }
-  }
+  };
   getInitNav = (menu, id) => {
     let initNav
     menu.forEach(m => {
@@ -108,7 +145,7 @@ class GenuineLayout extends React.Component {
     if (initNav) {
       return initNav
     }
-  }
+  };
   getRoutes = (menu, routes = []) => {
     menu.forEach(item => {
       if (item.component) {
@@ -119,24 +156,62 @@ class GenuineLayout extends React.Component {
       }
     })
     return routes
-  }
+  };
   getFirstChild = (arr, result = []) => {
     result.push(arr[0].id)
     if (arr[0].children) {
       this.getFirstChild(arr[0].children, result)
     }
     return result
-  }
+  };
+  // 寻找某一节点的父节点
+  getParent = (path, data) => {
+    let parent
+    data.forEach(item => {
+      if (item.children) {
+        if (
+          item.children.some(
+            child =>
+              child.pathname === path ||
+              matchPath(path, {
+                path: child.pathname,
+                exact: true
+              }) ||
+              child.id === path
+          )
+        ) {
+          parent = item
+        } else if (this.getParent(path, item.children)) {
+          parent = this.getParent(path, item.children)
+        }
+      }
+    })
+    return parent
+  };
   getDefaultActiveSiderMenu = currentSiderMenu => {
     const activeSiders = this.getFirstChild(currentSiderMenu)
     return activeSiders[activeSiders.length - 1]
-  }
+  };
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
-  }
+  };
   render () {
-    const { activeSiderMenu, siderMenu, routes, mini, filtedSiderMenu } = this.state
-    const { location, history, apperance, logo, login, header, toolbar } = this.props
+    const {
+      activeSiderMenu,
+      siderMenu,
+      routes,
+      mini,
+      filtedSiderMenu
+    } = this.state
+    const {
+      location,
+      history,
+      apperance,
+      logo,
+      login,
+      header,
+      toolbar
+    } = this.props
     const currentRoute = this.getCurrentRoute(routes, location.pathname)
     const isWithoutLayout = currentRoute && currentRoute.withoutLayout
     const _header =
@@ -179,7 +254,9 @@ class GenuineLayout extends React.Component {
                 <Route
                   key={index}
                   path={route.path}
-                  render={props => <route.component {...props} extraData={route.extraData} />}
+                  render={props => (
+                    <route.component {...props} extraData={route.extraData} />
+                  )}
                   exact={!!route.exact}
                 />
               ))}

@@ -21,7 +21,6 @@ const config = [
     children: [
       {
         name: '小米',
-        path: '/mi',
         children: [{ name: '小米CC', path: '/cc', component: CC }]
       },
       { name: '红米', path: '/red-mi', component: RedMi, withoutLayout: true },
