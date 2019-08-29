@@ -3,7 +3,7 @@ import Icon from '@hi-ui/hiui/es/icon'
 import './style/index'
 
 class Login extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -13,28 +13,28 @@ class Login extends React.Component {
     this.open = this.open.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     document.addEventListener('click', this.open)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     document.removeEventListener('click', this.open)
   }
 
-  open() {
+  open () {
     const open = this.state.open
     if (open) {
       this.setState({ open: false })
     }
   }
 
-  render() {
+  render () {
     const open = this.state.open
     const { headUrl = '', name = '', children = '', style, icon } = this.props
 
     return (
       <div
-        className={`login ${open ? 'login--active' : ''} ${children ? '' : 'login--empty'}`}
+        className={`hi-login ${open ? 'hi-login--active' : ''} ${children ? '' : 'hi-login--empty'}`}
         style={style}
         onClick={e => {
           e.stopPropagation()
@@ -43,7 +43,7 @@ class Login extends React.Component {
         }}
       >
         {headUrl ? (
-          <div className="login__img" style={{ backgroundImage: 'url(' + headUrl + ')' }} />
+          <div className='hi-login__img' style={{ backgroundImage: 'url(' + headUrl + ')' }} />
         ) : (
           ''
         )}
@@ -54,10 +54,10 @@ class Login extends React.Component {
         ) : (
           ''
         )}
-        {name ? <div className="login__name">{name}</div> : ''}
+        {name ? <div className='hi-login__name'>{name}</div> : ''}
         {children ? (
           <div
-            className="login__info"
+            className='hi-login__info'
             onClick={e => {
               e.stopPropagation()
               e.nativeEvent.stopImmediatePropagation()

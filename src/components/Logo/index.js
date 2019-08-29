@@ -21,13 +21,13 @@ class Logo extends React.Component {
 
   render () {
     const { alt, className, height, logoUrl, style, name, url } = this.props
-    const classes = classNames('logo', className && `${className}`)
+    const classes = classNames('hi-logo', className && `${className}`)
 
     return (
       <div className={classes} style={style}>
-        <a className='logo__link' href={url}>
-          {logoUrl && <img className='logo__img' src={logoUrl} alt={alt} height={height} />}
-          {name && <span className='logo__title'>{name}</span>}
+        <a className='hi-logo__link' href={url}>
+          {logoUrl && <img className='hi-logo__img' src={logoUrl} alt={alt} height={height} />}
+          {name && <span className='hi-logo__title'>{name}</span>}
         </a>
       </div>
     )

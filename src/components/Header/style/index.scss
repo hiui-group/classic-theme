@@ -33,7 +33,7 @@
     border: 1px solid #e7e7e7;
 
     .hi-theme__login {
-      .login {
+      .hi-login {
         &::after {
           border-top-color: get-color($palette-hiui, 'g100');
         }
@@ -80,11 +80,11 @@
   .hi-theme__logo {
     flex: 0 0 216px;
 
-    .logo {
+    .hi-logo {
       padding-left: 16px;
     }
 
-    .logo__img {
+    .hi-logo__img {
       margin-right: 8px;
     }
   }

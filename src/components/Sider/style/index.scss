@@ -22,18 +22,18 @@
     height: 64px;
     display: flex;
 
-    .logo {
+    .hi-logo {
       flex: 1;
       display: flex;
 
-      .logo__link {
+      .hi-logo__link {
         flex: 1;
         align-items: center;
         display: flex;
         padding: 0 16px;
       }
 
-      .logo__img {
+      .hi-logo__img {
         margin-right: 10px;
       }
     }
@@ -41,7 +41,7 @@
     &.mini {
       width: 48px;
 
-      .logo__link {
+      .hi-logo__link {
         flex: 1;
         align-items: center;
         justify-content: center;
@@ -49,11 +49,11 @@
         padding: 0;
       }
 
-      .logo__title {
+      .hi-logo__title {
         display: none;
       }
 
-      .logo__img {
+      .hi-logo__img {
         margin-right: 0;
       }
     }
