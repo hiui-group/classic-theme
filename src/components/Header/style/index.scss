@@ -95,12 +95,13 @@
 
   .hi-theme__toolbar {
     display: flex;
+    flex: 1;
     color: #fff;
     align-items: center;
+    justify-content: flex-end;
   }
 
   .hi-theme__menu {
-    flex: 1;
     list-style: none;
     margin: 0;
     padding: 0;

@@ -23,7 +23,7 @@ const loginConfig = {
   ]
 }
 const toolbar = [
-  <Input key='1' />,
+  <Input key='1' style={{ width: 200 }} />,
   <Icon key='2' name='prompt' />,
   <Select
     type='single'
@@ -41,6 +41,21 @@ const toolbar = [
     ]}
   />
 ]
+const toolbar2 = <div style={{flex: 1}}><Input key='1' style={{ width: 200 }} /><Icon key='2' name='prompt' /><Select
+  type='single'
+  clearable={false}
+  style={{ width: 200 }}
+  onChange={() => {
+    history.browserHistory.push('/cc')
+  }}
+  data={[
+    { title: '电视', id: '3', disabled: true },
+    { title: '手机', id: '2' },
+    { title: '笔记本', id: '4', disabled: true },
+    { title: '生活周边', id: '5' },
+    { title: '办公', id: '6' }
+  ]}
+/></div>
 const TV = () => <div>小米电视</div>
 class App extends Component {
   state = {
@@ -57,8 +72,9 @@ class App extends Component {
         routes={this.state.routeConfig}
         logo={logoConfig}
         login={loginConfig}
-        type='classic'
-        toolbar={toolbar}
+        // type='classic'
+        type='genuine'
+        toolbar={toolbar2}
       />
     )
   }
