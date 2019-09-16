@@ -10,7 +10,7 @@
   width: 100%;
   font-size: $font-size-normal;
   box-sizing: border-box;
-  z-index: 1;
+  z-index: 11;
 
   &.dark {
     background: get-color($palette-hiui, 'g100');
