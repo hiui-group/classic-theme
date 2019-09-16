@@ -8,7 +8,7 @@ class Header extends Component {
   render () {
     const { mainMenu, activeMainMenu, logo, login, setMainMenu, color, toolbar, mini } = this.props
     return (
-      <div className={ClassNames('hi-theme__header', { 'hi-them__header--mini': mini }, color)}>
+      <div className={ClassNames('hi-theme__header', { 'hi-theme__header--mini': mini }, color)}>
         {logo && <div className='hi-theme__logo'>{logo}</div>}
 
         {mainMenu && (
