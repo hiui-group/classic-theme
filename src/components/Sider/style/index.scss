@@ -80,7 +80,7 @@
     box-shadow: none;
     border: none;
     flex: 1;
-    overflow: auto;
+    overflow-y: auto;
   }
 
   .hi-menu-item--active:not(.hi-submenu) {

@@ -14,7 +14,7 @@ class GenuineLayout extends React.Component {
     routes: [],
     originLocation: null,
     mini: false
-  };
+  }
 
   componentDidMount () {
     const { menu, history, location } = this.props
@@ -31,10 +31,7 @@ class GenuineLayout extends React.Component {
       const filtedSiderMenu = this.filterMenu(siderMenu)
 
       const currentRoute = this.getCurrentRoute(_siderMenu, location.pathname)
-      const _currentMenu = this.getCurrentRoute(
-        filtedSiderMenu,
-        location.pathname
-      )
+      const _currentMenu = this.getCurrentRoute(filtedSiderMenu, location.pathname)
       const activeSiderMenu =
         (_currentMenu && _currentMenu.id) ||
         (currentRoute &&
@@ -61,10 +58,7 @@ class GenuineLayout extends React.Component {
     const filtedSiderMenu = this.filterMenu(siderMenu)
 
     const currentRoute = this.getCurrentRoute(_siderMenu, location.pathname)
-    const _currentMenu = this.getCurrentRoute(
-      filtedSiderMenu,
-      location.pathname
-    )
+    const _currentMenu = this.getCurrentRoute(filtedSiderMenu, location.pathname)
     const activeSiderMenu =
       (_currentMenu && _currentMenu.id) ||
       (currentRoute &&
@@ -80,10 +74,10 @@ class GenuineLayout extends React.Component {
     } else {
       history.push(location.pathname)
     }
-  };
+  }
   setSiderMenu = activeSiderMenu => {
     this.setState({ activeSiderMenu })
-  };
+  }
 
   getMenu = menu => {
     return menu.map(m => {
@@ -100,7 +94,7 @@ class GenuineLayout extends React.Component {
       }
       return _menu
     })
-  };
+  }
   filterMenu = menu => {
     return menu.filter(item => {
       if (item.children) {
@@ -108,7 +102,7 @@ class GenuineLayout extends React.Component {
       }
       return item.content
     })
-  };
+  }
   getCurrentRoute = (menu, pathname) => {
     let currentRoute
     menu.forEach(m => {
@@ -130,7 +124,7 @@ class GenuineLayout extends React.Component {
     if (currentRoute) {
       return currentRoute
     }
-  };
+  }
   getInitNav = (menu, id) => {
     let initNav
     menu.forEach(m => {
@@ -145,7 +139,7 @@ class GenuineLayout extends React.Component {
     if (initNav) {
       return initNav
     }
-  };
+  }
   getRoutes = (menu, routes = []) => {
     menu.forEach(item => {
       if (item.component) {
@@ -156,14 +150,14 @@ class GenuineLayout extends React.Component {
       }
     })
     return routes
-  };
+  }
   getFirstChild = (arr, result = []) => {
     result.push(arr[0].id)
     if (arr[0].children) {
       this.getFirstChild(arr[0].children, result)
     }
     return result
-  };
+  }
   // 寻找某一节点的父节点
   getParent = (path, data) => {
     let parent
@@ -187,31 +181,17 @@ class GenuineLayout extends React.Component {
       }
     })
     return parent
-  };
+  }
   getDefaultActiveSiderMenu = currentSiderMenu => {
     const activeSiders = this.getFirstChild(currentSiderMenu)
     return activeSiders[activeSiders.length - 1]
-  };
+  }
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
-  };
+  }
   render () {
-    const {
-      activeSiderMenu,
-      siderMenu,
-      routes,
-      mini,
-      filtedSiderMenu
-    } = this.state
-    const {
-      location,
-      history,
-      apperance,
-      logo,
-      login,
-      header,
-      toolbar
-    } = this.props
+    const { activeSiderMenu, siderMenu, routes, mini, filtedSiderMenu } = this.state
+    const { location, history, apperance, logo, login, header, toolbar } = this.props
     const currentRoute = this.getCurrentRoute(routes, location.pathname)
     const isWithoutLayout = currentRoute && currentRoute.withoutLayout
     const _header =
@@ -223,6 +203,7 @@ class GenuineLayout extends React.Component {
           history={history}
           color='light'
           login={login}
+          mini={mini}
           toolbar={toolbar}
         />
       ))
@@ -254,9 +235,7 @@ class GenuineLayout extends React.Component {
                 <Route
                   key={index}
                   path={route.path}
-                  render={props => (
-                    <route.component {...props} extraData={route.extraData} />
-                  )}
+                  render={props => <route.component {...props} extraData={route.extraData} />}
                   exact={!!route.exact}
                 />
               ))}

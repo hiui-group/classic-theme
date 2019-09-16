@@ -36,6 +36,10 @@
   .hi-theme__header {
     justify-content: flex-end;
     width: calc(100% - 216px);
+
+    &.hi-theme__header--mini {
+      width: calc(100% - 48px);
+    }
   }
 
   .sider__logo {
