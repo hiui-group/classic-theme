@@ -12,7 +12,7 @@ class Header extends Component {
         {logo && <div className='hi-theme__logo'>{logo}</div>}
 
         {mainMenu && (
-          <ul className='hi-theme__menu'>
+          <ul className='hi-theme__menu' style={{ flex: toolbar ? '0 0 auto' : 1 }}>
             {mainMenu.map(menu => (
               <li
                 key={menu.id}

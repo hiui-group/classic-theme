@@ -74,6 +74,11 @@
       background: url('../../../static/image/menu.png') no-repeat;
       background-size: cover;
     }
+
+    &__toggle--light {
+      background: url('../../../static/image/menu-light.png') no-repeat;
+      background-size: cover;
+    }
   }
 
   .hi-menu--vertical {

@@ -32,7 +32,7 @@ class Sider extends Component {
         />
 
         <div className='sider__footer'>
-          <span className='sider__footer__toggle' onClick={miniToggle} />
+          <span className={ClassNames('sider__footer__toggle', {'sider__footer__toggle--light': color === 'dark'})} onClick={miniToggle} />
         </div>
       </div>
     )
