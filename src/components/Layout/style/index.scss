@@ -21,10 +21,11 @@
   .hi-theme__container {
     flex: 1;
     display: flex;
+    overflow-x: auto;
+    flex-direction: column;
 
     .hi-theme__content {
       flex: 1;
-      padding-top: 64px;
       overflow: auto;
     }
 
@@ -35,11 +36,7 @@
 
   .hi-theme__header {
     justify-content: flex-end;
-    width: calc(100% - 216px);
-
-    &.hi-theme__header--mini {
-      width: calc(100% - 48px);
-    }
+    position: static;
   }
 
   .sider__logo {
