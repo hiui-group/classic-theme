@@ -12,13 +12,11 @@ class GenuineLayout extends React.Component {
     siderMenu: [],
     filtedSiderMenu: [],
     routes: [],
-    originLocation: null,
     mini: false
   }
 
   componentDidMount () {
     const { menu, history, location } = this.props
-    this.setState({ originLocation: location })
     this.handleMenuChange(location, menu, history)
   }
 
@@ -46,9 +44,8 @@ class GenuineLayout extends React.Component {
 
   componentDidUpdate (prevProps, prevState) {
     if (!_.isEqual(prevProps.menu, this.props.menu)) {
-      const { menu, history } = this.props
-      const { originLocation } = this.state
-      this.handleMenuChange(originLocation, menu, history)
+      const { menu, history, location } = this.props
+      this.handleMenuChange(location, menu, history)
     }
   }
   handleMenuChange = (location, menu, history) => {
@@ -79,6 +76,7 @@ class GenuineLayout extends React.Component {
     this.setState({ activeSiderMenu })
   }
 
+  // 进行 menu 格式转化
   getMenu = menu => {
     return menu.map(m => {
       let _menu = {
@@ -95,6 +93,8 @@ class GenuineLayout extends React.Component {
       return _menu
     })
   }
+
+  // 过虑有 content 值的项
   filterMenu = menu => {
     return menu.filter(item => {
       if (item.children) {

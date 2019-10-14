@@ -13,13 +13,11 @@ class ClassicLayout extends React.Component {
     mainMenu: [],
     siderMenu: [],
     routes: [],
-    originLocation: null,
     mini: false
   };
 
   componentDidMount () {
     const { menu, history, location } = this.props
-    this.setState({ originLocation: location })
     this.handleMenuChange(location, menu, history)
   }
   handleMenuChange = (location, menu, history) => {
@@ -82,12 +80,12 @@ class ClassicLayout extends React.Component {
     }
   }
   componentDidUpdate (prevProps, prevState) {
-    const { menu, history } = this.props
+    const { menu, history, location } = this.props
     if (!_.isEqual(prevProps.menu, this.props.menu)) {
-      const { originLocation } = this.state
-      this.handleMenuChange(originLocation, menu, history)
+      this.handleMenuChange(location, menu, history)
     }
   }
+
   // 寻找某一节点的所有祖先节点
   getAncestor = (path, data, arr = []) => {
     if (this.getParent(path, data)) {
