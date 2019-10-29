@@ -14,7 +14,7 @@ class ClassicLayout extends React.Component {
     siderMenu: [],
     routes: [],
     mini: false
-  };
+  }
 
   componentDidMount () {
     const { menu, history, location } = this.props
@@ -25,16 +25,16 @@ class ClassicLayout extends React.Component {
     const ancestor = this.getAncestor(location.pathname, menu).reverse()
     const mainMenu = this.getMainMenu(menu)
     const activeMainMenu =
-      (ancestor[0] && ancestor[0].id) ||
-      (currentMenu && currentMenu.id) ||
-      mainMenu[0].id
+      (ancestor[0] && ancestor[0].id) || (currentMenu && currentMenu.id) || mainMenu[0].id
     const siderMenu = this.getSiderMenu(menu, activeMainMenu)
-
+    // 左侧菜单高亮逻辑：侧边栏能找到优先侧边栏，侧边栏找不到，看其父层级在不在侧边栏，最后取默认第一个
     const activeSiderMenu = siderMenu.length
       ? (this.findMenu(location.pathname, siderMenu) &&
           this.findMenu(location.pathname, siderMenu).id) ||
+        (ancestor.length > 1 && ancestor[ancestor.length - 1].id) ||
         this.getDefaultActiveSiderMenu(siderMenu)
       : ''
+
     const routes = this.getRoutes(menu, [])
     this.setState({
       mainMenu,
@@ -51,23 +51,23 @@ class ClassicLayout extends React.Component {
     } else {
       history.push(location.pathname)
     }
-  };
+  }
   componentWillReceiveProps (nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
       const { location, menu } = nextProps
       const currentMenu = this.findMenu(location.pathname, menu)
       const ancestor = this.getAncestor(location.pathname, menu).reverse()
+
       const mainMenu = this.getMainMenu(menu)
       const activeMainMenu =
-        (ancestor[0] && ancestor[0].id) ||
-        (currentMenu && currentMenu.id) ||
-        mainMenu[0].id
+        (ancestor[0] && ancestor[0].id) || (currentMenu && currentMenu.id) || mainMenu[0].id
       const siderMenu = this.getSiderMenu(menu, activeMainMenu)
 
       const activeSiderMenu = siderMenu.length
         ? (this.findMenu(location.pathname, siderMenu) &&
             this.findMenu(location.pathname, siderMenu).id) ||
-          this.getDefaultActiveSiderMenu(siderMenu)
+          (ancestor.length > 1 && ancestor[ancestor.length - 1].id) ||
+          this.getDefaultActiveSiderMenu(siderMenu, siderMenu)
         : ''
       const routes = this.getRoutes(menu, [])
       this.setState({
@@ -94,7 +94,7 @@ class ClassicLayout extends React.Component {
       this.getAncestor(parent.path || parent.id, data, arr)
     }
     return arr
-  };
+  }
 
   findMenu = (path, data) => {
     let node
@@ -115,7 +115,7 @@ class ClassicLayout extends React.Component {
       }
     })
     return node
-  };
+  }
   // 寻找某一节点的父节点
   getParent = (path, data) => {
     let parent
@@ -139,7 +139,7 @@ class ClassicLayout extends React.Component {
       }
     })
     return parent
-  };
+  }
   setMainMenu = activeMainMenu => {
     const siderMenu = this.getSiderMenu(this.props.menu, activeMainMenu)
     if (siderMenu.length) {
@@ -148,10 +148,10 @@ class ClassicLayout extends React.Component {
     } else {
       this.setState({ activeMainMenu, siderMenu })
     }
-  };
+  }
   setSiderMenu = activeSiderMenu => {
     this.setState({ activeSiderMenu })
-  };
+  }
 
   getMainMenu = menu => {
     return menu.map(m => {
@@ -162,12 +162,12 @@ class ClassicLayout extends React.Component {
         pathname: this.getMainMenuPath(m) || ''
       }
     })
-  };
+  }
   getSiderMenu = (menu, activeMainMenu) => {
     const _activeMainMenu = menu.find(m => m.id === activeMainMenu)
     const siderMenu = (_activeMainMenu && _activeMainMenu.children) || []
     return this.transformMenu(siderMenu)
-  };
+  }
   transformMenu = menu => {
     return menu
       .map(m => {
@@ -176,13 +176,15 @@ class ClassicLayout extends React.Component {
             content: m.name,
             id: m.id,
             icon: m.icon,
-            children: this.transformMenu(m.children),
+            children:
+                (this.transformMenu(m.children).length > 0 && this.transformMenu(m.children)) ||
+                null,
             pathname: m.path
           }
           : { content: m.name, id: m.id, icon: m.icon, pathname: m.path }
       })
       .filter(item => item.content)
-  };
+  }
   getRoutes = (menu, routes = []) => {
     menu.forEach(item => {
       if (item.component) {
@@ -193,7 +195,7 @@ class ClassicLayout extends React.Component {
       }
     })
     return routes
-  };
+  }
   getInitNav = (menu, id) => {
     let initNav
     menu.forEach(m => {
@@ -208,37 +210,30 @@ class ClassicLayout extends React.Component {
     if (initNav) {
       return initNav
     }
-  };
+  }
   getFirstChild = (arr, result = []) => {
     result.push(arr[0].id)
     if (arr[0].children) {
       this.getFirstChild(arr[0].children, result)
     }
     return result
-  };
+  }
   getMainMenuPath = menu => {
     if (menu.path) {
       return menu.path
     } else if (menu.children) {
       return this.getMainMenuPath(menu.children[0])
     }
-  };
+  }
   getDefaultActiveSiderMenu = currentSiderMenu => {
     const activeSiders = this.getFirstChild(currentSiderMenu)
     return activeSiders[activeSiders.length - 1]
-  };
+  }
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
-  };
+  }
   render () {
-    const {
-      activeMainMenu,
-      activeSiderMenu,
-      mainMenu,
-      siderMenu,
-      routes,
-      mini
-    } = this.state
+    const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
 
     const { location, history, apperance, logo, login, toolbar } = this.props
     const currentRoute = this.findMenu(location.pathname, routes)
@@ -279,9 +274,7 @@ class ClassicLayout extends React.Component {
                 key={index}
                 path={route.path}
                 exact={!!route.exact}
-                render={props => (
-                  <route.component {...props} extraData={route.extraData} />
-                )}
+                render={props => <route.component {...props} extraData={route.extraData} />}
               />
             ))}
           </div>
