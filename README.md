@@ -84,6 +84,20 @@ class App extends Component {
 
 export default App
 ```
+## 关于路由跳转
+
+### 组件内
+使用 react-router `<Link />` 即可
+
+### API 跳转
+内部对 react-router 的 history 进行了封装
+```jsx
+import Theme, {history} from '@hi-ui/classic-theme'
+history[`${your history type}`].push()
+详细使用可参考 react-router 官网
+
+```
+
 
 ## API
 
@@ -101,6 +115,7 @@ export default App
 | logo        | 主题 logo 配置项                         | Logo                              | -                           |
 | login       | 主题登录信息配置项                       | Login                             | -                           |
 | toolbar     | 顶部工具栏，一般用于放置通知、全局搜索等 | ReactNode                         | -                           |
+
 
 ### type: Route
 
