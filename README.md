@@ -93,9 +93,9 @@ export default App
 内部对 react-router 的 history 进行了封装
 
 ```jsx
-import Theme, {history} from '@hi-ui/classic-theme'
+import Theme, {History} from '@hi-ui/classic-theme'
 
-history[`${your history type}`].push()
+History[`${your history type}`].push()
 ```
 
 详细使用可参考 react-router 官网
