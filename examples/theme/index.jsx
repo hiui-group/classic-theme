@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import Theme, { history } from '../../src/theme'
 import _routeConfig from './routes-config'
 import { Input, Icon, Select } from '@hi-ui/hiui'
+import Table from '@mi/power-table'
 
 const logoConfig = {
   logoUrl: 'https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05',
-  name: 'HIUI Theme',
+  name: <span style={{ color: '#fff' }}>HIUI Theme</span>,
   url: 'https://xiaomi.github.io/hiui/#/'
 }
 
@@ -61,24 +62,27 @@ const toolbar2 = (
     />
   </div>
 )
+
 const TV = () => <div>小米电视</div>
 class App extends Component {
   state = {
     routeConfig: [{ name: '电视', path: '/tv', component: TV }]
   }
-  componentDidMount() {
+  componentDidMount () {
     setTimeout(() => {
       this.setState({ routeConfig: _routeConfig })
     }, 2000)
   }
-  render() {
+  render () {
     return (
       <Theme
         routes={this.state.routeConfig}
         logo={logoConfig}
+        siderTopRender={(mini) => mini ? <div>X</div> : <div>XData</div>}
         login={loginConfig}
-        type='classic'
-        // type='genuine'
+        // type='classic'
+        // header={null}
+        type='genuine'
         toolbar={toolbar2}
       />
     )

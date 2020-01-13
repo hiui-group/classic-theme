@@ -235,7 +235,7 @@ class ClassicLayout extends React.Component {
   render () {
     const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
 
-    const { location, history, apperance, logo, login, toolbar } = this.props
+    const { location, history, apperance, logo, login, toolbar, siderTopRender, siderBottomRender } = this.props
     const currentRoute = this.findMenu(location.pathname, routes)
     const isWithoutLayout = currentRoute && currentRoute.withoutLayout
     return [
@@ -258,6 +258,8 @@ class ClassicLayout extends React.Component {
           {siderMenu.length > 0 && (
             <Sider
               siderMenu={siderMenu}
+              siderTopRender={siderTopRender}
+              siderBottomRender={siderBottomRender}
               activeSiderMenu={activeSiderMenu}
               setSiderMenu={this.setSiderMenu}
               location={location}

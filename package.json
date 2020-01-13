@@ -1,6 +1,6 @@
 {
   "name": "@hi-ui/classic-theme",
-  "version": "2.0.0-rc.14",
+  "version": "2.0.0-rc.15",
   "description": "Classic theme for HIUI",
   "main": "./es/index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   "license": "MIT",
   "dependencies": {
     "@hi-ui/core-css": "^2.0.0",
-    "@hi-ui/hiui": "^2.5.2",
+    "@hi-ui/hiui": "^2.6.0",
     "classnames": "^2.2.6",
     "history": "^4.9.0",
     "lodash": "^4.17.11",
@@ -38,6 +38,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@mi/power-table": "^0.1.2",
+    "qs": "^6.9.1",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.4.5",

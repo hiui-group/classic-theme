@@ -117,6 +117,8 @@ History[`${your history type}`].push()
 | logo        | 主题 logo 配置项                         | Logo                              | -                           |
 | login       | 主题登录信息配置项                       | Login                             | -                           |
 | toolbar     | 顶部工具栏，一般用于放置通知、全局搜索等 | ReactNode                         | -                           |
+| siderTopRender     | 侧边栏自定义顶部渲染区域 | toggle: boolean => ReactNode                         | -                           |
+| siderBottomRender     | 侧边栏自定义底部渲染区域 | toggle: boolean => ReactNode                         | -                           |
 
 
 ### type: Route

@@ -191,7 +191,7 @@ class GenuineLayout extends React.Component {
   }
   render () {
     const { activeSiderMenu, siderMenu, routes, mini, filtedSiderMenu } = this.state
-    const { location, history, apperance, logo, login, header, toolbar } = this.props
+    const { location, history, apperance, logo, login, header, toolbar, siderTopRender, siderBottomRender } = this.props
     const currentRoute = this.getCurrentRoute(routes, location.pathname)
     const isWithoutLayout = currentRoute && currentRoute.withoutLayout
     const _header =
@@ -221,6 +221,8 @@ class GenuineLayout extends React.Component {
               mini={mini}
               miniToggle={this.miniToggle}
               color={apperance.color}
+              siderTopRender={siderTopRender}
+              siderBottomRender={siderBottomRender}
               logo={logo}
             />
           )}

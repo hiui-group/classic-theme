@@ -19,7 +19,9 @@ class Theme extends Component {
       logo,
       login,
       header,
-      toolbar
+      toolbar,
+      siderTopRender,
+      siderBottomRender
     } = this.props
     const Layout = layout[type]
     return (
@@ -29,6 +31,8 @@ class Theme extends Component {
           render={props => (
             <Layout
               menu={transformConfig(routes)}
+              siderTopRender={siderTopRender}
+              siderBottomRender={siderBottomRender}
               toolbar={toolbar}
               type={type}
               apperance={apperance}
