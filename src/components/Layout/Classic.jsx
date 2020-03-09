@@ -25,7 +25,9 @@ class ClassicLayout extends React.Component {
     const ancestor = this.getAncestor(location.pathname, menu).reverse()
     const mainMenu = this.getMainMenu(menu)
     const activeMainMenu =
-      (ancestor[0] && ancestor[0].id) || (currentMenu && currentMenu.id) || mainMenu[0].id
+      (ancestor[0] && ancestor[0].id) ||
+      (currentMenu && currentMenu.id) ||
+      mainMenu[0].id
     const siderMenu = this.getSiderMenu(menu, activeMainMenu)
     // 左侧菜单高亮逻辑：侧边栏能找到优先侧边栏，侧边栏找不到，看其父层级在不在侧边栏，最后取默认第一个
     const activeSiderMenu = siderMenu.length
@@ -60,7 +62,9 @@ class ClassicLayout extends React.Component {
 
       const mainMenu = this.getMainMenu(menu)
       const activeMainMenu =
-        (ancestor[0] && ancestor[0].id) || (currentMenu && currentMenu.id) || mainMenu[0].id
+        (ancestor[0] && ancestor[0].id) ||
+        (currentMenu && currentMenu.id) ||
+        mainMenu[0].id
       const siderMenu = this.getSiderMenu(menu, activeMainMenu)
 
       const activeSiderMenu = siderMenu.length
@@ -159,6 +163,7 @@ class ClassicLayout extends React.Component {
         content: m.name,
         id: m.id,
         icon: m.icon,
+        target: m.target,
         pathname: this.getMainMenuPath(m) || ''
       }
     })
@@ -176,12 +181,20 @@ class ClassicLayout extends React.Component {
             content: m.name,
             id: m.id,
             icon: m.icon,
+            target: m.target,
             children:
-                (this.transformMenu(m.children).length > 0 && this.transformMenu(m.children)) ||
+                (this.transformMenu(m.children).length > 0 &&
+                  this.transformMenu(m.children)) ||
                 null,
             pathname: m.path
           }
-          : { content: m.name, id: m.id, icon: m.icon, pathname: m.path }
+          : {
+            content: m.name,
+            id: m.id,
+            icon: m.icon,
+            pathname: m.path,
+            target: m.target
+          }
       })
       .filter(item => item.content)
   }
@@ -233,9 +246,25 @@ class ClassicLayout extends React.Component {
     this.setState({ mini: !this.state.mini })
   }
   render () {
-    const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
+    const {
+      activeMainMenu,
+      activeSiderMenu,
+      mainMenu,
+      siderMenu,
+      routes,
+      mini
+    } = this.state
 
-    const { location, history, apperance, logo, login, toolbar, siderTopRender, siderBottomRender } = this.props
+    const {
+      location,
+      history,
+      apperance,
+      logo,
+      login,
+      toolbar,
+      siderTopRender,
+      siderBottomRender
+    } = this.props
     const currentRoute = this.findMenu(location.pathname, routes)
     const isWithoutLayout = currentRoute && currentRoute.withoutLayout
     return [
@@ -276,7 +305,9 @@ class ClassicLayout extends React.Component {
                 key={index}
                 path={route.path}
                 exact={!!route.exact}
-                render={props => <route.component {...props} extraData={route.extraData} />}
+                render={props => (
+                  <route.component {...props} extraData={route.extraData} />
+                )}
               />
             ))}
           </div>

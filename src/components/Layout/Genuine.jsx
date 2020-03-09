@@ -29,7 +29,10 @@ class GenuineLayout extends React.Component {
       const filtedSiderMenu = this.filterMenu(siderMenu)
 
       const currentRoute = this.getCurrentRoute(_siderMenu, location.pathname)
-      const _currentMenu = this.getCurrentRoute(filtedSiderMenu, location.pathname)
+      const _currentMenu = this.getCurrentRoute(
+        filtedSiderMenu,
+        location.pathname
+      )
       const activeSiderMenu =
         (_currentMenu && _currentMenu.id) ||
         (currentRoute &&
@@ -55,7 +58,10 @@ class GenuineLayout extends React.Component {
     const filtedSiderMenu = this.filterMenu(siderMenu)
 
     const currentRoute = this.getCurrentRoute(_siderMenu, location.pathname)
-    const _currentMenu = this.getCurrentRoute(filtedSiderMenu, location.pathname)
+    const _currentMenu = this.getCurrentRoute(
+      filtedSiderMenu,
+      location.pathname
+    )
     const activeSiderMenu =
       (_currentMenu && _currentMenu.id) ||
       (currentRoute &&
@@ -82,7 +88,8 @@ class GenuineLayout extends React.Component {
       let _menu = {
         content: m.name,
         id: m.id,
-        icon: m.icon
+        icon: m.icon,
+        target: m.target
       }
       if (m.path) {
         _menu.pathname = m.path
@@ -190,13 +197,29 @@ class GenuineLayout extends React.Component {
     this.setState({ mini: !this.state.mini })
   }
   render () {
-    const { activeSiderMenu, siderMenu, routes, mini, filtedSiderMenu } = this.state
-    const { location, history, apperance, logo, login, header, toolbar, siderTopRender, siderBottomRender } = this.props
+    const {
+      activeSiderMenu,
+      siderMenu,
+      routes,
+      mini,
+      filtedSiderMenu
+    } = this.state
+    const {
+      location,
+      history,
+      apperance,
+      logo,
+      login,
+      header,
+      toolbar,
+      siderTopRender,
+      siderBottomRender
+    } = this.props
     const currentRoute = this.getCurrentRoute(routes, location.pathname)
     const isWithoutLayout = currentRoute && currentRoute.withoutLayout
     const _header =
       header === null ||
-      (header || (
+      header || (
         <Header
           setMainMenu={this.setMainMenu}
           location={location}
@@ -206,7 +229,7 @@ class GenuineLayout extends React.Component {
           mini={mini}
           toolbar={toolbar}
         />
-      ))
+      )
     return [
       (!isWithoutLayout && (
         <div key='container' className='hi-theme--genuine'>
@@ -237,7 +260,9 @@ class GenuineLayout extends React.Component {
                 <Route
                   key={index}
                   path={route.path}
-                  render={props => <route.component {...props} extraData={route.extraData} />}
+                  render={props => (
+                    <route.component {...props} extraData={route.extraData} />
+                  )}
                   exact={!!route.exact}
                 />
               ))}
