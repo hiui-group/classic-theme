@@ -21,14 +21,15 @@ class Theme extends Component {
       header,
       toolbar,
       siderTopRender,
-      siderBottomRender
+      siderBottomRender,
+      accordion = true
     } = this.props
     const Layout = layout[type]
     return (
       <Router history={history[historyType]}>
         <Route
           path='/'
-          render={props => (
+          render={(props) => (
             <Layout
               menu={transformConfig(routes)}
               siderTopRender={siderTopRender}
@@ -39,6 +40,7 @@ class Theme extends Component {
               logo={logo && <Logo {...logo} />}
               login={login && <Login {...login} />}
               header={header}
+              accordion={accordion}
               {...props}
             />
           )}

@@ -84,12 +84,15 @@ class App extends Component {
 
 export default App
 ```
+
 ## 关于路由跳转
 
 ### 组件内
+
 使用 react-router `<Link />` 即可
 
 ### API 跳转
+
 内部对 react-router 的 history 进行了封装
 
 ```jsx
@@ -100,26 +103,25 @@ History[`${your history type}`].push()
 
 详细使用可参考 react-router 官网
 
-
 ## API
 
 ### Theme
 
-| 属性名      | 描述                                     | 类型                              | 默认值                      |
-| ----------- | ---------------------------------------- | --------------------------------- | --------------------------- |
-| type        | 主题类型                                 | 'classic' \| 'genuine'            | 'classic'                   |
-| routes      | 路由配置项                               | Route[]                           | -                           |
-| logo        | 系统 logo                                | ReactNode                         | -                           |
-| login       | 系统登录配置项                           | ReactNode                         | -                           |
-| historyType | 路由跳转类型                             | 'hashHistory' \| 'browserHistory' | 'browserHistory'            |
-| header      | genuine 类型下的顶部功能栏               | ReactNode \| null                 | 不传时默认为主题自带 header |
-| apperance   | 主题外观配置项                           | Apperance                         | {color:'dark'}              |
-| logo        | 主题 logo 配置项                         | Logo                              | -                           |
-| login       | 主题登录信息配置项                       | Login                             | -                           |
-| toolbar     | 顶部工具栏，一般用于放置通知、全局搜索等 | ReactNode                         | -                           |
-| siderTopRender     | 侧边栏自定义顶部渲染区域 | toggle: boolean => ReactNode                         | -                           |
-| siderBottomRender     | 侧边栏自定义底部渲染区域 | toggle: boolean => ReactNode                         | -                           |
-
+| 属性名            | 描述                                     | 类型                              | 默认值                      |
+| ----------------- | ---------------------------------------- | --------------------------------- | --------------------------- |
+| type              | 主题类型                                 | 'classic' \| 'genuine'            | 'classic'                   |
+| routes            | 路由配置项                               | Route[]                           | -                           |
+| logo              | 系统 logo                                | ReactNode                         | -                           |
+| login             | 系统登录配置项                           | ReactNode                         | -                           |
+| historyType       | 路由跳转类型                             | 'hashHistory' \| 'browserHistory' | 'browserHistory'            |
+| header            | genuine 类型下的顶部功能栏               | ReactNode \| null                 | 不传时默认为主题自带 header |
+| apperance         | 主题外观配置项                           | Apperance                         | {color:'dark'}              |
+| logo              | 主题 logo 配置项                         | Logo                              | -                           |
+| login             | 主题登录信息配置项                       | Login                             | -                           |
+| toolbar           | 顶部工具栏，一般用于放置通知、全局搜索等 | ReactNode                         | -                           |
+| siderTopRender    | 侧边栏自定义顶部渲染区域                 | toggle: boolean => ReactNode      | -                           |
+| siderBottomRender | 侧边栏自定义底部渲染区域                 | toggle: boolean => ReactNode      | -                           |
+| accordion         | 左侧菜单是否采用手风琴模式               | boolean                           | true                        |
 
 ### type: Route
 

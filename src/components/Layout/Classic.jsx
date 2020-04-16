@@ -46,7 +46,7 @@ class ClassicLayout extends React.Component {
     if (!currentMenu) {
       const initNav = siderMenu.length
         ? this.getInitNav(siderMenu, activeSiderMenu).pathname
-        : mainMenu.find(item => item.id === activeMainMenu).pathname
+        : mainMenu.find((item) => item.id === activeMainMenu).pathname
       history.push(initNav)
     } else {
       history.push(location.pathname)
@@ -119,11 +119,11 @@ class ClassicLayout extends React.Component {
   // 寻找某一节点的父节点
   getParent = (path, data) => {
     let parent
-    data.forEach(item => {
+    data.forEach((item) => {
       if (item.children) {
         if (
           item.children.some(
-            child =>
+            (child) =>
               child.path === path ||
               matchPath(path, {
                 path: child.path,
@@ -140,7 +140,7 @@ class ClassicLayout extends React.Component {
     })
     return parent
   }
-  setMainMenu = activeMainMenu => {
+  setMainMenu = (activeMainMenu) => {
     const siderMenu = this.getSiderMenu(this.props.menu, activeMainMenu)
     if (siderMenu.length) {
       const activeSiderMenu = this.getDefaultActiveSiderMenu(siderMenu)
@@ -149,12 +149,12 @@ class ClassicLayout extends React.Component {
       this.setState({ activeMainMenu, siderMenu })
     }
   }
-  setSiderMenu = activeSiderMenu => {
+  setSiderMenu = (activeSiderMenu) => {
     this.setState({ activeSiderMenu })
   }
 
-  getMainMenu = menu => {
-    return menu.map(m => {
+  getMainMenu = (menu) => {
+    return menu.map((m) => {
       return {
         content: m.name,
         id: m.id,
@@ -164,13 +164,13 @@ class ClassicLayout extends React.Component {
     })
   }
   getSiderMenu = (menu, activeMainMenu) => {
-    const _activeMainMenu = menu.find(m => m.id === activeMainMenu)
+    const _activeMainMenu = menu.find((m) => m.id === activeMainMenu)
     const siderMenu = (_activeMainMenu && _activeMainMenu.children) || []
     return this.transformMenu(siderMenu)
   }
-  transformMenu = menu => {
+  transformMenu = (menu) => {
     return menu
-      .map(m => {
+      .map((m) => {
         return m.children
           ? {
             content: m.name,
@@ -183,10 +183,10 @@ class ClassicLayout extends React.Component {
           }
           : { content: m.name, id: m.id, icon: m.icon, pathname: m.path }
       })
-      .filter(item => item.content)
+      .filter((item) => item.content)
   }
   getRoutes = (menu, routes = []) => {
-    menu.forEach(item => {
+    menu.forEach((item) => {
       if (item.component) {
         routes.push(item)
       }
@@ -198,7 +198,7 @@ class ClassicLayout extends React.Component {
   }
   getInitNav = (menu, id) => {
     let initNav
-    menu.forEach(m => {
+    menu.forEach((m) => {
       if (m.id === id) {
         initNav = m
       } else if (m.children) {
@@ -218,14 +218,14 @@ class ClassicLayout extends React.Component {
     }
     return result
   }
-  getMainMenuPath = menu => {
+  getMainMenuPath = (menu) => {
     if (menu.path) {
       return menu.path
     } else if (menu.children) {
       return this.getMainMenuPath(menu.children[0])
     }
   }
-  getDefaultActiveSiderMenu = currentSiderMenu => {
+  getDefaultActiveSiderMenu = (currentSiderMenu) => {
     const activeSiders = this.getFirstChild(currentSiderMenu)
     return activeSiders[activeSiders.length - 1]
   }
@@ -235,7 +235,17 @@ class ClassicLayout extends React.Component {
   render () {
     const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
 
-    const { location, history, apperance, logo, login, toolbar, siderTopRender, siderBottomRender } = this.props
+    const {
+      location,
+      history,
+      apperance,
+      logo,
+      login,
+      toolbar,
+      siderTopRender,
+      siderBottomRender,
+      accordion
+    } = this.props
     const currentRoute = this.findMenu(location.pathname, routes)
     const isWithoutLayout = currentRoute && currentRoute.withoutLayout
     return [
@@ -268,6 +278,7 @@ class ClassicLayout extends React.Component {
               mini={mini}
               miniToggle={this.miniToggle}
               color='light'
+              accordion={accordion}
             />
           )}
           <div className='hi-theme__content'>
@@ -276,7 +287,7 @@ class ClassicLayout extends React.Component {
                 key={index}
                 path={route.path}
                 exact={!!route.exact}
-                render={props => <route.component {...props} extraData={route.extraData} />}
+                render={(props) => <route.component {...props} extraData={route.extraData} />}
               />
             ))}
           </div>
