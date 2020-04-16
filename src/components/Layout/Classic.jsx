@@ -159,6 +159,7 @@ class ClassicLayout extends React.Component {
         content: m.name,
         id: m.id,
         icon: m.icon,
+        target: m.target,
         pathname: this.getMainMenuPath(m) || ''
       }
     })
@@ -176,12 +177,19 @@ class ClassicLayout extends React.Component {
             content: m.name,
             id: m.id,
             icon: m.icon,
+            target: m.target,
             children:
                 (this.transformMenu(m.children).length > 0 && this.transformMenu(m.children)) ||
                 null,
             pathname: m.path
           }
-          : { content: m.name, id: m.id, icon: m.icon, pathname: m.path }
+          : {
+            content: m.name,
+            id: m.id,
+            icon: m.icon,
+            pathname: m.path,
+            target: m.target
+          }
       })
       .filter((item) => item.content)
   }

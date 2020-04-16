@@ -82,7 +82,8 @@ class GenuineLayout extends React.Component {
       let _menu = {
         content: m.name,
         id: m.id,
-        icon: m.icon
+        icon: m.icon,
+        target: m.target
       }
       if (m.path) {
         _menu.pathname = m.path

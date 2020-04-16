@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Menu } from '@hi-ui/hiui/es'
 import ClassNames from 'classnames'
 import './style/index.scss'
-
+const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 class Sider extends Component {
   render () {
     const {
@@ -32,7 +32,11 @@ class Sider extends Component {
             onClick={(id) => {
               setSiderMenu(id)
               const navTo = getInitNav(siderMenu, id)
-              history.push(navTo.pathname)
+              if (navTo.pathname.match(reg)) {
+                window.open(navTo.pathname, navTo.target || '_blank')
+              } else {
+                history.push(navTo.pathname)
+              }
             }}
             data={siderMenu}
           />
