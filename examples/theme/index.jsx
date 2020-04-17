@@ -68,21 +68,23 @@ class App extends Component {
   state = {
     routeConfig: [{ name: '电视', path: '/tv', component: TV }]
   }
-  componentDidMount () {
-    setTimeout(() => {
-      this.setState({ routeConfig: _routeConfig })
-    }, 2000)
-  }
+  // componentDidMount () {
+  //   setTimeout(() => {
+  //     this.setState({ routeConfig: _routeConfig })
+  //   }, 2000)
+  // }
   render () {
     return (
       <Theme
-        routes={this.state.routeConfig}
+        // routes={this.state.routeConfig}
+        routes={_routeConfig}
         logo={logoConfig}
-        siderTopRender={(mini) => mini ? <div>X</div> : <div>XData</div>}
+        siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
         login={loginConfig}
         // type='classic'
         // header={null}
         type='genuine'
+        accordion={false}
         toolbar={toolbar2}
       />
     )

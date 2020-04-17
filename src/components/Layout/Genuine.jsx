@@ -15,12 +15,12 @@ class GenuineLayout extends React.Component {
     mini: false
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { menu, history, location } = this.props
     this.handleMenuChange(location, menu, history)
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
       const { location, menu } = nextProps
       const siderMenu = this.getMenu(menu)
@@ -42,7 +42,7 @@ class GenuineLayout extends React.Component {
     }
   }
 
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (!_.isEqual(prevProps.menu, this.props.menu)) {
       const { menu, history, location } = this.props
       this.handleMenuChange(location, menu, history)
@@ -83,7 +83,8 @@ class GenuineLayout extends React.Component {
         content: m.name,
         id: m.id,
         icon: m.icon,
-        target: m.target
+        target: m.target,
+        component: m.component
       }
       if (m.path) {
         _menu.pathname = m.path
@@ -190,7 +191,7 @@ class GenuineLayout extends React.Component {
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
   }
-  render () {
+  render() {
     const { activeSiderMenu, siderMenu, routes, mini, filtedSiderMenu } = this.state
     const {
       location,

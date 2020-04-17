@@ -16,7 +16,7 @@ class ClassicLayout extends React.Component {
     mini: false
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { menu, history, location } = this.props
     this.handleMenuChange(location, menu, history)
   }
@@ -27,14 +27,15 @@ class ClassicLayout extends React.Component {
     const activeMainMenu =
       (ancestor[0] && ancestor[0].id) || (currentMenu && currentMenu.id) || mainMenu[0].id
     const siderMenu = this.getSiderMenu(menu, activeMainMenu)
-    // 左侧菜单高亮逻辑：侧边栏能找到优先侧边栏，侧边栏找不到，看其父层级在不在侧边栏，最后取默认第一个
-    const activeSiderMenu = siderMenu.length
-      ? (this.findMenu(location.pathname, siderMenu) &&
-          this.findMenu(location.pathname, siderMenu).id) ||
-        (ancestor.length > 1 && ancestor[ancestor.length - 1].id) ||
-        this.getDefaultActiveSiderMenu(siderMenu)
-      : ''
-
+    // 左侧菜单高亮逻辑：侧边栏能找到优先侧边栏，侧边栏找不到(主要是详情页的情况)，看其父层级在不在侧边栏，最后取默认第一个
+    const activeSiderMenu =
+      (currentMenu && currentMenu.id) ||
+      (siderMenu.length
+        ? (this.findMenu(location.pathname, siderMenu) &&
+            this.findMenu(location.pathname, siderMenu).id) ||
+          (ancestor.length > 1 && ancestor[ancestor.length - 1].id) ||
+          this.getDefaultActiveSiderMenu(siderMenu)
+        : '')
     const routes = this.getRoutes(menu, [])
     this.setState({
       mainMenu,
@@ -52,7 +53,7 @@ class ClassicLayout extends React.Component {
       history.push(location.pathname)
     }
   }
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
       const { location, menu } = nextProps
       const currentMenu = this.findMenu(location.pathname, menu)
@@ -63,12 +64,14 @@ class ClassicLayout extends React.Component {
         (ancestor[0] && ancestor[0].id) || (currentMenu && currentMenu.id) || mainMenu[0].id
       const siderMenu = this.getSiderMenu(menu, activeMainMenu)
 
-      const activeSiderMenu = siderMenu.length
-        ? (this.findMenu(location.pathname, siderMenu) &&
-            this.findMenu(location.pathname, siderMenu).id) ||
-          (ancestor.length > 1 && ancestor[ancestor.length - 1].id) ||
-          this.getDefaultActiveSiderMenu(siderMenu, siderMenu)
-        : ''
+      const activeSiderMenu =
+        (currentMenu && currentMenu.id) ||
+        (siderMenu.length
+          ? (this.findMenu(location.pathname, siderMenu) &&
+              this.findMenu(location.pathname, siderMenu).id) ||
+            (ancestor.length > 1 && ancestor[ancestor.length - 1].id) ||
+            this.getDefaultActiveSiderMenu(siderMenu, siderMenu)
+          : '')
       const routes = this.getRoutes(menu, [])
       this.setState({
         mainMenu,
@@ -79,7 +82,7 @@ class ClassicLayout extends React.Component {
       })
     }
   }
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const { menu, history, location } = this.props
     if (!_.isEqual(prevProps.menu, this.props.menu)) {
       this.handleMenuChange(location, menu, history)
@@ -140,9 +143,9 @@ class ClassicLayout extends React.Component {
     })
     return parent
   }
-  setMainMenu = (activeMainMenu) => {
+  setMainMenu = (activeMainMenu, mainMenuComp) => {
     const siderMenu = this.getSiderMenu(this.props.menu, activeMainMenu)
-    if (siderMenu.length) {
+    if (siderMenu.length && !mainMenuComp) {
       const activeSiderMenu = this.getDefaultActiveSiderMenu(siderMenu)
       this.setState({ activeMainMenu, siderMenu, activeSiderMenu })
     } else {
@@ -160,7 +163,8 @@ class ClassicLayout extends React.Component {
         id: m.id,
         icon: m.icon,
         target: m.target,
-        pathname: this.getMainMenuPath(m) || ''
+        pathname: this.getMainMenuPath(m) || '',
+        component: m.component
       }
     })
   }
@@ -174,22 +178,23 @@ class ClassicLayout extends React.Component {
       .map((m) => {
         return m.children
           ? {
-            content: m.name,
-            id: m.id,
-            icon: m.icon,
-            target: m.target,
-            children:
+              content: m.name,
+              id: m.id,
+              icon: m.icon,
+              target: m.target,
+              children:
                 (this.transformMenu(m.children).length > 0 && this.transformMenu(m.children)) ||
                 null,
-            pathname: m.path
-          }
+              pathname: m.path,
+              component: m.component
+            }
           : {
-            content: m.name,
-            id: m.id,
-            icon: m.icon,
-            pathname: m.path,
-            target: m.target
-          }
+              content: m.name,
+              id: m.id,
+              icon: m.icon,
+              pathname: m.path,
+              target: m.target
+            }
       })
       .filter((item) => item.content)
   }
@@ -221,6 +226,9 @@ class ClassicLayout extends React.Component {
   }
   getFirstChild = (arr, result = []) => {
     result.push(arr[0].id)
+    if (arr[0].pathname || arr[0].path) {
+      return result
+    }
     if (arr[0].children) {
       this.getFirstChild(arr[0].children, result)
     }
@@ -240,7 +248,7 @@ class ClassicLayout extends React.Component {
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
   }
-  render () {
+  render() {
     const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
 
     const {
