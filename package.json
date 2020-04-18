@@ -1,6 +1,6 @@
 {
   "name": "@hi-ui/classic-theme",
-  "version": "2.0.0-rc.18",
+  "version": "2.0.0-rc.19",
   "description": "Classic theme for HIUI",
   "main": "./es/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "compile": "cross-env NODE_ENV=production gulp",
     "build": "cross-env NODE_ENV=production node_modules/.bin/webpack --progress --profile --colors --config ./build/webpack.production.config.js",
     "precommit": "lint-staged",
-    "start": "webpack-dev-server --config build/webpack.dev.config.js --hot --progress --colors --port=4203"
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.config.js --hot  --port=4203"
   },
   "repository": {
     "type": "git",
