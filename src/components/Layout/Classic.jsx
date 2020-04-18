@@ -16,7 +16,7 @@ class ClassicLayout extends React.Component {
     mini: false
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const { menu, history, location } = this.props
     this.handleMenuChange(location, menu, history)
   }
@@ -25,7 +25,9 @@ class ClassicLayout extends React.Component {
     const ancestor = this.getAncestor(location.pathname, menu).reverse()
     const mainMenu = this.getMainMenu(menu)
     const activeMainMenu =
-      (ancestor[0] && ancestor[0].id) || (currentMenu && currentMenu.id) || mainMenu[0].id
+      (ancestor[0] && ancestor[0].id) ||
+      (currentMenu && currentMenu.id) ||
+      mainMenu[0].id
     const siderMenu = this.getSiderMenu(menu, activeMainMenu)
     // 左侧菜单高亮逻辑：侧边栏能找到优先侧边栏，侧边栏找不到(主要是详情页的情况)，看其父层级在不在侧边栏，最后取默认第一个
     const activeSiderMenu =
@@ -53,7 +55,7 @@ class ClassicLayout extends React.Component {
       history.push(location.pathname)
     }
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
       const { location, menu } = nextProps
       const currentMenu = this.findMenu(location.pathname, menu)
@@ -61,7 +63,9 @@ class ClassicLayout extends React.Component {
 
       const mainMenu = this.getMainMenu(menu)
       const activeMainMenu =
-        (ancestor[0] && ancestor[0].id) || (currentMenu && currentMenu.id) || mainMenu[0].id
+        (ancestor[0] && ancestor[0].id) ||
+        (currentMenu && currentMenu.id) ||
+        mainMenu[0].id
       const siderMenu = this.getSiderMenu(menu, activeMainMenu)
 
       const activeSiderMenu =
@@ -82,7 +86,7 @@ class ClassicLayout extends React.Component {
       })
     }
   }
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate (prevProps, prevState) {
     const { menu, history, location } = this.props
     if (!_.isEqual(prevProps.menu, this.props.menu)) {
       this.handleMenuChange(location, menu, history)
@@ -178,23 +182,24 @@ class ClassicLayout extends React.Component {
       .map((m) => {
         return m.children
           ? {
-              content: m.name,
-              id: m.id,
-              icon: m.icon,
-              target: m.target,
-              children:
-                (this.transformMenu(m.children).length > 0 && this.transformMenu(m.children)) ||
+            content: m.name,
+            id: m.id,
+            icon: m.icon,
+            target: m.target,
+            children:
+                (this.transformMenu(m.children).length > 0 &&
+                  this.transformMenu(m.children)) ||
                 null,
-              pathname: m.path,
-              component: m.component
-            }
+            pathname: m.path,
+            component: m.component
+          }
           : {
-              content: m.name,
-              id: m.id,
-              icon: m.icon,
-              pathname: m.path,
-              target: m.target
-            }
+            content: m.name,
+            id: m.id,
+            icon: m.icon,
+            pathname: m.path,
+            target: m.target
+          }
       })
       .filter((item) => item.content)
   }
@@ -248,8 +253,15 @@ class ClassicLayout extends React.Component {
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
   }
-  render() {
-    const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
+  render () {
+    const {
+      activeMainMenu,
+      activeSiderMenu,
+      mainMenu,
+      siderMenu,
+      routes,
+      mini
+    } = this.state
 
     const {
       location,
@@ -303,7 +315,9 @@ class ClassicLayout extends React.Component {
                 key={index}
                 path={route.path}
                 exact={!!route.exact}
-                render={(props) => <route.component {...props} extraData={route.extraData} />}
+                render={(props) => (
+                  <route.component {...props} extraData={route.extraData} />
+                )}
               />
             ))}
           </div>

@@ -15,12 +15,12 @@ class GenuineLayout extends React.Component {
     mini: false
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const { menu, history, location } = this.props
     this.handleMenuChange(location, menu, history)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
       const { location, menu } = nextProps
       const siderMenu = this.getMenu(menu)
@@ -29,7 +29,10 @@ class GenuineLayout extends React.Component {
       const filtedSiderMenu = this.filterMenu(siderMenu)
 
       const currentRoute = this.getCurrentRoute(_siderMenu, location.pathname)
-      const _currentMenu = this.getCurrentRoute(filtedSiderMenu, location.pathname)
+      const _currentMenu = this.getCurrentRoute(
+        filtedSiderMenu,
+        location.pathname
+      )
       const activeSiderMenu =
         (_currentMenu && _currentMenu.id) ||
         (currentRoute &&
@@ -42,7 +45,7 @@ class GenuineLayout extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate (prevProps, prevState) {
     if (!_.isEqual(prevProps.menu, this.props.menu)) {
       const { menu, history, location } = this.props
       this.handleMenuChange(location, menu, history)
@@ -55,7 +58,10 @@ class GenuineLayout extends React.Component {
     const filtedSiderMenu = this.filterMenu(siderMenu)
 
     const currentRoute = this.getCurrentRoute(_siderMenu, location.pathname)
-    const _currentMenu = this.getCurrentRoute(filtedSiderMenu, location.pathname)
+    const _currentMenu = this.getCurrentRoute(
+      filtedSiderMenu,
+      location.pathname
+    )
     const activeSiderMenu =
       (_currentMenu && _currentMenu.id) ||
       (currentRoute &&
@@ -155,6 +161,9 @@ class GenuineLayout extends React.Component {
   }
   getFirstChild = (arr, result = []) => {
     result.push(arr[0].id)
+    if (arr[0].pathname || arr[0].path) {
+      return result
+    }
     if (arr[0].children) {
       this.getFirstChild(arr[0].children, result)
     }
@@ -191,8 +200,14 @@ class GenuineLayout extends React.Component {
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
   }
-  render() {
-    const { activeSiderMenu, siderMenu, routes, mini, filtedSiderMenu } = this.state
+  render () {
+    const {
+      activeSiderMenu,
+      siderMenu,
+      routes,
+      mini,
+      filtedSiderMenu
+    } = this.state
     const {
       location,
       history,
@@ -249,7 +264,9 @@ class GenuineLayout extends React.Component {
                 <Route
                   key={index}
                   path={route.path}
-                  render={(props) => <route.component {...props} extraData={route.extraData} />}
+                  render={(props) => (
+                    <route.component {...props} extraData={route.extraData} />
+                  )}
                   exact={!!route.exact}
                 />
               ))}

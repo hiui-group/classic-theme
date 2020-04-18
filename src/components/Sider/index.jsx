@@ -22,7 +22,11 @@ class Sider extends Component {
     } = this.props
     return (
       <div className={ClassNames('hi-theme__sider', color)}>
-        {logo && <div className={ClassNames('sider__logo', { mini: mini })}>{logo}</div>}
+        {logo && (
+          <div className={ClassNames('sider__logo', { mini: mini })}>
+            {logo}
+          </div>
+        )}
         {siderTopRender && siderTopRender(mini)}
         {siderMenu.length > 0 && (
           <Menu
@@ -42,10 +46,12 @@ class Sider extends Component {
             onClickSubMenu={(indexArr) => {
               let _menu
               indexArr.forEach((idx) => {
-                console.log(3333, _menu || siderMenu, (_menu || siderMenu)[idx])
-                _menu = (_menu || siderMenu)[idx]
+                if (_menu) {
+                  _menu = _menu.children[idx]
+                } else {
+                  _menu = siderMenu[idx]
+                }
               })
-              console.log('_menu', _menu, indexArr)
               if (_menu.component) {
                 setSiderMenu(_menu.id)
                 const navTo = getInitNav(siderMenu, _menu.id)
