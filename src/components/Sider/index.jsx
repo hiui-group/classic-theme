@@ -4,6 +4,7 @@ import ClassNames from 'classnames'
 import './style/index.scss'
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 class Sider extends Component {
+  getMenuByIdx = (arr, parent) => {}
   render () {
     const {
       siderMenu,
@@ -21,7 +22,11 @@ class Sider extends Component {
     } = this.props
     return (
       <div className={ClassNames('hi-theme__sider', color)}>
-        {logo && <div className={ClassNames('sider__logo', { mini: mini })}>{logo}</div>}
+        {logo && (
+          <div className={ClassNames('sider__logo', { mini: mini })}>
+            {logo}
+          </div>
+        )}
         {siderTopRender && siderTopRender(mini)}
         {siderMenu.length > 0 && (
           <Menu
@@ -36,6 +41,25 @@ class Sider extends Component {
                 window.open(navTo.pathname, navTo.target || '_blank')
               } else {
                 history.push(navTo.pathname)
+              }
+            }}
+            onClickSubMenu={(indexArr) => {
+              let _menu
+              indexArr.forEach((idx) => {
+                if (_menu) {
+                  _menu = _menu.children[idx]
+                } else {
+                  _menu = siderMenu[idx]
+                }
+              })
+              if (_menu.component) {
+                setSiderMenu(_menu.id)
+                const navTo = getInitNav(siderMenu, _menu.id)
+                if (navTo.pathname.match(reg)) {
+                  window.open(navTo.pathname, navTo.target || '_blank')
+                } else {
+                  history.push(navTo.pathname)
+                }
               }
             }}
             data={siderMenu}

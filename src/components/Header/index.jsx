@@ -6,34 +6,16 @@ import './style/index'
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
 class Header extends Component {
-  render () {
-    const {
-      mainMenu,
-      activeMainMenu,
-      logo,
-      login,
-      setMainMenu,
-      color,
-      toolbar,
-      mini
-    } = this.props
+  render() {
+    const { mainMenu, activeMainMenu, logo, login, setMainMenu, color, toolbar, mini } = this.props
 
     return (
-      <div
-        className={ClassNames(
-          'hi-theme__header',
-          { 'hi-theme__header--mini': mini },
-          color
-        )}
-      >
+      <div className={ClassNames('hi-theme__header', { 'hi-theme__header--mini': mini }, color)}>
         {logo && <div className='hi-theme__logo'>{logo}</div>}
 
         {mainMenu && (
-          <ul
-            className='hi-theme__menu'
-            style={{ flex: toolbar ? '0 0 auto' : 1 }}
-          >
-            {mainMenu.map(menu => (
+          <ul className='hi-theme__menu' style={{ flex: toolbar ? '0 0 auto' : 1 }}>
+            {mainMenu.map((menu) => (
               <li
                 key={menu.id}
                 className={ClassNames('main-menu-item', {
@@ -42,16 +24,12 @@ class Header extends Component {
               >
                 {menu.pathname.match(reg) ? (
                   <a href={menu.pathname} target={menu.target || '_blank'}>
-                    {menu.icon && (
-                      <Icon name={menu.icon} style={{ marginRight: 4 }} />
-                    )}
+                    {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
                     {menu.content}
                   </a>
                 ) : (
-                  <Link to={menu.pathname} onClick={() => setMainMenu(menu.id)}>
-                    {menu.icon && (
-                      <Icon name={menu.icon} style={{ marginRight: 4 }} />
-                    )}
+                  <Link to={menu.pathname} onClick={() => setMainMenu(menu.id, menu.component)}>
+                    {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
                     {menu.content}
                   </Link>
                 )}

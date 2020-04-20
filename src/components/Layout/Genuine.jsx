@@ -29,7 +29,10 @@ class GenuineLayout extends React.Component {
       const filtedSiderMenu = this.filterMenu(siderMenu)
 
       const currentRoute = this.getCurrentRoute(_siderMenu, location.pathname)
-      const _currentMenu = this.getCurrentRoute(filtedSiderMenu, location.pathname)
+      const _currentMenu = this.getCurrentRoute(
+        filtedSiderMenu,
+        location.pathname
+      )
       const activeSiderMenu =
         (_currentMenu && _currentMenu.id) ||
         (currentRoute &&
@@ -55,7 +58,10 @@ class GenuineLayout extends React.Component {
     const filtedSiderMenu = this.filterMenu(siderMenu)
 
     const currentRoute = this.getCurrentRoute(_siderMenu, location.pathname)
-    const _currentMenu = this.getCurrentRoute(filtedSiderMenu, location.pathname)
+    const _currentMenu = this.getCurrentRoute(
+      filtedSiderMenu,
+      location.pathname
+    )
     const activeSiderMenu =
       (_currentMenu && _currentMenu.id) ||
       (currentRoute &&
@@ -83,7 +89,8 @@ class GenuineLayout extends React.Component {
         content: m.name,
         id: m.id,
         icon: m.icon,
-        target: m.target
+        target: m.target,
+        component: m.component
       }
       if (m.path) {
         _menu.pathname = m.path
@@ -154,6 +161,9 @@ class GenuineLayout extends React.Component {
   }
   getFirstChild = (arr, result = []) => {
     result.push(arr[0].id)
+    if (arr[0].pathname || arr[0].path) {
+      return result
+    }
     if (arr[0].children) {
       this.getFirstChild(arr[0].children, result)
     }
@@ -191,7 +201,13 @@ class GenuineLayout extends React.Component {
     this.setState({ mini: !this.state.mini })
   }
   render () {
-    const { activeSiderMenu, siderMenu, routes, mini, filtedSiderMenu } = this.state
+    const {
+      activeSiderMenu,
+      siderMenu,
+      routes,
+      mini,
+      filtedSiderMenu
+    } = this.state
     const {
       location,
       history,
@@ -248,7 +264,9 @@ class GenuineLayout extends React.Component {
                 <Route
                   key={index}
                   path={route.path}
-                  render={(props) => <route.component {...props} extraData={route.extraData} />}
+                  render={(props) => (
+                    <route.component {...props} extraData={route.extraData} />
+                  )}
                   exact={!!route.exact}
                 />
               ))}
