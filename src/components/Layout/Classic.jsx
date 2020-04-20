@@ -24,10 +24,8 @@ class ClassicLayout extends React.Component {
     const currentMenu = this.findMenu(location.pathname, menu)
     const ancestor = this.getAncestor(location.pathname, menu).reverse()
     const mainMenu = this.getMainMenu(menu)
-    const activeMainMenu =
-      (ancestor[0] && ancestor[0].id) ||
-      (currentMenu && currentMenu.id) ||
-      mainMenu[0].id
+    const activeMainMenuItem = ancestor[0] || currentMenu || mainMenu[0]
+    const activeMainMenu = activeMainMenuItem.id
     const siderMenu = this.getSiderMenu(menu, activeMainMenu)
     // 左侧菜单高亮逻辑：侧边栏能找到优先侧边栏，侧边栏找不到(主要是详情页的情况)，看其父层级在不在侧边栏，最后取默认第一个
     const activeSiderMenu =
@@ -36,6 +34,7 @@ class ClassicLayout extends React.Component {
         ? (this.findMenu(location.pathname, siderMenu) &&
             this.findMenu(location.pathname, siderMenu).id) ||
           (ancestor.length > 1 && ancestor[ancestor.length - 1].id) ||
+          (activeMainMenuItem.component && activeMainMenuItem.id) ||
           this.getDefaultActiveSiderMenu(siderMenu)
         : '')
     const routes = this.getRoutes(menu, [])
@@ -47,9 +46,10 @@ class ClassicLayout extends React.Component {
       routes
     })
     if (!currentMenu) {
-      const initNav = siderMenu.length
-        ? this.getInitNav(siderMenu, activeSiderMenu).pathname
-        : mainMenu.find((item) => item.id === activeMainMenu).pathname
+      const initNav =
+        mainMenu.find((item) => item.id === activeMainMenu).pathname ||
+        (this.getInitNav(siderMenu, activeSiderMenu) &&
+          this.getInitNav(siderMenu, activeSiderMenu).pathname)
       history.push(initNav)
     } else {
       history.push(location.pathname)
@@ -62,10 +62,8 @@ class ClassicLayout extends React.Component {
       const ancestor = this.getAncestor(location.pathname, menu).reverse()
 
       const mainMenu = this.getMainMenu(menu)
-      const activeMainMenu =
-        (ancestor[0] && ancestor[0].id) ||
-        (currentMenu && currentMenu.id) ||
-        mainMenu[0].id
+      const activeMainMenuItem = ancestor[0] || currentMenu || mainMenu[0]
+      const activeMainMenu = activeMainMenuItem.id
       const siderMenu = this.getSiderMenu(menu, activeMainMenu)
 
       const activeSiderMenu =
@@ -74,6 +72,7 @@ class ClassicLayout extends React.Component {
           ? (this.findMenu(location.pathname, siderMenu) &&
               this.findMenu(location.pathname, siderMenu).id) ||
             (ancestor.length > 1 && ancestor[ancestor.length - 1].id) ||
+            (activeMainMenuItem.component && activeMainMenuItem.id) ||
             this.getDefaultActiveSiderMenu(siderMenu, siderMenu)
           : '')
       const routes = this.getRoutes(menu, [])
@@ -187,8 +186,7 @@ class ClassicLayout extends React.Component {
             icon: m.icon,
             target: m.target,
             children:
-                (this.transformMenu(m.children).length > 0 &&
-                  this.transformMenu(m.children)) ||
+                (this.transformMenu(m.children).length > 0 && this.transformMenu(m.children)) ||
                 null,
             pathname: m.path,
             component: m.component
@@ -254,14 +252,7 @@ class ClassicLayout extends React.Component {
     this.setState({ mini: !this.state.mini })
   }
   render () {
-    const {
-      activeMainMenu,
-      activeSiderMenu,
-      mainMenu,
-      siderMenu,
-      routes,
-      mini
-    } = this.state
+    const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
 
     const {
       location,
@@ -315,9 +306,7 @@ class ClassicLayout extends React.Component {
                 key={index}
                 path={route.path}
                 exact={!!route.exact}
-                render={(props) => (
-                  <route.component {...props} extraData={route.extraData} />
-                )}
+                render={(props) => <route.component {...props} extraData={route.extraData} />}
               />
             ))}
           </div>
