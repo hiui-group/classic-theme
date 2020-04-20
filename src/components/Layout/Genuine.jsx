@@ -75,7 +75,7 @@ class GenuineLayout extends React.Component {
       const initNav = this.getInitNav(siderMenu, activeSiderMenu)
       history.push(initNav.pathname)
     } else {
-      history.push(location.pathname)
+      history.push(location.pathname + location.search)
     }
   }
   setSiderMenu = (activeSiderMenu) => {

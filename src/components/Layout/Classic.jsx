@@ -52,7 +52,7 @@ class ClassicLayout extends React.Component {
           this.getInitNav(siderMenu, activeSiderMenu).pathname)
       history.push(initNav)
     } else {
-      history.push(location.pathname)
+      history.push(location.pathname + location.search)
     }
   }
   componentWillReceiveProps (nextProps) {
