@@ -83,6 +83,15 @@ class ClassicLayout extends React.Component {
         activeSiderMenu,
         routes
       })
+      if (!currentMenu) {
+        const initNav =
+          mainMenu.find((item) => item.id === activeMainMenu).pathname ||
+          (this.getInitNav(siderMenu, activeSiderMenu) &&
+            this.getInitNav(siderMenu, activeSiderMenu).pathname)
+        this.props.history.push(initNav)
+      } else {
+        this.props.history.push(location.pathname)
+      }
     }
   }
   componentDidUpdate (prevProps, prevState) {
