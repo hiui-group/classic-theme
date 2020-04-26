@@ -22,7 +22,8 @@ class Theme extends Component {
       toolbar,
       siderTopRender,
       siderBottomRender,
-      accordion = true
+      accordion = true,
+      fallback
     } = this.props
     const Layout = layout[type]
     return (
@@ -41,6 +42,7 @@ class Theme extends Component {
               login={login && <Login {...login} />}
               header={header}
               accordion={accordion}
+              fallback={fallback}
               {...props}
             />
           )}

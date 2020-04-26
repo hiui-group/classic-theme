@@ -97,6 +97,7 @@ const SoundBox = () => (
   </div>
 )
 const Robot = () => <div>米家扫地机器人</div>
+const Fallback = () => <div>404</div>
 const RobotDetail = () => <div>米家扫地机器人详情页</div>
 const Iot = () => <div>iot</div>
 const XiaoAi = () => <div>xiaoai</div>
@@ -128,6 +129,10 @@ const config = [
       { name: '红米', path: '/red-mi', component: RedMi, withoutLayout: true },
       { name: '黑鲨', path: '/black-shark', component: BlackShark, extraData: { abc: 1 } }
     ]
+  },
+  {
+    path: '/404',
+    component: Fallback
   }
   // { name: '电视', path: '/tv', component: TV },
 ]
