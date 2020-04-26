@@ -17,10 +17,10 @@ class ClassicLayout extends React.Component {
   }
 
   componentDidMount () {
-    const { menu, history, location } = this.props
-    this.handleMenuChange(location, menu, history)
+    const { menu, history, location, fallback } = this.props
+    this.handleMenuChange(location, menu, history, fallback)
   }
-  handleMenuChange = (location, menu, history) => {
+  handleMenuChange = (location, menu, history, fallback) => {
     const currentMenu = this.findMenu(location.pathname, menu)
     const ancestor = this.getAncestor(location.pathname, menu).reverse()
     const mainMenu = this.getMainMenu(menu)
@@ -47,6 +47,7 @@ class ClassicLayout extends React.Component {
     })
     if (!currentMenu) {
       const initNav =
+        fallback ||
         mainMenu.find((item) => item.id === activeMainMenu).pathname ||
         (this.getInitNav(siderMenu, activeSiderMenu) &&
           this.getInitNav(siderMenu, activeSiderMenu).pathname)
@@ -57,7 +58,7 @@ class ClassicLayout extends React.Component {
   }
   componentWillReceiveProps (nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
-      const { location, menu } = nextProps
+      const { location, menu, fallback } = nextProps
       const currentMenu = this.findMenu(location.pathname, menu)
       const ancestor = this.getAncestor(location.pathname, menu).reverse()
 
@@ -85,6 +86,7 @@ class ClassicLayout extends React.Component {
       })
       if (!currentMenu) {
         const initNav =
+          fallback ||
           mainMenu.find((item) => item.id === activeMainMenu).pathname ||
           (this.getInitNav(siderMenu, activeSiderMenu) &&
             this.getInitNav(siderMenu, activeSiderMenu).pathname)

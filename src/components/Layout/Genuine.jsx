@@ -16,23 +16,20 @@ class GenuineLayout extends React.Component {
   }
 
   componentDidMount () {
-    const { menu, history, location } = this.props
-    this.handleMenuChange(location, menu, history)
+    const { menu, history, location, fallback } = this.props
+    this.handleMenuChange(location, menu, history, fallback)
   }
 
   componentWillReceiveProps (nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
-      const { location, menu } = nextProps
+      const { location, menu, fallback, history } = nextProps
       const siderMenu = this.getMenu(menu)
       const _siderMenu = this.getMenu(menu)
 
       const filtedSiderMenu = this.filterMenu(siderMenu)
 
       const currentRoute = this.getCurrentRoute(_siderMenu, location.pathname)
-      const _currentMenu = this.getCurrentRoute(
-        filtedSiderMenu,
-        location.pathname
-      )
+      const _currentMenu = this.getCurrentRoute(filtedSiderMenu, location.pathname)
       const activeSiderMenu =
         (_currentMenu && _currentMenu.id) ||
         (currentRoute &&
@@ -42,26 +39,29 @@ class GenuineLayout extends React.Component {
         this.getDefaultActiveSiderMenu(siderMenu)
       const routes = this.getRoutes(menu, [])
       this.setState({ siderMenu, activeSiderMenu, routes, filtedSiderMenu })
+      if (!currentRoute) {
+        const initNav = this.getInitNav(siderMenu, activeSiderMenu)
+        history.push(fallback || initNav.pathname)
+      } else {
+        history.push(location.pathname)
+      }
     }
   }
 
   componentDidUpdate (prevProps, prevState) {
     if (!_.isEqual(prevProps.menu, this.props.menu)) {
-      const { menu, history, location } = this.props
-      this.handleMenuChange(location, menu, history)
+      const { menu, history, location, fallback } = this.props
+      this.handleMenuChange(location, menu, history, fallback)
     }
   }
-  handleMenuChange = (location, menu, history) => {
+  handleMenuChange = (location, menu, history, fallback) => {
     const siderMenu = this.getMenu(menu)
     const _siderMenu = this.getMenu(menu)
 
     const filtedSiderMenu = this.filterMenu(siderMenu)
 
     const currentRoute = this.getCurrentRoute(_siderMenu, location.pathname)
-    const _currentMenu = this.getCurrentRoute(
-      filtedSiderMenu,
-      location.pathname
-    )
+    const _currentMenu = this.getCurrentRoute(filtedSiderMenu, location.pathname)
     const activeSiderMenu =
       (_currentMenu && _currentMenu.id) ||
       (currentRoute &&
@@ -73,7 +73,7 @@ class GenuineLayout extends React.Component {
     this.setState({ siderMenu, activeSiderMenu, routes, filtedSiderMenu })
     if (!currentRoute) {
       const initNav = this.getInitNav(siderMenu, activeSiderMenu)
-      history.push(initNav.pathname)
+      history.push(fallback || initNav.pathname)
     } else {
       history.push(location.pathname)
     }
@@ -201,13 +201,7 @@ class GenuineLayout extends React.Component {
     this.setState({ mini: !this.state.mini })
   }
   render () {
-    const {
-      activeSiderMenu,
-      siderMenu,
-      routes,
-      mini,
-      filtedSiderMenu
-    } = this.state
+    const { activeSiderMenu, siderMenu, routes, mini, filtedSiderMenu } = this.state
     const {
       location,
       history,
@@ -264,9 +258,7 @@ class GenuineLayout extends React.Component {
                 <Route
                   key={index}
                   path={route.path}
-                  render={(props) => (
-                    <route.component {...props} extraData={route.extraData} />
-                  )}
+                  render={(props) => <route.component {...props} extraData={route.extraData} />}
                   exact={!!route.exact}
                 />
               ))}
