@@ -16,7 +16,7 @@ class ClassicLayout extends React.Component {
     mini: false
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { menu, history, location, fallback } = this.props
     this.handleMenuChange(location, menu, history, fallback)
   }
@@ -53,10 +53,10 @@ class ClassicLayout extends React.Component {
           this.getInitNav(siderMenu, activeSiderMenu).pathname)
       history.push(initNav)
     } else {
-      history.push(location.pathname + location.search)
+      // history.push(location.pathname + location.search)
     }
   }
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
       const { location, menu, fallback } = nextProps
       const currentMenu = this.findMenu(location.pathname, menu)
@@ -92,11 +92,11 @@ class ClassicLayout extends React.Component {
             this.getInitNav(siderMenu, activeSiderMenu).pathname)
         this.props.history.push(initNav)
       } else {
-        this.props.history.push(location.pathname)
+        // this.props.history.push(location.pathname)
       }
     }
   }
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const { menu, history, location } = this.props
     if (!_.isEqual(prevProps.menu, this.props.menu)) {
       this.handleMenuChange(location, menu, history)
@@ -192,23 +192,23 @@ class ClassicLayout extends React.Component {
       .map((m) => {
         return m.children
           ? {
-            content: m.name,
-            id: m.id,
-            icon: m.icon,
-            target: m.target,
-            children:
+              content: m.name,
+              id: m.id,
+              icon: m.icon,
+              target: m.target,
+              children:
                 (this.transformMenu(m.children).length > 0 && this.transformMenu(m.children)) ||
                 null,
-            pathname: m.path,
-            component: m.component
-          }
+              pathname: m.path,
+              component: m.component
+            }
           : {
-            content: m.name,
-            id: m.id,
-            icon: m.icon,
-            pathname: m.path,
-            target: m.target
-          }
+              content: m.name,
+              id: m.id,
+              icon: m.icon,
+              pathname: m.path,
+              target: m.target
+            }
       })
       .filter((item) => item.content)
   }
@@ -262,7 +262,7 @@ class ClassicLayout extends React.Component {
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
   }
-  render () {
+  render() {
     const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
 
     const {

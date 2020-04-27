@@ -5,11 +5,16 @@ import layout from '../components/Layout'
 import Login from '../components/Login'
 import Logo from '../components/Logo'
 import { transformConfig } from '../util/common'
-const browserHistory = createBrowserHistory()
-const hashHistory = createHashHistory()
-export const history = { browserHistory, hashHistory }
+// const browserHistory = createBrowserHistory()
+// const hashHistory = createHashHistory()
+// export const history = { browserHistory, hashHistory }
 
 class Theme extends Component {
+  constructor (props) {
+    super(props)
+    this.hasHistory = false
+    this.history = { browserHistory: createBrowserHistory, hashHistory: createHashHistory }
+  }
   render () {
     const {
       historyType = 'browserHistory',
@@ -26,8 +31,11 @@ class Theme extends Component {
       fallback
     } = this.props
     const Layout = layout[type]
+    if (!this.hasHistory) {
+      this.hasHistory = this.history[historyType]()
+    }
     return (
-      <Router history={history[historyType]}>
+      <Router history={this.hasHistory}>
         <Route
           path='/'
           render={(props) => (
