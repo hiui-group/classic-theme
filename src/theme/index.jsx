@@ -5,9 +5,6 @@ import layout from '../components/Layout'
 import Login from '../components/Login'
 import Logo from '../components/Logo'
 import { transformConfig } from '../util/common'
-// const browserHistory = createBrowserHistory()
-// const hashHistory = createHashHistory()
-// export const history = { browserHistory, hashHistory }
 
 class Theme extends Component {
   constructor (props) {
