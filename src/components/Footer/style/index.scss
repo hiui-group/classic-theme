@@ -1,9 +1,7 @@
 @import '@hi-ui/core-css/index.scss';
 
-.footer {
+.hi-theme__footer {
   box-sizing: border-box;
-  padding: $spacer-4 $spacer-4;
-  // border-top: 1px solid $gray;
+  padding: 0;
   font-size: $font-size-small;
-  // background-color: $gray-lighter;
 }

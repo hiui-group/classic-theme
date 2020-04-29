@@ -25,7 +25,8 @@ class Theme extends Component {
       siderTopRender,
       siderBottomRender,
       accordion = true,
-      fallback
+      fallback,
+      footer
     } = this.props
     const Layout = layout[type]
     if (!this.hasHistory) {
@@ -41,6 +42,7 @@ class Theme extends Component {
               siderTopRender={siderTopRender}
               siderBottomRender={siderBottomRender}
               toolbar={toolbar}
+              footer={footer}
               type={type}
               apperance={apperance}
               logo={logo && <Logo {...logo} />}

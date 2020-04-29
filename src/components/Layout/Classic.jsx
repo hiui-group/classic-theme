@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom'
 import { matchPath } from 'react-router'
 import _ from 'lodash'
 import './style/index'
+import Footer from '../Footer'
 
 class ClassicLayout extends React.Component {
   state = {
@@ -16,7 +17,7 @@ class ClassicLayout extends React.Component {
     mini: false
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const { menu, history, location, fallback } = this.props
     this.handleMenuChange(location, menu, history, fallback)
   }
@@ -52,11 +53,9 @@ class ClassicLayout extends React.Component {
         (this.getInitNav(siderMenu, activeSiderMenu) &&
           this.getInitNav(siderMenu, activeSiderMenu).pathname)
       history.push(initNav)
-    } else {
-      // history.push(location.pathname + location.search)
     }
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
       const { location, menu, fallback } = nextProps
       const currentMenu = this.findMenu(location.pathname, menu)
@@ -96,7 +95,7 @@ class ClassicLayout extends React.Component {
       }
     }
   }
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate (prevProps, prevState) {
     const { menu, history, location } = this.props
     if (!_.isEqual(prevProps.menu, this.props.menu)) {
       this.handleMenuChange(location, menu, history)
@@ -192,23 +191,23 @@ class ClassicLayout extends React.Component {
       .map((m) => {
         return m.children
           ? {
-              content: m.name,
-              id: m.id,
-              icon: m.icon,
-              target: m.target,
-              children:
+            content: m.name,
+            id: m.id,
+            icon: m.icon,
+            target: m.target,
+            children:
                 (this.transformMenu(m.children).length > 0 && this.transformMenu(m.children)) ||
                 null,
-              pathname: m.path,
-              component: m.component
-            }
+            pathname: m.path,
+            component: m.component
+          }
           : {
-              content: m.name,
-              id: m.id,
-              icon: m.icon,
-              pathname: m.path,
-              target: m.target
-            }
+            content: m.name,
+            id: m.id,
+            icon: m.icon,
+            pathname: m.path,
+            target: m.target
+          }
       })
       .filter((item) => item.content)
   }
@@ -262,7 +261,7 @@ class ClassicLayout extends React.Component {
   miniToggle = () => {
     this.setState({ mini: !this.state.mini })
   }
-  render() {
+  render () {
     const { activeMainMenu, activeSiderMenu, mainMenu, siderMenu, routes, mini } = this.state
 
     const {
@@ -274,7 +273,8 @@ class ClassicLayout extends React.Component {
       toolbar,
       siderTopRender,
       siderBottomRender,
-      accordion
+      accordion,
+      footer
     } = this.props
     const currentRoute = this.findMenu(location.pathname, routes)
     const isWithoutLayout = currentRoute && currentRoute.withoutLayout
@@ -311,15 +311,18 @@ class ClassicLayout extends React.Component {
               accordion={accordion}
             />
           )}
-          <div className='hi-theme__content'>
-            {routes.map((route, index) => (
-              <Route
-                key={index}
-                path={route.path}
-                exact={!!route.exact}
-                render={(props) => <route.component {...props} extraData={route.extraData} />}
-              />
-            ))}
+          <div className='hi-theme__wrapper'>
+            <div className='hi-theme__content'>
+              {routes.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  exact={!!route.exact}
+                  render={(props) => <route.component {...props} extraData={route.extraData} />}
+                />
+              ))}
+            </div>
+            {footer && <Footer footer={footer} />}
           </div>
         </div>
       )) || (
