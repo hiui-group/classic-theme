@@ -10,11 +10,15 @@ class Theme extends Component {
   constructor (props) {
     super(props)
     this.hasHistory = false
-    this.history = { browserHistory: createBrowserHistory, hashHistory: createHashHistory }
+    this.history = {
+      browserHistory: createBrowserHistory,
+      hashHistory: createHashHistory
+    }
   }
   render () {
     const {
       historyType = 'browserHistory',
+      basename = '/',
       routes = [],
       type = 'classic',
       apperance = { color: 'dark' },
@@ -30,7 +34,7 @@ class Theme extends Component {
     } = this.props
     const Layout = layout[type]
     if (!this.hasHistory) {
-      this.hasHistory = this.history[historyType]()
+      this.hasHistory = this.history[historyType]({ basename })
     }
     return (
       <Router history={this.hasHistory}>
