@@ -5,7 +5,8 @@ import layout from '../components/Layout'
 import Login from '../components/Login'
 import Logo from '../components/Logo'
 import { transformConfig } from '../util/common'
-
+let _history = {}
+export const history = _history
 class Theme extends Component {
   constructor (props) {
     super(props)
@@ -35,6 +36,8 @@ class Theme extends Component {
     const Layout = layout[type]
     if (!this.hasHistory) {
       this.hasHistory = this.history[historyType]({ basename })
+
+      _history[historyType] = this.hasHistory
     }
     return (
       <Router history={this.hasHistory}>
