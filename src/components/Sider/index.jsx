@@ -29,11 +29,10 @@ const Sider = ({
               'menu__title--active':
                 selectedMenus && selectedMenus.map((sm) => sm.id).includes(m.id),
               'menu__leaf-title--active':
-                m.type === 'page' &&
                 m.id === selectedMenus.map((sm) => sm.id)[selectedMenus.length - 1]
             })}
           >
-            {m.title}
+            {m.content}
             {m.children && m.children.length > 0 && <Icon name='up' />}
           </div>
           {m.children &&
@@ -47,7 +46,7 @@ const Sider = ({
     <div className={classNames('hi-theme__sider', color)}>
       {logo && <div className={classNames('sider__logo', { mini: mini })}>{logo}</div>}
       {siderTopRender && siderTopRender(mini)}
-      {siderMenu.length > 0 && renderChildren(siderMenu)}
+      {siderMenu.length > 0 && <div className='sider__menu'>{renderChildren(siderMenu)}</div>}
       {siderBottomRender && siderBottomRender(mini)}
       <div className='sider__footer'>
         <span

@@ -5,7 +5,8 @@ import { Input, Icon, Select } from '@hi-ui/hiui'
 import Table from '@mi/power-table'
 
 const logoConfig = {
-  logoUrl: 'https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05',
+  logoUrl:
+    'https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05',
   name: <span style={{ color: '#fff' }}>HIUI Theme</span>,
   url: 'https://xiaomi.github.io/hiui/#/'
 }
@@ -50,6 +51,7 @@ const toolbar2 = (
       clearable={false}
       style={{ width: 200 }}
       onChange={() => {
+        console.log('>>>>>', history)
         history.browserHistory.push('/cc')
       }}
       data={[
