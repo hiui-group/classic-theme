@@ -1,8 +1,9 @@
-import React from 'react'
-import Menu from './menu'
-import ClassNames from 'classnames'
+import React, { useCallback } from 'react'
+// import Menu from './menu'
+import classNames from 'classNames'
 import './style/index.scss'
-const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
+import { Icon } from '@hi-ui/hiui'
+// const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
 const Sider = ({
   siderMenu,
@@ -18,51 +19,39 @@ const Sider = ({
   color,
   accordion
 }) => {
+  const renderChildren = useCallback((menu, selectedMenus, level = 1) => {
+    return menu.map((m) => {
+      return (
+        <div className={'sider__menu-item'} key={m.id}>
+          <div
+            style={{ paddingLeft: level * 16 }}
+            className={classNames('menu__title', {
+              'menu__title--active':
+                selectedMenus && selectedMenus.map((sm) => sm.id).includes(m.id),
+              'menu__leaf-title--active':
+                m.type === 'page' &&
+                m.id === selectedMenus.map((sm) => sm.id)[selectedMenus.length - 1]
+            })}
+          >
+            {m.title}
+            {m.children && m.children.length > 0 && <Icon name='up' />}
+          </div>
+          {m.children &&
+            m.children.length > 0 &&
+            renderChildren(m.children, selectedMenus, level + 1)}
+        </div>
+      )
+    })
+  }, [])
   return (
-    <div className={ClassNames('hi-theme__sider', color)}>
-      {logo && <div className={ClassNames('sider__logo', { mini: mini })}>{logo}</div>}
+    <div className={classNames('hi-theme__sider', color)}>
+      {logo && <div className={classNames('sider__logo', { mini: mini })}>{logo}</div>}
       {siderTopRender && siderTopRender(mini)}
-      {siderMenu.length > 0 && (
-        <Menu
-          placement='vertical'
-          accordion={accordion}
-          collapsed={mini}
-          activeId={activeSiderMenu}
-          onClick={(id) => {
-            setSiderMenu(id)
-            const navTo = getInitNav(siderMenu, id)
-            if (navTo.pathname.match(reg)) {
-              window.open(navTo.pathname, navTo.target || '_blank')
-            } else {
-              history.push(navTo.pathname)
-            }
-          }}
-          onClickSubMenu={(indexArr) => {
-            let _menu
-            indexArr.forEach((idx) => {
-              if (_menu) {
-                _menu = _menu.children[idx]
-              } else {
-                _menu = siderMenu[idx]
-              }
-            })
-            if (_menu.component) {
-              setSiderMenu(_menu.id)
-              const navTo = getInitNav(siderMenu, _menu.id)
-              if (navTo.pathname.match(reg)) {
-                window.open(navTo.pathname, navTo.target || '_blank')
-              } else {
-                history.push(navTo.pathname)
-              }
-            }
-          }}
-          data={siderMenu}
-        />
-      )}
+      {siderMenu.length > 0 && renderChildren(siderMenu)}
       {siderBottomRender && siderBottomRender(mini)}
       <div className='sider__footer'>
         <span
-          className={ClassNames('sider__footer__toggle', {
+          className={classNames('sider__footer__toggle', {
             'sider__footer__toggle--light': color === 'dark'
           })}
           onClick={miniToggle}

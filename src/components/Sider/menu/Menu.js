@@ -140,23 +140,6 @@ class Menu extends Component {
     return (activeMenus && activeMenus.join('-')) || ''
   }
 
-  toggleMini () {
-    const collapsed = !this.state.collapsed
-    const expandIndex = collapsed ? [] : this.state.expandIndex
-
-    setTimeout(() => {
-      this.setState(
-        {
-          collapsed,
-          expandIndex
-        },
-        () => {
-          this.props.onCollapse && this.props.onCollapse(collapsed)
-        }
-      )
-    }, 0)
-  }
-
   onClick (indexs, id, data) {
     const expandIndex = this.isNoMiniVertaicalMenu()
       ? this.state.expandIndex
@@ -252,14 +235,10 @@ class Menu extends Component {
     const cls = classNames('hi-menu', `theme__${theme}`, `hi-menu--${placement}`, {
       'hi-menu--mini': collapsed
     })
-    const miniIcon = <i className={`hi-icon icon-${collapsed ? 'Expand' : 'Collapse'}`} />
 
     return (
       <div className={cls}>
         <ul className='hi-menu-items'>{this.renderMenu(data)}</ul>
-        <div className='hi-menu--mini__toggle' onClick={this.toggleMini.bind(this)}>
-          {miniIcon}
-        </div>
       </div>
     )
   }
