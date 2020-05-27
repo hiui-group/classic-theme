@@ -9,7 +9,7 @@ const Sider = ({
   siderMenu,
   siderTopRender,
   siderBottomRender,
-  activeSiderMenu,
+  selectedMenus,
   logo,
   setSiderMenu,
   history,
@@ -29,10 +29,10 @@ const Sider = ({
               'menu__title--active':
                 selectedMenus && selectedMenus.map((sm) => sm.id).includes(m.id),
               'menu__leaf-title--active':
-                m.id === selectedMenus.map((sm) => sm.id)[selectedMenus.length - 1]
+                m.id === selectedMenus && selectedMenus.map((sm) => sm.id)[selectedMenus.length - 1]
             })}
           >
-            {m.content}
+            {m.name}
             {m.children && m.children.length > 0 && <Icon name='up' />}
           </div>
           {m.children &&
@@ -46,7 +46,9 @@ const Sider = ({
     <div className={classNames('hi-theme__sider', color)}>
       {logo && <div className={classNames('sider__logo', { mini: mini })}>{logo}</div>}
       {siderTopRender && siderTopRender(mini)}
-      {siderMenu.length > 0 && <div className='sider__menu'>{renderChildren(siderMenu)}</div>}
+      {siderMenu.length > 0 && (
+        <div className='sider__menu'>{renderChildren(siderMenu, selectedMenus)}</div>
+      )}
       {siderBottomRender && siderBottomRender(mini)}
       <div className='sider__footer'>
         <span

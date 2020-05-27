@@ -16,16 +16,16 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, setMainMenu, color, too
             <li
               key={menu.id}
               className={ClassNames('main-menu-item', {
-                'active-main-menu': menu.id === activeMainMenu
+                'active-main-menu': menu.id === activeMainMenu.id
               })}
             >
-              {menu.pathname.match(reg) ? (
-                <a href={menu.pathname} target={menu.target || '_blank'}>
+              {menu.path.match(reg) ? (
+                <a href={menu.path} target={menu.target || '_blank'}>
                   {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
                   {menu.content}
                 </a>
               ) : (
-                <Link to={menu.pathname} onClick={() => setMainMenu(menu.id, menu.component)}>
+                <Link to={menu.path} onClick={() => setMainMenu(menu.id, menu.component)}>
                   {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
                   {menu.content}
                 </Link>

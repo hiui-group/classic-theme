@@ -17,7 +17,8 @@ const useMainMenu = (menu) => {
         icon: m.icon,
         target: m.target,
         path: getMainMenuPath(m) || '',
-        component: m.component
+        component: m.component,
+        children: m.children
       }
     })
   }, [])
