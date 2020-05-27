@@ -65,3 +65,26 @@ export const getAncestor = (path, data, arr = []) => {
   }
   return arr
 }
+// 寻找默认需要高亮的菜单
+export const getDefaultActiveMenu = (menu, idx = 0) => {
+  if (menu[idx] && menu[idx].path) {
+    return menu[idx]
+  } else if (menu[idx] && menu[idx].children) {
+    return getDefaultActiveMenu(menu[idx].children)
+  } else {
+    return getDefaultActiveMenu(menu, idx + 1)
+  }
+}
+
+// 根据菜单筛选出路由项
+export const getRoutes = (menu, routes = []) => {
+  menu.forEach((item) => {
+    if (item.component) {
+      routes.push(item)
+    }
+    if (item.children) {
+      getRoutes(item.children, routes)
+    }
+  })
+  return routes
+}

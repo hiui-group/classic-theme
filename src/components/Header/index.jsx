@@ -22,12 +22,12 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, setMainMenu, color, too
               {menu.path.match(reg) ? (
                 <a href={menu.path} target={menu.target || '_blank'}>
                   {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
-                  {menu.content}
+                  {menu.name}
                 </a>
               ) : (
                 <Link to={menu.path} onClick={() => setMainMenu(menu.id, menu.component)}>
                   {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
-                  {menu.content}
+                  {menu.name}
                 </Link>
               )}
             </li>

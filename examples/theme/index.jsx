@@ -5,8 +5,7 @@ import { Input, Icon, Select } from '@hi-ui/hiui'
 import Table from '@mi/power-table'
 
 const logoConfig = {
-  logoUrl:
-    'https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05',
+  logoUrl: 'https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05',
   name: <span style={{ color: '#fff' }}>HIUI Theme</span>,
   url: 'https://xiaomi.github.io/hiui/#/'
 }
@@ -83,9 +82,9 @@ class App extends Component {
         logo={logoConfig}
         siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
         login={loginConfig}
-        type='classic'
+        // type='classic'
         // header={null}
-        // type='genuine'
+        type='genuine'
         accordion={false}
         toolbar={toolbar2}
       />

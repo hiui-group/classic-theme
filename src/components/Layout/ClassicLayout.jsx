@@ -5,28 +5,7 @@ import { Route } from 'react-router-dom'
 import './style/index'
 import Footer from '../Footer'
 import useMainMenu from '../../hooks/useMainMenu'
-import { findMenu, getAncestor } from '../../util/common'
-
-const getDefaultActiveMenu = (menu, idx = 0) => {
-  if (menu[idx] && menu[idx].path) {
-    return menu[idx]
-  } else if (menu[idx] && menu[idx].children) {
-    return getDefaultActiveMenu(menu[idx].children)
-  } else {
-    return getDefaultActiveMenu(menu, idx + 1)
-  }
-}
-const getRoutes = (menu, routes = []) => {
-  menu.forEach((item) => {
-    if (item.component) {
-      routes.push(item)
-    }
-    if (item.children) {
-      getRoutes(item.children, routes)
-    }
-  })
-  return routes
-}
+import { findMenu, getAncestor, getDefaultActiveMenu, getRoutes } from '../../util/common'
 
 const ClassicLayout = ({
   menu,
@@ -46,6 +25,7 @@ const ClassicLayout = ({
     findMenu(location.pathname, menu) || findMenu(fallback, menu) || getDefaultActiveMenu(menu)
   const selectedMenus = getAncestor(currentMenu.path, menu).reverse().concat(currentMenu)
   const activeMainMenu = selectedMenus[0]
+  // TODO: siderMenu 需要过滤没有 name 的
   const siderMenu = selectedMenus[0].children || []
   const routes = getRoutes(menu)
   return [
