@@ -80,11 +80,11 @@ class App extends Component {
         // routes={this.state.routeConfig}
         routes={_routeConfig}
         logo={logoConfig}
-        siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
+        // siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
         login={loginConfig}
         type='classic'
         // header={null}
-        // type='genuine'
+        type='genuine'
         accordion={false}
         toolbar={toolbar2}
       />

@@ -7,6 +7,15 @@ import Footer from '../Footer'
 import useMainMenu from '../../hooks/useMainMenu'
 import { findMenu, getAncestor, getDefaultActiveMenu, getRoutes } from '../../util/common'
 
+const filterMenu = (menu) => {
+  return menu.filter((item) => {
+    if (item.children) {
+      item.children = (filterMenu(item.children).length > 0 && filterMenu(item.children)) || null
+    }
+    return item.name
+  })
+}
+
 const ClassicLayout = ({
   menu,
   location,
@@ -46,7 +55,7 @@ const ClassicLayout = ({
       <div key='container' className='hi-theme--classic'>
         {siderMenu.length > 0 && (
           <Sider
-            siderMenu={siderMenu}
+            siderMenu={filterMenu(siderMenu)}
             siderTopRender={siderTopRender}
             siderBottomRender={siderBottomRender}
             selectedMenus={selectedMenus}

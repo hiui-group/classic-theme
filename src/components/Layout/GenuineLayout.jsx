@@ -45,7 +45,6 @@ const GenuineLayout = ({
     />
   )
   const routes = getRoutes(menu)
-  // TODO: siderMenu 需要过滤没有 name 的
   return [
     (!isWithoutLayout && (
       <div key='container' className='hi-theme--genuine'>
