@@ -2,27 +2,18 @@
   display: flex;
   flex-direction: column;
   width: 216px;
+  transition: width 0.3s;
+  overflow: hidden;
 
-  &.dark {
-    .hi-menu--vertical {
-      background-color: #393d46;
-    }
-
-    .hi-menu__title {
-      color: #fff;
-    }
-
-    .sider__footer,
-    .sider__logo {
-      background-color: #393d46;
-      color: #fff;
-    }
+  &--mini {
+    width: 48px;
   }
 
   .sider__menu {
     flex: 1;
     padding: 16px 0;
     box-sizing: border-box;
+    overflow: auto;
 
     .menu__title {
       height: 48px;
@@ -30,12 +21,30 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: color 0.3s;
+      overflow: hidden;
+
+      &:hover {
+        color: #4284f5;
+      }
+
+      &--active {
+        color: #4284f5;
+      }
+    }
+
+    .menu__leaf-title--active {
+      background: #2e343d;
+      color: #4284f5;
     }
   }
 
   .sider__logo {
-    height: 64px;
+    height: 200px;
     display: flex;
+    transition: height 0.3s;
 
     .hi-logo {
       flex: 1;
@@ -45,7 +54,9 @@
         flex: 1;
         align-items: center;
         display: flex;
+        flex-direction: column;
         padding: 0 16px;
+        justify-content: center;
       }
 
       .hi-logo__img {
@@ -75,47 +86,27 @@
   }
 
   .sider__footer {
-    height: 48px;
-    text-align: right;
+    height: 56px;
+    line-height: 56px;
     position: relative;
+    padding: 0 16px;
+    transition: height 0.3s;
+    display: flex;
 
-    &__toggle {
-      cursor: pointer;
+    & > .hi-icon {
       width: 16px;
-      height: 16px;
-      position: absolute;
-      right: 16px;
-      bottom: 10px;
-      background: url('../../../static/image/menu.png') no-repeat;
-      background-size: cover;
-    }
-
-    &__toggle--light {
-      background: url('../../../static/image/menu-light.png') no-repeat;
-      background-size: cover;
+      cursor: pointer;
     }
   }
 
-  .hi-menu--vertical {
-    box-shadow: none;
-    border: none;
+  .login__wrapper {
+    display: inline-block;
     flex: 1;
-    overflow-y: auto;
-  }
+    text-align: right;
+    overflow: hidden;
 
-  .hi-menu-item--active:not(.hi-submenu) {
-    background: rgba(66, 133, 244, 0.08);
-    position: relative;
-
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      content: '';
-      transition: width 0.3s linear;
-      width: 4px;
-      background: #4285f4;
+    & > .hi-icon {
+      margin-right: 6px;
     }
   }
 

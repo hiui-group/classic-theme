@@ -35,7 +35,6 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, setMainMenu, color, too
         </ul>
       )}
       {toolbar && <div className='hi-theme__toolbar'>{toolbar}</div>}
-      {login && <div className='hi-theme__login'>{login}</div>}
     </div>
   )
 }

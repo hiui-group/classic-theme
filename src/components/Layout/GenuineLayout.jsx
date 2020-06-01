@@ -7,6 +7,15 @@ import ClassNames from 'classnames'
 import './style/index'
 import { findMenu, getAncestor, getDefaultActiveMenu, getRoutes } from '../../util/common'
 
+const filterMenu = (menu) => {
+  return menu.filter((item) => {
+    if (item.children) {
+      item.children = (filterMenu(item.children).length > 0 && filterMenu(item.children)) || null
+    }
+    return item.name
+  })
+}
+
 const GenuineLayout = ({
   menu,
   location,
@@ -30,7 +39,7 @@ const GenuineLayout = ({
       location={location}
       history={history}
       color='light'
-      login={login}
+      // login={login}
       // mini={mini}
       toolbar={toolbar}
     />
@@ -42,7 +51,7 @@ const GenuineLayout = ({
       <div key='container' className='hi-theme--genuine'>
         {menu.length > 0 && (
           <Sider
-            siderMenu={menu}
+            siderMenu={filterMenu(menu)}
             selectedMenus={selectedMenus}
             // setSiderMenu={this.setSiderMenu}
             location={location}
@@ -52,6 +61,7 @@ const GenuineLayout = ({
             // mini={mini}
             // miniToggle={this.miniToggle}
             // color={apperance.color}
+            login={login}
             siderTopRender={siderTopRender}
             siderBottomRender={siderBottomRender}
             logo={logo}
