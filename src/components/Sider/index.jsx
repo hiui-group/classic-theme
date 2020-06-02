@@ -22,38 +22,70 @@ const Sider = ({
 }) => {
   const [mini, toggleMini] = useState(false)
   const [expandedId, setExpandedId] = useState([])
-  const [visiblePopper, setVisiblePopper] = useState(null)
+  const [popperVisible, setPopperVisible] = useState(null)
+  const [tooltipVisible, setTooltipVisible] = useState(null)
 
   useEffect(() => {
     setExpandedId(selectedMenus.map((sm) => sm.id))
   }, [])
 
-  const renderMiniChildren = (menu, selectedMenus) => {
-    return menu.map((m) => {
-      return (
-        <div className={'sider__menu-item'} key={m.id}
-          onMouseEnter={() => {
-            setVisiblePopper(m.id)
-          }}
-          onClick={() => {
-            setVisiblePopper(null)
-          }}
-        >
-          <Tooltip title={m.name} placement='right' visible={visiblePopper === m.id}>
-            <PopperMenu menu={m} selectedMenus={selectedMenus} />
-          </Tooltip>
-        </div>
-      )
-    })
-  }
-  const renderChildren = useCallback(
-    (menu, selectedMenus, level = 1, expandedId) => {
+  const renderMiniChildren = useCallback(
+    (menu, selectedMenus) => {
       return menu.map((m) => {
-        return (<NormalMenu key={m.id} menu={m} setExpandedId={setExpandedId} expandedId={expandedId} level={level} selectedMenus={selectedMenus} renderChildren={renderChildren} />)
+        return (
+          <div
+            className={'sider__menu-item'}
+            key={m.id}
+            onMouseEnter={() => {
+              setTooltipVisible(m.id)
+            }}
+            onMouseLeave={() => {
+              setTooltipVisible(null)
+            }}
+            onClick={() => {
+              if (popperVisible !== m.id) {
+                setTooltipVisible(null)
+                setPopperVisible(m.id)
+              } else {
+                setTooltipVisible(m.id)
+                setPopperVisible(null)
+              }
+            }}
+          >
+            <Tooltip
+              title={m.name}
+              placement='right'
+              visible={tooltipVisible === m.id && popperVisible !== m.id}
+            >
+              <PopperMenu
+                menu={m}
+                selectedMenus={selectedMenus}
+                visible={popperVisible === m.id}
+                setPopperVisible={setPopperVisible}
+              />
+            </Tooltip>
+          </div>
+        )
       })
     },
-    []
+    [tooltipVisible]
   )
+  const renderChildren = useCallback((menu, selectedMenus, level = 1, expandedId) => {
+    return menu.map((m) => {
+      return (
+        <NormalMenu
+          key={m.id}
+          menu={m}
+          setExpandedId={setExpandedId}
+          expandedId={expandedId}
+          level={level}
+          selectedMenus={selectedMenus}
+          renderChildren={renderChildren}
+        />
+      )
+    })
+  }, [])
+
   return (
     <div className={classNames('hi-theme__sider', { 'hi-theme__sider--mini': mini })}>
       {logo && <div className={classNames('sider__logo', { mini: mini })}>{logo}</div>}

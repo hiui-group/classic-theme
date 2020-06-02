@@ -9,8 +9,10 @@ ul {
   transition: height 0.3s;
 }
 .mini-sider__menu {
-  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
   border-radius: 2px;
+  min-width: 160px;
+  background: #fff;
   &-item {
     position: relative;
     .menu-item__title {
@@ -44,6 +46,10 @@ ul {
     padding: 16px 0;
     box-sizing: border-box;
     overflow: auto;
+
+    .hi-tooltip {
+      width: 100%;
+    }
 
     .menu__title {
       height: 48px;
@@ -93,7 +99,6 @@ ul {
         margin-right: 10px;
       }
     }
-
     &.mini {
       width: 48px;
 

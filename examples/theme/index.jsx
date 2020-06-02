@@ -74,7 +74,7 @@ class App extends Component {
   //     this.setState({ routeConfig: _routeConfig })
   //   }, 2000)
   // }
-  render () {
+  render() {
     return (
       <Theme
         // routes={this.state.routeConfig}
@@ -84,7 +84,7 @@ class App extends Component {
         login={loginConfig}
         type='classic'
         // header={null}
-        type='genuine'
+        // type='genuine'
         accordion={false}
         toolbar={toolbar2}
       />
