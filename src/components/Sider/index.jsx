@@ -1,83 +1,11 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 // import Menu from './menu'
 import classNames from 'classnames'
 import './style/index.scss'
-import { Icon, Popper } from '@hi-ui/hiui'
+import { Icon, Tooltip } from '@hi-ui/hiui'
+import NormalMenu from './NormalMenu'
+import PopperMenu from './PopperMenu'
 // const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
-
-const PopperMenu = ({ menu, selectedMenus }) => {
-  const popperRef = useRef(null)
-  const [popperVisible, setPopperVisible] = useState(false)
-  const [visibleMenu, setVisibleMenu] = useState([])
-  console.log('VM', visibleMenu)
-  const renderPopChildren = useCallback(
-    (children, level = 0) => {
-      const _style = level === 0 ? {} : { position: 'absolute', left: '100%', top: 0 }
-
-      console.log(666, visibleMenu)
-      return (
-        <ul style={_style} className={'mini-sider__menu'}>
-          {children.map((subMenu) => (
-            <li
-              key={subMenu.id}
-              className={'mini-sider__menu-item'}
-              onMouseEnter={() => {
-                setVisibleMenu(visibleMenu.concat(subMenu.id))
-              }}
-              onMouseLeave={() => {
-                setVisibleMenu(visibleMenu.filter((vm) => vm !== subMenu.id))
-              }}
-            >
-              <div className='menu-item__title'>
-                {subMenu.name}
-                {subMenu.children && subMenu.children.length > 0 && <Icon name='right' />}
-              </div>
-              {subMenu.children &&
-                subMenu.children.length > 0 &&
-                visibleMenu.includes(subMenu.id) &&
-                renderPopChildren(subMenu.children, ++level)}
-            </li>
-          ))}
-        </ul>
-      )
-    },
-    [visibleMenu]
-  )
-
-  return (
-    <React.Fragment>
-      <div
-        ref={popperRef}
-        style={{ paddingLeft: 16 }}
-        className={classNames('menu__title', {
-          'menu__leaf-title--active':
-            selectedMenus &&
-            selectedMenus.map((sm) => sm.id).includes(menu.id) &&
-            menu.id !==
-              (selectedMenus && selectedMenus.map((sm) => sm.id)[selectedMenus.length - 1])
-        })}
-        // onMouseOut={() => setPopperVisible(false)}
-        onMouseOver={() => {
-          setPopperVisible(true)
-        }}
-      >
-        <span>
-          <Icon name={menu.icon || 'user'} />
-        </span>
-      </div>
-      <Popper
-        show
-        attachEle={popperRef.current}
-        zIndex={1050}
-        className='hi-theme__popper'
-        placement='right-start'
-        width={'auto'}
-      >
-        {renderPopChildren(menu.children)}
-      </Popper>
-    </React.Fragment>
-  )
-}
 
 const Sider = ({
   siderMenu,
@@ -94,6 +22,8 @@ const Sider = ({
 }) => {
   const [mini, toggleMini] = useState(false)
   const [expandedId, setExpandedId] = useState([])
+  const [visiblePopper, setVisiblePopper] = useState(null)
+
   useEffect(() => {
     setExpandedId(selectedMenus.map((sm) => sm.id))
   }, [])
@@ -101,8 +31,17 @@ const Sider = ({
   const renderMiniChildren = (menu, selectedMenus) => {
     return menu.map((m) => {
       return (
-        <div className={'sider__menu-item'} key={m.id}>
-          <PopperMenu menu={m} selectedMenus={selectedMenus} />
+        <div className={'sider__menu-item'} key={m.id}
+          onMouseEnter={() => {
+            setVisiblePopper(m.id)
+          }}
+          onClick={() => {
+            setVisiblePopper(null)
+          }}
+        >
+          <Tooltip title={m.name} placement='right' visible={visiblePopper === m.id}>
+            <PopperMenu menu={m} selectedMenus={selectedMenus} />
+          </Tooltip>
         </div>
       )
     })
@@ -110,47 +49,10 @@ const Sider = ({
   const renderChildren = useCallback(
     (menu, selectedMenus, level = 1, expandedId) => {
       return menu.map((m) => {
-        return (
-          <div className={'sider__menu-item'} key={m.id}>
-            <div
-              onClick={() => {
-                let _expandedId = [...expandedId]
-                if (_expandedId.includes(m.id)) {
-                  _expandedId = _expandedId.filter((id) => id !== m.id)
-                } else {
-                  _expandedId.push(m.id)
-                }
-                setExpandedId(_expandedId)
-              }}
-              style={{ paddingLeft: level * 16 }}
-              className={classNames('menu__title', {
-                'menu__title--active':
-                  selectedMenus &&
-                  selectedMenus.map((sm) => sm.id).includes(m.id) &&
-                  m.id !==
-                    (selectedMenus && selectedMenus.map((sm) => sm.id)[selectedMenus.length - 1]),
-                'menu__leaf-title--active':
-                  m.id ===
-                  (selectedMenus && selectedMenus.map((sm) => sm.id)[selectedMenus.length - 1])
-              })}
-            >
-              <span>
-                <Icon name={m.icon || 'user'} />
-                {mini === false && m.name}
-              </span>
-
-              {m.children && m.children.length > 0 && (
-                <Icon name={expandedId.includes(m.id) ? 'up' : 'down'} />
-              )}
-            </div>
-            {m.children && m.children.length > 0 && expandedId.includes(m.id) && (
-              <div>{renderChildren(m.children, selectedMenus, level + 1, expandedId)}</div>
-            )}
-          </div>
-        )
+        return (<NormalMenu key={m.id} menu={m} setExpandedId={setExpandedId} expandedId={expandedId} level={level} selectedMenus={selectedMenus} renderChildren={renderChildren} />)
       })
     },
-    [mini]
+    []
   )
   return (
     <div className={classNames('hi-theme__sider', { 'hi-theme__sider--mini': mini })}>
