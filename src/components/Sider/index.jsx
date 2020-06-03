@@ -14,11 +14,7 @@ const Sider = ({
   selectedMenus,
   logo,
   login,
-  setSiderMenu,
-  history,
-  getInitNav,
-  color,
-  accordion
+  onSelectMenu
 }) => {
   const [mini, toggleMini] = useState(false)
   const [expandedId, setExpandedId] = useState([])
@@ -81,6 +77,7 @@ const Sider = ({
           level={level}
           selectedMenus={selectedMenus}
           renderChildren={renderChildren}
+          onSelectMenu={onSelectMenu}
         />
       )
     })

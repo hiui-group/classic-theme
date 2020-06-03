@@ -1,11 +1,12 @@
-import React from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import Header from '../Header'
 import Sider from '../Sider'
 import Footer from '../Footer'
 import { Route } from 'react-router-dom'
 import ClassNames from 'classnames'
 import './style/index'
-import { findMenu, getAncestor, getDefaultActiveMenu, getRoutes } from '../../util/common'
+import { getRoutes } from '../../util/common'
+import useMenuCalculator from '../../hooks/useMenuCalculator'
 
 const filterMenu = (menu) => {
   return menu.filter((item) => {
@@ -30,17 +31,13 @@ const GenuineLayout = ({
   footer,
   header
 }) => {
-  const currentMenu =
-    findMenu(location.pathname, menu) || findMenu(fallback, menu) || getDefaultActiveMenu(menu)
-  const selectedMenus = getAncestor(currentMenu.path, menu).reverse().concat(currentMenu)
+  const {currentMenu, selectedMenus, onSelectMenu} = useMenuCalculator(menu, location, fallback)
+
   const _header = header === null || header || (
     <Header
-      // setMainMenu={this.setMainMenu}
       location={location}
       history={history}
       color='light'
-      // login={login}
-      // mini={mini}
       toolbar={toolbar}
     />
   )
@@ -52,14 +49,9 @@ const GenuineLayout = ({
           <Sider
             siderMenu={filterMenu(menu)}
             selectedMenus={selectedMenus}
-            // setSiderMenu={this.setSiderMenu}
-            location={location}
-            history={history}
+            onSelectMenu={onSelectMenu}
             // accordion={accordion}
             // getInitNav={this.getInitNav}
-            // mini={mini}
-            // miniToggle={this.miniToggle}
-            // color={apperance.color}
             login={login}
             siderTopRender={siderTopRender}
             siderBottomRender={siderBottomRender}

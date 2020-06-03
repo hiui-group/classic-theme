@@ -16,7 +16,7 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, setMainMenu, color, too
             <li
               key={menu.id}
               className={ClassNames('main-menu-item', {
-                'active-main-menu': menu.id === activeMainMenu.id
+                'active-main-menu': activeMainMenu && menu.id === activeMainMenu.id
               })}
             >
               {menu.path.match(reg) ? (
@@ -25,7 +25,7 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, setMainMenu, color, too
                   {menu.name}
                 </a>
               ) : (
-                <Link to={menu.path} onClick={() => setMainMenu(menu.id, menu.component)}>
+                <Link to={menu.path}>
                   {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
                   {menu.name}
                 </Link>

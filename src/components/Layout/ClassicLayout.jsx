@@ -6,6 +6,7 @@ import './style/index'
 import Footer from '../Footer'
 import useMainMenu from '../../hooks/useMainMenu'
 import { findMenu, getAncestor, getDefaultActiveMenu, getRoutes } from '../../util/common'
+import useMenuCalculator from '../../hooks/useMenuCalculator'
 
 const filterMenu = (menu) => {
   return menu.filter((item) => {
@@ -30,12 +31,10 @@ const ClassicLayout = ({
   footer
 }) => {
   const mainMenu = useMainMenu(menu)
-  const currentMenu =
-    findMenu(location.pathname, menu) || findMenu(fallback, menu) || getDefaultActiveMenu(menu)
-  const selectedMenus = getAncestor(currentMenu.path, menu).reverse().concat(currentMenu)
+  const {currentMenu, selectedMenus, onSelectMenu} = useMenuCalculator(menu, location, fallback)
+
   const activeMainMenu = selectedMenus[0]
-  // TODO: siderMenu 需要过滤没有 name 的
-  const siderMenu = selectedMenus[0].children || []
+  const siderMenu = (selectedMenus[0] && selectedMenus[0].children) || []
   const routes = getRoutes(menu)
   return [
     !isWithoutLayout && (
@@ -59,13 +58,8 @@ const ClassicLayout = ({
             siderTopRender={siderTopRender}
             siderBottomRender={siderBottomRender}
             selectedMenus={selectedMenus}
-            // setSiderMenu={this.setSiderMenu}
-            location={location}
-            history={history}
+            onSelectMenu={onSelectMenu}
             // getInitNav={this.getInitNav}
-            // mini={mini}
-            // miniToggle={this.miniToggle}
-            color='light'
             // accordion={accordion}
           />
         )}

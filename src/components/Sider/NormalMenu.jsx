@@ -4,7 +4,7 @@ import './style/index.scss'
 import { Icon } from '@hi-ui/hiui'
 import Expander from './Expander'
 
-const NormalMenu = ({expandedId, menu, setExpandedId, selectedMenus, level, renderChildren}) => {
+const NormalMenu = ({expandedId, menu, setExpandedId, selectedMenus, level, renderChildren, onSelectMenu}) => {
   const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
@@ -26,6 +26,9 @@ const NormalMenu = ({expandedId, menu, setExpandedId, selectedMenus, level, rend
         }
         setExpandedId(_expandedId)
         setExpanded(!expanded)
+        if (menu.path) {
+          onSelectMenu(menu)
+        }
       }}
       style={{ paddingLeft: level * 16 }}
       className={classNames('menu__title', {

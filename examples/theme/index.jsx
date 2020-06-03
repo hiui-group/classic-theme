@@ -74,7 +74,7 @@ class App extends Component {
   //     this.setState({ routeConfig: _routeConfig })
   //   }, 2000)
   // }
-  render() {
+  render () {
     return (
       <Theme
         // routes={this.state.routeConfig}

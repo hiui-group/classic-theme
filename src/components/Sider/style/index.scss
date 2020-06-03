@@ -27,7 +27,7 @@ ul {
       display: flex;
       justify-content: space-between;
       cursor: pointer;
-      transition: color 0.3s;
+      transition: all 0.3s;
 
       &:hover {
         color: #4284f5;
@@ -65,7 +65,7 @@ ul {
       justify-content: space-between;
       white-space: nowrap;
       cursor: pointer;
-      transition: color 0.3s;
+      transition: all 0.3s;
       overflow: hidden;
 
       &:hover {
