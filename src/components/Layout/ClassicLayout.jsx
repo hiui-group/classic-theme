@@ -5,23 +5,13 @@ import { Route } from 'react-router-dom'
 import './style/index'
 import Footer from '../Footer'
 import useMainMenu from '../../hooks/useMainMenu'
-import { findMenu, getAncestor, getDefaultActiveMenu, getRoutes } from '../../util/common'
+import { getRoutes, filterMenu } from '../../util/common'
 import useMenuCalculator from '../../hooks/useMenuCalculator'
-
-const filterMenu = (menu) => {
-  return menu.filter((item) => {
-    if (item.children) {
-      item.children = (filterMenu(item.children).length > 0 && filterMenu(item.children)) || null
-    }
-    return item.name
-  })
-}
 
 const ClassicLayout = ({
   menu,
   location,
   history,
-  isWithoutLayout,
   logo,
   login,
   toolbar,
@@ -31,8 +21,12 @@ const ClassicLayout = ({
   footer
 }) => {
   const mainMenu = useMainMenu(menu)
-  const {currentMenu, selectedMenus, onSelectMenu} = useMenuCalculator(menu, location, fallback)
-
+  const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(
+    menu,
+    { location, history },
+    fallback
+  )
+  const isWithoutLayout = currentMenu && currentMenu.withoutLayout
   const activeMainMenu = selectedMenus[0]
   const siderMenu = (selectedMenus[0] && selectedMenus[0].children) || []
   const routes = getRoutes(menu)
@@ -42,9 +36,7 @@ const ClassicLayout = ({
         key='header'
         mainMenu={mainMenu}
         activeMainMenu={activeMainMenu}
-        // setMainMenu={this.setMainMenu}
         location={location}
-        history={history}
         logo={logo}
         login={login}
         toolbar={toolbar}
@@ -59,8 +51,6 @@ const ClassicLayout = ({
             siderBottomRender={siderBottomRender}
             selectedMenus={selectedMenus}
             onSelectMenu={onSelectMenu}
-            // getInitNav={this.getInitNav}
-            // accordion={accordion}
           />
         )}
         <div className='hi-theme__wrapper'>

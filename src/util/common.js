@@ -88,3 +88,12 @@ export const getRoutes = (menu, routes = []) => {
   })
   return routes
 }
+// 过滤没有 name 的 menu
+export const filterMenu = (menu) => {
+  return menu.filter((item) => {
+    if (item.children) {
+      item.children = (filterMenu(item.children).length > 0 && filterMenu(item.children)) || null
+    }
+    return item.name
+  })
+}

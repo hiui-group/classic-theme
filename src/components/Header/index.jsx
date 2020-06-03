@@ -5,9 +5,9 @@ import ClassNames from 'classnames'
 import './style/index'
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
-const Header = ({ mainMenu, activeMainMenu, logo, login, setMainMenu, color, toolbar, mini }) => {
+const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar }) => {
   return (
-    <div className={ClassNames('hi-theme__header', { 'hi-theme__header--mini': mini }, color)}>
+    <div className={ClassNames('hi-theme__header')}>
       {logo && <div className='hi-theme__logo'>{logo}</div>}
 
       {mainMenu && (

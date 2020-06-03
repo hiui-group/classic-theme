@@ -1,27 +1,17 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React from 'react'
 import Header from '../Header'
 import Sider from '../Sider'
 import Footer from '../Footer'
 import { Route } from 'react-router-dom'
 import ClassNames from 'classnames'
 import './style/index'
-import { getRoutes } from '../../util/common'
+import { getRoutes, filterMenu } from '../../util/common'
 import useMenuCalculator from '../../hooks/useMenuCalculator'
-
-const filterMenu = (menu) => {
-  return menu.filter((item) => {
-    if (item.children) {
-      item.children = (filterMenu(item.children).length > 0 && filterMenu(item.children)) || null
-    }
-    return item.name
-  })
-}
 
 const GenuineLayout = ({
   menu,
   location,
   history,
-  isWithoutLayout,
   logo,
   login,
   toolbar,
@@ -31,16 +21,13 @@ const GenuineLayout = ({
   footer,
   header
 }) => {
-  const {currentMenu, selectedMenus, onSelectMenu} = useMenuCalculator(menu, location, fallback)
-
-  const _header = header === null || header || (
-    <Header
-      location={location}
-      history={history}
-      color='light'
-      toolbar={toolbar}
-    />
+  const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(
+    menu,
+    { location, history },
+    fallback
   )
+  const isWithoutLayout = currentMenu && currentMenu.withoutLayout
+  const _header = header === null || header || <Header toolbar={toolbar} />
   const routes = getRoutes(menu)
   return [
     (!isWithoutLayout && (
@@ -50,8 +37,6 @@ const GenuineLayout = ({
             siderMenu={filterMenu(menu)}
             selectedMenus={selectedMenus}
             onSelectMenu={onSelectMenu}
-            // accordion={accordion}
-            // getInitNav={this.getInitNav}
             login={login}
             siderTopRender={siderTopRender}
             siderBottomRender={siderBottomRender}

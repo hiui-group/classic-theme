@@ -2,7 +2,6 @@ import React, { useRef } from 'react'
 import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory, createHashHistory } from 'history'
 import layout from '../components/Layout'
-import Login from '../components/Login'
 import Logo from '../components/Logo'
 import { transformConfig } from '../util/common'
 let _history = {}

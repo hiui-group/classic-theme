@@ -5,7 +5,6 @@ import './style/index.scss'
 import { Icon, Tooltip } from '@hi-ui/hiui'
 import NormalMenu from './NormalMenu'
 import PopperMenu from './PopperMenu'
-// const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
 const Sider = ({
   siderMenu,
