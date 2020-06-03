@@ -12,6 +12,16 @@
   box-sizing: border-box;
   z-index: 11;
 
+  .login__wrapper {
+    color: #fff;
+    margin-right: 24px;
+    cursor: pointer;
+
+    & > .hi-icon {
+      margin-right: 6px;
+    }
+  }
+
   .hi-theme__logo {
     flex: 0 0 216px;
 

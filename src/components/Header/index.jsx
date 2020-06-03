@@ -35,6 +35,13 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, setMainMenu, color, too
         </ul>
       )}
       {toolbar && <div className='hi-theme__toolbar'>{toolbar}</div>}
+      {login && (
+        <div className={'login__wrapper'}>
+          <Icon name={login.icon} />
+          {login.name}
+          <Icon name={'open'} />
+        </div>
+      )}
     </div>
   )
 }

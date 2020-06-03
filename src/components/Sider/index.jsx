@@ -110,6 +110,7 @@ const Sider = ({
           <div className={'login__wrapper'}>
             <Icon name={login.icon} />
             {login.name}
+            <Icon name={'packup'} />
           </div>
         )}
       </div>
