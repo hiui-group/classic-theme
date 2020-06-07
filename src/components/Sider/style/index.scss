@@ -29,6 +29,10 @@ ul {
       cursor: pointer;
       transition: all 0.3s;
 
+      &--active {
+        color: #4284f5;
+      }
+
       &:hover {
         color: #4284f5;
       }
@@ -42,6 +46,8 @@ ul {
   width: 216px;
   transition: width 0.3s;
   overflow: hidden;
+
+  z-index: 12;
 
   &--mini {
     width: 48px;
@@ -151,6 +157,4 @@ ul {
       margin-right: 6px;
     }
   }
-
-  border-right: 1px solid #d8d8d8;
 }

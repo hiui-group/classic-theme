@@ -57,13 +57,14 @@ const Sider = ({
                 selectedMenus={selectedMenus}
                 visible={popperVisible === m.id}
                 setPopperVisible={setPopperVisible}
+                onSelectMenu={onSelectMenu}
               />
             </Tooltip>
           </div>
         )
       })
     },
-    [tooltipVisible]
+    [tooltipVisible, popperVisible]
   )
   const renderChildren = useCallback((menu, selectedMenus, level = 1, expandedId) => {
     return menu.map((m) => {
