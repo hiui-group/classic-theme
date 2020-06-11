@@ -3,15 +3,21 @@ import { Link } from 'react-router-dom'
 import Icon from '@hi-ui/hiui/es/icon'
 import ClassNames from 'classnames'
 import './style/index'
+import Logo from '../Logo'
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
 class Header extends Component {
-  render() {
+  render () {
     const { mainMenu, activeMainMenu, logo, login, setMainMenu, color, toolbar, mini } = this.props
+    const logoConfig = typeof logo === 'function' ? logo(mini) : logo
 
     return (
       <div className={ClassNames('hi-theme__header', { 'hi-theme__header--mini': mini }, color)}>
-        {logo && <div className='hi-theme__logo'>{logo}</div>}
+        {logo && (
+          <div className='hi-theme__logo'>
+            <Logo {...logoConfig} />
+          </div>
+        )}
 
         {mainMenu && (
           <ul className='hi-theme__menu' style={{ flex: toolbar ? '0 0 auto' : 1 }}>
