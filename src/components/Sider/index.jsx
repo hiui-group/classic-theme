@@ -1,8 +1,9 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect, useRef } from 'react'
 // import Menu from './menu'
 import classNames from 'classnames'
 import './style/index.scss'
 import { Icon, Tooltip } from '@hi-ui/hiui'
+import Popper from '../popper'
 import NormalMenu from './NormalMenu'
 import PopperMenu from './PopperMenu'
 
@@ -19,6 +20,10 @@ const Sider = ({
   const [expandedId, setExpandedId] = useState([])
   const [popperVisible, setPopperVisible] = useState(null)
   const [tooltipVisible, setTooltipVisible] = useState(null)
+
+  const [loginVisible, setLoginVisible] = useState(false)
+  const popperRef = useRef(null)
+  const loginRef = useRef(null)
 
   useEffect(() => {
     setExpandedId(selectedMenus.map((sm) => sm.id))
@@ -104,11 +109,30 @@ const Sider = ({
           }}
         />
         {login && (
-          <div className={'login__wrapper'}>
-            <Icon name={login.icon} />
-            {login.name}
-            <Icon name={'packup'} />
-          </div>
+          <React.Fragment>
+            <div
+              className={'login__wrapper'}
+              ref={loginRef}
+              onClick={(e) => {
+                setLoginVisible(!loginVisible)
+              }}
+            >
+              <Icon name={login.icon} />
+              {login.name}
+              <Icon name={'packup'} />
+            </div>
+            <Popper
+              show={loginVisible}
+              attachEle={loginRef.current}
+              zIndex={1050}
+              placement='right-end'
+              // width={'auto'}
+            >
+              <div ref={popperRef} className='login__menu--top'>
+                {login.children}
+              </div>
+            </Popper>
+          </React.Fragment>
         )}
       </div>
     </div>

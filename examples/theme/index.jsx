@@ -12,15 +12,15 @@ const logoConfig = {
 
 const loginConfig = {
   name: 'Mi Guest',
-  icon: 'user'
-  // children: [
-  //   <div key='1' style={{ textAlign: 'center', margin: 4, width: '100px' }}>
-  //     <a href='#info'>个人信息</a>
-  //   </div>,
-  //   <div key='2' style={{ textAlign: 'center', margin: 4, width: 100 }}>
-  //     <a href='#logout'>注销</a>
-  //   </div>
-  // ]
+  icon: 'user',
+  children: [
+    <div key='1' style={{ textAlign: 'center', margin: 4, width: '100px' }}>
+      <a href='#info'>个人信息</a>
+    </div>,
+    <div key='2' style={{ textAlign: 'center', margin: 4, width: 100 }}>
+      <a href='#logout'>注销</a>
+    </div>
+  ]
 }
 const toolbar = [
   <Input key='1' style={{ width: 200 }} />,
@@ -74,7 +74,7 @@ class App extends Component {
   //     this.setState({ routeConfig: _routeConfig })
   //   }, 2000)
   // }
-  render () {
+  render() {
     return (
       <Theme
         // routes={this.state.routeConfig}

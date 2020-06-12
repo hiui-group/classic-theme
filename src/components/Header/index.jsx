@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import Icon from '@hi-ui/hiui/es/icon'
+import { Icon, Popper } from '@hi-ui/hiui'
 import ClassNames from 'classnames'
 import './style/index'
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
 const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar }) => {
+  const [loginVisible, setLoginVisible] = useState(false)
+  const popperRef = useRef(null)
+  const loginRef = useRef(null)
   return (
     <div className={ClassNames('hi-theme__header')}>
       {logo && <div className='hi-theme__logo'>{logo}</div>}
@@ -36,11 +39,30 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar }) => {
       )}
       {toolbar && <div className='hi-theme__toolbar'>{toolbar}</div>}
       {login && (
-        <div className={'login__wrapper'}>
-          <Icon name={login.icon} />
-          {login.name}
-          <Icon name={'open'} />
-        </div>
+        <React.Fragment>
+          <div
+            className={'login__wrapper'}
+            ref={loginRef}
+            onClick={(e) => {
+              setLoginVisible(!loginVisible)
+            }}
+          >
+            <Icon name={login.icon} />
+            {login.name}
+            <Icon name={'open'} />
+          </div>
+          <Popper
+            show={loginVisible}
+            attachEle={loginRef.current}
+            zIndex={1050}
+            placement='bottom'
+            width={false}
+          >
+            <div ref={popperRef} className='login__menu--top'>
+              {login.children}
+            </div>
+          </Popper>
+        </React.Fragment>
       )}
     </div>
   )

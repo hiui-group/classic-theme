@@ -1,5 +1,11 @@
 @import '@hi-ui/core-css/index.scss';
 
+.login__menu--top {
+  background: #fff;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  padding: 12px;
+}
+
 .hi-theme__header {
   display: flex;
   background: #383e47;
