@@ -59,7 +59,6 @@ class GenuineLayout extends React.Component {
     const _siderMenu = this.getMenu(menu)
 
     const filtedSiderMenu = this.filterMenu(siderMenu)
-
     const currentRoute = this.getCurrentRoute(_siderMenu, location.pathname)
     const _currentMenu = this.getCurrentRoute(filtedSiderMenu, location.pathname)
     const activeSiderMenu =
@@ -106,7 +105,7 @@ class GenuineLayout extends React.Component {
   filterMenu = (menu) => {
     return menu.filter((item) => {
       if (item.children) {
-        item.children = this.filterMenu(item.children)
+        item.children = (this.filterMenu(item.children).length > 0 && this.filterMenu(item.children)) || null
       }
       return item.content
     })
