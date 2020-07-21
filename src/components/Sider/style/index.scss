@@ -57,7 +57,7 @@ ul {
     flex: 1;
     padding: 16px 0;
     box-sizing: border-box;
-    overflow: auto;
+    overflow: hidden;
 
     .hi-tooltip {
       width: 100%;
@@ -93,6 +93,7 @@ ul {
     height: 200px;
     display: flex;
     transition: height 0.3s;
+    flex-shrink: 0;
 
     .hi-logo {
       flex: 1;
@@ -140,6 +141,7 @@ ul {
     padding: 0 16px;
     transition: height 0.3s;
     display: flex;
+    flex-shrink: 0;
 
     & > .hi-icon {
       width: 16px;

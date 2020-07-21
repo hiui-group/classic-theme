@@ -1,17 +1,12 @@
 import React, { useCallback, useState, useRef } from 'react'
-// import Menu from './menu'
 import classNames from 'classnames'
 import './style/index.scss'
 import { Icon, Popper } from '@hi-ui/hiui'
-import useClickOutside from '../../hooks/useClickOutside'
 
 const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMenu }) => {
   const popperRef = useRef(null)
   const menuRef = useRef(null)
   const [visibleMenu, setVisibleMenu] = useState([])
-  // useClickOutside(popperRef, () => {
-  //   setPopperVisible(false)
-  // })
 
   const renderPopChildren = useCallback(
     (children, level = 0, selectedMenus) => {
@@ -31,8 +26,7 @@ const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMe
             >
               <div
                 className={classNames('menu-item__title', {
-                  'menu-item__title--active':
-                    selectedMenus && selectedMenus.map((sm) => sm.id).includes(subMenu.id)
+                  'menu-item__title--active': selectedMenus && selectedMenus.map((sm) => sm.id).includes(subMenu.id)
                 })}
                 onClick={() => {
                   if (subMenu.path) {
@@ -68,8 +62,7 @@ const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMe
           }
         }}
         className={classNames('menu__title', {
-          'menu__leaf-title--active':
-            selectedMenus && selectedMenus.map((sm) => sm.id).includes(menu.id)
+          'menu__leaf-title--active': selectedMenus && selectedMenus.map((sm) => sm.id).includes(menu.id)
         })}
       >
         <span>
