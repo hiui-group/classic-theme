@@ -14,12 +14,13 @@ export const findMenu = (path, data) => {
   let node
   data.forEach((d, index) => {
     if (
-      d.pathname === path ||
-      d.path === path ||
-      matchPath(path, {
-        path: d.path || d.pathname,
-        exact: true
-      })
+      path !== undefined &&
+      (d.pathname === path ||
+        d.path === path ||
+        matchPath(path, {
+          path: d.path || d.pathname,
+          exact: true
+        }))
     ) {
       node = d
     } else {
