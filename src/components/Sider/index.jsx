@@ -15,6 +15,7 @@ const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, lo
   const [tooltipVisible, setTooltipVisible] = useState(null)
 
   const [loginVisible, setLoginVisible] = useState(false)
+  const siderRef = useRef(null)
   const popperRef = useRef(null)
   const loginRef = useRef(null)
 
@@ -22,7 +23,7 @@ const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, lo
 
   useEffect(() => {
     setExpandedId(selectedMenus.map((sm) => sm.id))
-  }, [selectedMenus])
+  }, [])
 
   const renderMiniChildren = useCallback(
     (menu, selectedMenus) => {
@@ -54,13 +55,14 @@ const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, lo
                 visible={popperVisible === m.id}
                 setPopperVisible={setPopperVisible}
                 onSelectMenu={onSelectMenu}
+                siderRef={siderRef}
               />
             </Tooltip>
           </div>
         )
       })
     },
-    [tooltipVisible, popperVisible]
+    [tooltipVisible, popperVisible, siderRef]
   )
   const renderChildren = useCallback((menu, selectedMenus, level = 1, expandedId) => {
     return menu.map((m) => {
@@ -80,12 +82,12 @@ const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, lo
   }, [])
 
   return (
-    <div className={classNames('hi-theme__sider', { 'hi-theme__sider--mini': mini })}>
+    <div className={classNames('hi-theme__sider', { 'hi-theme__sider--mini': mini })} ref={siderRef}>
       {logo && <div className={classNames('sider__logo', { mini: mini })}>{logo}</div>}
       {siderTopRender && siderTopRender(mini)}
       {siderMenu.length > 0 && (
         <div className='sider__menu'>
-          <div style={{ height: '100%', overflow: 'auto', width: `calc(100% + ${scrollBarSize.current}px)` }}>
+          <div style={{ height: '100%', overflowY: 'scroll', width: `calc(100% + ${scrollBarSize.current}px)` }}>
             {mini
               ? renderMiniChildren(siderMenu, selectedMenus)
               : renderChildren(siderMenu, selectedMenus, 1, expandedId)}
@@ -114,7 +116,14 @@ const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, lo
               {login.name}
               <Icon name={'packup'} />
             </div>
-            <Popper show={loginVisible} attachEle={loginRef.current} zIndex={1050} placement='right-end'>
+            <Popper
+              show={loginVisible}
+              attachEle={loginRef.current}
+              zIndex={1050}
+              placement='right-end'
+              onClickOutside={() => setLoginVisible(false)}
+              width={'auto'}
+            >
               <div ref={popperRef} className='login__menu--top'>
                 {login.children}
               </div>

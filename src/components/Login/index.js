@@ -31,8 +31,7 @@ const LoginPopper = ({ menu, selectedMenus, visible, setPopperVisible, onSelectM
             >
               <div
                 className={classNames('menu-item__title', {
-                  'menu-item__title--active':
-                    selectedMenus && selectedMenus.map((sm) => sm.id).includes(subMenu.id)
+                  'menu-item__title--active': selectedMenus && selectedMenus.map((sm) => sm.id).includes(subMenu.id)
                 })}
                 onClick={() => {
                   if (subMenu.path) {
@@ -68,8 +67,7 @@ const LoginPopper = ({ menu, selectedMenus, visible, setPopperVisible, onSelectM
           }
         }}
         className={classNames('menu__title', {
-          'menu__leaf-title--active':
-            selectedMenus && selectedMenus.map((sm) => sm.id).includes(menu.id)
+          'menu__leaf-title--active': selectedMenus && selectedMenus.map((sm) => sm.id).includes(menu.id)
         })}
       >
         <span>
@@ -85,7 +83,7 @@ const LoginPopper = ({ menu, selectedMenus, visible, setPopperVisible, onSelectM
           placement='right-start'
           width={'auto'}
         >
-          <div ref={popperRef}>{renderPopChildren(menu.children, 0, selectedMenus)}</div>
+          {renderPopChildren(menu.children, 0, selectedMenus)}
         </Popper>
       )}
     </React.Fragment>

@@ -1,9 +1,10 @@
 import React, { useCallback, useState, useRef } from 'react'
 import classNames from 'classnames'
 import './style/index.scss'
-import { Icon, Popper } from '@hi-ui/hiui'
+import { Icon } from '@hi-ui/hiui'
+import Popper from '../popper'
 
-const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMenu }) => {
+const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMenu, siderRef }) => {
   const popperRef = useRef(null)
   const menuRef = useRef(null)
   const [visibleMenu, setVisibleMenu] = useState([])
@@ -28,7 +29,8 @@ const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMe
                 className={classNames('menu-item__title', {
                   'menu-item__title--active': selectedMenus && selectedMenus.map((sm) => sm.id).includes(subMenu.id)
                 })}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation()
                   if (subMenu.path) {
                     onSelectMenu(subMenu)
                     setPopperVisible(null)
@@ -71,12 +73,14 @@ const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMe
       </div>
       {menu.children && (
         <Popper
+          container={siderRef.current}
           show={visible}
           attachEle={menuRef.current}
           zIndex={1050}
           className='hi-theme__popper'
           placement='right-start'
           width={'auto'}
+          onClickOutside={() => setPopperVisible(false)}
         >
           <div ref={popperRef}>{renderPopChildren(menu.children, 0, selectedMenus)}</div>
         </Popper>

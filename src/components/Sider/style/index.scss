@@ -15,6 +15,7 @@ ul {
   border-radius: 2px;
   min-width: 160px;
   background: #fff;
+  color: #333;
 
   &-item {
     position: relative;
@@ -46,11 +47,11 @@ ul {
   width: 216px;
   transition: width 0.3s;
   overflow: hidden;
-
   z-index: 12;
 
   &--mini {
     width: 48px;
+    overflow: visible;
   }
 
   .sider__menu {
@@ -141,6 +142,7 @@ ul {
     padding: 0 16px;
     transition: height 0.3s;
     display: flex;
+    justify-content: space-between;
     flex-shrink: 0;
 
     & > .hi-icon {
@@ -150,9 +152,7 @@ ul {
   }
 
   .login__wrapper {
-    display: inline-block;
-    flex: 1;
-    text-align: right;
+    cursor: pointer;
     overflow: hidden;
 
     & > .hi-icon {

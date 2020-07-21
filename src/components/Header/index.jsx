@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { Icon, Popper } from '@hi-ui/hiui'
+import { Icon } from '@hi-ui/hiui'
+import Popper from '../popper'
 import ClassNames from 'classnames'
 import './style/index'
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
@@ -51,13 +52,7 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar }) => {
             {login.name}
             <Icon name={'open'} />
           </div>
-          <Popper
-            show={loginVisible}
-            attachEle={loginRef.current}
-            zIndex={1050}
-            placement='bottom'
-            width={false}
-          >
+          <Popper show={loginVisible} attachEle={loginRef.current} zIndex={1050} placement='bottom' width={false}>
             <div ref={popperRef} className='login__menu--top'>
               {login.children}
             </div>
