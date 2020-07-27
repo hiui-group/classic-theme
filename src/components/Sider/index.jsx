@@ -7,6 +7,7 @@ import Popper from '../popper'
 import NormalMenu from './NormalMenu'
 import PopperMenu from './PopperMenu'
 import { getScrollBarSize } from '../../util/common'
+import _ from 'lodash'
 
 const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, logo, login, onSelectMenu }) => {
   const [mini, toggleMini] = useState(false)
@@ -20,11 +21,11 @@ const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, lo
   const loginRef = useRef(null)
 
   const scrollBarSize = useRef(getScrollBarSize())
-
   useEffect(() => {
-    setExpandedId(selectedMenus.map((sm) => sm.id))
-  }, [])
-
+    setExpandedId((expandeId) =>
+      _.uniq(expandedId.concat(selectedMenus.map((sm) => sm.id).slice(0, selectedMenus.length - 1)))
+    )
+  }, [selectedMenus])
   const renderMiniChildren = useCallback(
     (menu, selectedMenus) => {
       return menu.map((m) => {
@@ -62,24 +63,27 @@ const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, lo
         )
       })
     },
-    [tooltipVisible, popperVisible, siderRef]
+    [tooltipVisible, popperVisible, siderRef, onSelectMenu]
   )
-  const renderChildren = useCallback((menu, selectedMenus, level = 1, expandedId) => {
-    return menu.map((m) => {
-      return (
-        <NormalMenu
-          key={m.id}
-          menu={m}
-          setExpandedId={setExpandedId}
-          expandedId={expandedId}
-          level={level}
-          selectedMenus={selectedMenus}
-          renderChildren={renderChildren}
-          onSelectMenu={onSelectMenu}
-        />
-      )
-    })
-  }, [])
+  const renderChildren = useCallback(
+    (menu, selectedMenus, level = 1, expandedId) => {
+      return menu.map((m) => {
+        return (
+          <NormalMenu
+            key={m.id}
+            menu={m}
+            setExpandedId={setExpandedId}
+            expandedId={expandedId}
+            level={level}
+            selectedMenus={selectedMenus}
+            renderChildren={renderChildren}
+            onSelectMenu={onSelectMenu}
+          />
+        )
+      })
+    },
+    [onSelectMenu]
+  )
 
   return (
     <div className={classNames('hi-theme__sider', { 'hi-theme__sider--mini': mini })} ref={siderRef}>

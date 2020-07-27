@@ -21,11 +21,7 @@ const GenuineLayout = ({
   footer,
   header
 }) => {
-  const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(
-    menu,
-    { location, history },
-    fallback
-  )
+  const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
   const _header = header === null || header || <Header toolbar={toolbar} />
   const routes = getRoutes(menu)
