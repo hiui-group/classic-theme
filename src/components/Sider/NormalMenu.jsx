@@ -4,15 +4,7 @@ import './style/index.scss'
 import { Icon } from '@hi-ui/hiui'
 import Expander from './Expander'
 
-const NormalMenu = ({
-  expandedId,
-  menu,
-  setExpandedId,
-  selectedMenus,
-  level,
-  renderChildren,
-  onSelectMenu
-}) => {
+const NormalMenu = ({ expandedId, menu, setExpandedId, selectedMenus, level, renderChildren, onSelectMenu }) => {
   const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
@@ -44,11 +36,9 @@ const NormalMenu = ({
           'menu__title--active':
             selectedMenus &&
             selectedMenus.map((sm) => sm.id).includes(menu.id) &&
-            menu.id !==
-              (selectedMenus && selectedMenus.map((sm) => sm.id)[selectedMenus.length - 1]),
+            menu.id !== (selectedMenus && selectedMenus.map((sm) => sm.id)[selectedMenus.length - 1]),
           'menu__leaf-title--active':
-            menu.id ===
-            (selectedMenus && selectedMenus.map((sm) => sm.id)[selectedMenus.length - 1])
+            menu.id === (selectedMenus && selectedMenus.map((sm) => sm.id)[selectedMenus.length - 1])
         })}
       >
         <span>
@@ -67,11 +57,10 @@ const NormalMenu = ({
           />
         )}
       </div>
-      {menu.children && menu.children.length > 0 && (
-        <Expander expanded={expanded}>
-          {renderChildren(menu.children, selectedMenus, level + 1, expandedId)}
-        </Expander>
-      )}
+      {menu.children &&
+        menu.children.length > 0 &&
+        expanded &&
+        renderChildren(menu.children, selectedMenus, level + 1, expandedId)}
     </div>
   )
 }

@@ -2,7 +2,15 @@ import PopperJS from './popper'
 
 const { isBody, isFixed, getOffsetRectRelativeToCustomParent } = new PopperJS()
 // 上下防止溢出
-const overflowOffset = (placement, scrollTop, rect, top, left, width, props) => {
+const overflowOffset = (
+  placement,
+  scrollTop,
+  rect,
+  top,
+  left,
+  width,
+  props
+) => {
   let { topGap, container } = props
   let _top = top
   switch (placement) {
@@ -23,7 +31,13 @@ const overflowOffset = (placement, scrollTop, rect, top, left, width, props) => 
   }
 }
 // 对于auto的计算方式
-const positionAuto = (attachEleRect, popperHeight, popperRef, height, containerHeight) => {
+const positionAuto = (
+  attachEleRect,
+  popperHeight,
+  popperRef,
+  height,
+  containerHeight
+) => {
   // auto时候 定位比较合适的位置
   let placement = 'bottom-start'
   popperHeight === undefined && (popperHeight = 0)
@@ -31,11 +45,18 @@ const positionAuto = (attachEleRect, popperHeight, popperRef, height, containerH
 
   if (popperRef || height) {
     height && (popperHeight = height)
-  } else if (popperRef && popperRef.clientHeight && popperHeight !== popperRef.clientHeight) {
+  } else if (
+    popperRef &&
+    popperRef.clientHeight &&
+    popperHeight !== popperRef.clientHeight
+  ) {
     popperHeight = popperRef.clientHeight
   }
   // 上下都放不下的时候 放左右
-  if (attachEleRect.top + popperHeight + attachEleRect.height > containerHeight) {
+  if (
+    attachEleRect.top + popperHeight + attachEleRect.height >
+    containerHeight
+  ) {
     if (attachEleRect.right > width) {
       placement = 'right'
     }
@@ -55,7 +76,10 @@ const positionAuto = (attachEleRect, popperHeight, popperRef, height, containerH
   if (attachEleRect.top > popperHeight) {
     placement = 'top-start'
   }
-  if (attachEleRect.top + popperHeight + attachEleRect.height < containerHeight) {
+  if (
+    attachEleRect.top + popperHeight + attachEleRect.height <
+    containerHeight
+  ) {
     placement = 'bottom-start'
   }
   return placement
@@ -65,13 +89,15 @@ const getPlacement = (attachEleRect, container, props, state) => {
   let { attachEle, placement, height, width = 0, leftGap = 0 } = props
 
   if (!attachEle) return
-  let containerHeight = document.documentElement.clientHeight || document.body.clientHeight
+  let containerHeight =
+    document.documentElement.clientHeight || document.body.clientHeight
 
   if (isFixed(attachEle) || !isBody(container)) {
     containerHeight = container.clientHeight
   }
   if (isBody(container)) {
-    containerHeight = document.documentElement.clientHeight || document.body.clientHeight
+    containerHeight =
+      document.documentElement.clientHeight || document.body.clientHeight
   }
 
   let poperTop = attachEleRect.top + attachEleRect.height
@@ -83,7 +109,10 @@ const getPlacement = (attachEleRect, container, props, state) => {
       // 元素已挂载到dom且当前popper处于显示状态
       if (height) {
         popperHeight = height
-      } else if (popperRef.clientHeight && popperHeight !== popperRef.clientHeight) {
+      } else if (
+        popperRef.clientHeight &&
+        popperHeight !== popperRef.clientHeight
+      ) {
         popperHeight = popperRef.clientHeight
       }
       poperTop += popperHeight
@@ -113,19 +142,29 @@ const getPlacement = (attachEleRect, container, props, state) => {
   } else if (placement === 'left-right') {
     caclLeftOrRightPlacement('left', 'right')
   } else if (placement === 'auto') {
-    positionAuto(attachEleRect, popperHeight, popperRef, height, containerHeight)
+    positionAuto(
+      attachEleRect,
+      popperHeight,
+      popperRef,
+      height,
+      containerHeight
+    )
   }
-  return placement
+  return placement || 'bottom-start'
 }
 export const getOffset = (props, state) => {
   let { attachEle, topGap, leftGap, width, container, preventOverflow } = props
   if (!attachEle) return
 
-  const { popperHeight } = state
+  const { popperHeight, popperWidth } = state
   let rect = attachEle.getBoundingClientRect()
 
   if (isFixed(attachEle) || !isBody(container)) {
-    rect = getOffsetRectRelativeToCustomParent(attachEle, container, isFixed(attachEle))
+    rect = getOffsetRectRelativeToCustomParent(
+      attachEle,
+      container,
+      isFixed(attachEle)
+    )
   }
 
   let _scrollTop = container.scrollTop
@@ -133,14 +172,19 @@ export const getOffset = (props, state) => {
   // 兼容处理
   if (isBody(container)) {
     _scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-    _scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft
+    _scrollLeft =
+      document.documentElement.scrollLeft || document.body.scrollLeft
   }
 
   let top = rect.top + _scrollTop
   let left = rect.left + _scrollLeft
-  width = width === false ? undefined : width === undefined ? rect.width : width
-  let placement = getPlacement(rect, container, props, state)
+
+  width =
+    width === false ? popperWidth : width === undefined ? rect.width : width
+
+  let placement = getPlacement(rect, container, props, state) || 'bottom-start'
   const rectHeight = rect.height
+
   switch (placement) {
     case 'bottom':
       top = top + topGap + rectHeight
@@ -193,13 +237,21 @@ export const getOffset = (props, state) => {
       break
   }
   if (preventOverflow) {
-    return overflowOffset(placement, _scrollTop, rect, top, left, width, props)
+    return overflowOffset(
+      (placement = 'bottom-start'),
+      _scrollTop,
+      rect,
+      top,
+      left,
+      width,
+      props
+    )
   }
 
   return {
     width,
     top,
     left,
-    placement
+    placement: placement || 'bottom-start'
   }
 }

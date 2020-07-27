@@ -12,7 +12,7 @@ const AnimationClassName = 'hi-popper_transition'
 /**
  * @param {Function} onClickOutside 点击该元素外的回调方法
  */
-const Popper = (props) => {
+const Popper = props => {
   const { show, attachEle } = props
   const [staticShow, setStaticShow] = useState(show)
   const [transitionShow, setTransitionShow] = useState(show)
@@ -25,7 +25,7 @@ const Popper = (props) => {
     show && setStaticShow(true)
   }, [show, attachEle])
   return (
-    <React.Fragment>
+    <div>
       <CSSTransition
         in={transitionShow}
         timeout={300}
@@ -35,10 +35,10 @@ const Popper = (props) => {
         }}
       >
         <Portal container={container}>
-          <Overlay {...Object.assign({}, props, { show: staticShow })} container={container} />
+          <Overlay {...Object.assign({}, props, {show: staticShow})} container={container} />
         </Portal>
       </CSSTransition>
-    </React.Fragment>
+    </div>
   )
 }
 export { Portal, useClickOutside }
