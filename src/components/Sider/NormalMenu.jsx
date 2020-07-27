@@ -7,6 +7,8 @@ import Expander from './Expander'
 const NormalMenu = ({ expandedId, menu, setExpandedId, selectedMenus, level, renderChildren, onSelectMenu }) => {
   const [expanded, setExpanded] = useState(false)
 
+  const [isManul, setIsManul] = useState(false)
+
   useEffect(() => {
     if (expandedId.includes(menu.id)) {
       setExpanded(true)
@@ -27,6 +29,7 @@ const NormalMenu = ({ expandedId, menu, setExpandedId, selectedMenus, level, ren
           }
           setExpandedId(_expandedId)
           setExpanded(!expanded)
+          setIsManul(true)
           if (menu.path) {
             onSelectMenu(menu)
           }
@@ -57,10 +60,11 @@ const NormalMenu = ({ expandedId, menu, setExpandedId, selectedMenus, level, ren
           />
         )}
       </div>
-      {menu.children &&
-        menu.children.length > 0 &&
-        expanded &&
-        renderChildren(menu.children, selectedMenus, level + 1, expandedId)}
+      {menu.children && menu.children.length > 0 && (
+        <Expander expanded={expanded} isManul={isManul}>
+          {renderChildren(menu.children, selectedMenus, level + 1, expandedId)}
+        </Expander>
+      )}
     </div>
   )
 }
