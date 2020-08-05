@@ -7,9 +7,16 @@
   box-sizing: border-box;
   margin-top: 64px;
 
-  .hi-theme__content {
+  .hi-theme__wrapper {
     flex: 1;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hi-theme__content {
+    flex: 1;
+    // overflow: auto;
   }
 }
 
@@ -17,6 +24,13 @@
   display: flex;
   height: 100vh;
   box-sizing: border-box;
+
+  .hi-theme__wrapper {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+  }
 
   .hi-theme__container {
     flex: 1;
@@ -26,7 +40,7 @@
 
     .hi-theme__content {
       flex: 1;
-      overflow: auto;
+      // overflow: auto;
     }
 
     .hi-theme--no-header {

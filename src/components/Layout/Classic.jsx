@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom'
 import { matchPath } from 'react-router'
 import _ from 'lodash'
 import './style/index'
+import Footer from '../Footer'
 
 class ClassicLayout extends React.Component {
   state = {
@@ -52,8 +53,6 @@ class ClassicLayout extends React.Component {
         (this.getInitNav(siderMenu, activeSiderMenu) &&
           this.getInitNav(siderMenu, activeSiderMenu).pathname)
       history.push(initNav)
-    } else {
-      history.push(location.pathname + location.search)
     }
   }
   componentWillReceiveProps (nextProps) {
@@ -92,7 +91,7 @@ class ClassicLayout extends React.Component {
             this.getInitNav(siderMenu, activeSiderMenu).pathname)
         this.props.history.push(initNav)
       } else {
-        this.props.history.push(location.pathname)
+        // this.props.history.push(location.pathname)
       }
     }
   }
@@ -274,7 +273,8 @@ class ClassicLayout extends React.Component {
       toolbar,
       siderTopRender,
       siderBottomRender,
-      accordion
+      accordion,
+      footer
     } = this.props
     const currentRoute = this.findMenu(location.pathname, routes)
     const isWithoutLayout = currentRoute && currentRoute.withoutLayout
@@ -311,15 +311,18 @@ class ClassicLayout extends React.Component {
               accordion={accordion}
             />
           )}
-          <div className='hi-theme__content'>
-            {routes.map((route, index) => (
-              <Route
-                key={index}
-                path={route.path}
-                exact={!!route.exact}
-                render={(props) => <route.component {...props} extraData={route.extraData} />}
-              />
-            ))}
+          <div className='hi-theme__wrapper'>
+            <div className='hi-theme__content'>
+              {routes.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  exact={!!route.exact}
+                  render={(props) => <route.component {...props} extraData={route.extraData} />}
+                />
+              ))}
+            </div>
+            {footer && <Footer footer={footer} />}
           </div>
         </div>
       )) || (

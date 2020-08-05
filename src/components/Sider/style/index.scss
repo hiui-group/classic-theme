@@ -2,6 +2,37 @@
   display: flex;
   flex-direction: column;
 
+  .sider-wrapper {
+    background: #393d46;
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+
+    &::before {
+      position: absolute;
+      left: 0;
+      z-index: 1;
+      width: calc(100% - 1px);
+      content: '';
+      pointer-events: none;
+      top: 0;
+      height: 12px;
+      background: linear-gradient(to bottom, #fff 0%, rgba(255, 255, 255, 0) 100%);
+    }
+
+    &::after {
+      position: absolute;
+      left: 0;
+      z-index: 1;
+      width: calc(100% - 1px);
+      content: '';
+      pointer-events: none;
+      bottom: 0;
+      height: 12px;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+    }
+  }
+
   &.dark {
     .sider-wrapper {
       background: #393d46;
@@ -98,10 +129,10 @@
 
     &__toggle {
       cursor: pointer;
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
       position: absolute;
-      right: 10px;
+      right: 16px;
       bottom: 10px;
       background: url('../../../static/image/menu.png') no-repeat;
       background-size: cover;

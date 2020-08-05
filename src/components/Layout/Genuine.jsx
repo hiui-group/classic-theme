@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../Header'
 import Sider from '../Sider'
+import Footer from '../Footer'
 import { Route } from 'react-router-dom'
 import { matchPath } from 'react-router'
 import _ from 'lodash'
@@ -73,8 +74,6 @@ class GenuineLayout extends React.Component {
     if (!currentRoute) {
       const initNav = this.getInitNav(siderMenu, activeSiderMenu)
       history.push(fallback || initNav.pathname)
-    } else {
-      history.push(location.pathname + location.search)
     }
   }
   setSiderMenu = (activeSiderMenu) => {
@@ -211,7 +210,8 @@ class GenuineLayout extends React.Component {
       toolbar,
       siderTopRender,
       siderBottomRender,
-      accordion
+      accordion,
+      footer
     } = this.props
     const currentRoute = this.getCurrentRoute(routes, location.pathname)
     const isWithoutLayout = currentRoute && currentRoute.withoutLayout
@@ -248,20 +248,24 @@ class GenuineLayout extends React.Component {
           )}
           <div className={ClassNames('hi-theme__container')}>
             {_header}
-            <div
-              className={ClassNames('hi-theme__content', {
-                'hi-theme--no-header': header === null
-              })}
-            >
-              {routes.map((route, index) => (
-                <Route
-                  key={index}
-                  path={route.path}
-                  render={(props) => <route.component {...props} extraData={route.extraData} />}
-                  exact={!!route.exact}
-                />
-              ))}
+            <div className='hi-theme__wrapper'>
+              <div
+                className={ClassNames('hi-theme__content', {
+                  'hi-theme--no-header': header === null
+                })}
+              >
+                {routes.map((route, index) => (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    render={(props) => <route.component {...props} extraData={route.extraData} />}
+                    exact={!!route.exact}
+                  />
+                ))}
+              </div>
+              {footer && <Footer footer={footer} />}
             </div>
+
           </div>
         </div>
       )) || (

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Menu } from '@hi-ui/hiui/es'
 import ClassNames from 'classnames'
 import './style/index.scss'
+import Logo from '../Logo'
+
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 class Sider extends Component {
   getMenuByIdx = (arr, parent) => {}
@@ -20,9 +22,14 @@ class Sider extends Component {
       color,
       accordion
     } = this.props
+    const logoConfig = typeof logo === 'function' ? logo(mini) : logo
     return (
       <div className={ClassNames('hi-theme__sider', color)}>
-        {logo && <div className={ClassNames('sider__logo', { mini: mini })}>{logo}</div>}
+        {logo && (
+          <div className={ClassNames('sider__logo', { mini: mini })}>
+            <Logo {...logoConfig} />
+          </div>
+        )}
         {siderTopRender && siderTopRender(mini)}
         {siderMenu.length > 0 && (
           <div className={'sider-wrapper'}>
