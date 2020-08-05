@@ -3,8 +3,40 @@
   flex-direction: column;
 
   &.dark {
+    .sider-wrapper {
+      background: #393d46;
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+
+      &::before {
+        position: absolute;
+        left: 0;
+        z-index: 1;
+        width: calc(100% - 1px);
+        content: '';
+        pointer-events: none;
+        top: 0;
+        height: 12px;
+        background: linear-gradient(180deg, #393d46 0, hsla(0, 0%, 100%, 0));
+      }
+
+      &::after {
+        position: absolute;
+        left: 0;
+        z-index: 1;
+        width: calc(100% - 1px);
+        content: '';
+        pointer-events: none;
+        bottom: 0;
+        height: 12px;
+        background: linear-gradient(180deg, hsla(0, 0%, 100%, 0) 0, #393d46);
+      }
+    }
+
     .hi-menu--vertical {
       background-color: #393d46;
+      position: relative;
     }
 
     .hi-menu__title {
@@ -82,9 +114,9 @@
   }
 
   .hi-menu--vertical {
-    box-shadow: none;
+    box-shadow: none !important;
     border: none;
-    flex: 1;
+    height: 100%;
     overflow-y: auto;
   }
 
