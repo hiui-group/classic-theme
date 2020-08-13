@@ -52,6 +52,12 @@ ul {
   &--mini {
     width: 48px;
     overflow: visible;
+
+    .sider__footer {
+      & > .hi-icon {
+        margin-top: 16px;
+      }
+    }
   }
 
   .sider__menu {
@@ -143,11 +149,10 @@ ul {
     transition: height 0.3s;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    // align-items: center;
     flex-shrink: 0;
 
     & > .hi-icon {
-      width: 16px;
       cursor: pointer;
     }
   }
@@ -155,6 +160,7 @@ ul {
   .login__wrapper {
     cursor: pointer;
     overflow: hidden;
+    white-space: nowrap;
 
     & > .hi-icon {
       margin-right: 6px;

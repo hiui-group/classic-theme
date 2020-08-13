@@ -103,6 +103,7 @@ const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, lo
       <div className='sider__footer'>
         <Icon
           name='menu'
+          style={{ flexShrink: 0, alignSelf: 'center' }}
           onClick={() => {
             const _mini = !mini
             toggleMini(_mini)
@@ -118,8 +119,8 @@ const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, lo
               }}
             >
               <Icon name={login.icon} />
-              {login.name}
-              <Icon name={'packup'} />
+              {!mini && login.name}
+              {!mini && <Icon name={'caret-down'} />}
             </div>
             <Popper
               show={loginVisible}
