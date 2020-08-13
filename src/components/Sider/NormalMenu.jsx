@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
 import './style/index.scss'
-import { Icon } from '@hi-ui/hiui'
+import Icon from '../icon'
 import Expander from './Expander'
 
 const NormalMenu = ({ expandedId, menu, setExpandedId, selectedMenus, level, renderChildren, onSelectMenu }) => {

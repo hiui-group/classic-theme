@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Theme, { history } from '../../src/theme'
 import _routeConfig from './routes-config'
 import { Input, Icon, Select } from '@hi-ui/hiui'
-import Table from '@mi/power-table'
 
 const logoConfig = {
   logoUrl: 'https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05',
@@ -74,7 +73,7 @@ class App extends Component {
   //     this.setState({ routeConfig: _routeConfig })
   //   }, 2000)
   // }
-  render() {
+  render () {
     return (
       <Theme
         // routes={this.state.routeConfig}

@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useRef } from 'react'
 import classNames from 'classnames'
 import './style/index.scss'
-import { Icon } from '@hi-ui/hiui'
+import Icon from '../icon'
 import Popper from '../popper'
 
 const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMenu, siderRef }) => {

@@ -2,8 +2,9 @@ import React, { useCallback, useState, useEffect, useRef } from 'react'
 // import Menu from './menu'
 import classNames from 'classnames'
 import './style/index.scss'
-import { Icon, Tooltip } from '@hi-ui/hiui'
+import { Tooltip } from '@hi-ui/hiui'
 import Popper from '../popper'
+import Icon from '../icon'
 import NormalMenu from './NormalMenu'
 import PopperMenu from './PopperMenu'
 import { getScrollBarSize } from '../../util/common'
@@ -101,7 +102,7 @@ const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, lo
       {siderBottomRender && siderBottomRender(mini)}
       <div className='sider__footer'>
         <Icon
-          name='list'
+          name='menu'
           onClick={() => {
             const _mini = !mini
             toggleMini(_mini)

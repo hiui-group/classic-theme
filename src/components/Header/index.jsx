@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { Icon } from '@hi-ui/hiui'
+import Icon from '../icon'
 import Popper from '../popper'
 import ClassNames from 'classnames'
 import './style/index'

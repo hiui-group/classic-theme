@@ -1,18 +1,12 @@
 import React, { useCallback, useState, useRef } from 'react'
-// import Menu from './menu'
 import classNames from 'classnames'
 import './style/index.scss'
-import { Icon, Popper } from '@hi-ui/hiui'
-import useClickOutside from '../../hooks/useClickOutside'
+import Icon from '../icon'
+import Popper from '../popper'
 
 const LoginPopper = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMenu }) => {
-  const popperRef = useRef(null)
   const menuRef = useRef(null)
   const [visibleMenu, setVisibleMenu] = useState([])
-  // useClickOutside(popperRef, () => {
-  //   setPopperVisible(false)
-  // })
-
   const renderPopChildren = useCallback(
     (children, level = 0, selectedMenus) => {
       const _style = level === 0 ? {} : { position: 'absolute', left: 'calc(100% + 2px)', top: 0 }
