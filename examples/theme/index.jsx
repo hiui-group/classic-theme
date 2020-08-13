@@ -50,6 +50,7 @@ const toolbar2 = (
       clearable={false}
       style={{ width: 200 }}
       onChange={() => {
+        console.log('>>>>>', history)
         history.browserHistory.push('/cc')
       }}
       data={[
@@ -73,13 +74,13 @@ class App extends Component {
   //     this.setState({ routeConfig: _routeConfig })
   //   }, 2000)
   // }
-  render () {
+  render() {
     return (
       <Theme
         // routes={this.state.routeConfig}
         routes={_routeConfig}
         logo={logoConfig}
-        siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
+        // siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
         login={loginConfig}
         // type='classic'
         // header={null}

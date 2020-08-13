@@ -1,17 +1,13 @@
 import React, { useCallback, useState, useRef } from 'react'
-// import Menu from './menu'
 import classNames from 'classnames'
 import './style/index.scss'
-import { Icon, Popper } from '@hi-ui/hiui'
-import useClickOutside from '../../hooks/useClickOutside'
+import { Icon } from '@hi-ui/hiui'
+import Popper from '../popper'
 
-const LoginPopper = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMenu }) => {
+const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMenu, siderRef }) => {
   const popperRef = useRef(null)
   const menuRef = useRef(null)
   const [visibleMenu, setVisibleMenu] = useState([])
-  // useClickOutside(popperRef, () => {
-  //   setPopperVisible(false)
-  // })
 
   const renderPopChildren = useCallback(
     (children, level = 0, selectedMenus) => {
@@ -33,7 +29,8 @@ const LoginPopper = ({ menu, selectedMenus, visible, setPopperVisible, onSelectM
                 className={classNames('menu-item__title', {
                   'menu-item__title--active': selectedMenus && selectedMenus.map((sm) => sm.id).includes(subMenu.id)
                 })}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation()
                   if (subMenu.path) {
                     onSelectMenu(subMenu)
                     setPopperVisible(null)
@@ -76,18 +73,20 @@ const LoginPopper = ({ menu, selectedMenus, visible, setPopperVisible, onSelectM
       </div>
       {menu.children && (
         <Popper
+          container={siderRef.current}
           show={visible}
           attachEle={menuRef.current}
           zIndex={1050}
           className='hi-theme__popper'
           placement='right-start'
           width={'auto'}
+          onClickOutside={() => setPopperVisible(false)}
         >
-          {renderPopChildren(menu.children, 0, selectedMenus)}
+          <div ref={popperRef}>{renderPopChildren(menu.children, 0, selectedMenus)}</div>
         </Popper>
       )}
     </React.Fragment>
   )
 }
 
-export default LoginPopper
+export default PopperMenu

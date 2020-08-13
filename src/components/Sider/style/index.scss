@@ -1,89 +1,100 @@
+ul {
+  li {
+    list-style: none;
+    white-space: nowrap;
+  }
+}
+
+.menu-expander {
+  overflow: hidden;
+  transition: height 0.3s;
+}
+
+.mini-sider__menu {
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  min-width: 160px;
+  background: #fff;
+  color: #333;
+
+  &-item {
+    position: relative;
+
+    .menu-item__title {
+      height: 40px;
+      line-height: 40px;
+      padding: 0 12px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &--active {
+        color: #4284f5;
+      }
+
+      &:hover {
+        color: #4284f5;
+      }
+    }
+  }
+}
+
 .hi-theme__sider {
   display: flex;
   flex-direction: column;
+  width: 216px;
+  transition: width 0.3s;
+  overflow: hidden;
+  z-index: 12;
 
-  .sider-wrapper {
-    background: #393d46;
-    position: relative;
-    flex: 1;
-    overflow: hidden;
-
-    &::before {
-      position: absolute;
-      left: 0;
-      z-index: 1;
-      width: calc(100% - 1px);
-      content: '';
-      pointer-events: none;
-      top: 0;
-      height: 12px;
-      background: linear-gradient(to bottom, #fff 0%, rgba(255, 255, 255, 0) 100%);
-    }
-
-    &::after {
-      position: absolute;
-      left: 0;
-      z-index: 1;
-      width: calc(100% - 1px);
-      content: '';
-      pointer-events: none;
-      bottom: 0;
-      height: 12px;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
-    }
+  &--mini {
+    width: 48px;
+    overflow: visible;
   }
 
-  &.dark {
-    .sider-wrapper {
-      background: #393d46;
-      position: relative;
-      flex: 1;
+  .sider__menu {
+    flex: 1;
+    padding: 16px 0;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    .hi-tooltip {
+      width: 100%;
+    }
+
+    .menu__title {
+      height: 48px;
+      padding-right: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.3s;
       overflow: hidden;
 
-      &::before {
-        position: absolute;
-        left: 0;
-        z-index: 1;
-        width: calc(100% - 1px);
-        content: '';
-        pointer-events: none;
-        top: 0;
-        height: 12px;
-        background: linear-gradient(180deg, #393d46 0, hsla(0, 0%, 100%, 0));
+      &:hover {
+        color: #4284f5;
       }
 
-      &::after {
-        position: absolute;
-        left: 0;
-        z-index: 1;
-        width: calc(100% - 1px);
-        content: '';
-        pointer-events: none;
-        bottom: 0;
-        height: 12px;
-        background: linear-gradient(180deg, hsla(0, 0%, 100%, 0) 0, #393d46);
+      &--active {
+        color: #4284f5;
       }
     }
 
-    .hi-menu--vertical {
-      background-color: #393d46;
-      position: relative;
-    }
-
-    .hi-menu__title {
-      color: #fff;
-    }
-
-    .sider__footer,
-    .sider__logo {
-      background-color: #393d46;
-      color: #fff;
+    .menu__leaf-title--active {
+      background: #2e343d;
+      color: #4284f5;
     }
   }
 
   .sider__logo {
-    height: 64px;
+    height: 200px;
     display: flex;
+    transition: height 0.3s;
+    flex-shrink: 0;
 
     .hi-logo {
       flex: 1;
@@ -93,7 +104,9 @@
         flex: 1;
         align-items: center;
         display: flex;
+        flex-direction: column;
         padding: 0 16px;
+        justify-content: center;
       }
 
       .hi-logo__img {
@@ -123,49 +136,27 @@
   }
 
   .sider__footer {
-    height: 48px;
-    text-align: right;
+    height: 56px;
+    line-height: 56px;
     position: relative;
+    padding: 0 16px;
+    transition: height 0.3s;
+    display: flex;
+    justify-content: space-between;
+    flex-shrink: 0;
 
-    &__toggle {
-      cursor: pointer;
+    & > .hi-icon {
       width: 16px;
-      height: 16px;
-      position: absolute;
-      right: 16px;
-      bottom: 10px;
-      background: url('../../../static/image/menu.png') no-repeat;
-      background-size: cover;
-    }
-
-    &__toggle--light {
-      background: url('../../../static/image/menu-light.png') no-repeat;
-      background-size: cover;
+      cursor: pointer;
     }
   }
 
-  .hi-menu--vertical {
-    box-shadow: none !important;
-    border: none;
-    height: 100%;
-    overflow-y: auto;
-  }
+  .login__wrapper {
+    cursor: pointer;
+    overflow: hidden;
 
-  .hi-menu-item--active:not(.hi-submenu) {
-    background: rgba(66, 133, 244, 0.08);
-    position: relative;
-
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      content: '';
-      transition: width 0.3s linear;
-      width: 4px;
-      background: #4285f4;
+    & > .hi-icon {
+      margin-right: 6px;
     }
   }
-
-  border-right: 1px solid #d8d8d8;
 }
