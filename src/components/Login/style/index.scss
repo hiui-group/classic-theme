@@ -1,6 +1,6 @@
 @import '@hi-ui/core-css/index.scss';
 
-.login {
+.hi-login {
   position: relative;
   display: flex;
   height: 64px;
@@ -15,12 +15,15 @@
     border: 5px solid transparent;
     border-bottom-width: 0;
     content: '';
+    border-top-color: #fff;
   }
 
   &--active {
     &::after {
       border-top-width: 0;
       border-bottom-width: 5px;
+      border-top-color: #fff;
+      border-bottom-color: #fff;
     }
   }
 
@@ -63,7 +66,7 @@
     background-color: $white;
     cursor: default;
 
-    .login--active & {
+    .hi-login--active & {
       display: block;
     }
 

@@ -1,13 +1,131 @@
 @import '@hi-ui/core-css/index.scss';
 
-.header {
-  box-sizing: border-box;
+.hi-theme__header {
   display: flex;
-  width: 100%;
-  min-width: $min-page-width;
+  background: #4285f4;
   height: 64px;
-  padding: 0 16px;
-  border-bottom: 1px solid transparent;
+  line-height: 64px;
+  position: fixed;
+  top: 0;
+  width: 100%;
   font-size: $font-size-normal;
-  line-height: $line-height-normal;
+  box-sizing: border-box;
+  z-index: 11;
+
+  &.dark {
+    background: get-color($palette-hiui, 'g100');
+
+    .hi-theme__login {
+      color: #fff;
+    }
+  }
+
+  &.blue {
+    background: get-color($palette-hiui, '50');
+
+    .hi-theme__login {
+      color: #fff;
+    }
+  }
+
+  &.light {
+    background: $white;
+    border-bottom: 1px solid #e7e7e7;
+
+    .hi-theme__login {
+      .hi-login {
+        &::after {
+          border-top-color: get-color($palette-hiui, 'g100');
+        }
+
+        &--active {
+          &::after {
+            border-top-color: get-color($palette-hiui, 'g100');
+            border-bottom-color: get-color($palette-hiui, 'g100');
+          }
+        }
+      }
+    }
+
+    .hi-theme__menu {
+      flex: 1;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      margin-left: 24px;
+
+      .main-menu-item {
+        display: flex;
+
+        a {
+          color: get-color($palette-hiui, 'g100');
+          padding: 0 16px;
+          transition: color 0.3s;
+
+          &:hover {
+            color: get-color($palette-hiui, '50');
+          }
+        }
+      }
+
+      .active-main-menu {
+        a {
+          color: get-color($palette-hiui, '50');
+        }
+      }
+    }
+  }
+
+  .hi-theme__logo {
+    flex: 0 0 216px;
+
+    .hi-logo {
+      padding-left: 16px;
+    }
+
+    .hi-logo__img {
+      margin-right: 8px;
+    }
+  }
+
+  .hi-theme__login {
+    flex: 0 0 64px;
+  }
+
+  .hi-theme__toolbar {
+    display: flex;
+    flex: 1;
+    color: #fff;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .hi-theme__menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    margin-left: 24px;
+
+    .main-menu-item {
+      display: flex;
+
+      a {
+        color: #fff;
+        padding: 0 16px;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #d8d8d8;
+        }
+      }
+    }
+
+    .active-main-menu {
+      a {
+        color: #d8d8d8;
+      }
+    }
+  }
 }

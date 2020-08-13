@@ -1,0 +1,63 @@
+@import '@hi-ui/core-css/lib/i18n/zh-CN.scss';
+@import '@hi-ui/core-css/base.scss';
+
+.hi-theme--classic {
+  display: flex;
+  height: calc(100vh - 64px);
+  box-sizing: border-box;
+  margin-top: 64px;
+
+  .hi-theme__wrapper {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hi-theme__content {
+    flex: 1;
+    // overflow: auto;
+  }
+}
+
+.hi-theme--genuine {
+  display: flex;
+  height: 100vh;
+  box-sizing: border-box;
+
+  .hi-theme__wrapper {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hi-theme__container {
+    flex: 1;
+    display: flex;
+    overflow-x: auto;
+    flex-direction: column;
+
+    .hi-theme__content {
+      flex: 1;
+      // overflow: auto;
+    }
+
+    .hi-theme--no-header {
+      padding-top: 0;
+    }
+  }
+
+  .hi-theme__header {
+    justify-content: flex-end;
+    position: static;
+  }
+
+  .sider__logo {
+    &.mini {
+      .hi-logo__link {
+        display: flex;
+      }
+    }
+  }
+}

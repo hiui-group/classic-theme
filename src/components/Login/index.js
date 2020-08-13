@@ -1,4 +1,5 @@
 import React from 'react'
+import Icon from '@hi-ui/hiui/es/icon'
 import './style/index'
 
 class Login extends React.Component {
@@ -29,17 +30,11 @@ class Login extends React.Component {
 
   render () {
     const open = this.state.open
-    const {
-      headUrl = '',
-      name = '',
-      children = '',
-      style,
-      icon
-    } = this.props
+    const { headUrl = '', name = '', children = '', style, icon } = this.props
 
     return (
       <div
-        className={`login ${open ? 'login--active' : ''} ${children ? '' : 'login--empty'}`}
+        className={`hi-login ${open ? 'hi-login--active' : ''} ${children ? '' : 'hi-login--empty'}`}
         style={style}
         onClick={e => {
           e.stopPropagation()
@@ -47,29 +42,32 @@ class Login extends React.Component {
           this.setState({ open: !open })
         }}
       >
-        {
-          headUrl ? (<div className='login__img' style={{ backgroundImage: 'url(' + headUrl + ')' }} />) : ''
-        }
-        {
-          icon ? (<div className='login__img' >{icon}</div>) : ''
-        }
-        {
-          name ? (<div className='login__name'>{name}</div>) : ''
-        }
-        {
-          children
-            ? (
-              <div
-                className='login__info'
-                onClick={e => {
-                  e.stopPropagation()
-                  e.nativeEvent.stopImmediatePropagation()
-                }}
-              >
-                { children }
-              </div>
-            ) : ''
-        }
+        {headUrl ? (
+          <div className='hi-login__img' style={{ backgroundImage: 'url(' + headUrl + ')' }} />
+        ) : (
+          ''
+        )}
+        {icon ? (
+          <span style={{ marginRight: 5 }}>
+            <Icon name={icon} />
+          </span>
+        ) : (
+          ''
+        )}
+        {name ? <div className='hi-login__name'>{name}</div> : ''}
+        {children ? (
+          <div
+            className='hi-login__info'
+            onClick={e => {
+              e.stopPropagation()
+              e.nativeEvent.stopImmediatePropagation()
+            }}
+          >
+            {children}
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     )
   }

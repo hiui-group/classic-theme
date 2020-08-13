@@ -1,6 +1,6 @@
 @import '@hi-ui/core-css/index.scss';
 
-.logo {
+.hi-logo {
   box-sizing: border-box;
 
   &__img {
@@ -11,6 +11,7 @@
     font-size: $font-size-large;
     font-weight: $font-weight-bold;
     vertical-align: middle;
+    color: #fff;
   }
 
   .layout--classic & {
@@ -47,14 +48,4 @@
       margin: 0 auto 16px;
     }
   }
-
-  // &__vertical {
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: center;
-  //   flex-direction: column;
-  //   .logo__title {
-  //     margin-left: 0;
-  //   }
-  // }
 }

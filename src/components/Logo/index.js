@@ -10,8 +10,7 @@ class Logo extends React.Component {
     height: PropTypes.string,
     logoUrl: PropTypes.string,
     style: PropTypes.object,
-    text: PropTypes.string,
-    title: PropTypes.string,
+    name: PropTypes.string,
     url: PropTypes.string
   }
 
@@ -21,26 +20,14 @@ class Logo extends React.Component {
   }
 
   render () {
-    const {
-      alt,
-      className,
-      height,
-      logoUrl,
-      style,
-      text,
-      title,
-      url
-    } = this.props
-    const classes = classNames(
-      'logo',
-      className && `${className}`
-    )
+    const { alt, className, height, logoUrl, style, name, url } = this.props
+    const classes = classNames('hi-logo', className && `${className}`)
 
     return (
       <div className={classes} style={style}>
-        <a className='logo__link' href={url} title={title}>
-          {logoUrl && <img className='logo__img' src={logoUrl} alt={alt} height={height} />}
-          {text && <span className='logo__title'>{text}</span>}
+        <a className='hi-logo__link' href={url}>
+          {logoUrl && <img className='hi-logo__img' src={logoUrl} alt={alt} height={height} />}
+          {name && <span className='hi-logo__title'>{name}</span>}
         </a>
       </div>
     )

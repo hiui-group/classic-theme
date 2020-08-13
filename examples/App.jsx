@@ -1,22 +1,10 @@
 import React, { Component } from 'react'
 import './App.scss'
-import DefaultTheme from './example-classic'
-// import GenuineTheme from './example-genuine'
+import Theme from './theme'
 
 class App extends Component {
-  constructor () {
-    super()
-    this.state = {
-      show: false,
-      layout: 'default'
-    }
-  }
-
   render () {
-    return (
-      <DefaultTheme />
-      // <GenuineTheme />
-    )
+    return <Theme />
   }
 }
 
