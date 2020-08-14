@@ -50,9 +50,18 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar }) => {
           >
             <Icon name={login.icon} />
             {login.name}
-            <Icon name={'open'} />
+            <Icon name={'caret-down'} />
           </div>
-          <Popper show={loginVisible} attachEle={loginRef.current} zIndex={1050} placement='bottom' width={false}>
+          <Popper
+            show={loginVisible}
+            attachEle={loginRef.current}
+            zIndex={1050}
+            placement='bottom-end'
+            width={false}
+            onClickOutside={() => {
+              setLoginVisible(false)
+            }}
+          >
             <div ref={popperRef} className='login__menu--top'>
               {login.children}
             </div>
