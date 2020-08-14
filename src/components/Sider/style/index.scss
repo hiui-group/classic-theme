@@ -148,7 +148,6 @@ ul {
     height: 48px;
     line-height: 48px;
     position: relative;
-    padding: 0 16px;
     transition: height 0.3s;
     display: flex;
     justify-content: space-between;
@@ -160,13 +159,34 @@ ul {
     }
   }
 
-  .login__wrapper {
+  .sider__toggle {
+    width: 48px;
+    height: 48px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
+    flex-shrink: 0;
+
+    &:hover {
+      background: #252b32;
+    }
+  }
+
+  .sider__login {
+    cursor: pointer;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
     overflow: hidden;
     white-space: nowrap;
+    transition: background 0.3s;
 
-    & > .hi-theme-icon {
-      margin-right: 6px;
+    &:hover {
+      background: #252b32;
     }
   }
 }

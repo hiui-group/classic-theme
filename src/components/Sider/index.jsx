@@ -1,5 +1,4 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react'
-// import Menu from './menu'
 import classNames from 'classnames'
 import './style/index.scss'
 import { Tooltip } from '@hi-ui/hiui'
@@ -7,6 +6,7 @@ import Popper from '../popper'
 import Icon from '../icon'
 import NormalMenu from './NormalMenu'
 import PopperMenu from './PopperMenu'
+import Toggle from './Toggle'
 import { getScrollBarSize } from '../../util/common'
 import _ from 'lodash'
 
@@ -101,26 +101,21 @@ const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, lo
       )}
       {siderBottomRender && siderBottomRender(mini)}
       <div className='sider__footer'>
-        <Icon
-          name={mini ? 'menu-unfold' : 'menu-fold'}
-          style={{ flexShrink: 0, alignSelf: 'center' }}
-          onClick={() => {
-            const _mini = !mini
-            toggleMini(_mini)
-          }}
-        />
+        <Toggle show mini={mini} onToggle={toggleMini} />
         {login && (
           <React.Fragment>
             <div
-              className={'login__wrapper'}
+              className={'sider__login'}
               ref={loginRef}
               onClick={(e) => {
                 setLoginVisible(!loginVisible)
               }}
             >
-              <Icon name={login.icon} />
-              {!mini && login.name}
-              {!mini && <Icon name={'caret-down'} />}
+              <span>
+                <Icon name={login.icon} style={{ marginRight: 4 }} />
+                {!mini && login.name}
+              </span>
+              {!mini && <Icon name={'right'} />}
             </div>
             <Popper
               show={loginVisible}
