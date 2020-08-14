@@ -101,9 +101,8 @@ ul {
   }
 
   .sider__logo {
-    height: 200px;
+    height: 164px;
     display: flex;
-    transition: height 0.3s;
     flex-shrink: 0;
 
     .hi-logo {
@@ -146,8 +145,8 @@ ul {
   }
 
   .sider__footer {
-    height: 56px;
-    line-height: 56px;
+    height: 48px;
+    line-height: 48px;
     position: relative;
     padding: 0 16px;
     transition: height 0.3s;

@@ -62,7 +62,7 @@
 
     &--mini {
       .sider__footer {
-        height: 90px !important;
+        height: 96px !important;
         flex-direction: column-reverse;
 
         & > .hi-theme-icon {
@@ -74,10 +74,6 @@
           width: 14px;
           align-self: center;
         }
-      }
-
-      .sider__logo {
-        height: 88px !important;
       }
     }
   }

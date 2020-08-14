@@ -102,7 +102,7 @@ const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, lo
       {siderBottomRender && siderBottomRender(mini)}
       <div className='sider__footer'>
         <Icon
-          name='menu'
+          name={mini ? 'menu-unfold' : 'menu-fold'}
           style={{ flexShrink: 0, alignSelf: 'center' }}
           onClick={() => {
             const _mini = !mini
