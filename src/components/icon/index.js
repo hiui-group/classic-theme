@@ -5,7 +5,7 @@ import './style/index'
 import './iconfont.js'
 
 const Icon = ({ name, filled = false, className, style = {}, onClick }) => {
-  console.log(222, style)
+  const { color, fontSize, ...otherStyle } = style
   return (
     <svg
       className={classNames(className, 'hi-icon')}
@@ -17,9 +17,7 @@ const Icon = ({ name, filled = false, className, style = {}, onClick }) => {
         fill: style.color,
         height: style.fontSize,
         width: style.fontSize,
-        cursor: style.cursor,
-        flexShrink: style.flexShrink,
-        alignSelf: style.alignSelf
+        ...otherStyle
       }}
     >
       <use xlinkHref={`#icon${name}-${filled ? 'filled' : 'outlined'}`} />

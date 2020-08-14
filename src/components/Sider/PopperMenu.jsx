@@ -77,6 +77,7 @@ const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMe
           show={visible}
           attachEle={menuRef.current}
           zIndex={1050}
+          setOverlayContainer={() => document.body}
           className='hi-theme__popper'
           placement='right-start'
           width={'auto'}

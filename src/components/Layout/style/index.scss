@@ -63,7 +63,7 @@
     &--mini {
       .sider__footer {
         height: 90px !important;
-        flex-direction: column;
+        flex-direction: column-reverse;
 
         & > .hi-icon {
           line-height: 45px;
@@ -71,6 +71,8 @@
 
         .login__wrapper {
           line-height: 45px;
+          width: 14px;
+          align-self: center;
         }
       }
 

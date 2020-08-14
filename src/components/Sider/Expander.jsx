@@ -3,7 +3,6 @@ import React, { useCallback, useState, useEffect, useRef } from 'react'
 const Expander = ({ children, expanded, isManul }) => {
   const expanderRef = useRef(null)
   const [height, setHeight] = useState('')
-  console.log('>>>>>>>', isManul, expanded)
   useEffect(() => {
     if (isManul) {
       if (expanded) {
@@ -25,7 +24,6 @@ const Expander = ({ children, expanded, isManul }) => {
       return expanderRef.current.scrollHeight
     }
   }, [])
-
   return (
     <div className='menu-expander' style={{ height: isManul ? height : expanded ? '' : 0 }}>
       <div ref={expanderRef}>{children}</div>
