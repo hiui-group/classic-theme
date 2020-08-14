@@ -9,6 +9,7 @@ import { getRoutes, filterMenu } from '../../util/common'
 import useMenuCalculator from '../../hooks/useMenuCalculator'
 
 const GenuineLayout = ({
+  apperance,
   menu,
   location,
   history,
@@ -46,6 +47,7 @@ const GenuineLayout = ({
               className={ClassNames('hi-theme__content', {
                 'hi-theme--no-header': header === null
               })}
+              style={{ padding: apperance.contentPadding, background: apperance.contentBackground }}
             >
               {routes.map((route, index) => (
                 <Route

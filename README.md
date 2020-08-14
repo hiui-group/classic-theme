@@ -122,6 +122,7 @@ History[`${your history type}`].push()
 | siderTopRender    | 侧边栏自定义顶部渲染区域                 | toggle: boolean => ReactNode      | -                           |
 | siderBottomRender | 侧边栏自定义底部渲染区域                 | toggle: boolean => ReactNode      | -                           |
 | accordion         | 左侧菜单是否采用手风琴模式               | boolean                           | true                        |
+| basename          | 路由基础路径                             | string                            | '/'                         |
 
 ### type: Route
 
@@ -138,9 +139,11 @@ History[`${your history type}`].push()
 
 ### type: Apperance
 
-| 属性名 | 描述     | 类型              | 默认值 |
-| ------ | -------- | ----------------- | ------ |
-| color  | 主题颜色 | 'dark' \| 'light' | 'dark' |
+| 属性名            | 描述           | 类型              | 默认值    |
+| ----------------- | -------------- | ----------------- | --------- |
+| color             | 主题颜色       | 'dark' \| 'light' | 'dark'    |
+| contentBackground | 内容区域背景色 | string            | '#f6f6f6' |
+| contentPadding    | 内容区域内边距 | number            | 0         |
 
 ### tye: Logo
 

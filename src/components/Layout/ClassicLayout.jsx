@@ -9,6 +9,7 @@ import { getRoutes, filterMenu } from '../../util/common'
 import useMenuCalculator from '../../hooks/useMenuCalculator'
 
 const ClassicLayout = ({
+  apperance,
   menu,
   location,
   history,
@@ -21,11 +22,7 @@ const ClassicLayout = ({
   footer
 }) => {
   const mainMenu = useMainMenu(menu)
-  const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(
-    menu,
-    { location, history },
-    fallback
-  )
+  const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
   const activeMainMenu = selectedMenus[0]
   const siderMenu = (selectedMenus[0] && selectedMenus[0].children) || []
@@ -54,7 +51,10 @@ const ClassicLayout = ({
           />
         )}
         <div className='hi-theme__wrapper'>
-          <div className='hi-theme__content'>
+          <div
+            className='hi-theme__content'
+            style={{ padding: apperance.contentPadding, background: apperance.contentBackground }}
+          >
             {routes.map((route, index) => (
               <Route
                 key={index}

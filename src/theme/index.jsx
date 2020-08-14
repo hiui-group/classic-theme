@@ -17,7 +17,7 @@ const Layout = ({
   basename = '/',
   routes = [],
   type = 'classic',
-  apperance = { color: 'dark' },
+  apperance = { contentBackground: '#f6f6f6', contentPadding: 24 },
   logo,
   login,
   header,
