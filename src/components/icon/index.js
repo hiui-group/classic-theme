@@ -8,7 +8,7 @@ const Icon = ({ name, filled = false, className, style = {}, onClick }) => {
   const { color, fontSize, ...otherStyle } = style
   return (
     <svg
-      className={classNames(className, 'hi-icon')}
+      className={classNames(className, 'hi-theme-icon')}
       aria-hidden='true'
       onClick={(e) => {
         onClick && onClick(e)

@@ -54,7 +54,7 @@ ul {
     overflow: visible;
 
     .sider__footer {
-      & > .hi-icon {
+      & > .hi-theme-icon {
         margin-bottom: 16px;
       }
     }
@@ -80,6 +80,10 @@ ul {
       cursor: pointer;
       transition: all 0.3s;
       overflow: hidden;
+
+      .hi-theme-icon {
+        margin-right: 4px;
+      }
 
       &:hover {
         color: #4284f5;
@@ -152,7 +156,7 @@ ul {
     // align-items: center;
     flex-shrink: 0;
 
-    & > .hi-icon {
+    & > .hi-theme-icon {
       cursor: pointer;
     }
   }
@@ -162,7 +166,7 @@ ul {
     overflow: hidden;
     white-space: nowrap;
 
-    & > .hi-icon {
+    & > .hi-theme-icon {
       margin-right: 6px;
     }
   }
