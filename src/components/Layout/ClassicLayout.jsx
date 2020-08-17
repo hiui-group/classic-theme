@@ -19,7 +19,8 @@ const ClassicLayout = ({
   fallback,
   siderTopRender,
   siderBottomRender,
-  footer
+  footer,
+  defaultExpandAll
 }) => {
   const mainMenu = useMainMenu(menu)
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
@@ -48,6 +49,7 @@ const ClassicLayout = ({
             siderBottomRender={siderBottomRender}
             selectedMenus={selectedMenus}
             onSelectMenu={onSelectMenu}
+            defaultExpandedAll={defaultExpandAll}
           />
         )}
         <div className='hi-theme__wrapper'>

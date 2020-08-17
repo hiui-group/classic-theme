@@ -11,7 +11,16 @@ import Toggle from './Toggle'
 import { getScrollBarSize } from '../../util/common'
 import _ from 'lodash'
 
-const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, logo, login, onSelectMenu }) => {
+const Sider = ({
+  siderMenu,
+  siderTopRender,
+  siderBottomRender,
+  selectedMenus,
+  logo,
+  login,
+  onSelectMenu,
+  defaultExpandAll
+}) => {
   const [mini, toggleMini] = useState(false)
   const [expandedId, setExpandedId] = useState([])
   const [popperVisible, setPopperVisible] = useState(null)
@@ -23,6 +32,12 @@ const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, lo
   const loginRef = useRef(null)
 
   const scrollBarSize = useRef(getScrollBarSize())
+  useEffect(() => {
+    if (defaultExpandAll) {
+      setExpandedId(siderMenu.map((menu) => menu.id))
+    }
+  }, [siderMenu])
+
   useEffect(() => {
     setExpandedId((expandeId) =>
       _.uniq(expandedId.concat(selectedMenus.map((sm) => sm.id).slice(0, selectedMenus.length - 1)))

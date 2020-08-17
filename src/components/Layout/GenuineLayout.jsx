@@ -20,7 +20,8 @@ const GenuineLayout = ({
   siderTopRender,
   siderBottomRender,
   footer,
-  header
+  header,
+  defaultExpandAll
 }) => {
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
@@ -35,6 +36,7 @@ const GenuineLayout = ({
             selectedMenus={selectedMenus}
             onSelectMenu={onSelectMenu}
             login={login}
+            defaultExpandAll={defaultExpandAll}
             siderTopRender={siderTopRender}
             siderBottomRender={siderBottomRender}
             logo={logo}
