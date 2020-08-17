@@ -4,6 +4,7 @@ import './style/index.scss'
 import { Tooltip } from '@hi-ui/hiui'
 import Popper from '../popper'
 import Icon from '../icon'
+import Logo from '../Logo'
 import NormalMenu from './NormalMenu'
 import PopperMenu from './PopperMenu'
 import Toggle from './Toggle'
@@ -85,10 +86,15 @@ const Sider = ({ siderMenu, siderTopRender, siderBottomRender, selectedMenus, lo
     },
     [onSelectMenu]
   )
+  const logoConfig = typeof logo === 'function' ? logo(mini) : logo
 
   return (
     <div className={classNames('hi-theme__sider', { 'hi-theme__sider--mini': mini })} ref={siderRef}>
-      {logo && <div className={classNames('sider__logo', { mini: mini })}>{logo}</div>}
+      {logo && (
+        <div className={classNames('sider__logo', { mini: mini })}>
+          <Logo {...logoConfig} />
+        </div>
+      )}
       {siderTopRender && siderTopRender(mini)}
       {siderMenu.length > 0 && (
         <div className='sider__menu'>

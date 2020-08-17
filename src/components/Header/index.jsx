@@ -1,18 +1,24 @@
 import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Icon from '../icon'
+import Logo from '../Logo'
 import Popper from '../popper'
 import ClassNames from 'classnames'
 import './style/index'
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
-const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar }) => {
+const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar, mini }) => {
   const [loginVisible, setLoginVisible] = useState(false)
   const popperRef = useRef(null)
   const loginRef = useRef(null)
+  const logoConfig = typeof logo === 'function' ? logo(mini) : logo
   return (
     <div className={ClassNames('hi-theme__header')}>
-      {logo && <div className='hi-theme__logo'>{logo}</div>}
+      {logo && (
+        <div className='hi-theme__logo'>
+          <Logo {...logoConfig} />
+        </div>
+      )}
 
       {mainMenu && (
         <ul className='hi-theme__menu' style={{ flex: toolbar ? '0 0 auto' : 1 }}>

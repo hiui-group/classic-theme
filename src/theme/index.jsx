@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory, createHashHistory } from 'history'
 import layout from '../components/Layout'
-import Logo from '../components/Logo'
+
 import { transformConfig } from '../util/common'
 let _history = {}
 export const history = _history
@@ -48,7 +48,7 @@ const Layout = ({
             footer={footer}
             type={type}
             apperance={apperance}
-            logo={logo && <Logo {...logo} />}
+            logo={logo}
             login={login}
             header={header}
             accordion={accordion}
