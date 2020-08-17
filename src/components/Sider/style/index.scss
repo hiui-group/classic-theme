@@ -101,27 +101,8 @@ ul {
   }
 
   .sider__logo {
-    height: 164px;
     display: flex;
     flex-shrink: 0;
-
-    .hi-logo {
-      flex: 1;
-      display: flex;
-
-      .hi-logo__link {
-        flex: 1;
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        padding: 0 16px;
-        justify-content: center;
-      }
-
-      .hi-logo__img {
-        margin-right: 10px;
-      }
-    }
 
     &.mini {
       width: 48px;

@@ -14,11 +14,7 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar, mini }) => {
   const logoConfig = typeof logo === 'function' ? logo(mini) : logo
   return (
     <div className={ClassNames('hi-theme__header')}>
-      {logo && (
-        <div className='hi-theme__logo'>
-          <Logo {...logoConfig} />
-        </div>
-      )}
+      {logo && <Logo {...logoConfig} mini={mini} layout='horizontal' />}
 
       {mainMenu && (
         <ul className='hi-theme__menu' style={{ flex: toolbar ? '0 0 auto' : 1 }}>
