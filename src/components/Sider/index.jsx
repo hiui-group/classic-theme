@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react'
 import classNames from 'classnames'
 import './style/index.scss'
-import { Tooltip } from '@hi-ui/hiui'
+import Tooltip from '../tooltip'
 import Popper from '../popper'
 import Icon from '../icon'
 import Logo from '../Logo'
