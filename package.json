@@ -26,8 +26,6 @@
   "author": "HIUI <mi-hiui@xiaomi.com>",
   "license": "MIT",
   "dependencies": {
-    "@hi-ui/core-css": "^2.0.0",
-    "@hi-ui/hiui": "^2.13.0-rc.8",
     "classnames": "^2.2.6",
     "history": "^4.9.0",
     "lodash": "^4.17.11",
@@ -40,6 +38,8 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@mi/power-table": "^0.1.2",
+    "@hi-ui/core-css": "^2.0.0",
+    "@hi-ui/hiui": "^2.13.0-rc.8",
     "qs": "^6.9.1",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/polyfill": "^7.2.5",
