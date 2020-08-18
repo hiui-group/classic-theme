@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import Header from '../Header'
 import Sider from '../Sider'
 import { Route } from 'react-router-dom'
@@ -20,7 +20,8 @@ const ClassicLayout = ({
   siderTopRender,
   siderBottomRender,
   footer,
-  defaultExpandAll
+  defaultExpandAll,
+  accordion
 }) => {
   const mainMenu = useMainMenu(menu)
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
@@ -28,6 +29,9 @@ const ClassicLayout = ({
   const activeMainMenu = selectedMenus[0]
   const siderMenu = (selectedMenus[0] && selectedMenus[0].children) || []
   const routes = getRoutes(menu)
+  const _siderMenu = useMemo(() => {
+    return filterMenu(siderMenu)
+  }, [siderMenu])
   return [
     !isWithoutLayout && (
       <Header
@@ -44,12 +48,13 @@ const ClassicLayout = ({
       <div key='container' className='hi-theme--classic'>
         {siderMenu.length > 0 && (
           <Sider
-            siderMenu={filterMenu(siderMenu)}
+            siderMenu={_siderMenu}
             siderTopRender={siderTopRender}
             siderBottomRender={siderBottomRender}
             selectedMenus={selectedMenus}
             onSelectMenu={onSelectMenu}
-            defaultExpandedAll={defaultExpandAll}
+            defaultExpandAll={defaultExpandAll}
+            accordion={accordion}
           />
         )}
         <div className='hi-theme__wrapper'>

@@ -4,7 +4,17 @@ import './style/index.scss'
 import Icon from '../icon'
 import Expander from './Expander'
 
-const NormalMenu = ({ expandedId, menu, setExpandedId, selectedMenus, level, renderChildren, onSelectMenu }) => {
+const NormalMenu = ({
+  expandedId,
+  menu,
+  setExpandedId,
+  selectedMenus,
+  level,
+  renderChildren,
+  onSelectMenu,
+  sibling,
+  accordion
+}) => {
   const [expanded, setExpanded] = useState(false)
 
   const [isManul, setIsManul] = useState(false)
@@ -25,6 +35,11 @@ const NormalMenu = ({ expandedId, menu, setExpandedId, selectedMenus, level, ren
           if (_expandedId.includes(menu.id)) {
             _expandedId = _expandedId.filter((id) => id !== menu.id)
           } else {
+            if (accordion) {
+              _expandedId = _expandedId.filter((id) => {
+                return !sibling.map((m) => m.id).includes(id)
+              })
+            }
             _expandedId.push(menu.id)
           }
           setExpandedId(_expandedId)

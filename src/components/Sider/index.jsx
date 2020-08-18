@@ -11,6 +11,16 @@ import Toggle from './Toggle'
 import { getScrollBarSize } from '../../util/common'
 import _ from 'lodash'
 
+const getId = (menu, array = []) => {
+  menu.forEach((m) => {
+    if (m.children) {
+      array.push(m.id)
+      getId(m.children, array)
+    }
+  })
+  return array
+}
+
 const Sider = ({
   siderMenu,
   siderTopRender,
@@ -19,7 +29,8 @@ const Sider = ({
   logo,
   login,
   onSelectMenu,
-  defaultExpandAll
+  defaultExpandAll,
+  accordion
 }) => {
   const [mini, toggleMini] = useState(false)
   const [expandedId, setExpandedId] = useState([])
@@ -30,18 +41,17 @@ const Sider = ({
   const siderRef = useRef(null)
   const popperRef = useRef(null)
   const loginRef = useRef(null)
-
   const scrollBarSize = useRef(getScrollBarSize())
   useEffect(() => {
     if (defaultExpandAll) {
-      setExpandedId(siderMenu.map((menu) => menu.id))
+      setExpandedId(getId(siderMenu))
     }
   }, [siderMenu])
 
   useEffect(() => {
-    setExpandedId((expandeId) =>
-      _.uniq(expandedId.concat(selectedMenus.map((sm) => sm.id).slice(0, selectedMenus.length - 1)))
-    )
+    setExpandedId((expandedId) => {
+      return _.uniq(expandedId.concat(selectedMenus.map((sm) => sm.id).slice(0, selectedMenus.length - 1)))
+    })
   }, [selectedMenus])
   const renderMiniChildren = useCallback(
     (menu, selectedMenus) => {
@@ -89,6 +99,8 @@ const Sider = ({
           <NormalMenu
             key={m.id}
             menu={m}
+            sibling={menu}
+            accordion={accordion}
             setExpandedId={setExpandedId}
             expandedId={expandedId}
             level={level}

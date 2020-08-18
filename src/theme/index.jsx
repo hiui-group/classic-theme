@@ -24,9 +24,10 @@ const Layout = ({
   toolbar,
   siderTopRender,
   siderBottomRender,
-  accordion = true,
+  accordion,
   fallback,
-  footer
+  footer,
+  defaultExpandAll
 }) => {
   const Layout = layout[type]
   const historyForLayout = useRef(null)
@@ -53,6 +54,7 @@ const Layout = ({
             header={header}
             accordion={accordion}
             fallback={fallback}
+            defaultExpandAll={defaultExpandAll}
             {...props}
           />
         )}

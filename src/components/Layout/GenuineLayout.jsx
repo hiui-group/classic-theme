@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import Header from '../Header'
 import Sider from '../Sider'
 import Footer from '../Footer'
@@ -21,18 +21,22 @@ const GenuineLayout = ({
   siderBottomRender,
   footer,
   header,
-  defaultExpandAll
+  defaultExpandAll,
+  accordion
 }) => {
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
   const _header = header === null || header || <Header toolbar={toolbar} />
   const routes = getRoutes(menu)
+  const _siderMenu = useMemo(() => {
+    return filterMenu(menu)
+  }, [menu])
   return [
     (!isWithoutLayout && (
       <div key='container' className='hi-theme--genuine'>
         {menu.length > 0 && (
           <Sider
-            siderMenu={filterMenu(menu)}
+            siderMenu={_siderMenu}
             selectedMenus={selectedMenus}
             onSelectMenu={onSelectMenu}
             login={login}
@@ -40,6 +44,7 @@ const GenuineLayout = ({
             siderTopRender={siderTopRender}
             siderBottomRender={siderBottomRender}
             logo={logo}
+            accordion={accordion}
           />
         )}
         <div className={ClassNames('hi-theme__container')}>
