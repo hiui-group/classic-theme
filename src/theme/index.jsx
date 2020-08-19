@@ -27,7 +27,8 @@ const Layout = ({
   accordion,
   fallback,
   footer,
-  defaultExpandAll
+  defaultExpandAll,
+  pageHeader
 }) => {
   const Layout = layout[type]
   const historyForLayout = useRef(null)
@@ -55,6 +56,7 @@ const Layout = ({
             accordion={accordion}
             fallback={fallback}
             defaultExpandAll={defaultExpandAll}
+            pageHeader={pageHeader}
             {...props}
           />
         )}

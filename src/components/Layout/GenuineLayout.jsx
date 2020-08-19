@@ -22,7 +22,8 @@ const GenuineLayout = ({
   footer,
   header,
   defaultExpandAll,
-  accordion
+  accordion,
+  pageHeader
 }) => {
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
@@ -50,6 +51,7 @@ const GenuineLayout = ({
         <div className={ClassNames('hi-theme__container')}>
           {_header}
           <div className='hi-theme__wrapper'>
+            {pageHeader ? pageHeader(selectedMenus, location) : null}
             <div
               className={ClassNames('hi-theme__content', {
                 'hi-theme--no-header': header === null

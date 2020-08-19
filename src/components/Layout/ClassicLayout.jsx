@@ -21,7 +21,8 @@ const ClassicLayout = ({
   siderBottomRender,
   footer,
   defaultExpandAll,
-  accordion
+  accordion,
+  pageHeader
 }) => {
   const mainMenu = useMainMenu(menu)
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
@@ -58,6 +59,7 @@ const ClassicLayout = ({
           />
         )}
         <div className='hi-theme__wrapper'>
+          {pageHeader ? pageHeader(selectedMenus, location) : null}
           <div
             className='hi-theme__content'
             style={{ padding: apperance.contentPadding, background: apperance.contentBackground }}
