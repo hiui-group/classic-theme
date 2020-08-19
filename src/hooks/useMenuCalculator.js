@@ -17,7 +17,7 @@ const useMenuCalculator = (menu, { location, history }, fallback) => {
       if (selectMenu.path.match(reg)) {
         window.open(selectMenu.path, selectMenu.target || '_blank')
       } else {
-        history.push(selectMenu.path)
+        history.push(selectMenu.path + location.search)
       }
     },
     [menu, selectedMenus]
