@@ -99,7 +99,7 @@ export const filterMenu = (menu) => {
   })
 }
 let cached
-export function getScrollBarSize(fresh) {
+export function getScrollBarSize (fresh) {
   if (typeof document === 'undefined') {
     return 0
   }

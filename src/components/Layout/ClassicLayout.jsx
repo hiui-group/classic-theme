@@ -7,6 +7,7 @@ import Footer from '../Footer'
 import useMainMenu from '../../hooks/useMainMenu'
 import { getRoutes, filterMenu } from '../../util/common'
 import useMenuCalculator from '../../hooks/useMenuCalculator'
+import _ from 'lodash'
 
 const ClassicLayout = ({
   apperance,
@@ -31,7 +32,8 @@ const ClassicLayout = ({
   const siderMenu = (selectedMenus[0] && selectedMenus[0].children) || []
   const routes = getRoutes(menu)
   const _siderMenu = useMemo(() => {
-    return filterMenu(siderMenu)
+    const __siderMenu = _.cloneDeep(siderMenu)
+    return filterMenu(__siderMenu)
   }, [siderMenu])
   return [
     !isWithoutLayout && (

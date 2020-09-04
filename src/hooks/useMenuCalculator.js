@@ -9,15 +9,17 @@ const useMenuCalculator = (menu, { location, history }, fallback) => {
   const [selectedMenus, setselectedMenus] = useState([])
 
   const onSelectMenu = useCallback(
-    (selectMenu) => {
+    (selectMenu, doNavigate = true) => {
       const _selectedMenus = getAncestor(selectMenu.path, menu).reverse().concat(selectMenu)
       if (!_.isEqual(selectedMenus, _selectedMenus)) {
         setselectedMenus(_selectedMenus)
       }
-      if (selectMenu.path.match(reg)) {
-        window.open(selectMenu.path, selectMenu.target || '_blank')
-      } else {
-        history.push(selectMenu.path + location.search)
+      if (doNavigate) {
+        if (selectMenu.path.match(reg)) {
+          window.open(selectMenu.path, selectMenu.target || '_blank')
+        } else {
+          history.push(selectMenu.path)
+        }
       }
     },
     [menu, selectedMenus]
@@ -25,7 +27,7 @@ const useMenuCalculator = (menu, { location, history }, fallback) => {
 
   useEffect(() => {
     const _currentMenu = findMenu(location.pathname, menu) || findMenu(fallback, menu) || getDefaultActiveMenu(menu)
-    onSelectMenu(_currentMenu)
+    onSelectMenu(_currentMenu, false)
     setCurrentMenu(_currentMenu)
   }, [location.pathname, menu, onSelectMenu])
 

@@ -7,6 +7,7 @@ import ClassNames from 'classnames'
 import './style/index'
 import { getRoutes, filterMenu } from '../../util/common'
 import useMenuCalculator from '../../hooks/useMenuCalculator'
+import _ from 'lodash'
 
 const GenuineLayout = ({
   apperance,
@@ -30,7 +31,8 @@ const GenuineLayout = ({
   const _header = header === null || header || <Header toolbar={toolbar} />
   const routes = getRoutes(menu)
   const _siderMenu = useMemo(() => {
-    return filterMenu(menu)
+    const _menu = _.cloneDeep(menu)
+    return filterMenu(_menu)
   }, [menu])
   return [
     (!isWithoutLayout && (
