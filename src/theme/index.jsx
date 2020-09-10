@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory, createHashHistory } from 'history'
 import layout from '../components/Layout'
+import './index.scss'
 
 import { transformConfig } from '../util/common'
 let _history = {}
