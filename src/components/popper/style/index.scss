@@ -1,13 +1,13 @@
-$AnimationClassName :'hi-popper_transition' !default;
+$AnimationClassName: 'hi-theme-popper_transition' !default;
 
-.hi-popper__container {
+.hi-theme-popper__container {
   position: absolute;
 
   &--hide {
     display: none !important;
   }
 
-  .hi-popper__content {
+  .hi-theme-popper__content {
     position: absolute;
 
     &--hide {

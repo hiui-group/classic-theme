@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import Popper from '../popper'
 import './style/index'
 
-const prefixCls = 'hi-tooltip'
+const prefixCls = 'hi-theme-tooltip'
 const tooltipInstance = {}
 class Tooltip extends Component {
   static propTypes = {
@@ -38,7 +38,7 @@ class Tooltip extends Component {
       return el
     }
   }
-  render() {
+  render () {
     const { placement, style, className, onClick, title, children, visible } = this.props
     const eleClass = classNames(`${prefixCls}-base`, placement && `${prefixCls}-${placement}`)
     const { tooltipShow } = this.state
@@ -75,7 +75,7 @@ class Tooltip extends Component {
   }
 }
 
-function deprecatedOpen({ target, placement = 'top', title }) {
+function deprecatedOpen ({ target, placement = 'top', title }) {
   let mountNode = document.createElement('div')
   const eleClass = classNames(`${prefixCls}-base`, placement && `${prefixCls}-${placement}`)
   render(
@@ -84,14 +84,14 @@ function deprecatedOpen({ target, placement = 'top', title }) {
     </Popper>,
     mountNode
   )
-  function deprecatedClose() {
+  function deprecatedClose () {
     mountNode && unmountComponentAtNode(mountNode)
     mountNode = undefined
   }
   return { close: deprecatedClose }
 }
 
-function open(target, { placement = 'top', title, key }) {
+function open (target, { placement = 'top', title, key }) {
   let mountNode = document.createElement('div')
   const eleClass = classNames(`${prefixCls}-base`, placement && `${prefixCls}-${placement}`)
   render(
@@ -102,14 +102,14 @@ function open(target, { placement = 'top', title, key }) {
   )
   tooltipInstance[key] = mountNode
 }
-function close(key) {
+function close (key) {
   if (tooltipInstance[key]) {
     unmountComponentAtNode(tooltipInstance[key])
     tooltipInstance[key].parentNode && tooltipInstance[key].parentNode.removeChild(tooltipInstance[key])
   }
 }
 
-function openWrapper(target, options) {
+function openWrapper (target, options) {
   if (target['nodeName'] || (typeof target === 'object' && target['$$typeof'])) {
     open(target, options)
   } else {
