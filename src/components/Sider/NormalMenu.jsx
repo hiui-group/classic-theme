@@ -60,7 +60,7 @@ const NormalMenu = ({
         })}
       >
         <span>
-          <Icon name={menu.icon || 'user'} />
+          {menu.icon && <Icon name={menu.icon} />}
           {menu.name}
         </span>
 

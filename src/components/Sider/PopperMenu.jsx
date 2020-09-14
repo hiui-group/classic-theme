@@ -67,9 +67,7 @@ const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMe
           'menu__leaf-title--active': selectedMenus && selectedMenus.map((sm) => sm.id).includes(menu.id)
         })}
       >
-        <span>
-          <Icon name={menu.icon || 'user'} />
-        </span>
+        <span>{menu.icon ? <Icon name={menu.icon} /> : menu.name.substring(0, 1)}</span>
       </div>
       {menu.children && (
         <Popper

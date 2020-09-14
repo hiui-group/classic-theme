@@ -61,6 +61,7 @@ class Tooltip extends Component {
       >
         <Popper
           className={`${prefixCls}__popper`}
+          setOverlayContainer={() => document.body}
           show={[true, false].includes(visible) ? visible : tooltipShow}
           attachEle={this.tooltipContainer}
           placement={placement}
