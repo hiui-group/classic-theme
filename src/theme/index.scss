@@ -1,3 +1,15 @@
+$min-page-width: 1260px !default;
+$line-height-normal: 1.5 !default;
+$font-size-normal: 14px !default;
+// Fonts
+/// Font Stacks
+$_sans-font-stack: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif !default;
+$_serif-font-stack: Georgia, 'Times New Roman', Times, serif !default;
+$_mono-font-stack: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace !default;
+$_symbol-font-stack: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol' !default;
+/// Font Families
+$font-family-base: $_sans-font-stack, $_symbol-font-stack !default;
+
 /* stylelint-disable */
 /* normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */
 
@@ -310,4 +322,28 @@ template {
 
 [hidden] {
   display: none;
+}
+
+// TODO: 待优化
+body {
+  min-width: $min-page-width;
+  font: #{$font-size-normal}/#{$line-height-normal} $font-family-base;
+  background-color: #fff;
+  color: #333;
+}
+
+a {
+  color: #4285f4;
+
+  &:focus {
+    color: #2e5dab;
+  }
+
+  &:hover {
+    color: #2e5dab;
+  }
+
+  &:active {
+    color: #689df6;
+  }
 }
