@@ -84,6 +84,7 @@ class App extends Component {
         // type='classic'
         // header={null}
         type='genuine'
+        // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
         accordion={false}
         toolbar={toolbar2}
       />
