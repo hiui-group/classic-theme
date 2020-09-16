@@ -5,7 +5,7 @@ import layout from '../components/Layout'
 import './style/index'
 
 import { transformConfig } from '../util/common'
-let _history = {}
+const _history = {}
 export const history = _history
 
 const historyGenerator = {
@@ -41,7 +41,7 @@ const Layout = ({
   return (
     <Router history={historyForLayout.current}>
       <Route
-        path='/'
+        path="/"
         render={(props) => (
           <Layout
             menu={transformConfig(routes)}
