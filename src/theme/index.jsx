@@ -29,7 +29,8 @@ const Layout = ({
   fallback,
   footer,
   defaultExpandAll,
-  pageHeader
+  pageHeader,
+  onToggle
 }) => {
   const Layout = layout[type]
   const historyForLayout = useRef(null)
@@ -58,6 +59,7 @@ const Layout = ({
             fallback={fallback}
             defaultExpandAll={defaultExpandAll}
             pageHeader={pageHeader}
+            onToggle={onToggle}
             {...props}
           />
         )}

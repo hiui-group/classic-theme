@@ -24,7 +24,8 @@ const GenuineLayout = ({
   header,
   defaultExpandAll,
   accordion,
-  pageHeader
+  pageHeader,
+  onToggle
 }) => {
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
@@ -36,7 +37,7 @@ const GenuineLayout = ({
   }, [menu])
   return [
     (!isWithoutLayout && (
-      <div key='container' className='hi-theme--genuine'>
+      <div key="container" className="hi-theme--genuine">
         {menu.length > 0 && (
           <Sider
             siderMenu={_siderMenu}
@@ -48,11 +49,12 @@ const GenuineLayout = ({
             siderBottomRender={siderBottomRender}
             logo={logo}
             accordion={accordion}
+            onToggle={onToggle}
           />
         )}
         <div className={ClassNames('hi-theme__container')}>
           {_header}
-          <div className='hi-theme__wrapper'>
+          <div className="hi-theme__wrapper">
             {pageHeader ? pageHeader(selectedMenus, location) : null}
             <div
               className={ClassNames('hi-theme__content', {
@@ -75,7 +77,7 @@ const GenuineLayout = ({
       </div>
     )) || (
       <Route
-        key='withoutLayout'
+        key="withoutLayout"
         path={currentMenu && currentMenu.path}
         component={currentMenu && currentMenu.component}
         exact={!!currentMenu && currentMenu.exact}

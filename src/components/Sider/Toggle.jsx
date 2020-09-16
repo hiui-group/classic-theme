@@ -4,7 +4,7 @@ import Icon from '../icon'
 const Toggle = ({ mini, show, onToggle }) => {
   return show ? (
     <div
-      className='sider__toggle'
+      className="sider__toggle"
       onClick={() => {
         const _mini = !mini
         onToggle(_mini)

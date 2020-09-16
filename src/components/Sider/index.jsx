@@ -30,7 +30,8 @@ const Sider = ({
   login,
   onSelectMenu,
   defaultExpandAll,
-  accordion
+  accordion,
+  onToggle
 }) => {
   const [mini, toggleMini] = useState(false)
   const [expandedId, setExpandedId] = useState([])
@@ -53,6 +54,13 @@ const Sider = ({
       return _.uniq(expandedId.concat(selectedMenus.map((sm) => sm.id).slice(0, selectedMenus.length - 1)))
     })
   }, [selectedMenus])
+  const toggle = useCallback(
+    (mini) => {
+      onToggle(mini)
+      toggleMini(mini)
+    },
+    [onToggle]
+  )
   const renderMiniChildren = useCallback(
     (menu, selectedMenus) => {
       return menu.map((m) => {
@@ -76,7 +84,7 @@ const Sider = ({
               }
             }}
           >
-            <Tooltip title={m.name} placement='right' visible={tooltipVisible === m.id && popperVisible !== m.id}>
+            <Tooltip title={m.name} placement="right" visible={tooltipVisible === m.id && popperVisible !== m.id}>
               <PopperMenu
                 menu={m}
                 selectedMenus={selectedMenus}
@@ -120,7 +128,7 @@ const Sider = ({
       {logo && <Logo {...logoConfig} mini={mini} />}
       {siderTopRender && siderTopRender(mini)}
       {siderMenu.length > 0 && (
-        <div className='sider__menu'>
+        <div className="sider__menu">
           <div style={{ height: '100%', overflowY: 'scroll', width: `calc(100% + ${scrollBarSize.current}px)` }}>
             {mini
               ? renderMiniChildren(siderMenu, selectedMenus)
@@ -129,8 +137,8 @@ const Sider = ({
         </div>
       )}
       {siderBottomRender && siderBottomRender(mini)}
-      <div className='sider__footer'>
-        <Toggle show mini={mini} onToggle={toggleMini} />
+      <div className="sider__footer">
+        <Toggle show mini={mini} onToggle={toggle} />
         {login && (
           <React.Fragment>
             <div
@@ -150,11 +158,11 @@ const Sider = ({
               show={loginVisible}
               attachEle={loginRef.current}
               zIndex={1050}
-              placement='right-end'
+              placement="right-end"
               onClickOutside={() => setLoginVisible(false)}
               width={'auto'}
             >
-              <div ref={popperRef} className='login__menu--top'>
+              <div ref={popperRef} className="login__menu--top">
                 {login.children}
               </div>
             </Popper>

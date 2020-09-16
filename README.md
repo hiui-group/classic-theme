@@ -123,6 +123,8 @@ History[`${your history type}`].push()
 | siderBottomRender | 侧边栏自定义底部渲染区域                 | toggle: boolean => ReactNode      | -                           |
 | accordion         | 左侧菜单是否采用手风琴模式               | boolean                           | true                        |
 | basename          | 路由基础路径                             | string                            | '/'                         |
+| fallback          | 路由无法匹配时的候补跳转                             | string                            | -                         |
+| onToggle          | 路由无法匹配时的候补跳转                             | string                            | -                         |
 
 ### type: Route
 
