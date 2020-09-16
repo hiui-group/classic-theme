@@ -124,7 +124,7 @@ History[`${your history type}`].push()
 | accordion         | 左侧菜单是否采用手风琴模式               | boolean                           | true                        |
 | basename          | 路由基础路径                             | string                            | '/'                         |
 | fallback          | 路由无法匹配时的候补跳转                             | string                            | -                         |
-| onToggle          | 路由无法匹配时的候补跳转                             | string                            | -                         |
+| onToggle          | 侧边栏展开收起触发的回调                             | mini: boolean => void                           | -                         |
 
 ### type: Route
 
