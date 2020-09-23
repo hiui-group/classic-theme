@@ -56,7 +56,9 @@ const Sider = ({
   }, [selectedMenus])
   const toggle = useCallback(
     (mini) => {
-      onToggle(mini)
+      if (onToggle) {
+        onToggle(mini)
+      }
       toggleMini(mini)
     },
     [onToggle]

@@ -57,6 +57,11 @@ ul {
       & > .hi-theme-icon {
         margin-bottom: 16px;
       }
+
+      .sider__login {
+        margin-left: 0;
+        margin-bottom: 48px;
+      }
     }
   }
 
@@ -141,6 +146,9 @@ ul {
   }
 
   .sider__toggle {
+    position: absolute;
+    left: 0;
+    bottom: 0;
     width: 48px;
     height: 48px;
     cursor: pointer;
@@ -165,6 +173,7 @@ ul {
     overflow: hidden;
     white-space: nowrap;
     transition: background 0.3s;
+    margin-left: 48px;
 
     &:hover {
       background: #252b32;
