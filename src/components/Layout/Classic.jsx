@@ -179,7 +179,7 @@ class ClassicLayout extends React.Component {
         pathname: this.getMainMenuPath(m) || '',
         component: m.component
       }
-    })
+    }).filter((item) => item.content)
   }
   getSiderMenu = (menu, activeMainMenu) => {
     const _activeMainMenu = menu.find((m) => m.id === activeMainMenu)
