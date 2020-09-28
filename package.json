@@ -1,6 +1,6 @@
 {
   "name": "@hi-ui/classic-theme",
-  "version": "3.0.0-rc.9",
+  "version": "3.0.0-rc.10",
   "description": "Classic theme for HIUI",
   "main": "./es/index.js",
   "scripts": {
