@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import Portal from './Portal'
 import Overlay from './Overlay'
-import PopperJS from './utils/popper'
 import useClickOutside from './utils/useClickOutside'
 
 import './style/index'
 
-const { getScrollParent } = new PopperJS()
-const AnimationClassName = 'hi-theme-popper_transition'
+// const { getScrollParent } = new PopperJS()
+const AnimationClassName = 'hi-popper_transition'
 /**
  * @param {Function} onClickOutside 点击该元素外的回调方法
  * @param {Function} setOverlayContainer 获取overLay的挂载父级元素 允许用户指定；如果不指定  popper自己处理
@@ -23,24 +22,26 @@ const Popper = (props) => {
   )
 
   useEffect(() => {
-    const _container = attachEle ? getScrollParent(attachEle) : document.body
-    setContainer(setOverlayContainer ? setOverlayContainer(attachEle) : props.container || _container)
+    // const _container = attachEle ? getScrollParent(attachEle) : document.body
+    setContainer(setOverlayContainer ? setOverlayContainer(attachEle) : props.container || document.body)
     setTransitionShow(show)
     show && setStaticShow(true)
   }, [show, attachEle])
   return (
-    <CSSTransition
-      in={transitionShow}
-      timeout={300}
-      classNames={AnimationClassName}
-      onExited={() => {
-        setStaticShow(false)
-      }}
-    >
-      <Portal container={container}>
-        <Overlay {...Object.assign({}, props, { show: staticShow })} container={container} />
-      </Portal>
-    </CSSTransition>
+    <div>
+      <CSSTransition
+        in={transitionShow}
+        timeout={300}
+        classNames={AnimationClassName}
+        onExited={() => {
+          setStaticShow(false)
+        }}
+      >
+        <Portal container={container}>
+          <Overlay {...Object.assign({}, props, { show: staticShow })} container={container} />
+        </Portal>
+      </CSSTransition>
+    </div>
   )
 }
 export { Portal, useClickOutside }
