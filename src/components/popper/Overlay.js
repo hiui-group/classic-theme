@@ -71,6 +71,15 @@ const Overlay = (props) => {
   useEffect(() => {
     const { attachEle, container, show } = props
     const { cacheContainerPosition } = state
+    const offset = getOffset(props, state)
+    offsetData.current = offset
+    if (staticPopperRef) {
+      setState(
+        Object.assign({}, state, {
+          popperRef: staticPopperRef.current
+        })
+      )
+    }
     if (!show) {
       // 删除滚动
       attachEle && isAddevent && removeEventListeners(attachEle)
