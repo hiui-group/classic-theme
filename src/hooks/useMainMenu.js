@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
+import { checkAuth } from '../util/common'
 
-const useMainMenu = (menu) => {
+const useMainMenu = (menu, authority) => {
   const getMainMenuPath = useCallback((menu) => {
     if (menu.path) {
       return menu.path
@@ -9,7 +10,7 @@ const useMainMenu = (menu) => {
     }
   }, [])
 
-  const getMainMenu = useCallback((menu) => {
+  const getMainMenu = useCallback((menu, authority) => {
     return menu
       .map((m) => {
         return {
@@ -19,13 +20,14 @@ const useMainMenu = (menu) => {
           target: m.target,
           path: getMainMenuPath(m) || '',
           component: m.component,
-          children: m.children
+          children: m.children,
+          authority: m.authority
         }
       })
-      .filter((m) => m.name)
+      .filter((m) => m.name && checkAuth(authority, m.authority))
   }, [])
 
-  return getMainMenu(menu)
+  return getMainMenu(menu, authority)
 }
 
 export default useMainMenu

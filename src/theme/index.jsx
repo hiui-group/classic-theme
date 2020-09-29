@@ -30,7 +30,8 @@ const Layout = ({
   footer,
   defaultExpandAll,
   pageHeader,
-  onToggle
+  onToggle,
+  authority
 }) => {
   const Layout = layout[type]
   const historyForLayout = useRef(null)
@@ -60,6 +61,7 @@ const Layout = ({
             defaultExpandAll={defaultExpandAll}
             pageHeader={pageHeader}
             onToggle={onToggle}
+            authority={authority}
             {...props}
           />
         )}

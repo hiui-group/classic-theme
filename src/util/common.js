@@ -90,16 +90,16 @@ export const getRoutes = (menu, routes = []) => {
   return routes
 }
 // 过滤没有 name 的 menu
-export const filterMenu = (menu) => {
+export const filterMenu = (menu, authority) => {
   return menu.filter((item) => {
     if (item.children) {
       item.children = (filterMenu(item.children).length > 0 && filterMenu(item.children)) || null
     }
-    return item.name
+    return item.name && checkAuth(authority, item.authority)
   })
 }
 let cached
-export function getScrollBarSize (fresh) {
+export function getScrollBarSize(fresh) {
   if (typeof document === 'undefined') {
     return 0
   }
@@ -138,4 +138,21 @@ export function getScrollBarSize (fresh) {
     cached = widthContained - widthScroll
   }
   return cached
+}
+
+// 权限校验
+export const checkAuth = (usrAuthority, authority = []) => {
+  if (authority.length === 0) {
+    return true
+  } else {
+    let hasAuth = false
+    if (usrAuthority) {
+      authority.forEach((a) => {
+        if (usrAuthority.includes(a)) {
+          hasAuth = true
+        }
+      })
+    }
+    return hasAuth
+  }
 }
