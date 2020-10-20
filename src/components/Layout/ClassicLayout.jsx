@@ -51,7 +51,7 @@ const ClassicLayout = ({
     ),
     (!isWithoutLayout && (
       <div key="container" className="hi-theme--classic">
-        {siderMenu.length > 0 && (
+        {_siderMenu.length > 0 && (
           <Sider
             siderMenu={_siderMenu}
             siderTopRender={siderTopRender}
