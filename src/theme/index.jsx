@@ -1,69 +1,73 @@
-import React, { Component } from 'react'
+import React, { useRef } from 'react'
 import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory, createHashHistory } from 'history'
 import layout from '../components/Layout'
-import Login from '../components/Login'
+import './style/index'
 
 import { transformConfig } from '../util/common'
-let _history = {}
+const _history = {}
 export const history = _history
-class Theme extends Component {
-  constructor (props) {
-    super(props)
-    this.hasHistory = false
-    this.history = {
-      browserHistory: createBrowserHistory,
-      hashHistory: createHashHistory
-    }
-  }
-  render () {
-    const {
-      historyType = 'browserHistory',
-      basename = '/',
-      routes = [],
-      type = 'classic',
-      apperance = { color: 'dark' },
-      logo,
-      login,
-      header,
-      toolbar,
-      siderTopRender,
-      siderBottomRender,
-      accordion = true,
-      fallback,
-      footer
-    } = this.props
-    const Layout = layout[type]
-    if (!this.hasHistory) {
-      this.hasHistory = this.history[historyType]({ basename })
 
-      _history[historyType] = this.hasHistory
-    }
-    return (
-      <Router history={this.hasHistory}>
-        <Route
-          path='/'
-          render={(props) => (
-            <Layout
-              menu={transformConfig(routes)}
-              siderTopRender={siderTopRender}
-              siderBottomRender={siderBottomRender}
-              toolbar={toolbar}
-              footer={footer}
-              type={type}
-              apperance={apperance}
-              logo={logo}
-              login={login && <Login {...login} />}
-              header={header}
-              accordion={accordion}
-              fallback={fallback}
-              {...props}
-            />
-          )}
-        />
-      </Router>
-    )
-  }
+const historyGenerator = {
+  browserHistory: createBrowserHistory,
+  hashHistory: createHashHistory
 }
 
-export default Theme
+const Layout = ({
+  historyType = 'browserHistory',
+  basename = '/',
+  routes = [],
+  type = 'classic',
+  apperance = { contentBackground: '#f6f6f6', contentPadding: 24 },
+  logo,
+  login,
+  header,
+  toolbar,
+  siderTopRender,
+  siderBottomRender,
+  accordion,
+  fallback,
+  footer,
+  defaultExpandAll,
+  pageHeader,
+  onToggle,
+  authority
+}) => {
+  const Layout = layout[type]
+  const historyForLayout = useRef(null)
+  if (!historyForLayout.current) {
+    historyForLayout.current = historyGenerator[historyType]({ basename })
+
+    _history[historyType] = historyForLayout.current
+  }
+  return (
+    <Router history={historyForLayout.current}>
+      <Route
+        path="/"
+        render={(props) => (
+          <Layout
+            menu={transformConfig(routes)}
+            siderTopRender={siderTopRender}
+            siderBottomRender={siderBottomRender}
+            toolbar={toolbar}
+            footer={footer}
+            type={type}
+            apperance={apperance}
+            logo={logo}
+            login={login}
+            header={header}
+            accordion={accordion}
+            fallback={fallback}
+            defaultExpandAll={defaultExpandAll}
+            pageHeader={pageHeader}
+            onToggle={onToggle}
+            authority={authority}
+            {...props}
+          />
+        )}
+      />
+    </Router>
+  )
+}
+
+export default Layout

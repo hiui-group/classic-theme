@@ -1,4 +1,4 @@
-<h1 align="center">Theme For HIUI</h1>
+<h1 align="center">Theme For HiUI</h1>
 
 ## 使用
 
@@ -107,21 +107,27 @@ History[`${your history type}`].push()
 
 ### Theme
 
-| 属性名            | 描述                                     | 类型                              | 默认值                      |
-| ----------------- | ---------------------------------------- | --------------------------------- | --------------------------- |
-| type              | 主题类型                                 | 'classic' \| 'genuine'            | 'classic'                   |
-| routes            | 路由配置项                               | Route[]                           | -                           |
-| logo              | 系统 logo                                | ReactNode                         | -                           |
-| login             | 系统登录配置项                           | ReactNode                         | -                           |
-| historyType       | 路由跳转类型                             | 'hashHistory' \| 'browserHistory' | 'browserHistory'            |
-| header            | genuine 类型下的顶部功能栏               | ReactNode \| null                 | 不传时默认为主题自带 header |
-| apperance         | 主题外观配置项                           | Apperance                         | {color:'dark'}              |
-| logo              | 主题 logo 配置项                         | Logo                              | -                           |
-| login             | 主题登录信息配置项                       | Login                             | -                           |
-| toolbar           | 顶部工具栏，一般用于放置通知、全局搜索等 | ReactNode                         | -                           |
-| siderTopRender    | 侧边栏自定义顶部渲染区域                 | toggle: boolean => ReactNode      | -                           |
-| siderBottomRender | 侧边栏自定义底部渲染区域                 | toggle: boolean => ReactNode      | -                           |
-| accordion         | 左侧菜单是否采用手风琴模式               | boolean                           | true                        |
+| 属性名            | 描述                                     | 类型                                                       | 默认值                      |
+| ----------------- | ---------------------------------------- | ---------------------------------------------------------- | --------------------------- |
+| type              | 主题类型                                 | 'classic' \| 'genuine'                                     | 'classic'                   |
+| routes            | 路由配置项                               | Route[]                                                    | -                           |
+| logo              | 系统 logo                                | ReactNode                                                  | -                           |
+| login             | 系统登录配置项                           | ReactNode                                                  | -                           |
+| historyType       | 路由跳转类型                             | 'hashHistory' \| 'browserHistory'                          | 'browserHistory'            |
+| header            | genuine 类型下的顶部功能栏               | ReactNode \| null                                          | 不传时默认为主题自带 header |
+| apperance         | 主题外观配置项                           | Apperance                                                  | {color:'dark'}              |
+| logo              | 主题 logo 配置项                         | Logo \| (toggle: boolean) => Logo                          | -                           |
+| login             | 主题登录信息配置项                       | Login                                                      | -                           |
+| toolbar           | 顶部工具栏，一般用于放置通知、全局搜索等 | ReactNode                                                  | -                           |
+| pageHeader        | 自定义页头                               | (selectedMenus: Route [], location: Location) => ReactNode | -                           |
+| defaultExpandAll  | 是否默认展开侧边栏菜单                   | boolean                                                    | false                       |
+| siderTopRender    | 侧边栏自定义顶部渲染区域                 | (toggle: boolean) => ReactNode                             | -                           |
+| siderBottomRender | 侧边栏自定义底部渲染区域                 | (toggle: boolean) => ReactNode                             | -                           |
+| accordion         | 左侧菜单是否采用手风琴模式               | boolean                                                    | true                        |
+| basename          | 路由基础路径                             | string                                                     | '/'                         |
+| authority         | 用户拥有权限配置                         | string[]                                                   | -                           |
+| fallback          | 路由无法匹配时的候补跳转                 | string                                                     | -                           |
+| onToggle          | 侧边栏展开收起触发的回调                 | mini: boolean => void                                      | -                           |
 
 ### type: Route
 
@@ -135,12 +141,15 @@ History[`${your history type}`].push()
 | component     | 菜单对应页面组件                         | ReactNode | -      |
 | withoutLayout | 页面组件渲染时，不显示顶部导航栏和侧边栏 | boolean   | false  |
 | extraData     | 向路由匹配的页面组件注入额外的数据       | object    | -      |
+| authority     | 允许访问该路由的权限                     | string[]  | -      |
 
 ### type: Apperance
 
-| 属性名 | 描述     | 类型              | 默认值 |
-| ------ | -------- | ----------------- | ------ |
-| color  | 主题颜色 | 'dark' \| 'light' | 'dark' |
+| 属性名            | 描述           | 类型              | 默认值    |
+| ----------------- | -------------- | ----------------- | --------- |
+| color             | 主题颜色       | 'dark' \| 'light' | 'dark'    |
+| contentBackground | 内容区域背景色 | string            | '#f6f6f6' |
+| contentPadding    | 内容区域内边距 | number            | 0         |
 
 ### tye: Logo
 

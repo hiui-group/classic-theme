@@ -1,8 +1,14 @@
 @import '@hi-ui/core-css/index.scss';
 
+.login__menu--top {
+  background: #fff;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  padding: 12px;
+}
+
 .hi-theme__header {
   display: flex;
-  background: #4285f4;
+  background: #383e47;
   height: 64px;
   line-height: 64px;
   position: fixed;
@@ -11,69 +17,15 @@
   font-size: $font-size-normal;
   box-sizing: border-box;
   z-index: 11;
+  box-shadow: 0 2px 6px rgba(0, 21, 41, 0.35);
 
-  &.dark {
-    background: get-color($palette-hiui, 'g100');
+  .login__wrapper {
+    color: #fff;
+    margin-right: 24px;
+    cursor: pointer;
 
-    .hi-theme__login {
-      color: #fff;
-    }
-  }
-
-  &.blue {
-    background: get-color($palette-hiui, '50');
-
-    .hi-theme__login {
-      color: #fff;
-    }
-  }
-
-  &.light {
-    background: $white;
-    border-bottom: 1px solid #e7e7e7;
-
-    .hi-theme__login {
-      .hi-login {
-        &::after {
-          border-top-color: get-color($palette-hiui, 'g100');
-        }
-
-        &--active {
-          &::after {
-            border-top-color: get-color($palette-hiui, 'g100');
-            border-bottom-color: get-color($palette-hiui, 'g100');
-          }
-        }
-      }
-    }
-
-    .hi-theme__menu {
-      flex: 1;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      margin-left: 24px;
-
-      .main-menu-item {
-        display: flex;
-
-        a {
-          color: get-color($palette-hiui, 'g100');
-          padding: 0 16px;
-          transition: color 0.3s;
-
-          &:hover {
-            color: get-color($palette-hiui, '50');
-          }
-        }
-      }
-
-      .active-main-menu {
-        a {
-          color: get-color($palette-hiui, '50');
-        }
-      }
+    & > .hi-theme-icon {
+      margin-right: 6px;
     }
   }
 
@@ -124,8 +76,10 @@
 
     .active-main-menu {
       a {
-        color: #d8d8d8;
+        color: #4284f5;
       }
+
+      background: #2e343d;
     }
   }
 }

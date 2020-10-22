@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Theme, { history } from '../../src/theme'
 import _routeConfig from './routes-config'
 import { Input, Icon, Select } from '@hi-ui/hiui'
-import Table from '@mi/power-table'
 
 const logoConfig = {
   logoUrl: 'https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05',
@@ -50,6 +49,7 @@ const toolbar2 = (
       clearable={false}
       style={{ width: 200 }}
       onChange={() => {
+        console.log('>>>>>', history)
         history.browserHistory.push('/cc')
       }}
       data={[
@@ -79,11 +79,12 @@ class App extends Component {
         // routes={this.state.routeConfig}
         routes={_routeConfig}
         logo={logoConfig}
-        siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
+        // siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
         login={loginConfig}
         // type='classic'
         // header={null}
         type='genuine'
+        // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
         accordion={false}
         toolbar={toolbar2}
       />

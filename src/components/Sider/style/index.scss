@@ -1,105 +1,113 @@
+ul {
+  li {
+    list-style: none;
+    white-space: nowrap;
+  }
+}
+
+.menu-expander {
+  overflow: hidden;
+  transition: height 0.3s;
+}
+
+.mini-sider__menu {
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  min-width: 160px;
+  background: #fff;
+  color: #333;
+
+  &-item {
+    position: relative;
+
+    .menu-item__title {
+      height: 40px;
+      align-items: center;
+      padding: 0 12px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &--active {
+        color: #4284f5;
+      }
+
+      &:hover {
+        color: #4284f5;
+      }
+    }
+  }
+}
+
 .hi-theme__sider {
   display: flex;
   flex-direction: column;
+  width: 216px;
+  transition: width 0.3s;
+  overflow: hidden;
+  z-index: 12;
 
-  .sider-wrapper {
-    background: #393d46;
-    position: relative;
-    flex: 1;
-    overflow: hidden;
+  &--mini {
+    width: 48px;
+    overflow: visible;
 
-    &::before {
-      position: absolute;
-      left: 0;
-      z-index: 1;
-      width: calc(100% - 1px);
-      content: '';
-      pointer-events: none;
-      top: 0;
-      height: 12px;
-      background: linear-gradient(to bottom, #fff 0%, rgba(255, 255, 255, 0) 100%);
-    }
+    .sider__footer {
+      & > .hi-theme-icon {
+        margin-bottom: 16px;
+      }
 
-    &::after {
-      position: absolute;
-      left: 0;
-      z-index: 1;
-      width: calc(100% - 1px);
-      content: '';
-      pointer-events: none;
-      bottom: 0;
-      height: 12px;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+      .sider__login {
+        margin-left: 0;
+        margin-bottom: 48px;
+      }
     }
   }
 
-  &.dark {
-    .sider-wrapper {
-      background: #393d46;
-      position: relative;
-      flex: 1;
+  .sider__menu {
+    flex: 1;
+    padding: 16px 0;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    .hi-tooltip {
+      width: 100%;
+    }
+
+    .menu__title {
+      height: 48px;
+      padding-right: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.3s;
       overflow: hidden;
 
-      &::before {
-        position: absolute;
-        left: 0;
-        z-index: 1;
-        width: calc(100% - 1px);
-        content: '';
-        pointer-events: none;
-        top: 0;
-        height: 12px;
-        background: linear-gradient(180deg, #393d46 0, hsla(0, 0%, 100%, 0));
+      .hi-theme-icon {
+        margin-right: 4px;
       }
 
-      &::after {
-        position: absolute;
-        left: 0;
-        z-index: 1;
-        width: calc(100% - 1px);
-        content: '';
-        pointer-events: none;
-        bottom: 0;
-        height: 12px;
-        background: linear-gradient(180deg, hsla(0, 0%, 100%, 0) 0, #393d46);
+      &:hover {
+        color: #4284f5;
+      }
+
+      &--active {
+        color: #4284f5;
       }
     }
 
-    .hi-menu--vertical {
-      background-color: #393d46;
-      position: relative;
-    }
-
-    .hi-menu__title {
-      color: #fff;
-    }
-
-    .sider__footer,
-    .sider__logo {
-      background-color: #393d46;
-      color: #fff;
+    .menu__leaf-title--active {
+      background: #2e343d;
+      color: #4284f5;
     }
   }
 
   .sider__logo {
-    height: 64px;
     display: flex;
-
-    .hi-logo {
-      flex: 1;
-      display: flex;
-
-      .hi-logo__link {
-        flex: 1;
-        align-items: center;
-        display: flex;
-        padding: 0 16px;
-      }
-
-      .hi-logo__img {
-        margin-right: 10px;
-      }
-    }
+    flex-shrink: 0;
 
     &.mini {
       width: 48px;
@@ -124,48 +132,51 @@
 
   .sider__footer {
     height: 48px;
-    text-align: right;
+    line-height: 48px;
     position: relative;
+    transition: height 0.3s;
+    display: flex;
+    justify-content: space-between;
+    // align-items: center;
+    flex-shrink: 0;
 
-    &__toggle {
+    & > .hi-theme-icon {
       cursor: pointer;
-      width: 16px;
-      height: 16px;
-      position: absolute;
-      right: 16px;
-      bottom: 10px;
-      background: url('../../../static/image/menu.png') no-repeat;
-      background-size: cover;
-    }
-
-    &__toggle--light {
-      background: url('../../../static/image/menu-light.png') no-repeat;
-      background-size: cover;
     }
   }
 
-  .hi-menu--vertical {
-    box-shadow: none !important;
-    border: none;
-    height: 100%;
-    overflow-y: auto;
-  }
+  .sider__toggle {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
+    flex-shrink: 0;
 
-  .hi-menu-item--active:not(.hi-submenu) {
-    background: rgba(66, 133, 244, 0.08);
-    position: relative;
-
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      content: '';
-      transition: width 0.3s linear;
-      width: 4px;
-      background: #4285f4;
+    &:hover {
+      background: #252b32;
     }
   }
 
-  border-right: 1px solid #d8d8d8;
+  .sider__login {
+    cursor: pointer;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: background 0.3s;
+    margin-left: 48px;
+
+    &:hover {
+      background: #252b32;
+    }
+  }
 }

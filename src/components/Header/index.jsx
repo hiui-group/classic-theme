@@ -1,53 +1,77 @@
-import React, { Component } from 'react'
+import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import Icon from '@hi-ui/hiui/es/icon'
+import Icon from '../icon'
+import Logo from '../Logo'
+import Popper from '../popper'
 import ClassNames from 'classnames'
 import './style/index'
-import Logo from '../Logo'
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
-class Header extends Component {
-  render () {
-    const { mainMenu, activeMainMenu, logo, login, setMainMenu, color, toolbar, mini } = this.props
-    const logoConfig = typeof logo === 'function' ? logo(mini) : logo
+const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar, mini }) => {
+  const [loginVisible, setLoginVisible] = useState(false)
+  const popperRef = useRef(null)
+  const loginRef = useRef(null)
+  const logoConfig = typeof logo === 'function' ? logo(mini) : logo
+  return (
+    <div className={ClassNames('hi-theme__header')}>
+      {logo && <Logo {...logoConfig} mini={mini} layout="horizontal" />}
 
-    return (
-      <div className={ClassNames('hi-theme__header', { 'hi-theme__header--mini': mini }, color)}>
-        {logo && (
-          <div className='hi-theme__logo'>
-            <Logo {...logoConfig} />
+      {mainMenu && (
+        <ul className="hi-theme__menu" style={{ flex: toolbar ? '0 0 auto' : 1 }}>
+          {mainMenu.map((menu) => (
+            <li
+              key={menu.id}
+              className={ClassNames('main-menu-item', {
+                'active-main-menu': activeMainMenu && menu.id === activeMainMenu.id
+              })}
+            >
+              {menu.path.match(reg) ? (
+                <a href={menu.path} target={menu.target || '_blank'}>
+                  {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
+                  {menu.name}
+                </a>
+              ) : (
+                <Link to={menu.path}>
+                  {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
+                  {menu.name}
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+      {toolbar && <div className="hi-theme__toolbar">{toolbar}</div>}
+      {login && (
+        <React.Fragment>
+          <div
+            className={'login__wrapper'}
+            ref={loginRef}
+            onClick={(e) => {
+              setLoginVisible(!loginVisible)
+            }}
+          >
+            <Icon name={login.icon} />
+            {login.name}
+            <Icon name={'caret-down'} />
           </div>
-        )}
-
-        {mainMenu && (
-          <ul className='hi-theme__menu' style={{ flex: toolbar ? '0 0 auto' : 1 }}>
-            {mainMenu.map((menu) => (
-              <li
-                key={menu.id}
-                className={ClassNames('main-menu-item', {
-                  'active-main-menu': menu.id === activeMainMenu
-                })}
-              >
-                {menu.pathname.match(reg) ? (
-                  <a href={menu.pathname} target={menu.target || '_blank'}>
-                    {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
-                    {menu.content}
-                  </a>
-                ) : (
-                  <Link to={menu.pathname} onClick={() => setMainMenu(menu.id, menu.component)}>
-                    {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
-                    {menu.content}
-                  </Link>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-        {toolbar && <div className='hi-theme__toolbar'>{toolbar}</div>}
-        {login && <div className='hi-theme__login'>{login}</div>}
-      </div>
-    )
-  }
+          <Popper
+            show={loginVisible}
+            attachEle={loginRef.current}
+            zIndex={1050}
+            placement="bottom-end"
+            width={false}
+            onClickOutside={() => {
+              setLoginVisible(false)
+            }}
+          >
+            <div ref={popperRef} className="login__menu--top">
+              {login.children}
+            </div>
+          </Popper>
+        </React.Fragment>
+      )}
+    </div>
+  )
 }
 
 export default Header

@@ -1,0 +1,150 @@
+.hi-theme-tooltip {
+  position: relative;
+}
+
+.hi-theme-tooltip-base {
+  border-radius: 2px;
+  background: #333;
+  font-size: 12px;
+  color: #fff;
+  padding: 6px 12px;
+  line-height: 20px;
+  white-space: nowrap;
+  transition: all 0.5s;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #333;
+  }
+}
+
+.hi-theme-tooltip-top {
+  position: relative;
+  margin-bottom: 5px;
+
+  &::after {
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+}
+
+.hi-theme-tooltip-right {
+  position: relative;
+  margin-left: 5px;
+
+  &::after {
+    left: -2px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+  }
+}
+
+.hi-theme-tooltip-bottom {
+  position: relative;
+  margin-top: 5px;
+
+  &::after {
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+}
+
+.hi-theme-tooltip-left {
+  position: relative;
+  margin-right: 5px;
+
+  &::after {
+    right: -2px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+  }
+}
+
+.hi-theme-tooltip-top-left {
+  position: relative;
+  margin-bottom: 5px;
+
+  &::after {
+    bottom: -2px;
+    left: 20%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+}
+
+.hi-theme-tooltip-top-right {
+  position: relative;
+  margin-bottom: 5px;
+
+  &::after {
+    bottom: -2px;
+    right: 10%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+}
+
+.hi-theme-tooltip-bottom-right {
+  position: relative;
+  margin-top: 5px;
+
+  &::after {
+    top: -2px;
+    right: 10%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+}
+
+.hi-theme-tooltip-bottom-left {
+  position: relative;
+  margin-top: 5px;
+
+  &::after {
+    top: -2px;
+    left: 20%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+}
+
+.hi-theme-tooltip-left-top {
+  position: relative;
+  margin-right: 5px;
+
+  &::after {
+    right: -2px;
+    top: 15%;
+  }
+}
+
+.hi-theme-tooltip-left-bottom {
+  position: relative;
+  margin-right: 5px;
+
+  &::after {
+    right: -2px;
+    bottom: 15%;
+  }
+}
+
+.hi-theme-tooltip-right-top {
+  position: relative;
+  margin-left: 5px;
+
+  &::after {
+    left: -2px;
+    top: 15%;
+  }
+}
+
+.hi-theme-tooltip-right-bottom {
+  position: relative;
+  margin-left: 5px;
+
+  &::after {
+    left: -2px;
+    bottom: 15%;
+  }
+}

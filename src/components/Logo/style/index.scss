@@ -2,50 +2,45 @@
 
 .hi-logo {
   box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: 216px;
+  transition: width 0.3s;
 
-  &__img {
-    vertical-align: middle;
+  &--horizontal {
+    padding: 0 16px;
+    height: 64px;
+
+    .hi-logo__title {
+      margin-left: 8px;
+    }
+  }
+
+  .hi-theme__sider--mini & {
+    width: 48px;
+    padding: 0;
+    justify-content: center;
+
+    &__title {
+      display: none;
+    }
+  }
+
+  &--vertical {
+    flex-direction: column;
+    justify-content: center;
+    height: 164px;
+
+    .hi-logo__title {
+      margin-top: 12px;
+    }
   }
 
   &__title {
     font-size: $font-size-large;
     font-weight: $font-weight-bold;
-    vertical-align: middle;
+    white-space: nowrap;
     color: #fff;
-  }
-
-  .layout--classic & {
-    width: 200px;
-    height: 64px;
-    margin-right: $spacer-5;
-    line-height: 64px;
-
-    &__link {
-      display: flex;
-      align-items: center;
-    }
-
-    &__img {
-      & + .logo__title {
-        margin-left: $spacer-4;
-      }
-    }
-  }
-
-  .layout--genuine & {
-    width: 216px;
-    padding: 32px 0;
-    //line-height: 64px;
-    margin: 0 auto;
-    text-align: center;
-
-    &__link {
-      display: block;
-    }
-
-    &__img {
-      display: block;
-      margin: 0 auto 16px;
-    }
   }
 }
