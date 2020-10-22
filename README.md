@@ -3,7 +3,7 @@
 ## 使用
 
 ```bash
-npm i @hi-ui/classic-theme@next --save
+npm i @hi-ui/classic-theme --save
 // or
 yarn add @hi-ui/classic-theme
 ```
