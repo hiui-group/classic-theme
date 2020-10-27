@@ -34,7 +34,7 @@ const GenuineLayout = ({
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
   const _header = header === null || header || (
-    <Header toolbar={toolbar} viewSize={viewSize} setSiderVisible={setSiderVisible} />
+    <Header toolbar={toolbar} viewSize={viewSize} setSiderVisible={setSiderVisible} logo={logo} />
   )
   const routes = getRoutes(menu)
   const _siderMenu = useMemo(() => {

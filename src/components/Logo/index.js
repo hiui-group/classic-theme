@@ -6,7 +6,7 @@ const Logo = ({ alt, height = 40, logoUrl, name, url, layout = 'horizontal', min
   return (
     <a className={classNames('hi-logo', `hi-logo--${layout}`)} href={url}>
       {logoUrl && <img src={logoUrl} alt={alt} height={height} />}
-      {name && <span className="hi-logo__title">{name}</span>}
+      {name && !mini && <span className="hi-logo__title">{name}</span>}
     </a>
   )
 }

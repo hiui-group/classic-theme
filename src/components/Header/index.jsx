@@ -15,7 +15,7 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar, mini, viewSize
   const logoConfig = typeof logo === 'function' ? logo(mini) : logo
   return (
     <div className={ClassNames('hi-theme__header')}>
-      {logo && <Logo {...logoConfig} mini={mini} layout="horizontal" />}
+      {<Logo {...logoConfig} mini={viewSize === 'small'} layout="horizontal" />}
       {viewSize === 'small' && (
         <Toggle
           show
