@@ -5,9 +5,10 @@ import Logo from '../Logo'
 import Popper from '../popper'
 import ClassNames from 'classnames'
 import './style/index'
+import Toggle from '../Toggle'
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
-const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar, mini }) => {
+const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar, mini, viewSize, setSiderVisible }) => {
   const [loginVisible, setLoginVisible] = useState(false)
   const popperRef = useRef(null)
   const loginRef = useRef(null)
@@ -15,7 +16,17 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar, mini }) => {
   return (
     <div className={ClassNames('hi-theme__header')}>
       {logo && <Logo {...logoConfig} mini={mini} layout="horizontal" />}
-
+      {viewSize === 'small' && (
+        <Toggle
+          show
+          mini
+          onToggle={() => {
+            if (setSiderVisible) {
+              setSiderVisible(true)
+            }
+          }}
+        />
+      )}
       {mainMenu && (
         <ul className="hi-theme__menu" style={{ flex: toolbar ? '0 0 auto' : 1 }}>
           {mainMenu.map((menu) => (

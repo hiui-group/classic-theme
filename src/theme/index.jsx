@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory, createHashHistory } from 'history'
 import layout from '../components/Layout'
@@ -31,8 +31,30 @@ const Layout = ({
   defaultExpandAll,
   pageHeader,
   onToggle,
-  authority
+  authority,
+  dynamic = true
 }) => {
+  const [viewSize, setViewSize] = useState('large')
+  const [siderVisible, setSiderVisible] = useState(true)
+  useEffect(() => {
+    function dynamicLayout(e) {
+      if (dynamic) {
+        const realSize = document.documentElement.clientWidth
+        if (realSize <= 960) {
+          setViewSize('small')
+          setSiderVisible(false)
+        } else if (realSize > 960 && realSize < 1366) {
+          setViewSize('middle')
+        } else {
+          setViewSize('large')
+        }
+      }
+    }
+    window.addEventListener('resize', dynamicLayout)
+    return () => {
+      window.addEventListener('resize', dynamicLayout)
+    }
+  }, [dynamic])
   const Layout = layout[type]
   const historyForLayout = useRef(null)
   if (!historyForLayout.current) {
@@ -46,6 +68,7 @@ const Layout = ({
         path="/"
         render={(props) => (
           <Layout
+            viewSize={viewSize}
             menu={transformConfig(routes)}
             siderTopRender={siderTopRender}
             siderBottomRender={siderBottomRender}
@@ -62,6 +85,8 @@ const Layout = ({
             pageHeader={pageHeader}
             onToggle={onToggle}
             authority={authority}
+            setSiderVisible={setSiderVisible}
+            siderVisible={siderVisible}
             {...props}
           />
         )}

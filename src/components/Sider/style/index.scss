@@ -49,6 +49,15 @@ ul {
   overflow: hidden;
   z-index: 12;
 
+  &--hide {
+    display: none;
+  }
+
+  &--popup {
+    position: fixed;
+    height: 100%;
+  }
+
   &--mini {
     width: 48px;
     overflow: visible;

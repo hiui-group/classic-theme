@@ -25,7 +25,8 @@ const ClassicLayout = ({
   accordion,
   pageHeader,
   onToggle,
-  authority
+  authority,
+  viewSize
 }) => {
   const mainMenu = useMainMenu(menu, authority)
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
@@ -61,6 +62,7 @@ const ClassicLayout = ({
             defaultExpandAll={defaultExpandAll}
             accordion={accordion}
             onToggle={onToggle}
+            viewSize={viewSize}
           />
         )}
         <div className="hi-theme__wrapper">

@@ -7,7 +7,7 @@ import Icon from '../icon'
 import Logo from '../Logo'
 import NormalMenu from './NormalMenu'
 import PopperMenu from './PopperMenu'
-import Toggle from './Toggle'
+import Toggle from '../Toggle'
 import { getScrollBarSize } from '../../util/common'
 import _ from 'lodash'
 
@@ -31,7 +31,9 @@ const Sider = ({
   onSelectMenu,
   defaultExpandAll,
   accordion,
-  onToggle
+  onToggle,
+  viewSize,
+  siderVisible
 }) => {
   const [mini, toggleMini] = useState(false)
   const [expandedId, setExpandedId] = useState([])
@@ -43,12 +45,20 @@ const Sider = ({
   const popperRef = useRef(null)
   const loginRef = useRef(null)
   const scrollBarSize = useRef(getScrollBarSize())
+
+  useEffect(() => {
+    if (viewSize === 'large') {
+      toggleMini(false)
+    }
+    if (viewSize === 'middle') {
+      toggleMini(true)
+    }
+  }, [viewSize])
   useEffect(() => {
     if (defaultExpandAll) {
       setExpandedId(getId(siderMenu))
     }
   }, [siderMenu])
-
   useEffect(() => {
     setExpandedId((expandedId) => {
       return _.uniq(expandedId.concat(selectedMenus.map((sm) => sm.id).slice(0, selectedMenus.length - 1)))
@@ -126,7 +136,14 @@ const Sider = ({
   const logoConfig = typeof logo === 'function' ? logo(mini) : logo
 
   return (
-    <div className={classNames('hi-theme__sider', { 'hi-theme__sider--mini': mini })} ref={siderRef}>
+    <div
+      className={classNames('hi-theme__sider', {
+        'hi-theme__sider--mini': mini,
+        'hi-theme__sider--hide': viewSize === 'small' && siderVisible === false,
+        'hi-theme__sider--popup': viewSize === 'small' && siderVisible === true
+      })}
+      ref={siderRef}
+    >
       {logo && <Logo {...logoConfig} mini={mini} />}
       {siderTopRender && siderTopRender(mini)}
       {siderMenu.length > 0 && (

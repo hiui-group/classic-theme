@@ -5,7 +5,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const basePath = path.resolve(__dirname, '../')
-console.log('----', basePath)
 module.exports = {
   mode: process.env.NODE_ENV,
   entry: {
@@ -101,9 +100,7 @@ module.exports = {
         }
       }
     },
-    minimizer: [
-      new TerserPlugin()
-    ],
+    minimizer: [new TerserPlugin()],
     usedExports: true,
     sideEffects: true
   },
