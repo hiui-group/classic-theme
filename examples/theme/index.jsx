@@ -81,9 +81,9 @@ class App extends Component {
         logo={logoConfig}
         // siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
         login={loginConfig}
-        // type='classic'
+        type='classic'
         // header={null}
-        type='genuine'
+        // type='genuine'
         // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
         accordion={false}
         toolbar={toolbar2}
