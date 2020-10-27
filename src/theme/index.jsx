@@ -37,7 +37,7 @@ const Layout = ({
   const [viewSize, setViewSize] = useState('large')
   const [siderVisible, setSiderVisible] = useState(true)
   useEffect(() => {
-    function dynamicLayout(e) {
+    function dynamicLayout (e) {
       if (dynamic) {
         const realSize = document.documentElement.clientWidth
         if (realSize <= 960) {
@@ -50,6 +50,7 @@ const Layout = ({
         }
       }
     }
+    dynamicLayout()
     window.addEventListener('resize', dynamicLayout)
     return () => {
       window.addEventListener('resize', dynamicLayout)
@@ -59,13 +60,12 @@ const Layout = ({
   const historyForLayout = useRef(null)
   if (!historyForLayout.current) {
     historyForLayout.current = historyGenerator[historyType]({ basename })
-
     _history[historyType] = historyForLayout.current
   }
   return (
     <Router history={historyForLayout.current}>
       <Route
-        path="/"
+        path='/'
         render={(props) => (
           <Layout
             viewSize={viewSize}

@@ -7,7 +7,9 @@
   align-items: center;
   width: 216px;
   transition: width 0.3s;
-
+  &--mini {
+    width: 48px;
+  }
   &--horizontal {
     padding: 0 16px;
     height: 64px;

@@ -1,16 +1,16 @@
 import React from 'react'
 import Icon from '../icon'
 
-const Toggle = ({ mini, show, onToggle }) => {
+const Toggle = ({ collapsed, show, onToggle }) => {
   return show ? (
     <div
-      className="sider__toggle"
+      className='sider__toggle'
       onClick={() => {
-        const _mini = !mini
-        onToggle(_mini)
+        const _collapsed = !collapsed
+        onToggle(_collapsed)
       }}
     >
-      <Icon name={mini ? 'menu-unfold' : 'menu-fold'} />
+      <Icon name={collapsed ? 'menu-unfold' : 'menu-fold'} />
     </div>
   ) : null
 }
