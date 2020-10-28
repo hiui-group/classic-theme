@@ -12,13 +12,14 @@ const historyGenerator = {
   browserHistory: createBrowserHistory,
   hashHistory: createHashHistory
 }
+const defaultApperance = { contentBackground: '#f6f6f6', contentPadding: 24, color: 'dark' }
 
 const Layout = ({
   historyType = 'browserHistory',
   basename = '/',
   routes = [],
   type = 'classic',
-  apperance = { contentBackground: '#f6f6f6', contentPadding: 24, color: 'dark' },
+  apperance,
   logo,
   login,
   header,
@@ -75,7 +76,7 @@ const Layout = ({
             toolbar={toolbar}
             footer={footer}
             type={type}
-            apperance={apperance}
+            apperance={Object.assign({}, defaultApperance, apperance)}
             logo={logo}
             login={login}
             header={header}
