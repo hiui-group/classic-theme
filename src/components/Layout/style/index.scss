@@ -1,6 +1,7 @@
 @import '@hi-ui/core-css/lib/i18n/zh-CN.scss';
 
 .hi-theme--classic {
+  position: relative;
   display: flex;
   height: calc(100vh - 64px);
   box-sizing: border-box;
@@ -57,14 +58,6 @@
   box-sizing: border-box;
 
   .hi-theme__sider {
-    background: #383e47;
-    color: #fff;
-    box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
-
-    .sider__footer {
-      background: #2e343d;
-    }
-
     &--mini {
       .sider__footer {
         height: 96px !important;

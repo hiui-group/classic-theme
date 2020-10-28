@@ -41,6 +41,18 @@ ul {
   }
 }
 
+.hi-theme--classic {
+  .hi-theme__sider {
+    &--popup {
+      position: absolute;
+      height: 100%;
+    }
+
+    z-index: 10;
+    background: #fff;
+  }
+}
+
 .hi-theme__sider {
   display: flex;
   flex-direction: column;
@@ -48,6 +60,54 @@ ul {
   transition: width 0.3s;
   overflow: hidden;
   z-index: 12;
+
+  &--light {
+    background: #fff !important;
+    box-shadow: 1px 0 4px rgba(0, 21, 41, 0.08);
+    color: #333;
+
+    .sider__footer {
+      background: #fff;
+    }
+
+    .sider__toggle,
+    .sider__login {
+      &:hover {
+        background: #4285f414;
+      }
+    }
+
+    .sider__menu {
+      .menu__leaf-title--active {
+        background: rgba(66, 133, 244, 0.08);
+        color: #4284f5;
+      }
+    }
+  }
+
+  &--dark {
+    background: #383e47 !important;
+    box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+    color: #fff;
+
+    .sider__footer {
+      background: #2e343d;
+    }
+
+    .sider__toggle,
+    .sider__login {
+      &:hover {
+        background: #252b32;
+      }
+    }
+
+    .sider__menu {
+      .menu__leaf-title--active {
+        background: #2e343d;
+        color: #4284f5;
+      }
+    }
+  }
 
   &--hide {
     display: none;
@@ -109,7 +169,6 @@ ul {
     }
 
     .menu__leaf-title--active {
-      background: #2e343d;
       color: #4284f5;
     }
   }
@@ -146,7 +205,6 @@ ul {
     transition: height 0.3s;
     display: flex;
     justify-content: space-between;
-    // align-items: center;
     flex-shrink: 0;
 
     & > .hi-theme-icon {
@@ -166,10 +224,6 @@ ul {
     align-items: center;
     transition: background 0.3s;
     flex-shrink: 0;
-
-    &:hover {
-      background: #252b32;
-    }
   }
 
   .sider__login {
@@ -183,9 +237,5 @@ ul {
     white-space: nowrap;
     transition: background 0.3s;
     margin-left: 48px;
-
-    &:hover {
-      background: #252b32;
-    }
   }
 }

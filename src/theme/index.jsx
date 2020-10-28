@@ -18,7 +18,7 @@ const Layout = ({
   basename = '/',
   routes = [],
   type = 'classic',
-  apperance = { contentBackground: '#f6f6f6', contentPadding: 24 },
+  apperance = { contentBackground: '#f6f6f6', contentPadding: 24, color: 'dark' },
   logo,
   login,
   header,
@@ -37,7 +37,7 @@ const Layout = ({
   const [viewSize, setViewSize] = useState('large')
   const [siderVisible, setSiderVisible] = useState(true)
   useEffect(() => {
-    function dynamicLayout (e) {
+    function dynamicLayout(e) {
       if (dynamic) {
         const realSize = document.documentElement.clientWidth
         if (realSize <= 960) {
@@ -65,7 +65,7 @@ const Layout = ({
   return (
     <Router history={historyForLayout.current}>
       <Route
-        path='/'
+        path="/"
         render={(props) => (
           <Layout
             viewSize={viewSize}
