@@ -1,6 +1,6 @@
 {
   "name": "@hi-ui/classic-theme",
-  "version": "3.0.0",
+  "version": "3.1.0-rc",
   "description": "Classic theme for HIUI",
   "main": "./es/index.js",
   "scripts": {
@@ -46,6 +46,7 @@
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
+    "@hi-ui/hiui": "^3.0.0",
     "autoprefixer": "^8.3.0",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^8.0.5",

@@ -109,7 +109,10 @@ History[`${your history type}`].push()
 
 | 属性名            | 描述                                     | 类型                                                       | 默认值                      |
 | ----------------- | ---------------------------------------- | ---------------------------------------------------------- | --------------------------- |
-| type              | 主题类型                                 | 'classic' \| 'genuine'                                     | 'classic'                   |
+| type              | 主题类型                                 | 'classic' \| 'genuine'                                     |
+'classic'                   |
+| dynamic              | 开启动态布局                                 | boolean                                     |
+true                   |
 | routes            | 路由配置项                               | Route[]                                                    | -                           |
 | logo              | 系统 logo                                | ReactNode                                                  | -                           |
 | login             | 系统登录配置项                           | ReactNode                                                  | -                           |

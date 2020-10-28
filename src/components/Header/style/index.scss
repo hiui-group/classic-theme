@@ -8,7 +8,6 @@
 
 .hi-theme__header {
   display: flex;
-  background: #383e47;
   height: 64px;
   line-height: 64px;
   position: fixed;
@@ -17,19 +16,97 @@
   font-size: $font-size-normal;
   box-sizing: border-box;
   z-index: 11;
-  box-shadow: 0 2px 6px rgba(0, 21, 41, 0.35);
+
+  &--light {
+    background: #fff !important;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    color: #333;
+
+    .hi-logo__title {
+      color: #333;
+    }
+
+    .hi-theme__toolbar {
+      color: #333;
+    }
+
+    .login__wrapper {
+      color: #333;
+    }
+
+    .main-menu-item {
+      a {
+        color: #333;
+      }
+    }
+
+    .active-main-menu {
+      background: #fff;
+      position: relative;
+
+      &::after {
+        content: '';
+        height: 2px;
+        width: 100%;
+        background: #4284f5;
+        bottom: 0;
+        position: absolute;
+      }
+    }
+
+    .sider__toggle {
+      padding: 0 12px;
+      cursor: pointer;
+
+      &:hover {
+        background: #4285f414;
+      }
+    }
+  }
+
+  &--dark {
+    background: #383e47 !important;
+    box-shadow: 0 2px 6px rgba(0, 21, 41, 0.35);
+    color: #fff;
+
+    .hi-theme__toolbar {
+      color: #fff;
+    }
+
+    .hi-logo__title {
+      color: #fff;
+    }
+
+    .login__wrapper {
+      color: #fff;
+    }
+
+    .main-menu-item {
+      a {
+        color: #fff;
+      }
+    }
+
+    .active-main-menu {
+      background: #2e343d;
+    }
+
+    .sider__toggle {
+      padding: 0 12px;
+      cursor: pointer;
+
+      &:hover {
+        background: #f8f8f9;
+      }
+    }
+  }
 
   .sider__toggle {
     padding: 0 12px;
     cursor: pointer;
-
-    &:hover {
-      background: #f8f8f9;
-    }
   }
 
   .login__wrapper {
-    color: #fff;
     margin-right: 24px;
     cursor: pointer;
 
@@ -57,7 +134,6 @@
   .hi-theme__toolbar {
     display: flex;
     flex: 1;
-    color: #fff;
     align-items: center;
     justify-content: flex-end;
   }
@@ -73,12 +149,11 @@
       display: flex;
 
       a {
-        color: #fff;
         padding: 0 16px;
         transition: color 0.3s;
 
         &:hover {
-          color: #d8d8d8;
+          color: #4284f5;
         }
       }
     }
@@ -87,8 +162,6 @@
       a {
         color: #4284f5;
       }
-
-      background: #2e343d;
     }
   }
 }
