@@ -37,7 +37,8 @@ const Sider = ({
   siderVisible,
   setSiderVisible,
   color,
-  type
+  type,
+  container
 }) => {
   const [mini, toggleMini] = useState(false)
   const [expandedId, setExpandedId] = useState([])
@@ -211,6 +212,7 @@ const Sider = ({
         onClose={() => {
           setSiderVisible(false)
         }}
+        container={container}
       >
         <div
           className={classNames(
@@ -219,7 +221,7 @@ const Sider = ({
           )}
           ref={siderRef}
         >
-          {logo && <Logo {...logoConfig} mini={mini} />}
+          {logo && <Logo {...logoConfig} mini={false} />}
           {siderTopRender && siderTopRender(mini)}
           {siderMenu.length > 0 && (
             <div className="sider__menu">

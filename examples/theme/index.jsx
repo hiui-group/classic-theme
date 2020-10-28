@@ -83,7 +83,7 @@ class App extends Component {
         login={loginConfig}
         type='classic'
         // header={null}
-        type='genuine'
+        // type='genuine'
         // apperance={{ color: 'light' }}
         // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
         accordion={false}
