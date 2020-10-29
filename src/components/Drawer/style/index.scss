@@ -1,7 +1,7 @@
 $drawer: 'sider-drawer' !default;
 
 .#{$drawer} {
-  color: #666666;
+  color: #666;
   font-size: 14px;
 
   &__mask {
@@ -38,6 +38,10 @@ $drawer: 'sider-drawer' !default;
 
     .hi-theme__sider {
       flex: 1;
+
+      .sider__login {
+        margin-left: 0;
+      }
     }
 
     &--left {
@@ -57,7 +61,7 @@ $drawer: 'sider-drawer' !default;
 
   &__header {
     font-size: 16px;
-    color: #666666;
+    color: #666;
     font-weight: 500;
     height: 54px;
     border-bottom: 1px solid #d9d9d9;

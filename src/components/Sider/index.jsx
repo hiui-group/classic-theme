@@ -244,9 +244,9 @@ const Sider = ({
                 >
                   <span>
                     <Icon name={login.icon} style={{ marginRight: 4 }} />
-                    {!mini && login.name}
+                    {login.name}
                   </span>
-                  {!mini && <Icon name={'right'} />}
+                  {<Icon name={'right'} />}
                 </div>
                 <Popper
                   show={drawerLoginVisible}
