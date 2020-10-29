@@ -185,10 +185,10 @@ const Sider = ({
                 }}
               >
                 <span>
-                  <Icon name={login.icon} style={{ marginRight: 4 }} />
+                  <Icon name={login.icon} style={{ marginRight: mini ? 0 : 8 }} />
                   {!mini && login.name}
                 </span>
-                {!mini && <Icon name={'right'} />}
+                {!mini && <Icon name={'caret-right'} style={{ marginLeft: 4, color: loginVisible && '#4284f5'}} />}
               </div>
               <Popper
                 show={loginVisible}
@@ -243,10 +243,10 @@ const Sider = ({
                   }}
                 >
                   <span>
-                    <Icon name={login.icon} style={{ marginRight: 4 }} />
+                    <Icon name={login.icon} style={{ marginRight: 8 }} />
                     {login.name}
                   </span>
-                  {<Icon name={'right'} />}
+                  <Icon name={'caret-right'} style={{ marginLeft: 4, color: drawerLoginVisible && '#4284f5'}} />
                 </div>
                 <Popper
                   show={drawerLoginVisible}

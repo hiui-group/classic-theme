@@ -17,6 +17,11 @@
   box-sizing: border-box;
   z-index: 11;
 
+  svg.hi-theme-icon {
+    height: 16px;
+    width: 16px;
+  }
+
   &--light {
     background: #fff !important;
     box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
@@ -55,12 +60,9 @@
     }
 
     .sider__toggle {
-      padding: 0 12px;
+      padding: 0 16px;
+      margin-left: 8px;
       cursor: pointer;
-
-      &:hover {
-        background: #4285f414;
-      }
     }
   }
 
@@ -92,12 +94,9 @@
     }
 
     .sider__toggle {
-      padding: 0 12px;
+      padding: 0 16px;
+      margin-left: 8px;
       cursor: pointer;
-
-      &:hover {
-        background: #252b32;
-      }
     }
   }
 
@@ -136,6 +135,7 @@
     flex: 1;
     align-items: center;
     justify-content: flex-end;
+    padding-left: 24px;
   }
 
   .hi-theme__menu {

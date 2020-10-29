@@ -60,6 +60,10 @@ ul {
   transition: width 0.3s;
   overflow: hidden;
   z-index: 12;
+  svg.hi-theme-icon {
+    height: 16px;
+    width: 16px;
+  }
 
   &--light {
     background: #fff !important;
@@ -70,12 +74,12 @@ ul {
       background: #fff;
     }
 
-    .sider__toggle,
-    .sider__login {
+    .sider__toggle {
       &:hover {
-        background: #4285f414;
+        color: #4284f5;
       }
     }
+
     .hi-logo__title {
       color: #333;
     }
@@ -98,13 +102,6 @@ ul {
 
     .sider__footer {
       background: #2e343d;
-    }
-
-    .sider__toggle,
-    .sider__login {
-      &:hover {
-        background: #252b32;
-      }
     }
 
     .sider__menu {
@@ -135,7 +132,22 @@ ul {
 
       .sider__login {
         margin-left: 0;
-        margin-bottom: 48px;
+        margin-bottom: 40px;
+        position: relative;
+      }
+    }
+
+    &.hi-theme__sider--light {
+      .sider__login {
+        &::before {
+          position: absolute;
+          content: '';
+          height: 1px;
+          width: 32px;
+          top: 0;
+          left: 8px;
+          background: #e7e7e7;
+        }
       }
     }
   }
@@ -205,12 +217,13 @@ ul {
   }
 
   .sider__footer {
-    height: 48px;
-    line-height: 48px;
+    height: 40px;
+    line-height: 40px;
     position: relative;
     transition: height 0.3s;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    // flex-direction: column;
     flex-shrink: 0;
 
     & > .hi-theme-icon {
@@ -220,10 +233,10 @@ ul {
 
   .sider__toggle {
     position: absolute;
-    left: 0;
+    left: 4px;
     bottom: 0;
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -234,14 +247,13 @@ ul {
 
   .sider__login {
     cursor: pointer;
-    flex: 1;
+    // flex: 1;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: 0 16px;
     overflow: hidden;
     white-space: nowrap;
     transition: background 0.3s;
-    margin-left: 48px;
   }
 }
