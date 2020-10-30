@@ -8,6 +8,11 @@
   width: 216px;
   transition: width 0.3s;
 
+  &--mini {
+    width: 48px;
+    padding: 0 4px !important;
+  }
+
   &--horizontal {
     padding: 0 16px;
     height: 64px;

@@ -5,19 +5,51 @@ import Logo from '../Logo'
 import Popper from '../popper'
 import ClassNames from 'classnames'
 import './style/index'
+import Toggle from '../Toggle'
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
-const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar, mini }) => {
+const Header = ({
+  mainMenu,
+  activeMainMenu,
+  logo,
+  login,
+  toolbar,
+  mini,
+  viewSize,
+  setSiderVisible,
+  siderVisible,
+  type,
+  color
+}) => {
   const [loginVisible, setLoginVisible] = useState(false)
   const popperRef = useRef(null)
   const loginRef = useRef(null)
   const logoConfig = typeof logo === 'function' ? logo(mini) : logo
   return (
-    <div className={ClassNames('hi-theme__header')}>
-      {logo && <Logo {...logoConfig} mini={mini} layout="horizontal" />}
+    <div
+      className={ClassNames(
+        'hi-theme__header',
+        `hi-theme__header--${color === 'dark' && type === 'classic' ? 'dark' : 'light'}`
+      )}
+    >
+      {viewSize === 'small' && (
+        <Toggle
+          show
+          icon='menu'
+          collapsed={!siderVisible}
+          onToggle={() => {
+            if (setSiderVisible) {
+              setSiderVisible(!siderVisible)
+            }
+          }}
+        />
+      )}
+      {((logo && type === 'classic') || (logo && type === 'genuine' && viewSize === 'small')) && (
+        <Logo {...logoConfig} mini={viewSize === 'small'} layout='horizontal' />
+      )}
 
       {mainMenu && (
-        <ul className="hi-theme__menu" style={{ flex: toolbar ? '0 0 auto' : 1 }}>
+        <ul className='hi-theme__menu' style={{ flex: toolbar ? '0 0 auto' : 1 }}>
           {mainMenu.map((menu) => (
             <li
               key={menu.id}
@@ -40,7 +72,7 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar, mini }) => {
           ))}
         </ul>
       )}
-      {toolbar && <div className="hi-theme__toolbar">{toolbar}</div>}
+      {toolbar && <div className='hi-theme__toolbar'>{toolbar}</div>}
       {login && (
         <React.Fragment>
           <div
@@ -58,13 +90,13 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar, mini }) => {
             show={loginVisible}
             attachEle={loginRef.current}
             zIndex={1050}
-            placement="bottom-end"
+            placement='bottom-end'
             width={false}
             onClickOutside={() => {
               setLoginVisible(false)
             }}
           >
-            <div ref={popperRef} className="login__menu--top">
+            <div ref={popperRef} className='login__menu--top'>
               {login.children}
             </div>
           </Popper>

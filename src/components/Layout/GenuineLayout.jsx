@@ -26,11 +26,25 @@ const GenuineLayout = ({
   accordion,
   pageHeader,
   onToggle,
-  authority
+  authority,
+  viewSize,
+  siderVisible,
+  setSiderVisible,
+  type
 }) => {
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
-  const _header = header === null || header || <Header toolbar={toolbar} />
+  const _header = header === null || header || (
+    <Header
+      toolbar={toolbar}
+      viewSize={viewSize}
+      setSiderVisible={setSiderVisible}
+      siderVisible={siderVisible}
+      logo={logo}
+      type={type}
+      color={apperance.color}
+    />
+  )
   const routes = getRoutes(menu)
   const _siderMenu = useMemo(() => {
     const _menu = _.cloneDeep(menu)
@@ -51,6 +65,11 @@ const GenuineLayout = ({
             logo={logo}
             accordion={accordion}
             onToggle={onToggle}
+            viewSize={viewSize}
+            siderVisible={siderVisible}
+            setSiderVisible={setSiderVisible}
+            type={type}
+            color={apperance.color}
           />
         )}
         <div className={ClassNames('hi-theme__container')}>

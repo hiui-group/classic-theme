@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useRef } from 'react'
 import Header from '../Header'
 import Sider from '../Sider'
 import { Route, Redirect } from 'react-router-dom'
@@ -25,8 +25,13 @@ const ClassicLayout = ({
   accordion,
   pageHeader,
   onToggle,
-  authority
+  authority,
+  viewSize,
+  siderVisible,
+  setSiderVisible,
+  type
 }) => {
+  const containerRef = useRef(null)
   const mainMenu = useMainMenu(menu, authority)
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
@@ -40,17 +45,22 @@ const ClassicLayout = ({
   return [
     !isWithoutLayout && (
       <Header
-        key="header"
+        key='header'
         mainMenu={mainMenu}
         activeMainMenu={activeMainMenu}
         location={location}
         logo={logo}
         login={login}
         toolbar={toolbar}
+        type={type}
+        siderVisible={siderVisible}
+        setSiderVisible={setSiderVisible}
+        viewSize={viewSize}
+        color={apperance.color}
       />
     ),
     (!isWithoutLayout && (
-      <div key="container" className="hi-theme--classic">
+      <div key='container' className='hi-theme--classic' ref={containerRef}>
         {_siderMenu.length > 0 && (
           <Sider
             siderMenu={_siderMenu}
@@ -61,12 +71,18 @@ const ClassicLayout = ({
             defaultExpandAll={defaultExpandAll}
             accordion={accordion}
             onToggle={onToggle}
+            viewSize={viewSize}
+            siderVisible={siderVisible}
+            setSiderVisible={setSiderVisible}
+            type={type}
+            color={apperance.color}
+            container={containerRef.current}
           />
         )}
-        <div className="hi-theme__wrapper">
+        <div className='hi-theme__wrapper'>
           {pageHeader ? pageHeader(selectedMenus, location) : null}
           <div
-            className="hi-theme__content"
+            className='hi-theme__content'
             style={{ padding: apperance.contentPadding, background: apperance.contentBackground }}
           >
             {routes.map((route, index) => {
@@ -91,7 +107,7 @@ const ClassicLayout = ({
       </div>
     )) || (
       <Route
-        key="withoutLayout"
+        key='withoutLayout'
         path={currentMenu.path}
         component={currentMenu.component}
         exact={!!currentMenu.exact}
