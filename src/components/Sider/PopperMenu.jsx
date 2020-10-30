@@ -80,6 +80,7 @@ const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMe
           placement="right-start"
           width={'auto'}
           onClickOutside={() => setPopperVisible(false)}
+          leftGap={2}
         >
           <div ref={popperRef}>{renderPopChildren(menu.children, 0, selectedMenus)}</div>
         </Popper>
