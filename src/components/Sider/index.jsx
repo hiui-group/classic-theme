@@ -198,6 +198,7 @@ const Sider = ({
                 onClickOutside={() => setLoginVisible(false)}
                 width={'auto'}
                 leftGap={2}
+                topGap={1.5}
               >
                 <div ref={popperRef} className="login__menu--top">
                   {login.children}
