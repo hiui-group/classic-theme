@@ -33,7 +33,8 @@ const Layout = ({
   pageHeader,
   onToggle,
   authority,
-  dynamic = true
+  dynamic = true,
+  defaultToggle
 }) => {
   const [viewSize, setViewSize] = useState('large')
   const [siderVisible, setSiderVisible] = useState(true)
@@ -51,12 +52,14 @@ const Layout = ({
         }
       }
     }
-    dynamicLayout()
-    window.addEventListener('resize', dynamicLayout)
-    return () => {
+    if (!defaultToggle) {
+      dynamicLayout()
       window.addEventListener('resize', dynamicLayout)
+      return () => {
+        window.addEventListener('resize', dynamicLayout)
+      }
     }
-  }, [dynamic])
+  }, [dynamic, defaultToggle])
   const Layout = layout[type]
   const historyForLayout = useRef(null)
   if (!historyForLayout.current) {
@@ -88,6 +91,7 @@ const Layout = ({
             authority={authority}
             setSiderVisible={setSiderVisible}
             siderVisible={siderVisible}
+            defaultToggle={defaultToggle}
             {...props}
           />
         )}

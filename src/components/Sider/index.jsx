@@ -38,9 +38,10 @@ const Sider = ({
   setSiderVisible,
   color,
   type,
-  container
+  container,
+  defaultToggle
 }) => {
-  const [mini, toggleMini] = useState(false)
+  const [mini, toggleMini] = useState(defaultToggle === 'mini' || false)
   const [expandedId, setExpandedId] = useState([])
   const [popperVisible, setPopperVisible] = useState(null)
   const [tooltipVisible, setTooltipVisible] = useState(null)
@@ -54,13 +55,15 @@ const Sider = ({
   const scrollBarSize = useRef(getScrollBarSize())
 
   useEffect(() => {
-    if (viewSize === 'large') {
-      toggleMini(false)
+    if (!defaultToggle) {
+      if (viewSize === 'large') {
+        toggleMini(false)
+      }
+      if (viewSize === 'middle') {
+        toggleMini(true)
+      }
     }
-    if (viewSize === 'middle') {
-      toggleMini(true)
-    }
-  }, [viewSize])
+  }, [viewSize, defaultToggle])
   useEffect(() => {
     if (defaultExpandAll) {
       setExpandedId(getId(siderMenu))
