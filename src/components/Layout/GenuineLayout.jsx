@@ -30,7 +30,8 @@ const GenuineLayout = ({
   viewSize,
   siderVisible,
   setSiderVisible,
-  type
+  type,
+  defaultToggle
 }) => {
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
@@ -70,6 +71,7 @@ const GenuineLayout = ({
             setSiderVisible={setSiderVisible}
             type={type}
             color={apperance.color}
+            defaultToggle={defaultToggle}
           />
         )}
         <div className={ClassNames('hi-theme__container')}>

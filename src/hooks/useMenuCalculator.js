@@ -26,7 +26,10 @@ const useMenuCalculator = (menu, { location, history }, fallback) => {
   )
 
   useEffect(() => {
-    const _currentMenu = findMenu(location.pathname, menu) || findMenu(fallback, menu) || getDefaultActiveMenu(menu)
+    const _currentMenu =
+      location.pathname === '/'
+        ? getDefaultActiveMenu(menu)
+        : findMenu(location.pathname, menu) || findMenu(fallback, menu) || getDefaultActiveMenu(menu)
     onSelectMenu(_currentMenu, !findMenu(location.pathname, menu))
     setCurrentMenu(_currentMenu)
   }, [location.pathname, menu, onSelectMenu])

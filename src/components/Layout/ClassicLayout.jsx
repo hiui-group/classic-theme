@@ -29,7 +29,8 @@ const ClassicLayout = ({
   viewSize,
   siderVisible,
   setSiderVisible,
-  type
+  type,
+  defaultToggle
 }) => {
   const containerRef = useRef(null)
   const mainMenu = useMainMenu(menu, authority)
@@ -45,7 +46,7 @@ const ClassicLayout = ({
   return [
     !isWithoutLayout && (
       <Header
-        key='header'
+        key="header"
         mainMenu={mainMenu}
         activeMainMenu={activeMainMenu}
         location={location}
@@ -60,7 +61,7 @@ const ClassicLayout = ({
       />
     ),
     (!isWithoutLayout && (
-      <div key='container' className='hi-theme--classic' ref={containerRef}>
+      <div key="container" className="hi-theme--classic" ref={containerRef}>
         {_siderMenu.length > 0 && (
           <Sider
             siderMenu={_siderMenu}
@@ -77,12 +78,13 @@ const ClassicLayout = ({
             type={type}
             color={apperance.color}
             container={containerRef.current}
+            defaultToggle={defaultToggle}
           />
         )}
-        <div className='hi-theme__wrapper'>
+        <div className="hi-theme__wrapper">
           {pageHeader ? pageHeader(selectedMenus, location) : null}
           <div
-            className='hi-theme__content'
+            className="hi-theme__content"
             style={{ padding: apperance.contentPadding, background: apperance.contentBackground }}
           >
             {routes.map((route, index) => {
@@ -107,7 +109,7 @@ const ClassicLayout = ({
       </div>
     )) || (
       <Route
-        key='withoutLayout'
+        key="withoutLayout"
         path={currentMenu.path}
         component={currentMenu.component}
         exact={!!currentMenu.exact}
