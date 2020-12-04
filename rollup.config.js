@@ -14,10 +14,10 @@ export default {
   output: [
     {
       format: 'es',
-      file: 'es/classic-theme.js',
+      file: 'es/index.js',
       indent: false
     },
-    { file: 'lib/classic-theme.js', format: 'cjs', indent: false }
+    { file: 'lib/index.js', format: 'cjs', indent: false }
   ],
   plugins: [
     resolve({ extensions: ['.jsx', '.js'] }),
