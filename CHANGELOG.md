@@ -1,5 +1,9 @@
 # 更新日志
 
+## 3.2.3
+
+- 修复 withoutLayout 路由重复挂载的问题 [#47](https://github.com/XiaoMi/hiui/issues/47)
+
 ## 3.2.2
 
 - 修复主题重定向警告 [#45](https://github.com/XiaoMi/hiui/issues/45)
