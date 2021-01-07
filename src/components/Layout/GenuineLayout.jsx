@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import Header from '../Header'
 import Sider from '../Sider'
 import Footer from '../Footer'
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Redirect, Switch } from 'react-router-dom'
 import ClassNames from 'classnames'
 import './style/index'
 import { getRoutes, filterMenu, checkAuth } from '../../util/common'
@@ -33,7 +33,7 @@ const GenuineLayout = ({
   type,
   defaultToggle
 }) => {
-  const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
+  const { currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(menu, { location, history }, fallback)
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
   const _header = header === null || header || (
     <Header
@@ -53,7 +53,7 @@ const GenuineLayout = ({
   }, [menu, authority])
   return [
     (!isWithoutLayout && (
-      <div key="container" className="hi-theme--genuine">
+      <div key='container' className='hi-theme--genuine'>
         {menu.length > 0 && (
           <Sider
             siderMenu={_siderMenu}
@@ -76,7 +76,7 @@ const GenuineLayout = ({
         )}
         <div className={ClassNames('hi-theme__container')}>
           {_header}
-          <div className="hi-theme__wrapper">
+          <div className='hi-theme__wrapper'>
             {pageHeader ? pageHeader(selectedMenus, location) : null}
             <div
               className={ClassNames('hi-theme__content', {
@@ -84,22 +84,23 @@ const GenuineLayout = ({
               })}
               style={{ padding: apperance.contentPadding, background: apperance.contentBackground }}
             >
-              {routes.map((route, index) => {
-                return checkAuth(authority, route.authority) ? (
-                  <Route
-                    key={index}
-                    path={route.path}
-                    render={(props) => <route.component {...props} extraData={route.extraData} />}
-                    exact={!!route.exact}
-                  />
-                ) : (
-                  <Redirect
-                    to={{
-                      pathname: fallback
-                    }}
-                  />
-                )
-              })}
+              <Switch>
+                {routes.map((route, index) => {
+                  return checkAuth(authority, route.authority) ? (
+                    <Route
+                      key={index}
+                      path={route.path}
+                      render={(props) => <route.component {...props} extraData={route.extraData} />}
+                      exact={!!route.exact}
+                    />
+                  ) : null
+                })}
+                <Redirect
+                  to={{
+                    pathname: location.pathname === '/' ? defaultPath : (fallback || defaultPath)
+                  }}
+                />
+              </Switch>
             </div>
             {footer && <Footer footer={footer} />}
           </div>
@@ -107,7 +108,7 @@ const GenuineLayout = ({
       </div>
     )) || (
       <Route
-        key="withoutLayout"
+        key='withoutLayout'
         path={currentMenu && currentMenu.path}
         component={currentMenu && currentMenu.component}
         exact={!!currentMenu && currentMenu.exact}

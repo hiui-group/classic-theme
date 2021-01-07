@@ -34,7 +34,7 @@ const useMenuCalculator = (menu, { location, history }, fallback) => {
     setCurrentMenu(_currentMenu)
   }, [location.pathname, menu, onSelectMenu])
 
-  return { currentMenu, selectedMenus, onSelectMenu }
+  return { currentMenu, selectedMenus, onSelectMenu, defaultPath: getDefaultActiveMenu(menu).path }
 }
 
 export default useMenuCalculator
