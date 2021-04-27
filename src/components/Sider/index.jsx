@@ -95,6 +95,7 @@ const Sider = ({
                 setPopperVisible={setPopperVisible}
                 onSelectMenu={onSelectMenu}
                 siderRef={siderRef}
+                onMenuClick={onMenuClick}
               />
             </Tooltip>
           </div>

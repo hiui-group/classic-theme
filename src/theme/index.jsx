@@ -31,7 +31,8 @@ const Layout = ({
   defaultExpandAll,
   pageHeader,
   onToggle,
-  authority
+  authority,
+  onMenuClick
 }) => {
   const Layout = layout[type]
   const historyForLayout = useRef(null)
@@ -62,6 +63,7 @@ const Layout = ({
             pageHeader={pageHeader}
             onToggle={onToggle}
             authority={authority}
+            onMenuClick={onMenuClick}
             {...props}
           />
         )}
