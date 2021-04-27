@@ -31,6 +31,7 @@ const Layout = ({
   defaultExpandAll,
   pageHeader,
   onToggle,
+  sliderCollapse,
   authority
 }) => {
   const Layout = layout[type]
@@ -62,6 +63,7 @@ const Layout = ({
             pageHeader={pageHeader}
             onToggle={onToggle}
             authority={authority}
+            sliderCollapse={sliderCollapse}
             {...props}
           />
         )}
