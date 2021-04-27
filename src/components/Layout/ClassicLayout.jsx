@@ -25,7 +25,8 @@ const ClassicLayout = ({
   accordion,
   pageHeader,
   onToggle,
-  authority
+  authority,
+  sliderCollapse
 }) => {
   const mainMenu = useMainMenu(menu, authority)
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
@@ -46,6 +47,7 @@ const ClassicLayout = ({
         location={location}
         logo={logo}
         login={login}
+        sliderCollapse={sliderCollapse}
         toolbar={toolbar}
       />
     ),

@@ -9,7 +9,7 @@
     "compile": "cross-env NODE_ENV=production gulp",
     "build": "cross-env NODE_ENV=production node_modules/.bin/webpack --progress --profile --colors --config ./build/webpack.production.config.js",
     "precommit": "lint-staged",
-    "start": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.config.js --hot  --port=4203",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.config.js --hot --port=4203",
     "pub-future": "npm publish --access public --tag future",
     "pub": "npm publish --access public --tag latest",
     "pub-next": "npm publish --access public --tag next"

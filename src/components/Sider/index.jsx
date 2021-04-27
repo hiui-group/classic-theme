@@ -31,9 +31,10 @@ const Sider = ({
   onSelectMenu,
   defaultExpandAll,
   accordion,
-  onToggle
+  onToggle,
+  sliderCollapse = true
 }) => {
-  const [mini, toggleMini] = useState(false)
+  const [mini, toggleMini] = useState(!sliderCollapse)
   const [expandedId, setExpandedId] = useState([])
   const [popperVisible, setPopperVisible] = useState(null)
   const [tooltipVisible, setTooltipVisible] = useState(null)
@@ -48,6 +49,10 @@ const Sider = ({
       setExpandedId(getId(siderMenu))
     }
   }, [siderMenu])
+
+  useEffect(() => {
+    toggle(!sliderCollapse)
+  }, [sliderCollapse])
 
   useEffect(() => {
     setExpandedId((expandedId) => {
