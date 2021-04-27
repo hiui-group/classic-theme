@@ -13,7 +13,8 @@ const NormalMenu = ({
   renderChildren,
   onSelectMenu,
   sibling,
-  accordion
+  accordion,
+  onMenuClick
 }) => {
   const [expanded, setExpanded] = useState(false)
 
@@ -48,6 +49,7 @@ const NormalMenu = ({
           if (menu.path) {
             onSelectMenu(menu)
           }
+          onMenuClick && onMenuClick(menu)
         }}
         style={{ paddingLeft: level * 16 }}
         className={classNames('menu__title', {

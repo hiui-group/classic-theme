@@ -26,7 +26,8 @@ const GenuineLayout = ({
   accordion,
   pageHeader,
   onToggle,
-  authority
+  authority,
+  onMenuClick
 }) => {
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
@@ -51,6 +52,7 @@ const GenuineLayout = ({
             logo={logo}
             accordion={accordion}
             onToggle={onToggle}
+            onMenuClick={onMenuClick}
           />
         )}
         <div className={ClassNames('hi-theme__container')}>

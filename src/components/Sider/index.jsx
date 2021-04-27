@@ -31,7 +31,8 @@ const Sider = ({
   onSelectMenu,
   defaultExpandAll,
   accordion,
-  onToggle
+  onToggle,
+  onMenuClick
 }) => {
   const [mini, toggleMini] = useState(false)
   const [expandedId, setExpandedId] = useState([])
@@ -111,6 +112,7 @@ const Sider = ({
             menu={m}
             sibling={menu}
             accordion={accordion}
+            onMenuClick={onMenuClick}
             setExpandedId={setExpandedId}
             expandedId={expandedId}
             level={level}
@@ -161,6 +163,7 @@ const Sider = ({
               attachEle={loginRef.current}
               zIndex={1050}
               placement="right-end"
+              onMenuClick={onMenuClick}
               onClickOutside={() => setLoginVisible(false)}
               width={'auto'}
             >

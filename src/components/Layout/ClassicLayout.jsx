@@ -25,7 +25,8 @@ const ClassicLayout = ({
   accordion,
   pageHeader,
   onToggle,
-  authority
+  authority,
+  onMenuClick
 }) => {
   const mainMenu = useMainMenu(menu, authority)
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
@@ -47,6 +48,7 @@ const ClassicLayout = ({
         logo={logo}
         login={login}
         toolbar={toolbar}
+        onMenuClick={onMenuClick}
       />
     ),
     (!isWithoutLayout && (
@@ -60,6 +62,7 @@ const ClassicLayout = ({
             onSelectMenu={onSelectMenu}
             defaultExpandAll={defaultExpandAll}
             accordion={accordion}
+            onMenuClick={onMenuClick}
             onToggle={onToggle}
           />
         )}
