@@ -44,7 +44,6 @@
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
-    "@hi-ui/hiui": "^3.0.0",
     "autoprefixer": "^8.3.0",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^8.0.5",
@@ -94,10 +93,12 @@
   },
   "peerDependencies": {
     "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react-dom": ">=16.8.0",
+    "@hi-ui/hiui": ">=3.0.0"
   },
   "lint-staged": {
     "*.{js,jsx}": [
+      "eslint --fix",
       "git add"
     ],
     "*.scss": [
