@@ -1,5 +1,30 @@
 # 更新日志
 
+## 3.2.3
+
+- 修复 withoutLayout 路由重复挂载的问题 [#47](https://github.com/XiaoMi/hiui/issues/47)
+
+## 3.2.2
+
+- 修复主题重定向警告 [#45](https://github.com/XiaoMi/hiui/issues/45)
+
+## 3.2.1
+
+- 修复路径为 '/' 时计算问题
+
+## 3.2.0
+
+- 支持 `defaultToggle` 设置默认侧边栏展示形态
+- 支持路径为 '/' 时，自动重定向到第一个可访问的页面
+
+## 3.1.0
+
+- 支持 `dynamic` 动态布局
+
+## 3.0.1
+
+- 修复 `genuine` 模式下字体颜色不正确的问题
+
 ## 3.0.0
 
 - 支持 `authority` 进行路由权限配置

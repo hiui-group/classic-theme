@@ -14,7 +14,7 @@ const BlackShark = (props) => {
 // const TV = () => <div>小米电视</div>
 const SoundBox = () => (
   <div>
-    小米音响<Link to='/robot-detail/1'>去详情页</Link>
+    小米音响<Link to="/robot-detail/1">去详情页</Link>
   </div>
 )
 const Robot = () => <div>米家扫地机器人</div>
@@ -34,7 +34,8 @@ const config = [
         name: '音响',
         path: '/audio',
         component: SoundBox,
-        children: [{ name: '小爱', path: '/xiaoai', component: XiaoAi }]
+        // authority: ['admain'],
+        children: [{ name: '小爱', path: '/xiaoai', component: XiaoAi, authority: ['admain'] }]
       },
       { name: '扫地机器人', path: '/robot', component: Robot },
       { path: '/robot-detail/:id', component: RobotDetail }

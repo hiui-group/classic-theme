@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import './App.scss'
 import Theme from './theme'
-import Provider, { ThemeContext } from '@hi-ui/hiui/es/context'
+import { ThemeContext } from '@hi-ui/hiui/es/context'
 class App extends Component {
   render() {
     return (
-      <ThemeContext.Provider value="orange">
+      <ThemeContext.Provider value="hiui-blue">
         <Theme />
       </ThemeContext.Provider>
     )

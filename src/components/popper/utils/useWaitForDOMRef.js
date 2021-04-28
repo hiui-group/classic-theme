@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 
-const ownerDocument = node => {
+const ownerDocument = (node) => {
   return (node && node.ownerDocument) || document
 }
-export const resolveContainerRef = ref => {
+export const resolveContainerRef = (ref) => {
   if (typeof document === 'undefined') return null
   if (ref == null) return ownerDocument().body
   if (typeof ref === 'function') ref = ref()
@@ -14,7 +14,7 @@ export const resolveContainerRef = ref => {
   return null
 }
 
-export default function useWaitForDOMRef (ref, onResolved) {
+export default function useWaitForDOMRef(ref, onResolved) {
   const [resolvedRef, setRef] = useState(() => resolveContainerRef(ref))
 
   if (!resolvedRef) {

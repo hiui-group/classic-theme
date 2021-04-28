@@ -30,7 +30,7 @@ const Expander = ({ children, expanded, isManul }) => {
   }, [expanderRef.current])
 
   return (
-    <div className='menu-expander' ref={wrapperRef} style={{ height: isManul ? height : expanded ? '' : 0 }}>
+    <div className="menu-expander" ref={wrapperRef} style={{ height: isManul ? height : expanded ? '' : 0 }}>
       <div ref={expanderRef}>{children}</div>
     </div>
   )

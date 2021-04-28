@@ -8,7 +8,6 @@
 
 .hi-theme__header {
   display: flex;
-  background: #383e47;
   height: 64px;
   line-height: 64px;
   position: fixed;
@@ -17,10 +16,96 @@
   font-size: $font-size-normal;
   box-sizing: border-box;
   z-index: 11;
-  box-shadow: 0 2px 6px rgba(0, 21, 41, 0.35);
+
+  svg.hi-theme-icon {
+    height: 16px;
+    width: 16px;
+  }
+
+  &--light {
+    background: #fff !important;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    color: #333;
+
+    .hi-logo__title {
+      color: #333;
+    }
+
+    .hi-theme__toolbar {
+      color: #333;
+    }
+
+    .login__wrapper {
+      color: #333;
+    }
+
+    .main-menu-item {
+      a {
+        color: #333;
+      }
+    }
+
+    .active-main-menu {
+      background: #fff;
+      position: relative;
+
+      &::after {
+        content: '';
+        height: 2px;
+        width: 100%;
+        background: use-color('primary');
+        bottom: 0;
+        position: absolute;
+      }
+    }
+
+    .sider__toggle {
+      padding: 0 16px;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+  }
+
+  &--dark {
+    background: #383e47 !important;
+    box-shadow: 0 2px 6px rgba(0, 21, 41, 0.35);
+    color: #fff;
+
+    .hi-theme__toolbar {
+      color: #fff;
+    }
+
+    .hi-logo__title {
+      color: #fff;
+    }
+
+    .login__wrapper {
+      color: #fff;
+    }
+
+    .main-menu-item {
+      a {
+        color: #fff;
+      }
+    }
+
+    .active-main-menu {
+      background: #2e343d;
+    }
+
+    .sider__toggle {
+      padding: 0 16px;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+  }
+
+  .sider__toggle {
+    padding: 0 12px;
+    cursor: pointer;
+  }
 
   .login__wrapper {
-    color: #fff;
     margin-right: 24px;
     cursor: pointer;
 
@@ -48,9 +133,9 @@
   .hi-theme__toolbar {
     display: flex;
     flex: 1;
-    color: #fff;
     align-items: center;
     justify-content: flex-end;
+    padding-left: 24px;
   }
 
   .hi-theme__menu {
@@ -64,7 +149,6 @@
       display: flex;
 
       a {
-        color: #fff;
         padding: 0 16px;
         transition: color 0.3s;
 
@@ -78,8 +162,6 @@
       a {
         color: use-color('primary');
       }
-
-      background: use-color('primary-20');
     }
   }
 }

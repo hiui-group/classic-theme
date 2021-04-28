@@ -5,19 +5,53 @@ import Logo from '../Logo'
 import Popper from '../popper'
 import ClassNames from 'classnames'
 import './style/index'
+import Toggle from '../Toggle'
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
-const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar, mini, theme }) => {
+const Header = ({
+  mainMenu,
+  activeMainMenu,
+  logo,
+  login,
+  toolbar,
+  mini,
+  viewSize,
+  setSiderVisible,
+  siderVisible,
+  type,
+  theme,
+  color
+}) => {
   const [loginVisible, setLoginVisible] = useState(false)
   const popperRef = useRef(null)
   const loginRef = useRef(null)
   const logoConfig = typeof logo === 'function' ? logo(mini) : logo
   return (
-    <div className={ClassNames('hi-theme__header', `theme__${theme}`)}>
-      {logo && <Logo {...logoConfig} mini={mini} layout="horizontal" />}
+    <div
+      className={ClassNames(
+        'hi-theme__header',
+        `hi-theme__header--${color === 'dark' && type === 'classic' ? 'dark' : 'light'}`,
+        `theme__${theme}`
+      )}
+    >
+      {viewSize === 'small' && (
+        <Toggle
+          show
+          icon="menu"
+          collapsed={!siderVisible}
+          onToggle={() => {
+            if (setSiderVisible) {
+              setSiderVisible(!siderVisible)
+            }
+          }}
+        />
+      )}
+      {((logo && type === 'classic') || (logo && type === 'genuine' && viewSize === 'small')) && (
+        <Logo {...logoConfig} mini={viewSize === 'small'} layout="horizontal" />
+      )}
 
       {mainMenu && (
-        <ul className="hi-theme__menu" style={{ flex: toolbar ? '0 0 auto' : 1 }}>
+        <ul className={`hi-theme__menu theme__${theme}`} style={{ flex: toolbar ? '0 0 auto' : 1 }}>
           {mainMenu.map((menu) => (
             <li
               key={menu.id}
@@ -64,7 +98,7 @@ const Header = ({ mainMenu, activeMainMenu, logo, login, toolbar, mini, theme })
               setLoginVisible(false)
             }}
           >
-            <div ref={popperRef} className="login__menu--top">
+            <div ref={popperRef} className={`login__menu--top theme__${theme}`}>
               {login.children}
             </div>
           </Popper>

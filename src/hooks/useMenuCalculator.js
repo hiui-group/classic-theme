@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react'
+import { useCallback, useState, useLayoutEffect } from 'react'
 import { findMenu, getAncestor, getDefaultActiveMenu } from '../util/common'
 import _ from 'lodash'
 
@@ -25,13 +25,16 @@ const useMenuCalculator = (menu, { location, history }, fallback) => {
     [menu, selectedMenus]
   )
 
-  useEffect(() => {
-    const _currentMenu = findMenu(location.pathname, menu) || findMenu(fallback, menu) || getDefaultActiveMenu(menu)
+  useLayoutEffect(() => {
+    const _currentMenu =
+      location.pathname === '/'
+        ? findMenu(location.pathname, menu) || getDefaultActiveMenu(menu)
+        : findMenu(location.pathname, menu) || findMenu(fallback, menu) || getDefaultActiveMenu(menu)
     onSelectMenu(_currentMenu, !findMenu(location.pathname, menu))
     setCurrentMenu(_currentMenu)
   }, [location.pathname, menu, onSelectMenu])
 
-  return { currentMenu, selectedMenus, onSelectMenu }
+  return { currentMenu, selectedMenus, onSelectMenu, defaultPath: getDefaultActiveMenu(menu).path }
 }
 
 export default useMenuCalculator
