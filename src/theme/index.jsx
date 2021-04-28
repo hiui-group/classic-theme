@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory, createHashHistory } from 'history'
 import layout from '../components/Layout'
@@ -12,13 +12,14 @@ const historyGenerator = {
   browserHistory: createBrowserHistory,
   hashHistory: createHashHistory
 }
+const defaultApperance = { contentBackground: '#f6f6f6', contentPadding: 24, color: 'dark' }
 
 const Layout = ({
   historyType = 'browserHistory',
   basename = '/',
   routes = [],
   type = 'classic',
-  apperance = { contentBackground: '#f6f6f6', contentPadding: 24 },
+  apperance,
   logo,
   login,
   header,
@@ -32,13 +33,38 @@ const Layout = ({
   pageHeader,
   onToggle,
   authority,
+  dynamic = true,
+  defaultToggle,
   onMenuClick
 }) => {
+  const [viewSize, setViewSize] = useState('large')
+  const [siderVisible, setSiderVisible] = useState(true)
+  useEffect(() => {
+    function dynamicLayout(e) {
+      if (dynamic) {
+        const realSize = document.documentElement.clientWidth
+        if (realSize <= 960) {
+          setViewSize('small')
+          setSiderVisible(false)
+        } else if (realSize > 960 && realSize < 1366) {
+          setViewSize('middle')
+        } else {
+          setViewSize('large')
+        }
+      }
+    }
+    if (!defaultToggle) {
+      dynamicLayout()
+      window.addEventListener('resize', dynamicLayout)
+      return () => {
+        window.addEventListener('resize', dynamicLayout)
+      }
+    }
+  }, [dynamic, defaultToggle])
   const Layout = layout[type]
   const historyForLayout = useRef(null)
   if (!historyForLayout.current) {
     historyForLayout.current = historyGenerator[historyType]({ basename })
-
     _history[historyType] = historyForLayout.current
   }
   return (
@@ -47,23 +73,27 @@ const Layout = ({
         path="/"
         render={(props) => (
           <Layout
+            viewSize={viewSize}
             menu={transformConfig(routes)}
             siderTopRender={siderTopRender}
             siderBottomRender={siderBottomRender}
             toolbar={toolbar}
             footer={footer}
             type={type}
-            apperance={apperance}
+            apperance={Object.assign({}, defaultApperance, apperance)}
             logo={logo}
             login={login}
             header={header}
             accordion={accordion}
+            onMenuClick={onMenuClick}
             fallback={fallback}
             defaultExpandAll={defaultExpandAll}
             pageHeader={pageHeader}
             onToggle={onToggle}
             authority={authority}
-            onMenuClick={onMenuClick}
+            setSiderVisible={setSiderVisible}
+            siderVisible={siderVisible}
+            defaultToggle={defaultToggle}
             {...props}
           />
         )}

@@ -4,7 +4,7 @@ import './style/index.scss'
 import Icon from '../icon'
 import Popper from '../popper'
 
-const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMenu, siderRef, onMenuClick }) => {
+const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMenu, siderRef }) => {
   const popperRef = useRef(null)
   const menuRef = useRef(null)
   const [visibleMenu, setVisibleMenu] = useState([])
@@ -35,7 +35,6 @@ const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMe
                     onSelectMenu(subMenu)
                     setPopperVisible(null)
                   }
-                  onMenuClick && onMenuClick(subMenu)
                 }}
               >
                 {subMenu.name}
@@ -63,7 +62,6 @@ const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMe
             onSelectMenu(menu)
             setPopperVisible(null)
           }
-          onMenuClick && onMenuClick(menu)
         }}
         className={classNames('menu__title', {
           'menu__leaf-title--active': selectedMenus && selectedMenus.map((sm) => sm.id).includes(menu.id)
@@ -82,6 +80,7 @@ const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMe
           placement="right-start"
           width={'auto'}
           onClickOutside={() => setPopperVisible(false)}
+          leftGap={2}
         >
           <div ref={popperRef}>{renderPopChildren(menu.children, 0, selectedMenus)}</div>
         </Popper>

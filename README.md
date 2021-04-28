@@ -3,7 +3,7 @@
 ## 使用
 
 ```bash
-npm i @hi-ui/classic-theme@next --save
+npm i @hi-ui/classic-theme --save
 // or
 yarn add @hi-ui/classic-theme
 ```
@@ -109,7 +109,10 @@ History[`${your history type}`].push()
 
 | 属性名            | 描述                                     | 类型                                                       | 默认值                      |
 | ----------------- | ---------------------------------------- | ---------------------------------------------------------- | --------------------------- |
-| type              | 主题类型                                 | 'classic' \| 'genuine'                                     | 'classic'                   |
+| type              | 主题类型                                 | 'classic' \| 'genuine'                                     |
+'classic'                   |
+| dynamic              | 开启动态布局                                 | boolean                                     |
+true                   |
 | routes            | 路由配置项                               | Route[]                                                    | -                           |
 | logo              | 系统 logo                                | ReactNode                                                  | -                           |
 | login             | 系统登录配置项                           | ReactNode                                                  | -                           |
@@ -128,6 +131,7 @@ History[`${your history type}`].push()
 | authority         | 用户拥有权限配置                         | string[]                                                   | -                           |
 | fallback          | 路由无法匹配时的候补跳转                 | string                                                     | -                           |
 | onToggle          | 侧边栏展开收起触发的回调                 | mini: boolean => void                                      | -                           |
+| defaultToggle          |  设置默认侧边栏展开形式（设置后 dynamic 将无效）                 | 'mini' \| 'large'                                      | -                           |
 
 ### type: Route
 

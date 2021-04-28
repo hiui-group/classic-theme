@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import Header from '../Header'
 import Sider from '../Sider'
 import Footer from '../Footer'
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Redirect, Switch } from 'react-router-dom'
 import ClassNames from 'classnames'
 import './style/index'
 import { getRoutes, filterMenu, checkAuth } from '../../util/common'
@@ -27,11 +27,32 @@ const GenuineLayout = ({
   pageHeader,
   onToggle,
   authority,
-  onMenuClick
+  viewSize,
+  siderVisible,
+  setSiderVisible,
+  type,
+  onMenuClick,
+  defaultToggle
 }) => {
-  const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
+  const { currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
+    menu,
+    { location, history },
+    fallback,
+    onMenuClick
+  )
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
-  const _header = header === null || header || <Header toolbar={toolbar} />
+  const _header = header === null || header || (
+    <Header
+      toolbar={toolbar}
+      viewSize={viewSize}
+      setSiderVisible={setSiderVisible}
+      siderVisible={siderVisible}
+      logo={logo}
+      onMenuClick={onMenuClick}
+      type={type}
+      color={apperance.color}
+    />
+  )
   const routes = getRoutes(menu)
   const _siderMenu = useMemo(() => {
     const _menu = _.cloneDeep(menu)
@@ -52,7 +73,12 @@ const GenuineLayout = ({
             logo={logo}
             accordion={accordion}
             onToggle={onToggle}
-            onMenuClick={onMenuClick}
+            viewSize={viewSize}
+            siderVisible={siderVisible}
+            setSiderVisible={setSiderVisible}
+            type={type}
+            color={apperance.color}
+            defaultToggle={defaultToggle}
           />
         )}
         <div className={ClassNames('hi-theme__container')}>
@@ -65,22 +91,23 @@ const GenuineLayout = ({
               })}
               style={{ padding: apperance.contentPadding, background: apperance.contentBackground }}
             >
-              {routes.map((route, index) => {
-                return checkAuth(authority, route.authority) ? (
-                  <Route
-                    key={index}
-                    path={route.path}
-                    render={(props) => <route.component {...props} extraData={route.extraData} />}
-                    exact={!!route.exact}
-                  />
-                ) : (
-                  <Redirect
-                    to={{
-                      pathname: fallback
-                    }}
-                  />
-                )
-              })}
+              <Switch>
+                {routes.map((route, index) => {
+                  return checkAuth(authority, route.authority) ? (
+                    <Route
+                      key={index}
+                      path={route.path}
+                      render={(props) => <route.component {...props} extraData={route.extraData} />}
+                      exact={!!route.exact}
+                    />
+                  ) : null
+                })}
+                <Redirect
+                  to={{
+                    pathname: location.pathname === '/' ? defaultPath : fallback || defaultPath
+                  }}
+                />
+              </Switch>
             </div>
             {footer && <Footer footer={footer} />}
           </div>

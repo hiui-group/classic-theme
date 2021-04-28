@@ -1,6 +1,7 @@
 @import '@hi-ui/core-css/lib/i18n/zh-CN.scss';
 
 .hi-theme--classic {
+  position: relative;
   display: flex;
   height: calc(100vh - 64px);
   box-sizing: border-box;
@@ -12,12 +13,6 @@
     .sider__footer {
       justify-content: flex-end;
       align-items: center;
-    }
-
-    .sider__toggle {
-      &:hover {
-        background: #4285f414;
-      }
     }
 
     .sider__menu {
@@ -57,17 +52,9 @@
   box-sizing: border-box;
 
   .hi-theme__sider {
-    background: #383e47;
-    color: #fff;
-    box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
-
-    .sider__footer {
-      background: #2e343d;
-    }
-
     &--mini {
       .sider__footer {
-        height: 96px !important;
+        height: 80px !important;
         flex-direction: column-reverse;
 
         & > .hi-theme-icon {
@@ -107,10 +94,13 @@
   }
 
   .hi-theme__header {
-    justify-content: flex-end;
     position: static;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+
+    .hi-theme__toolbar {
+      color: #333;
+    }
   }
 
   .sider__logo {
