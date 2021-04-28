@@ -1,6 +1,8 @@
 import React, { useRef } from 'react'
 import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory, createHashHistory } from 'history'
+import Provider from '@hi-ui/hiui/es/context'
+
 import layout from '../components/Layout'
 import './style/index'
 
@@ -31,7 +33,8 @@ const Layout = ({
   defaultExpandAll,
   pageHeader,
   onToggle,
-  authority
+  authority,
+  ...restProps
 }) => {
   const Layout = layout[type]
   const historyForLayout = useRef(null)
@@ -62,6 +65,7 @@ const Layout = ({
             pageHeader={pageHeader}
             onToggle={onToggle}
             authority={authority}
+            {...restProps}
             {...props}
           />
         )}
@@ -70,4 +74,4 @@ const Layout = ({
   )
 }
 
-export default Layout
+export default Provider(Layout)

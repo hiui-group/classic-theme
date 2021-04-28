@@ -1,3 +1,5 @@
+@import '@hi-ui/core-css/index.scss';
+
 ul {
   li {
     list-style: none;
@@ -31,11 +33,11 @@ ul {
       transition: all 0.3s;
 
       &--active {
-        color: #4284f5;
+        color: use-color('primary');
       }
 
       &:hover {
-        color: #4284f5;
+        color: use-color('primary');
       }
     }
   }
@@ -91,17 +93,17 @@ ul {
       }
 
       &:hover {
-        color: #4284f5;
+        color: use-color('primary');
       }
 
       &--active {
-        color: #4284f5;
+        color: use-color('primary');
       }
     }
 
     .menu__leaf-title--active {
-      background: #2e343d;
-      color: #4284f5;
+      background: use-color('primary-20');
+      color: use-color('primary');
     }
   }
 
@@ -159,7 +161,7 @@ ul {
     flex-shrink: 0;
 
     &:hover {
-      background: #252b32;
+      background: use-color('primary-20');
     }
   }
 
@@ -176,7 +178,7 @@ ul {
     margin-left: 48px;
 
     &:hover {
-      background: #252b32;
+      background: use-color('primary-20');
     }
   }
 }

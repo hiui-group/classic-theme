@@ -1,4 +1,5 @@
 @import '@hi-ui/core-css/lib/i18n/zh-CN.scss';
+@import '@hi-ui/core-css/index.scss';
 
 .hi-theme--classic {
   display: flex;
@@ -16,21 +17,21 @@
 
     .sider__toggle {
       &:hover {
-        background: #4285f414;
+        background: use-color('primary-20');
       }
     }
 
     .sider__menu {
       .menu__leaf-title--active {
-        background: rgba(66, 133, 244, 0.08);
-        color: #4284f5;
+        background: use-color('primary-20');
+        color: use-color('primary');
         position: relative;
 
         &::after {
           content: '';
           height: 48px;
           width: 4px;
-          background: #4284f5;
+          background: use-color('primary');
           left: 0;
           position: absolute;
         }
@@ -62,7 +63,7 @@
     box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
 
     .sider__footer {
-      background: #2e343d;
+      background: use-color('primary-20');
     }
 
     &--mini {

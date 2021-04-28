@@ -69,17 +69,17 @@
         transition: color 0.3s;
 
         &:hover {
-          color: #d8d8d8;
+          color: use-color('primary');
         }
       }
     }
 
     .active-main-menu {
       a {
-        color: #4284f5;
+        color: use-color('primary');
       }
 
-      background: #2e343d;
+      background: use-color('primary-20');
     }
   }
 }

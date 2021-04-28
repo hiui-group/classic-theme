@@ -25,7 +25,8 @@ const ClassicLayout = ({
   accordion,
   pageHeader,
   onToggle,
-  authority
+  authority,
+  theme
 }) => {
   const mainMenu = useMainMenu(menu, authority)
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
@@ -46,11 +47,12 @@ const ClassicLayout = ({
         location={location}
         logo={logo}
         login={login}
+        theme={theme}
         toolbar={toolbar}
       />
     ),
     (!isWithoutLayout && (
-      <div key="container" className="hi-theme--classic">
+      <div key="container" className={`hi-theme--classic theme__${theme}`}>
         {_siderMenu.length > 0 && (
           <Sider
             siderMenu={_siderMenu}
@@ -60,6 +62,7 @@ const ClassicLayout = ({
             onSelectMenu={onSelectMenu}
             defaultExpandAll={defaultExpandAll}
             accordion={accordion}
+            theme={theme}
             onToggle={onToggle}
           />
         )}

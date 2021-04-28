@@ -31,8 +31,10 @@ const Sider = ({
   onSelectMenu,
   defaultExpandAll,
   accordion,
+  theme,
   onToggle
 }) => {
+  console.log('theme++++', theme)
   const [mini, toggleMini] = useState(false)
   const [expandedId, setExpandedId] = useState([])
   const [popperVisible, setPopperVisible] = useState(null)
@@ -89,6 +91,7 @@ const Sider = ({
             <Tooltip title={m.name} placement="right" visible={tooltipVisible === m.id && popperVisible !== m.id}>
               <PopperMenu
                 menu={m}
+                theme={theme}
                 selectedMenus={selectedMenus}
                 visible={popperVisible === m.id}
                 setPopperVisible={setPopperVisible}
@@ -109,6 +112,7 @@ const Sider = ({
           <NormalMenu
             key={m.id}
             menu={m}
+            theme={theme}
             sibling={menu}
             accordion={accordion}
             setExpandedId={setExpandedId}

@@ -26,11 +26,12 @@ const GenuineLayout = ({
   accordion,
   pageHeader,
   onToggle,
-  authority
+  authority,
+  theme
 }) => {
   const { currentMenu, selectedMenus, onSelectMenu } = useMenuCalculator(menu, { location, history }, fallback)
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
-  const _header = header === null || header || <Header toolbar={toolbar} />
+  const _header = header === null || header || <Header toolbar={toolbar} theme={theme} />
   const routes = getRoutes(menu)
   const _siderMenu = useMemo(() => {
     const _menu = _.cloneDeep(menu)
@@ -38,7 +39,7 @@ const GenuineLayout = ({
   }, [menu, authority])
   return [
     (!isWithoutLayout && (
-      <div key="container" className="hi-theme--genuine">
+      <div key="container" className={`hi-theme--genuine theme__${theme}`}>
         {menu.length > 0 && (
           <Sider
             siderMenu={_siderMenu}
@@ -50,6 +51,7 @@ const GenuineLayout = ({
             siderBottomRender={siderBottomRender}
             logo={logo}
             accordion={accordion}
+            theme={theme}
             onToggle={onToggle}
           />
         )}
