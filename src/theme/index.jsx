@@ -34,12 +34,21 @@ const Layout = ({
   onToggle,
   authority,
   dynamic = true,
+  sliderCollapse,
   defaultToggle
 }) => {
   const [viewSize, setViewSize] = useState('large')
   const [siderVisible, setSiderVisible] = useState(true)
   useEffect(() => {
+    if (typeof sliderCollapse !== 'undefined') {
+      setViewSize(sliderCollapse ? 'large' : 'middle')
+    }
+  }, [sliderCollapse])
+  useEffect(() => {
     function dynamicLayout(e) {
+      if (typeof sliderCollapse !== 'undefined') {
+        return
+      }
       if (dynamic) {
         const realSize = document.documentElement.clientWidth
         if (realSize <= 960) {
@@ -87,6 +96,7 @@ const Layout = ({
             fallback={fallback}
             defaultExpandAll={defaultExpandAll}
             pageHeader={pageHeader}
+            sliderCollapse={sliderCollapse}
             onToggle={onToggle}
             authority={authority}
             setSiderVisible={setSiderVisible}

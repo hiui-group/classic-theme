@@ -13,19 +13,19 @@ const loginConfig = {
   name: 'Mi Guest',
   icon: 'user',
   children: [
-    <div key='1' style={{ textAlign: 'center', margin: 4, width: '100px' }}>
-      <a href='#info'>个人信息</a>
+    <div key="1" style={{ textAlign: 'center', margin: 4, width: '100px' }}>
+      <a href="#info">个人信息</a>
     </div>,
-    <div key='2' style={{ textAlign: 'center', margin: 4, width: 100 }}>
-      <a href='#logout'>注销</a>
+    <div key="2" style={{ textAlign: 'center', margin: 4, width: 100 }}>
+      <a href="#logout">注销</a>
     </div>
   ]
 }
 const toolbar = [
-  <Input key='1' style={{ width: 200 }} />,
-  <Icon key='2' name='prompt' />,
+  <Input key="1" style={{ width: 200 }} />,
+  <Icon key="2" name="prompt" />,
   <Select
-    type='single'
+    type="single"
     clearable={false}
     style={{ width: 200 }}
     onChange={() => {
@@ -42,10 +42,10 @@ const toolbar = [
 ]
 const toolbar2 = (
   <div style={{ flex: 1 }}>
-    <Input key='1' style={{ width: 200 }} />
-    <Icon key='2' name='prompt' />
+    <Input key="1" style={{ width: 200 }} />
+    <Icon key="2" name="prompt" />
     <Select
-      type='single'
+      type="single"
       clearable={false}
       style={{ width: 200 }}
       onChange={() => {
@@ -65,9 +65,19 @@ const toolbar2 = (
 
 const TV = () => <div>小米电视</div>
 class App extends Component {
-  state = {
-    routeConfig: [{ name: '电视', path: '/tv', component: TV }]
+  constructor(props) {
+    super(props)
+    this.state = {
+      routeConfig: [{ name: '电视', path: '/tv', component: TV }],
+      sliderCollapse: true
+    }
+    // setTimeout(() => {
+    //   this.setState({
+    //     sliderCollapse: false
+    //   })
+    // }, 3000)
   }
+
   // componentDidMount () {
   //   setTimeout(() => {
   //     this.setState({ routeConfig: _routeConfig })
@@ -81,7 +91,7 @@ class App extends Component {
         logo={logoConfig}
         // siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
         login={loginConfig}
-        type='classic'
+        type="classic"
         // header={null}
         authority={['normal']}
         // fallback="/404"
@@ -89,7 +99,8 @@ class App extends Component {
         // apperance={{ color: 'light' }}
         // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
         accordion={false}
-      toolbar={toolbar2}
+        sliderCollapse={this.state.sliderCollapse}
+        toolbar={toolbar2}
       />
     )
   }

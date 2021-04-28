@@ -1,8 +1,11 @@
 # 更新日志
 
+# 3.3.0
+- 新增 `sliderCollapse` 控制侧边栏的展开收起 [#50](https://github.com/XiaoMi/hiui/issues/50)
+
 ## 3.2.3
 
-- 修复 withoutLayout 路由重复挂载的问题 [#47](https://github.com/XiaoMi/hiui/issues/47)
+- 修复 `withoutLayout` 路由重复挂载的问题 [#47](https://github.com/XiaoMi/hiui/issues/47)
 
 ## 3.2.2
 
