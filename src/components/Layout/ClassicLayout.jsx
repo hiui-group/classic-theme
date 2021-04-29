@@ -31,6 +31,7 @@ const ClassicLayout = ({
   setSiderVisible,
   type,
   onMenuClick,
+  theme,
   defaultToggle
 }) => {
   const containerRef = useRef(null)
@@ -58,6 +59,7 @@ const ClassicLayout = ({
         location={location}
         logo={logo}
         login={login}
+        theme={theme}
         toolbar={toolbar}
         onMenuClick={onMenuClick}
         type={type}
@@ -68,7 +70,7 @@ const ClassicLayout = ({
       />
     ),
     (!isWithoutLayout && (
-      <div key="container" className="hi-theme--classic" ref={containerRef}>
+      <div key="container" className={`hi-theme--classic theme__${theme}`} ref={containerRef}>
         {_siderMenu.length > 0 && (
           <Sider
             siderMenu={_siderMenu}
@@ -78,6 +80,7 @@ const ClassicLayout = ({
             onSelectMenu={onSelectMenu}
             defaultExpandAll={defaultExpandAll}
             accordion={accordion}
+            theme={theme}
             onToggle={onToggle}
             viewSize={viewSize}
             siderVisible={siderVisible}

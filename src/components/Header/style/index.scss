@@ -53,7 +53,7 @@
         content: '';
         height: 2px;
         width: 100%;
-        background: #4284f5;
+        background: use-color('primary');
         bottom: 0;
         position: absolute;
       }
@@ -153,14 +153,14 @@
         transition: color 0.3s;
 
         &:hover {
-          color: #4284f5;
+          color: use-color('primary');
         }
       }
     }
 
     .active-main-menu {
       a {
-        color: #4284f5;
+        color: use-color('primary');
       }
     }
   }

@@ -23,10 +23,9 @@ const loginConfig = {
 }
 // eslint-disable-next-line no-unused-vars
 const toolbar = [
-  <Input key="1" style={{ width: 200 }} key="1" />,
-  <Icon key="2" name="prompt" key="2" />,
+  <Input key="1" style={{ width: 200 }} />,
+  <Icon key="2" name="prompt" />,
   <Select
-    key="3"
     type="single"
     clearable={false}
     style={{ width: 200 }}
@@ -89,10 +88,11 @@ class App extends Component {
         login={loginConfig}
         type="classic"
         // header={null}
+        theme={'orange'}
         authority={['normal']}
         // fallback="/404"
         // type='genuine'
-        // apperance={{ color: 'light' }}
+        apperance={{ color: 'light' }}
         // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
         accordion={false}
         toolbar={toolbar2}

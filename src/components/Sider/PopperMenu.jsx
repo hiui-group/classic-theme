@@ -4,7 +4,7 @@ import './style/index.scss'
 import Icon from '../icon'
 import Popper from '../popper'
 
-const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMenu, siderRef }) => {
+const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMenu, siderRef, theme }) => {
   const popperRef = useRef(null)
   const menuRef = useRef(null)
   const [visibleMenu, setVisibleMenu] = useState([])
@@ -13,7 +13,7 @@ const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMe
     (children, level = 0, selectedMenus) => {
       const _style = level === 0 ? {} : { position: 'absolute', left: 'calc(100% + 2px)', top: 0 }
       return (
-        <ul style={_style} className={'mini-sider__menu'}>
+        <ul style={_style} className={`mini-sider__menu theme__${theme}`}>
           {children.map((subMenu) => (
             <li
               key={subMenu.id}

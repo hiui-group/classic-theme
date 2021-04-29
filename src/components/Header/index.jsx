@@ -20,6 +20,7 @@ const Header = ({
   siderVisible,
   type,
   onMenuClick,
+  theme,
   color
 }) => {
   const [loginVisible, setLoginVisible] = useState(false)
@@ -30,7 +31,8 @@ const Header = ({
     <div
       className={ClassNames(
         'hi-theme__header',
-        `hi-theme__header--${color === 'dark' && type === 'classic' ? 'dark' : 'light'}`
+        `hi-theme__header--${color === 'dark' && type === 'classic' ? 'dark' : 'light'}`,
+        `theme__${theme}`
       )}
     >
       {viewSize === 'small' && (
@@ -50,7 +52,7 @@ const Header = ({
       )}
 
       {mainMenu && (
-        <ul className="hi-theme__menu" style={{ flex: toolbar ? '0 0 auto' : 1 }}>
+        <ul className={`hi-theme__menu theme__${theme}`} style={{ flex: toolbar ? '0 0 auto' : 1 }}>
           {mainMenu.map((menu) => (
             <li
               key={menu.id}
@@ -100,7 +102,7 @@ const Header = ({
               setLoginVisible(false)
             }}
           >
-            <div ref={popperRef} className="login__menu--top">
+            <div ref={popperRef} className={`login__menu--top theme__${theme}`}>
               {login.children}
             </div>
           </Popper>

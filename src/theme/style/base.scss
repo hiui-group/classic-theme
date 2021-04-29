@@ -366,18 +366,18 @@ body {
 }
 
 a {
-  color: #4285f4;
+  color: var(--color-primary);
 
   &:focus {
-    color: #2e5dab;
+    color: var(--color-primary);
   }
 
   &:hover {
-    color: #2e5dab;
+    color: var(--color-primary);
   }
 
   &:active {
-    color: #689df6;
+    color: var(--color-primary);
   }
 }
 

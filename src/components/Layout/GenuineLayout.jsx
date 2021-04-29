@@ -32,6 +32,7 @@ const GenuineLayout = ({
   setSiderVisible,
   type,
   onMenuClick,
+  theme,
   defaultToggle
 }) => {
   const { currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
@@ -50,6 +51,7 @@ const GenuineLayout = ({
       logo={logo}
       onMenuClick={onMenuClick}
       type={type}
+      theme={theme}
       color={apperance.color}
     />
   )
@@ -60,7 +62,7 @@ const GenuineLayout = ({
   }, [menu, authority])
   return [
     (!isWithoutLayout && (
-      <div key="container" className="hi-theme--genuine">
+      <div key="container" className={`hi-theme--genuine theme__${theme}`}>
         {menu.length > 0 && (
           <Sider
             siderMenu={_siderMenu}
@@ -72,6 +74,7 @@ const GenuineLayout = ({
             siderBottomRender={siderBottomRender}
             logo={logo}
             accordion={accordion}
+            theme={theme}
             onToggle={onToggle}
             viewSize={viewSize}
             siderVisible={siderVisible}
