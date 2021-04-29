@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
-const useMenuCalculator = (menu, { location, history }, fallback) => {
+const useMenuCalculator = (menu, { location, history }, fallback, onMenuClick) => {
   const [currentMenu, setCurrentMenu] = useState(null)
   const [selectedMenus, setselectedMenus] = useState([])
 
@@ -20,9 +20,10 @@ const useMenuCalculator = (menu, { location, history }, fallback) => {
         } else {
           history.push(selectMenu.path)
         }
+        onMenuClick && onMenuClick(selectMenu)
       }
     },
-    [menu, selectedMenus]
+    [menu, selectedMenus, onMenuClick]
   )
 
   useLayoutEffect(() => {

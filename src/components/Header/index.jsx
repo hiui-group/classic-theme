@@ -19,6 +19,7 @@ const Header = ({
   setSiderVisible,
   siderVisible,
   type,
+  onMenuClick,
   theme,
   color
 }) => {
@@ -58,6 +59,9 @@ const Header = ({
               className={ClassNames('main-menu-item', {
                 'active-main-menu': activeMainMenu && menu.id === activeMainMenu.id
               })}
+              onClick={() => {
+                onMenuClick && onMenuClick(menu)
+              }}
             >
               {menu.path.match(reg) ? (
                 <a href={menu.path} target={menu.target || '_blank'}>

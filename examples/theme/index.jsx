@@ -21,6 +21,7 @@ const loginConfig = {
     </div>
   ]
 }
+// eslint-disable-next-line no-unused-vars
 const toolbar = [
   <Input key="1" style={{ width: 200 }} />,
   <Icon key="2" name="prompt" />,
@@ -65,9 +66,13 @@ const toolbar2 = (
 
 const TV = () => <div>小米电视</div>
 class App extends Component {
-  state = {
-    routeConfig: [{ name: '电视', path: '/tv', component: TV }]
+  constructor(props) {
+    super(props)
+    this.state = {
+      routeConfig: [{ name: '电视', path: '/tv', component: TV }]
+    }
   }
+
   // componentDidMount () {
   //   setTimeout(() => {
   //     this.setState({ routeConfig: _routeConfig })
@@ -91,6 +96,9 @@ class App extends Component {
         // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
         accordion={false}
         toolbar={toolbar2}
+        onMenuClick={(item) => {
+          console.log('item', item)
+        }}
       />
     )
   }

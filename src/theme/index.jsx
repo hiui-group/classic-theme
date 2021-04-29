@@ -35,8 +35,9 @@ const Layout = ({
   onToggle,
   authority,
   dynamic = true,
-  theme,
-  defaultToggle
+  defaultToggle,
+  onMenuClick,
+  theme
 }) => {
   const [viewSize, setViewSize] = useState('large')
   const [siderVisible, setSiderVisible] = useState(true)
@@ -86,6 +87,7 @@ const Layout = ({
             login={login}
             header={header}
             accordion={accordion}
+            onMenuClick={onMenuClick}
             fallback={fallback}
             defaultExpandAll={defaultExpandAll}
             pageHeader={pageHeader}

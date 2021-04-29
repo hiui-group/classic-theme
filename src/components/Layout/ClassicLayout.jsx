@@ -30,6 +30,7 @@ const ClassicLayout = ({
   siderVisible,
   setSiderVisible,
   type,
+  onMenuClick,
   theme,
   defaultToggle
 }) => {
@@ -38,7 +39,8 @@ const ClassicLayout = ({
   const { currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
     menu,
     { location, history },
-    fallback
+    fallback,
+    onMenuClick
   )
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
   const activeMainMenu = selectedMenus[0]
@@ -59,6 +61,7 @@ const ClassicLayout = ({
         login={login}
         theme={theme}
         toolbar={toolbar}
+        onMenuClick={onMenuClick}
         type={type}
         siderVisible={siderVisible}
         setSiderVisible={setSiderVisible}

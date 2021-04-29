@@ -31,13 +31,15 @@ const GenuineLayout = ({
   siderVisible,
   setSiderVisible,
   type,
+  onMenuClick,
   theme,
   defaultToggle
 }) => {
   const { currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
     menu,
     { location, history },
-    fallback
+    fallback,
+    onMenuClick
   )
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
   const _header = header === null || header || (
@@ -47,6 +49,7 @@ const GenuineLayout = ({
       setSiderVisible={setSiderVisible}
       siderVisible={siderVisible}
       logo={logo}
+      onMenuClick={onMenuClick}
       type={type}
       theme={theme}
       color={apperance.color}

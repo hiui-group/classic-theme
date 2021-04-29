@@ -1,5 +1,9 @@
 # 更新日志
 
+## 3.3.0
+
+- 新增 onMenuClick 属性，点击菜单获取菜单信息 [#51](https://github.com/XiaoMi/hiui/issues/51)
+- 优化主题配色问题 [#55](https://github.com/XiaoMi/hiui/issues/55)
 ## 3.2.3
 
 - 修复 withoutLayout 路由重复挂载的问题 [#47](https://github.com/XiaoMi/hiui/issues/47)
