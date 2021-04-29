@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory, createHashHistory } from 'history'
-import Provider from '@hi-ui/hiui/es/context'
 
 import layout from '../components/Layout'
 import './style/index'
@@ -104,4 +103,4 @@ const Layout = ({
   )
 }
 
-export default Provider(Layout)
+export default Layout
