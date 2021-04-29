@@ -19,6 +19,7 @@ const Header = ({
   setSiderVisible,
   siderVisible,
   type,
+  theme,
   color
 }) => {
   const [loginVisible, setLoginVisible] = useState(false)
@@ -29,13 +30,14 @@ const Header = ({
     <div
       className={ClassNames(
         'hi-theme__header',
-        `hi-theme__header--${color === 'dark' && type === 'classic' ? 'dark' : 'light'}`
+        `hi-theme__header--${color === 'dark' && type === 'classic' ? 'dark' : 'light'}`,
+        `theme__${theme}`
       )}
     >
       {viewSize === 'small' && (
         <Toggle
           show
-          icon='menu'
+          icon="menu"
           collapsed={!siderVisible}
           onToggle={() => {
             if (setSiderVisible) {
@@ -45,11 +47,11 @@ const Header = ({
         />
       )}
       {((logo && type === 'classic') || (logo && type === 'genuine' && viewSize === 'small')) && (
-        <Logo {...logoConfig} mini={viewSize === 'small'} layout='horizontal' />
+        <Logo {...logoConfig} mini={viewSize === 'small'} layout="horizontal" />
       )}
 
       {mainMenu && (
-        <ul className='hi-theme__menu' style={{ flex: toolbar ? '0 0 auto' : 1 }}>
+        <ul className={`hi-theme__menu theme__${theme}`} style={{ flex: toolbar ? '0 0 auto' : 1 }}>
           {mainMenu.map((menu) => (
             <li
               key={menu.id}
@@ -72,7 +74,7 @@ const Header = ({
           ))}
         </ul>
       )}
-      {toolbar && <div className='hi-theme__toolbar'>{toolbar}</div>}
+      {toolbar && <div className="hi-theme__toolbar">{toolbar}</div>}
       {login && (
         <React.Fragment>
           <div
@@ -90,13 +92,13 @@ const Header = ({
             show={loginVisible}
             attachEle={loginRef.current}
             zIndex={1050}
-            placement='bottom-end'
+            placement="bottom-end"
             width={false}
             onClickOutside={() => {
               setLoginVisible(false)
             }}
           >
-            <div ref={popperRef} className='login__menu--top'>
+            <div ref={popperRef} className={`login__menu--top theme__${theme}`}>
               {login.children}
             </div>
           </Popper>

@@ -31,9 +31,14 @@ const GenuineLayout = ({
   siderVisible,
   setSiderVisible,
   type,
+  theme,
   defaultToggle
 }) => {
-  const { currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(menu, { location, history }, fallback)
+  const { currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
+    menu,
+    { location, history },
+    fallback
+  )
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
   const _header = header === null || header || (
     <Header
@@ -43,6 +48,7 @@ const GenuineLayout = ({
       siderVisible={siderVisible}
       logo={logo}
       type={type}
+      theme={theme}
       color={apperance.color}
     />
   )
@@ -53,7 +59,7 @@ const GenuineLayout = ({
   }, [menu, authority])
   return [
     (!isWithoutLayout && (
-      <div key='container' className='hi-theme--genuine'>
+      <div key="container" className={`hi-theme--genuine theme__${theme}`}>
         {menu.length > 0 && (
           <Sider
             siderMenu={_siderMenu}
@@ -65,6 +71,7 @@ const GenuineLayout = ({
             siderBottomRender={siderBottomRender}
             logo={logo}
             accordion={accordion}
+            theme={theme}
             onToggle={onToggle}
             viewSize={viewSize}
             siderVisible={siderVisible}
@@ -76,7 +83,7 @@ const GenuineLayout = ({
         )}
         <div className={ClassNames('hi-theme__container')}>
           {_header}
-          <div className='hi-theme__wrapper'>
+          <div className="hi-theme__wrapper">
             {pageHeader ? pageHeader(selectedMenus, location) : null}
             <div
               className={ClassNames('hi-theme__content', {
@@ -97,7 +104,7 @@ const GenuineLayout = ({
                 })}
                 <Redirect
                   to={{
-                    pathname: location.pathname === '/' ? defaultPath : (fallback || defaultPath)
+                    pathname: location.pathname === '/' ? defaultPath : fallback || defaultPath
                   }}
                 />
               </Switch>
@@ -108,7 +115,7 @@ const GenuineLayout = ({
       </div>
     )) || (
       <Route
-        key='withoutLayout'
+        key="withoutLayout"
         path={currentMenu && currentMenu.path}
         component={currentMenu && currentMenu.component}
         exact={!!currentMenu && currentMenu.exact}

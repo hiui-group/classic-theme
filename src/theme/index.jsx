@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory, createHashHistory } from 'history'
+
 import layout from '../components/Layout'
 import './style/index'
 
@@ -34,6 +35,7 @@ const Layout = ({
   onToggle,
   authority,
   dynamic = true,
+  theme,
   defaultToggle
 }) => {
   const [viewSize, setViewSize] = useState('large')
@@ -92,6 +94,7 @@ const Layout = ({
             setSiderVisible={setSiderVisible}
             siderVisible={siderVisible}
             defaultToggle={defaultToggle}
+            theme={theme}
             {...props}
           />
         )}

@@ -30,11 +30,16 @@ const ClassicLayout = ({
   siderVisible,
   setSiderVisible,
   type,
+  theme,
   defaultToggle
 }) => {
   const containerRef = useRef(null)
   const mainMenu = useMainMenu(menu, authority)
-  const { currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(menu, { location, history }, fallback)
+  const { currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
+    menu,
+    { location, history },
+    fallback
+  )
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
   const activeMainMenu = selectedMenus[0]
   const siderMenu = (selectedMenus[0] && selectedMenus[0].children) || []
@@ -46,12 +51,13 @@ const ClassicLayout = ({
   return [
     !isWithoutLayout && (
       <Header
-        key='header'
+        key="header"
         mainMenu={mainMenu}
         activeMainMenu={activeMainMenu}
         location={location}
         logo={logo}
         login={login}
+        theme={theme}
         toolbar={toolbar}
         type={type}
         siderVisible={siderVisible}
@@ -61,7 +67,7 @@ const ClassicLayout = ({
       />
     ),
     (!isWithoutLayout && (
-      <div key='container' className='hi-theme--classic' ref={containerRef}>
+      <div key="container" className={`hi-theme--classic theme__${theme}`} ref={containerRef}>
         {_siderMenu.length > 0 && (
           <Sider
             siderMenu={_siderMenu}
@@ -71,6 +77,7 @@ const ClassicLayout = ({
             onSelectMenu={onSelectMenu}
             defaultExpandAll={defaultExpandAll}
             accordion={accordion}
+            theme={theme}
             onToggle={onToggle}
             viewSize={viewSize}
             siderVisible={siderVisible}
@@ -81,10 +88,10 @@ const ClassicLayout = ({
             defaultToggle={defaultToggle}
           />
         )}
-        <div className='hi-theme__wrapper'>
+        <div className="hi-theme__wrapper">
           {pageHeader ? pageHeader(selectedMenus, location) : null}
           <div
-            className='hi-theme__content'
+            className="hi-theme__content"
             style={{ padding: apperance.contentPadding, background: apperance.contentBackground }}
           >
             <Switch>
@@ -100,7 +107,7 @@ const ClassicLayout = ({
               })}
               <Redirect
                 to={{
-                  pathname: location.pathname === '/' ? defaultPath : (fallback || defaultPath)
+                  pathname: location.pathname === '/' ? defaultPath : fallback || defaultPath
                 }}
               />
             </Switch>
@@ -110,7 +117,7 @@ const ClassicLayout = ({
       </div>
     )) || (
       <Route
-        key='withoutLayout'
+        key="withoutLayout"
         path={currentMenu.path}
         component={currentMenu.component}
         exact={!!currentMenu.exact}

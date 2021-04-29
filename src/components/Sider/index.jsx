@@ -39,6 +39,7 @@ const Sider = ({
   color,
   type,
   container,
+  theme,
   defaultToggle
 }) => {
   const [mini, toggleMini] = useState(defaultToggle === 'mini' || false)
@@ -88,7 +89,7 @@ const Sider = ({
       return menu.map((m) => {
         return (
           <div
-            className={'sider__menu-item'}
+            className={`sider__menu-item theme__${theme}`}
             key={m.id}
             onMouseEnter={() => {
               setTooltipVisible(m.id)
@@ -109,6 +110,7 @@ const Sider = ({
             <Tooltip title={m.name} placement="right" visible={tooltipVisible === m.id && popperVisible !== m.id}>
               <PopperMenu
                 menu={m}
+                theme={theme}
                 selectedMenus={selectedMenus}
                 visible={popperVisible === m.id}
                 setPopperVisible={setPopperVisible}
@@ -129,6 +131,7 @@ const Sider = ({
           <NormalMenu
             key={m.id}
             menu={m}
+            theme={theme}
             sibling={menu}
             accordion={accordion}
             setExpandedId={setExpandedId}
@@ -156,6 +159,7 @@ const Sider = ({
         className={classNames(
           'hi-theme__sider',
           `hi-theme__sider--${color === 'dark' && type === 'genuine' ? 'dark' : 'light'}`,
+          `theme__${theme}`,
           {
             'hi-theme__sider--mini': mini,
             'hi-theme__sider--hide': viewSize === 'small'
@@ -191,7 +195,9 @@ const Sider = ({
                   <Icon name={login.icon} style={{ marginRight: mini ? 0 : 8 }} />
                   {!mini && login.name}
                 </span>
-                {!mini && <Icon name={'caret-right'} style={{ marginLeft: 4, color: loginVisible && '#4284f5' }} />}
+                {!mini && (
+                  <Icon name={'caret-right'} style={{ marginLeft: 4, color: loginVisible && 'var(--color-primary)' }} />
+                )}
               </div>
               <Popper
                 show={loginVisible}
@@ -202,7 +208,7 @@ const Sider = ({
                 width={'auto'}
                 leftGap={2}
               >
-                <div ref={popperRef} className="login__menu--top">
+                <div ref={popperRef} className={`login__menu--top theme__${theme}`}>
                   {login.children}
                 </div>
               </Popper>
@@ -240,7 +246,7 @@ const Sider = ({
             {login && (
               <React.Fragment>
                 <div
-                  className={'sider__login'}
+                  className={`sider__login theme__${theme}`}
                   ref={drawerLoginRef}
                   onClick={(e) => {
                     setDrawerLoginVisible(!drawerLoginVisible)
@@ -250,7 +256,10 @@ const Sider = ({
                     <Icon name={login.icon} style={{ marginRight: 8 }} />
                     {login.name}
                   </span>
-                  <Icon name={'caret-right'} style={{ marginLeft: 4, color: drawerLoginVisible && '#4284f5' }} />
+                  <Icon
+                    name={'caret-right'}
+                    style={{ marginLeft: 4, color: drawerLoginVisible && 'var(--color-primary)' }}
+                  />
                 </div>
                 <Popper
                   show={drawerLoginVisible}
@@ -261,7 +270,7 @@ const Sider = ({
                   width={'auto'}
                   leftGap={2}
                 >
-                  <div ref={popperRef} className="login__menu--top">
+                  <div ref={popperRef} className={`login__menu--top theme__${theme}`}>
                     {login.children}
                   </div>
                 </Popper>
