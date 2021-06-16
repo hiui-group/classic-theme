@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Page from './page'
+import { withKeepAlive } from '../../keep-alive'
 
 const CC = () => (
   <div>
@@ -23,6 +25,8 @@ const RobotDetail = () => <div>米家扫地机器人详情页</div>
 const Iot = () => <div>iot</div>
 const XiaoAi = () => <div>xiaoai</div>
 
+const KeepAlivePage = withKeepAlive(Page, { cacheId: 'page' })
+
 const config = [
   {
     name: '智能硬件',
@@ -40,6 +44,11 @@ const config = [
       { name: '扫地机器人', path: '/robot', component: Robot },
       { path: '/robot-detail/:id', component: RobotDetail }
     ]
+  },
+  {
+    name: '测试popper',
+    path: '/test-popper',
+    component: KeepAlivePage
   },
   {
     name: '手机',
