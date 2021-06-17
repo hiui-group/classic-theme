@@ -3,6 +3,7 @@ import CacheContext from './CacheContext'
 import cacheReducer from './cacheReducer'
 import * as cacheTypes from './cache-types'
 function KeepAliveProvider(props) {
+  const { isExistKeepAlive } = props
   const [cacheStates, dispatch] = useReducer(cacheReducer, {})
   const mount = useCallback(
     ({ cacheId, element }) => {
@@ -19,35 +20,30 @@ function KeepAliveProvider(props) {
     },
     [cacheStates]
   )
-  const handleScroll = useCallback(
-    (cacheId, { target }) => {
-      if (cacheStates[cacheId]) {
-        const scrolls = cacheStates[cacheId].scrolls
-        scrolls[target] = target.scrollTop
-      }
-    },
-    [cacheStates]
-  )
-  return (
-    <CacheContext.Provider value={{ mount, cacheStates, dispatch, handleScroll }}>
+  return !isExistKeepAlive ? (
+    <>{props.children}</>
+  ) : (
+    <CacheContext.Provider value={{ mount, cacheStates }}>
       {props.children}
       {Object.values(cacheStates)
         .filter((cacheState) => cacheState.status !== cacheTypes.DESTROY)
-        .map(({ cacheId, element }) => (
-          <div
-            id={`cache_${cacheId}`}
-            key={cacheId}
-            ref={(dom) => {
-              const cacheState = cacheStates[cacheId]
-              if (dom && (!cacheState.doms || cacheState.status === cacheTypes.DESTROY)) {
-                const doms = Array.from(dom.childNodes)
-                dispatch({ type: cacheTypes.CREATED, payload: { cacheId, doms } })
-              }
-            }}
-          >
-            {element}
-          </div>
-        ))}
+        .map(({ cacheId, element }) => {
+          return (
+            <div
+              id={`cache_${cacheId}`}
+              key={cacheId}
+              ref={(dom) => {
+                const cacheState = cacheStates[cacheId]
+                if (dom && (!cacheState.doms || cacheState.status === cacheTypes.DESTROY)) {
+                  const doms = Array.from(dom.childNodes)
+                  dispatch({ type: cacheTypes.CREATED, payload: { cacheId, doms } })
+                }
+              }}
+            >
+              {element}
+            </div>
+          )
+        })}
     </CacheContext.Provider>
   )
 }

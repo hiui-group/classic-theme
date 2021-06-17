@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Select } from '@hi-ui/hiui'
 import { Select as AntSelect } from 'antd'
 
 import 'antd/dist/antd.css'
 
 const { Option } = AntSelect
-const Page = () => {
+const Page2 = () => {
+  useEffect(() => {
+    setTimeout(() => {
+      console.log('发送请求')
+    }, 1000)
+  }, [])
   return (
     <div>
       <Select data={[]}></Select>
@@ -23,4 +28,4 @@ const Page = () => {
     </div>
   )
 }
-export default Page
+export default Page2

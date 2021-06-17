@@ -3,7 +3,6 @@ import Theme, { history } from '../../src/theme'
 import _routeConfig from './routes-config'
 import { Input, Icon, Select } from '@hi-ui/hiui'
 
-import { KeepAliveProvider } from '../../keep-alive'
 // const KeepAliveHome = withKeepAlive(Home, { cacheId: 'Home' })
 // const KeepAliveUserList = withKeepAlive(UserList, { cacheId: 'UserList', scroll: true })
 // const KeepAliveUserAdd = withKeepAlive(UserAdd, { cacheId: 'UserAdd' })
@@ -86,28 +85,26 @@ class App extends Component {
   // }
   render() {
     return (
-      <KeepAliveProvider>
-        <Theme
-          // routes={this.state.routeConfig}
-          routes={_routeConfig}
-          logo={logoConfig}
-          // siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
-          login={loginConfig}
-          // type="classic"
-          // header={null}
-          theme={'orange'}
-          authority={['normal']}
-          // fallback="/404"
-          type="genuine"
-          apperance={{ color: 'light' }}
-          // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
-          accordion={false}
-          toolbar={toolbar2}
-          onMenuClick={(item) => {
-            console.log('item', item)
-          }}
-        />
-      </KeepAliveProvider>
+      <Theme
+        // routes={this.state.routeConfig}
+        routes={_routeConfig}
+        logo={logoConfig}
+        // siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
+        login={loginConfig}
+        // type="classic"
+        // header={null}
+        theme={'orange'}
+        authority={['normal']}
+        // fallback="/404"
+        type="genuine"
+        apperance={{ color: 'light' }}
+        // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
+        accordion={false}
+        toolbar={toolbar2}
+        onMenuClick={(item) => {
+          console.log('item', item)
+        }}
+      />
     )
   }
 }

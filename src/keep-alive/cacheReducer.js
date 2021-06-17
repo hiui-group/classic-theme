@@ -20,14 +20,6 @@ function cacheReducer(cacheStates = {}, { type, payload }) {
           status: cacheTypes.CREATED
         }
       }
-    case cacheTypes.ACTIVE:
-      return {
-        ...cacheStates,
-        [payload.cacheId]: {
-          ...cacheStates[payload.cacheId],
-          status: cacheTypes.ACTIVE
-        }
-      }
     case cacheTypes.DESTROY:
       return {
         ...cacheStates,

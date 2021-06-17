@@ -1,11 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory, createHashHistory } from 'history'
+import { KeepAliveProvider, withKeepAlive } from '../keep-alive'
 
 import layout from '../components/Layout'
 import './style/index'
 
-import { transformConfig } from '../util/common'
+import { transformConfig, existKeepAliveRouter } from '../util/common'
 const _history = {}
 export const history = _history
 
@@ -39,6 +40,12 @@ const Layout = ({
   onMenuClick,
   theme
 }) => {
+  // 获取是否存在keepAlive的路由
+  const [isExistKeepAlive, setIsExistKeepAlive] = useState(false)
+  useEffect(() => {
+    setIsExistKeepAlive(existKeepAliveRouter(routes, withKeepAlive))
+  }, [routes])
+
   const [viewSize, setViewSize] = useState('large')
   const [siderVisible, setSiderVisible] = useState(true)
   useEffect(() => {
@@ -70,38 +77,40 @@ const Layout = ({
     _history[historyType] = historyForLayout.current
   }
   return (
-    <Router history={historyForLayout.current}>
-      <Route
-        path="/"
-        render={(props) => (
-          <Layout
-            viewSize={viewSize}
-            menu={transformConfig(routes)}
-            siderTopRender={siderTopRender}
-            siderBottomRender={siderBottomRender}
-            toolbar={toolbar}
-            footer={footer}
-            type={type}
-            apperance={Object.assign({}, defaultApperance, apperance)}
-            logo={logo}
-            login={login}
-            header={header}
-            accordion={accordion}
-            onMenuClick={onMenuClick}
-            fallback={fallback}
-            defaultExpandAll={defaultExpandAll}
-            pageHeader={pageHeader}
-            onToggle={onToggle}
-            authority={authority}
-            setSiderVisible={setSiderVisible}
-            siderVisible={siderVisible}
-            defaultToggle={defaultToggle}
-            theme={theme}
-            {...props}
-          />
-        )}
-      />
-    </Router>
+    <KeepAliveProvider isExistKeepAlive={isExistKeepAlive}>
+      <Router history={historyForLayout.current}>
+        <Route
+          path="/"
+          render={(props) => (
+            <Layout
+              viewSize={viewSize}
+              menu={transformConfig(routes)}
+              siderTopRender={siderTopRender}
+              siderBottomRender={siderBottomRender}
+              toolbar={toolbar}
+              footer={footer}
+              type={type}
+              apperance={Object.assign({}, defaultApperance, apperance)}
+              logo={logo}
+              login={login}
+              header={header}
+              accordion={accordion}
+              onMenuClick={onMenuClick}
+              fallback={fallback}
+              defaultExpandAll={defaultExpandAll}
+              pageHeader={pageHeader}
+              onToggle={onToggle}
+              authority={authority}
+              setSiderVisible={setSiderVisible}
+              siderVisible={siderVisible}
+              defaultToggle={defaultToggle}
+              theme={theme}
+              {...props}
+            />
+          )}
+        />
+      </Router>
+    </KeepAliveProvider>
   )
 }
 
