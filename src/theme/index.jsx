@@ -38,6 +38,7 @@ const Layout = ({
   dynamic = true,
   defaultToggle,
   onMenuClick,
+  tagsView,
   theme
 }) => {
   // 获取是否存在keepAlive的路由
@@ -105,6 +106,7 @@ const Layout = ({
               siderVisible={siderVisible}
               defaultToggle={defaultToggle}
               theme={theme}
+              tagsView={tagsView}
               {...props}
             />
           )}

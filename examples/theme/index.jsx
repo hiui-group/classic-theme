@@ -93,10 +93,11 @@ class App extends Component {
         login={loginConfig}
         // type="classic"
         // header={null}
-        theme={'orange'}
+        // theme={'orange'}
         authority={['normal']}
         // fallback="/404"
         type="genuine"
+        tagsView={true}
         apperance={{ color: 'light' }}
         // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
         accordion={false}
