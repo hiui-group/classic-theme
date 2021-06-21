@@ -109,10 +109,9 @@ History[`${your history type}`].push()
 
 | 属性名            | 描述                                     | 类型                                                       | 默认值                      |
 | ----------------- | ---------------------------------------- | ---------------------------------------------------------- | --------------------------- |
-| type              | 主题类型                                 | 'classic' \| 'genuine'                                     |
-'classic'                   |
-| dynamic              | 开启动态布局                                 | boolean                                     |
-true                   |
+| type              | 主题类型                                 | 'classic' \| 'genuine'                                     |'classic'                   |
+| dynamic             | 开启动态布局                                 | boolean                                     |true                   |
+| tagsView             | 开启 Tags-View                                 | boolean                                     |false                   |
 | routes            | 路由配置项                               | Route[]                                                    | -                           |
 | logo              | 系统 logo                                | ReactNode                                                  | -                           |
 | login             | 系统登录配置项                           | ReactNode                                                  | -                           |
@@ -146,6 +145,7 @@ true                   |
 | withoutLayout | 页面组件渲染时，不显示顶部导航栏和侧边栏 | boolean   | false  |
 | extraData     | 向路由匹配的页面组件注入额外的数据       | object    | -      |
 | authority     | 允许访问该路由的权限                     | string[]  | -      |
+| keepAlive     | 缓存组件实例                     | boolean  | false      |
 
 ### type: Apperance
 
