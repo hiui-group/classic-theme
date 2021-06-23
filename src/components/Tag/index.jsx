@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react'
 import classNames from 'classnames'
 import _ from 'lodash'
 import { findMenu } from '../../util/common.js'
-import './index.scss'
+import './style/index.js'
 
 const prefix = 'theme-nav-bar'
 const Tag = ({ menu, history, onMenuClick }) => {
