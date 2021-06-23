@@ -2,6 +2,11 @@
 
 ## 3.3.0
 
+- 新增 **keepAlive** 属性，缓存页面示例 [#49](https://github.com/XiaoMi/hiui/issues/49)
+- 新增 **TagsView** 属性，控制页面顶部导航菜单的显示隐藏 [#49](https://github.com/XiaoMi/hiui/issues/49)
+- 修复 **authority** 路由权限不生效问题 [#63](https://github.com/XiaoMi/hiui/issues/63)
+## 3.3.0
+
 - 新增 onMenuClick 属性，点击菜单获取菜单信息 [#51](https://github.com/XiaoMi/hiui/issues/51)
 - 优化主题配色问题 [#55](https://github.com/XiaoMi/hiui/issues/55)
 ## 3.2.3

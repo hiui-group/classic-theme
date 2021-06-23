@@ -111,7 +111,7 @@ History[`${your history type}`].push()
 | ----------------- | ---------------------------------------- | ---------------------------------------------------------- | --------------------------- |
 | type              | 主题类型                                 | 'classic' \| 'genuine'                                     |'classic'                   |
 | dynamic             | 开启动态布局                                 | boolean                                     |true                   |
-| tagsView             | 开启 Tags-View                                 | boolean                                     |false                   |
+| tagsView            | 页面顶部导航菜单                                 | boolean                                     |false                   |
 | routes            | 路由配置项                               | Route[]                                                    | -                           |
 | logo              | 系统 logo                                | ReactNode                                                  | -                           |
 | login             | 系统登录配置项                           | ReactNode                                                  | -                           |
