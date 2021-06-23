@@ -40,9 +40,9 @@ const config = [
         path: '/audio',
         component: SoundBox,
         // authority: ['admain'],
-        children: [{ name: '小爱', path: '/xiaoai', component: XiaoAi, authority: ['admain'] }]
+        children: [{ name: '小爱', path: '/xiaoai', component: XiaoAi, authority: [3] }]
       },
-      { name: '扫地机器人', path: '/robot', component: Robot },
+      { name: '扫地机器人', path: '/robot', component: Robot, authority: [1, 2] },
       { path: '/robot-detail/:id', component: RobotDetail }
     ]
   },

@@ -94,7 +94,7 @@ class App extends Component {
         // type="classic"
         // header={null}
         // theme={'orange'}
-        authority={[1, 'user']}
+        authority={[1, 2]}
         // fallback="/404"
         type="genuine"
         tagsView={true}

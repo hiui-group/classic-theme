@@ -97,7 +97,7 @@ export const getRoutes = (menu, routes = []) => {
 export const filterMenu = (menu, authority) => {
   return menu.filter((item) => {
     if (item.children) {
-      item.children = (filterMenu(item.children).length > 0 && filterMenu(item.children)) || null
+      item.children = (filterMenu(item.children, authority).length > 0 && filterMenu(item.children, authority)) || null
     }
     return item.name && checkAuth(authority, item.authority)
   })
