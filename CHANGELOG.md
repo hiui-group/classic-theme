@@ -1,6 +1,6 @@
 # 更新日志
 
-## 3.3.0
+## 3.4.0
 
 - 新增 **keepAlive** 属性，缓存页面示例 [#49](https://github.com/XiaoMi/hiui/issues/49)
 - 新增 **TagsView** 属性，控制页面顶部导航菜单的显示隐藏 [#49](https://github.com/XiaoMi/hiui/issues/49)
