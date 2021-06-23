@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import KeepAliveTest from './KeepAliveTest'
+import Page2 from './page2'
 
 const CC = () => (
   <div>
@@ -23,23 +25,37 @@ const RobotDetail = () => <div>米家扫地机器人详情页</div>
 const Iot = () => <div>iot</div>
 const XiaoAi = () => <div>xiaoai</div>
 
+// const KeepAlivePage = withKeepAlive(Page, { cacheId: 'page' })
+// const KeepAlivePage2 = withKeepAlive(Page2, { cacheId: 'page2' })
+
 const config = [
   {
     name: '智能硬件',
     path: '/iot',
+    authority: [1],
     component: Iot,
-
     children: [
       {
         name: '音响',
         path: '/audio',
         component: SoundBox,
         // authority: ['admain'],
-        children: [{ name: '小爱', path: '/xiaoai', component: XiaoAi, authority: ['admain'] }]
+        children: [{ name: '小爱', path: '/xiaoai', component: XiaoAi, authority: [3] }]
       },
-      { name: '扫地机器人', path: '/robot', component: Robot },
+      { name: '扫地机器人', path: '/robot', component: Robot, authority: [1, 2] },
       { path: '/robot-detail/:id', component: RobotDetail }
     ]
+  },
+  {
+    name: '测试KeepAlive',
+    path: '/test-KeepAliveTest',
+    keepAlive: true,
+    component: KeepAliveTest
+  },
+  {
+    name: '测试popper2',
+    path: '/test-popper2',
+    component: Page2
   },
   {
     name: '手机',

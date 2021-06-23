@@ -3,6 +3,10 @@ import Theme, { history } from '../../src/theme'
 import _routeConfig from './routes-config'
 import { Input, Icon, Select } from '@hi-ui/hiui'
 
+// const KeepAliveHome = withKeepAlive(Home, { cacheId: 'Home' })
+// const KeepAliveUserList = withKeepAlive(UserList, { cacheId: 'UserList', scroll: true })
+// const KeepAliveUserAdd = withKeepAlive(UserAdd, { cacheId: 'UserAdd' })
+
 const logoConfig = {
   logoUrl: 'https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05',
   name: <span>HIUI Theme</span>,
@@ -26,6 +30,7 @@ const toolbar = [
   <Input key="1" style={{ width: 200 }} />,
   <Icon key="2" name="prompt" />,
   <Select
+    key="3"
     type="single"
     clearable={false}
     style={{ width: 200 }}
@@ -86,12 +91,13 @@ class App extends Component {
         logo={logoConfig}
         // siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
         login={loginConfig}
-        type="classic"
+        // type="classic"
         // header={null}
-        theme={'orange'}
-        authority={['normal']}
+        // theme={'orange'}
+        authority={[1, 2]}
         // fallback="/404"
-        // type='genuine'
+        type="genuine"
+        tagsView={false}
         apperance={{ color: 'light' }}
         // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
         accordion={false}
