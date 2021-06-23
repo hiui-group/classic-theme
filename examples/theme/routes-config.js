@@ -32,8 +32,8 @@ const config = [
   {
     name: '智能硬件',
     path: '/iot',
+    authority: [1],
     component: Iot,
-
     children: [
       {
         name: '音响',
