@@ -1,5 +1,9 @@
 # 更新日志
 
+## 3.4.1
+
+- 允许路由菜单支持自定义 icon
+
 ## 3.4.0
 
 - 新增 **keepAlive** 属性，缓存页面示例 [#49](https://github.com/XiaoMi/hiui/issues/49)
