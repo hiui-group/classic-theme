@@ -3,6 +3,10 @@ import Theme, { history } from '../../src/theme'
 import _routeConfig from './routes-config'
 import { Input, Icon, Select } from '@hi-ui/hiui'
 
+// const KeepAliveHome = withKeepAlive(Home, { cacheId: 'Home' })
+// const KeepAliveUserList = withKeepAlive(UserList, { cacheId: 'UserList', scroll: true })
+// const KeepAliveUserAdd = withKeepAlive(UserAdd, { cacheId: 'UserAdd' })
+
 const logoConfig = {
   logoUrl: 'https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05',
   name: <span>HIUI Theme</span>,
@@ -89,8 +93,8 @@ class App extends Component {
         login={loginConfig}
         // type="classic"
         // header={null}
-        theme={'orange'}
-        authority={['normal']}
+        // theme={'orange'}
+        authority={[1, 2]}
         // fallback="/404"
         type="genuine"
         apperance={{ color: 'light' }}

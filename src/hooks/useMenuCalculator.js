@@ -27,12 +27,15 @@ const useMenuCalculator = (menu, { location, history }, fallback, onMenuClick) =
   )
 
   useLayoutEffect(() => {
-    const _currentMenu =
-      location.pathname === '/'
-        ? findMenu(location.pathname, menu) || getDefaultActiveMenu(menu)
-        : findMenu(location.pathname, menu) || findMenu(fallback, menu) || getDefaultActiveMenu(menu)
-    onSelectMenu(_currentMenu, !findMenu(location.pathname, menu))
-    setCurrentMenu(_currentMenu)
+    const _menu = _.cloneDeep(menu)
+    if (_menu && _menu.length > 0) {
+      const _currentMenu =
+        location.pathname === '/'
+          ? findMenu(location.pathname, _menu) || getDefaultActiveMenu(_menu)
+          : findMenu(location.pathname, _menu) || findMenu(fallback, _menu) || getDefaultActiveMenu(_menu)
+      onSelectMenu(_currentMenu, !findMenu(location.pathname, _menu))
+      setCurrentMenu(_currentMenu)
+    }
   }, [location.pathname, menu, onSelectMenu])
 
   return { currentMenu, selectedMenus, onSelectMenu, defaultPath: getDefaultActiveMenu(menu).path }

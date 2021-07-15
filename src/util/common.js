@@ -68,12 +68,16 @@ export const getAncestor = (path, data, arr = []) => {
 }
 // 寻找默认需要高亮的菜单
 export const getDefaultActiveMenu = (menu, idx = 0) => {
-  if (menu[idx] && menu[idx].path) {
-    return menu[idx]
-  } else if (menu[idx] && menu[idx].children) {
-    return getDefaultActiveMenu(menu[idx].children)
+  if (!!menu && menu.length > 0) {
+    if (menu[idx] && menu[idx].path) {
+      return menu[idx]
+    } else if (menu[idx] && menu[idx].children) {
+      return getDefaultActiveMenu(menu[idx].children)
+    } else {
+      return getDefaultActiveMenu(menu, idx + 1)
+    }
   } else {
-    return getDefaultActiveMenu(menu, idx + 1)
+    return {}
   }
 }
 
@@ -93,7 +97,7 @@ export const getRoutes = (menu, routes = []) => {
 export const filterMenu = (menu, authority) => {
   return menu.filter((item) => {
     if (item.children) {
-      item.children = (filterMenu(item.children).length > 0 && filterMenu(item.children)) || null
+      item.children = (filterMenu(item.children, authority).length > 0 && filterMenu(item.children, authority)) || null
     }
     return item.name && checkAuth(authority, item.authority)
   })
@@ -155,4 +159,23 @@ export const checkAuth = (usrAuthority, authority = []) => {
     }
     return hasAuth
   }
+}
+
+// 获取是否存在keep-alive 的路由
+export const existKeepAliveRouter = (routes, withKeepAlive) => {
+  let isExist = false
+  const getKeepAlive = (routes) => {
+    routes.forEach((router) => {
+      const { path, component, children, keepAlive, scroll } = router
+      isExist = isExist || keepAlive
+      if (keepAlive && path) {
+        router.component = withKeepAlive(component, { cacheId: path, scroll })
+      }
+      if (children) {
+        getKeepAlive(children)
+      }
+    })
+  }
+  getKeepAlive(routes)
+  return isExist
 }

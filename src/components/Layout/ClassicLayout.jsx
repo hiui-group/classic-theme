@@ -32,6 +32,7 @@ const ClassicLayout = ({
   type,
   onMenuClick,
   theme,
+  tagsView,
   defaultToggle
 }) => {
   const containerRef = useRef(null)
@@ -61,6 +62,9 @@ const ClassicLayout = ({
         login={login}
         theme={theme}
         toolbar={toolbar}
+        menu={menu}
+        tagsView={tagsView}
+        history={history}
         onMenuClick={onMenuClick}
         type={type}
         siderVisible={siderVisible}

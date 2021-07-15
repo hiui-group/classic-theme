@@ -1,0 +1,67 @@
+@import '@hi-ui/core-css/index.scss';
+
+.theme-nav-bar {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  overflow: scroll;
+  box-shadow: 9px 10px 8px 0 rgba(0, 0, 0, 0.15);
+
+  &_tag {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    height: 32px;
+    line-height: 32px;
+    border: 1px solid #d8dce5;
+    color: #333;
+    background: #fff;
+    padding: 0 8px;
+    font-size: 12px;
+    border-radius: 2px;
+    margin-left: 6px;
+
+    &:hover:not(.theme-nav-bar_tag--active) {
+      color: use-color('primary');
+      border-color: use-color('primary');
+
+      .theme-nav-bar_icon {
+        path {
+          fill: use-color('primary');
+        }
+      }
+    }
+
+    &--active {
+      color: #fff;
+      background: use-color('primary-60');
+      border-color: transparent;
+
+      .theme-nav-bar_icon {
+        path {
+          fill: rgb(250, 240, 240);
+        }
+
+        &:hover {
+          path {
+            fill: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  &_icon {
+    margin-left: 4px;
+    font-size: 16px;
+    border-radius: 100%;
+    text-align: center;
+    padding-top: 1px;
+
+    &:hover {
+      path {
+        fill: #666;
+      }
+    }
+  }
+}

@@ -33,6 +33,7 @@ const GenuineLayout = ({
   type,
   onMenuClick,
   theme,
+  tagsView,
   defaultToggle
 }) => {
   const { currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
@@ -50,6 +51,9 @@ const GenuineLayout = ({
       siderVisible={siderVisible}
       logo={logo}
       onMenuClick={onMenuClick}
+      history={history}
+      menu={menu}
+      tagsView={tagsView}
       type={type}
       theme={theme}
       color={apperance.color}
