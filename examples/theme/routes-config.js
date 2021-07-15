@@ -28,11 +28,12 @@ const config = [
     name: '智能硬件',
     path: '/iot',
     component: Iot,
-
+    icon: <span>🐂</span>,
     children: [
       {
         name: '音响',
         path: '/audio',
+        icon: 'file-exe',
         component: SoundBox,
         // authority: ['admain'],
         children: [{ name: '小爱', path: '/xiaoai', component: XiaoAi, authority: ['admain'] }]
@@ -43,9 +44,11 @@ const config = [
   },
   {
     name: '手机',
+    icon: <span>👿</span>,
     children: [
       {
         name: '小米',
+        icon: <span>🐂</span>,
         children: [{ name: '小米CC', path: '/cc', component: CC }]
       },
       { name: '红米', path: '/red-mi', component: RedMi, withoutLayout: true },

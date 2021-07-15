@@ -51,7 +51,15 @@ const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMe
     },
     [visibleMenu]
   )
-
+  const miniMenuNode = (menu = {}) => {
+    if (typeof menu.icon === 'undefined') {
+      return menu.name.substring(0, 1)
+    }
+    if (typeof menu.icon === 'string') {
+      return <Icon name={menu.icon} />
+    }
+    return menu.icon
+  }
   return (
     <React.Fragment>
       <div
@@ -67,7 +75,7 @@ const PopperMenu = ({ menu, selectedMenus, visible, setPopperVisible, onSelectMe
           'menu__leaf-title--active': selectedMenus && selectedMenus.map((sm) => sm.id).includes(menu.id)
         })}
       >
-        <span>{menu.icon ? <Icon name={menu.icon} /> : menu.name.substring(0, 1)}</span>
+        <span>{miniMenuNode(menu)}</span>
       </div>
       {menu.children && (
         <Popper

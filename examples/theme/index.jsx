@@ -26,6 +26,7 @@ const toolbar = [
   <Input key="1" style={{ width: 200 }} />,
   <Icon key="2" name="prompt" />,
   <Select
+    key="3"
     type="single"
     clearable={false}
     style={{ width: 200 }}
@@ -86,12 +87,12 @@ class App extends Component {
         logo={logoConfig}
         // siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
         login={loginConfig}
-        type="classic"
+        // type="classic"
         // header={null}
         theme={'orange'}
         authority={['normal']}
         // fallback="/404"
-        // type='genuine'
+        type="genuine"
         apperance={{ color: 'light' }}
         // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
         accordion={false}

@@ -65,12 +65,13 @@ const Header = ({
             >
               {menu.path.match(reg) ? (
                 <a href={menu.path} target={menu.target || '_blank'}>
-                  {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
+                  {console.log(typeof menu.icon === 'string')}
+                  {typeof menu.icon === 'string' ? <Icon name={menu.icon} style={{ marginRight: 4 }} /> : menu.icon}
                   {menu.name}
                 </a>
               ) : (
                 <Link to={menu.path}>
-                  {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
+                  {typeof menu.icon === 'string' ? <Icon name={menu.icon} style={{ marginRight: 4 }} /> : menu.icon}
                   {menu.name}
                 </Link>
               )}

@@ -192,7 +192,11 @@ const Sider = ({
                 }}
               >
                 <span>
-                  <Icon name={login.icon} style={{ marginRight: mini ? 0 : 8 }} />
+                  {typeof login.icon === 'string' ? (
+                    <Icon name={login.icon} style={{ marginRight: mini ? 0 : 8 }} />
+                  ) : (
+                    login.icon
+                  )}
                   {!mini && login.name}
                 </span>
                 {!mini && (
@@ -253,7 +257,11 @@ const Sider = ({
                   }}
                 >
                   <span>
-                    <Icon name={login.icon} style={{ marginRight: 8 }} />
+                    {typeof login.icon === 'string' ? (
+                      <Icon name={login.icon} style={{ marginRight: 8 }} />
+                    ) : (
+                      login.icon
+                    )}
                     {login.name}
                   </span>
                   <Icon
