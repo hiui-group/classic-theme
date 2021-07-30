@@ -97,7 +97,6 @@ class App extends Component {
         authority={[1, 2]}
         // fallback="/404"
         type="genuine"
-        tagsView={false}
         apperance={{ color: 'light' }}
         // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
         accordion={false}

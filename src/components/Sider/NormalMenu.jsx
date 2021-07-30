@@ -60,7 +60,7 @@ const NormalMenu = ({
         })}
       >
         <span>
-          {menu.icon && <Icon name={menu.icon} />}
+          {typeof menu.icon === 'string' ? <Icon name={menu.icon} /> : menu.icon}
           {menu.name}
         </span>
 

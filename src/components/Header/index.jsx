@@ -94,7 +94,7 @@ const Header = ({
                 setLoginVisible(!loginVisible)
               }}
             >
-              <Icon name={login.icon} />
+              {typeof menu.icon === 'string' ? <Icon name={menu.icon} style={{ marginRight: 4 }} /> : menu.icon}
               {login.name}
               <Icon name={'caret-down'} />
             </div>
