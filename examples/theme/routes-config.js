@@ -45,7 +45,7 @@ const config = [
         children: [{ name: '小爱', path: '/xiaoai', component: XiaoAi, authority: [3] }]
       },
       { name: '扫地机器人', path: '/robot', component: Robot, authority: [1, 2] },
-      { path: '/robot-detail/:id', component: RobotDetail }
+      { path: '/robot-detail/:id', name: '测试详情tab', hideInMenu: true, component: RobotDetail }
     ]
   },
   {

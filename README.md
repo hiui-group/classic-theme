@@ -131,6 +131,7 @@ History[`${your history type}`].push()
 | fallback          | 路由无法匹配时的候补跳转                 | string                                                     | -                           |
 | onToggle          | 侧边栏展开收起触发的回调                 | mini: boolean => void                                      | -                           |
 | defaultToggle          |  设置默认侧边栏展开形式（设置后 dynamic 将无效）                 | 'mini' \| 'large'                                      | -                           |
+| onMenuClick          |  菜单点击事件                 | (menuItem: Object) => void                                      | -                           |
 
 ### type: Route
 

@@ -46,6 +46,7 @@ const Tag = ({ menu, history, onMenuClick }) => {
     [historyPaths, activePath]
   )
   const historyPathsKeys = Object.keys(historyPaths)
+
   return (
     <div className={`${prefix}`}>
       {historyPathsKeys.map((key, index) => {
@@ -58,7 +59,7 @@ const Tag = ({ menu, history, onMenuClick }) => {
             className={classNames(`${prefix}_tag`, { [`${prefix}_tag--active`]: isActive })}
             key={path + index}
             onClick={() => {
-              history.push(path)
+              history.push(key)
               onMenuClick && onMenuClick(historyPaths[key])
             }}
           >
