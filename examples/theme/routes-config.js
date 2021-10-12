@@ -16,7 +16,9 @@ const BlackShark = (props) => {
 // const TV = () => <div>小米电视</div>
 const SoundBox = () => (
   <div>
-    小米音响<Link to="/robot-detail/1">去详情页</Link>
+    小米音响<Link to="/robot-detail/1">去详情页1</Link>
+    小米音响<Link to="/robot-detail/2">去详情页2</Link>
+    小米音响<Link to="/robot-detail/3">去详情页3</Link>
   </div>
 )
 const Robot = () => <div>米家扫地机器人</div>
