@@ -99,6 +99,9 @@ export const filterMenu = (menu, authority) => {
     if (item.children) {
       item.children = (filterMenu(item.children, authority).length > 0 && filterMenu(item.children, authority)) || null
     }
+
+    if (item.hideInMenu === true) return false
+
     return item.name && checkAuth(authority, item.authority)
   })
 }

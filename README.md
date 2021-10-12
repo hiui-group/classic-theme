@@ -131,6 +131,7 @@ History[`${your history type}`].push()
 | fallback          | 路由无法匹配时的候补跳转                 | string                                                     | -                           |
 | onToggle          | 侧边栏展开收起触发的回调                 | mini: boolean => void                                      | -                           |
 | defaultToggle          |  设置默认侧边栏展开形式（设置后 dynamic 将无效）                 | 'mini' \| 'large'                                      | -                           |
+| onMenuClick          |  菜单点击事件                 | (menuItem: Object) => void                                      | -                           |
 
 ### type: Route
 
@@ -146,6 +147,7 @@ History[`${your history type}`].push()
 | extraData     | 向路由匹配的页面组件注入额外的数据       | object    | -      |
 | authority     | 允许访问该路由的权限                     | string[]  | -      |
 | keepAlive     | 缓存组件实例                     | boolean  | false      |
+| hideInMenu     | 设置 true 强制在菜单中隐藏展示    | boolean  | false      |
 
 ### type: Apperance
 
