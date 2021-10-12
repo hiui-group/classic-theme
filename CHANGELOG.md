@@ -3,7 +3,7 @@
 ## 3.4.3
 
 - 新增 `hideInMenu` 控制菜单强制隐藏 [#69](https://github.com/XiaoMi/hiui/issues/69)
-- 修复 `tagsView` 模式下 tag 无法正常被点击关闭
+- 修复 `tagsView` 模式下 tag 无法正常被点击关闭 [#71](https://github.com/XiaoMi/hiui/issues/71)
 
 ## 3.4.2
 
