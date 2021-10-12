@@ -147,6 +147,7 @@ History[`${your history type}`].push()
 | extraData     | 向路由匹配的页面组件注入额外的数据       | object    | -      |
 | authority     | 允许访问该路由的权限                     | string[]  | -      |
 | keepAlive     | 缓存组件实例                     | boolean  | false      |
+| hideInMenu     | 设置 true 强制在菜单中隐藏展示    | boolean  | false      |
 
 ### type: Apperance
 
