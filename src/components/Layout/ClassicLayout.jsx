@@ -51,6 +51,9 @@ const ClassicLayout = ({
     const __siderMenu = _.cloneDeep(siderMenu)
     return filterMenu(__siderMenu, authority)
   }, [siderMenu, authority])
+
+  if (!currentMenu) return null
+
   return [
     !isWithoutLayout && (
       <Header
