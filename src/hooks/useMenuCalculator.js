@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash'
+import { isEqual, cloneDeep } from 'lodash'
 import { useCallback, useState, useLayoutEffect } from 'react'
 import { findMenu, getAncestor, getDefaultActiveMenu } from '../util/common'
 
@@ -20,7 +20,7 @@ const useMenuCalculator = (menu, { location, history }, fallback, onMenuClick) =
     [location.pathname, fallback]
   )
 
-  const [currentMenu, setCurrentMenu] = useState(() => getCurrentMenu({ ...menu }))
+  const [currentMenu, setCurrentMenu] = useState(() => getCurrentMenu(cloneDeep(menu)))
   const [selectedMenus, setselectedMenus] = useState([])
 
   const onSelectMenu = useCallback(
@@ -42,7 +42,7 @@ const useMenuCalculator = (menu, { location, history }, fallback, onMenuClick) =
   )
 
   useLayoutEffect(() => {
-    const _menu = { ...menu }
+    const _menu = cloneDeep(menu)
     const nextMenu = getCurrentMenu(_menu)
 
     if (nextMenu) {
