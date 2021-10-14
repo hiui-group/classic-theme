@@ -65,8 +65,6 @@ const GenuineLayout = ({
     return filterMenu(_menu, authority)
   }, [menu, authority])
 
-  if (!currentMenu) return null
-
   return [
     (!isWithoutLayout && (
       <div key="container" className={`hi-theme--genuine theme__${theme}`}>

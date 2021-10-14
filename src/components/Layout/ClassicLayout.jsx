@@ -52,8 +52,6 @@ const ClassicLayout = ({
     return filterMenu(__siderMenu, authority)
   }, [siderMenu, authority])
 
-  if (!currentMenu) return null
-
   return [
     !isWithoutLayout && (
       <Header
