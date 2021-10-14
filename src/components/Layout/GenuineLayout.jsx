@@ -64,6 +64,9 @@ const GenuineLayout = ({
     const _menu = _.cloneDeep(menu)
     return filterMenu(_menu, authority)
   }, [menu, authority])
+
+  if (!currentMenu) return null
+
   return [
     (!isWithoutLayout && (
       <div key="container" className={`hi-theme--genuine theme__${theme}`}>

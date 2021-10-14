@@ -1,5 +1,9 @@
 # 更新日志
 
+## 3.5.1
+
+- 修复 路由配置中增加 withoutLayout 属性后会导致组件重新 mount [#74](https://github.com/XiaoMi/hiui/issues/74)
+
 ## 3.5.0
 
 - 新增 `hideInMenu` 控制菜单强制隐藏 [#69](https://github.com/XiaoMi/hiui/issues/69)

@@ -1,17 +1,32 @@
+import { isEqual } from 'lodash'
 import { useCallback, useState, useLayoutEffect } from 'react'
 import { findMenu, getAncestor, getDefaultActiveMenu } from '../util/common'
-import _ from 'lodash'
 
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
 const useMenuCalculator = (menu, { location, history }, fallback, onMenuClick) => {
-  const [currentMenu, setCurrentMenu] = useState(null)
+  const getCurrentMenu = useCallback(
+    (menu) => {
+      if (menu && menu.length > 0) {
+        const _currentMenu =
+          location.pathname === '/'
+            ? findMenu(location.pathname, menu) || getDefaultActiveMenu(menu)
+            : findMenu(location.pathname, menu) || findMenu(fallback, menu) || getDefaultActiveMenu(menu)
+
+        return _currentMenu
+      }
+      return null
+    },
+    [location.pathname, fallback]
+  )
+
+  const [currentMenu, setCurrentMenu] = useState(() => getCurrentMenu({ ...menu }))
   const [selectedMenus, setselectedMenus] = useState([])
 
   const onSelectMenu = useCallback(
     (selectMenu, doNavigate = true) => {
       const _selectedMenus = getAncestor(selectMenu.path, menu).reverse().concat(selectMenu)
-      if (!_.isEqual(selectedMenus, _selectedMenus)) {
+      if (!isEqual(selectedMenus, _selectedMenus)) {
         setselectedMenus(_selectedMenus)
       }
       if (doNavigate) {
@@ -27,14 +42,12 @@ const useMenuCalculator = (menu, { location, history }, fallback, onMenuClick) =
   )
 
   useLayoutEffect(() => {
-    const _menu = _.cloneDeep(menu)
-    if (_menu && _menu.length > 0) {
-      const _currentMenu =
-        location.pathname === '/'
-          ? findMenu(location.pathname, _menu) || getDefaultActiveMenu(_menu)
-          : findMenu(location.pathname, _menu) || findMenu(fallback, _menu) || getDefaultActiveMenu(_menu)
-      onSelectMenu(_currentMenu, !findMenu(location.pathname, _menu))
-      setCurrentMenu(_currentMenu)
+    const _menu = { ...menu }
+    const nextMenu = getCurrentMenu(_menu)
+
+    if (nextMenu) {
+      onSelectMenu(nextMenu, !findMenu(location.pathname, _menu))
+      setCurrentMenu(nextMenu)
     }
   }, [location.pathname, menu, onSelectMenu])
 
