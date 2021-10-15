@@ -8,6 +8,7 @@ import './style/index'
 import { getRoutes, filterMenu, checkAuth } from '../../util/common'
 import useMenuCalculator from '../../hooks/useMenuCalculator'
 import _ from 'lodash'
+import Tag from '../Tag'
 
 const GenuineLayout = ({
   apperance,
@@ -92,6 +93,7 @@ const GenuineLayout = ({
         <div className={ClassNames('hi-theme__container')}>
           {_header}
           <div className="hi-theme__wrapper">
+            {tagsView ? <Tag history={history} menu={menu} onMenuClick={onMenuClick} /> : null}
             {pageHeader ? pageHeader(selectedMenus, location) : null}
             <div
               className={ClassNames('hi-theme__content', {

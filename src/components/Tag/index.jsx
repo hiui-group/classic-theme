@@ -63,7 +63,7 @@ const Tag = ({ menu, history, onMenuClick }) => {
   const isTabAlone = historyPathsKeys.length === 1
 
   return (
-    <div className={`${prefix}`}>
+    <div className={prefix}>
       {historyPathsKeys.map((key, index) => {
         const { path, name } = historyPaths[key]
         const prePath = historyPathsKeys[index - 1]
