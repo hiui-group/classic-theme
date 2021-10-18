@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useEffect, useCallback, useRef, useReducer } from 'react'
 import classNames from 'classnames'
 import _ from 'lodash'
 import { findMenu } from '../../util/common.js'
@@ -37,6 +37,7 @@ const Tag = ({ menu, history, onMenuClick }) => {
   }, [historyPaths])
 
   const [nextPath, setNextPath] = useState(activePath)
+  const [updateCount, forceUpdate] = useReducer((v) => v + 1, 0)
 
   const deleteItem = useCallback(
     (path, prePath, nextPath, isActive) => {
@@ -46,18 +47,22 @@ const Tag = ({ menu, history, onMenuClick }) => {
 
       if (isActive) {
         const _nextPath = prePath || nextPath || ''
-        // 在下一render阶段设置pathname
         setNextPath(_nextPath)
+        // 强制在下一次 render 阶段触发更新路由，设置 pathname，以避免当前状态更新丢失
+        forceUpdate()
       }
     },
     [historyPaths, activePath]
   )
 
+  const activePathRef = useRef(activePath)
+  activePathRef.current = activePath
+
   useEffect(() => {
-    if (activePath !== nextPath) {
+    if (nextPath && activePathRef.current !== nextPath) {
       history.replace(nextPath)
     }
-  }, [nextPath])
+  }, [nextPath, updateCount])
 
   const historyPathsKeys = Object.keys(historyPaths)
   const isTabAlone = historyPathsKeys.length === 1

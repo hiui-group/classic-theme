@@ -1,5 +1,9 @@
 # 更新日志
 
+## 3.5.3
+
+- 新增 tagsView 模式下对 classic 模式的支持 [#77](https://github.com/XiaoMi/hiui/issues/77)
+
 ## 3.5.2
 
 - 修复 tagsView 模式下 tag 无法正常被点击关闭 [#71](https://github.com/XiaoMi/hiui/issues/71)
