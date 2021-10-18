@@ -36,14 +36,13 @@
 
   .hi-theme__wrapper {
     flex: 1;
-    overflow: auto;
     display: flex;
     flex-direction: column;
   }
 
   .hi-theme__content {
     flex: 1;
-    // overflow: auto;
+    overflow: auto;
   }
 }
 
@@ -73,7 +72,6 @@
 
   .hi-theme__wrapper {
     flex: 1;
-    overflow: auto;
     display: flex;
     flex-direction: column;
   }
@@ -86,7 +84,7 @@
 
     .hi-theme__content {
       flex: 1;
-      // overflow: auto;
+      overflow: auto;
     }
 
     .hi-theme--no-header {

@@ -4,7 +4,6 @@ import Icon from '../icon'
 import Logo from '../Logo'
 import Popper from '../popper'
 import ClassNames from 'classnames'
-import Tag from '../Tag'
 import './style/index'
 import Toggle from '../Toggle'
 
@@ -115,7 +114,6 @@ const Header = ({
           </React.Fragment>
         )}
       </div>
-      {tagsView && <Tag history={history} menu={menu} onMenuClick={onMenuClick} />}
     </div>
   )
 }
