@@ -2,7 +2,7 @@
 
 ## 3.5.3
 
-- 新增 tagsView 模式下对 classic 模式的支持 [#77](https://github.com/XiaoMi/hiui/issues/77)
+- 修复 tagsView 模式下对 classic 模式的支持 [#77](https://github.com/XiaoMi/hiui/issues/77)
 
 ## 3.5.2
 
