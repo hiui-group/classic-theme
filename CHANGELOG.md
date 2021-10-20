@@ -1,5 +1,11 @@
 # 更新日志
 
+
+## 3.5.4
+
+- 修复 keepAlive 组件内部使用 Link 刷新导致 Provider 数据无法获取 [#81](https://github.com/XiaoMi/hiui/issues/81)
+- 修复 tagsView 在 hash 路由下刷新导致 tag 丢失 [#79](https://github.com/XiaoMi/hiui/issues/79)
+
 ## 3.5.3
 
 - 修复 tagsView 模式下对 classic 模式的支持 [#77](https://github.com/XiaoMi/hiui/issues/77)
