@@ -98,7 +98,7 @@ const ClassicLayout = ({
           />
         )}
         <div className="hi-theme__wrapper">
-          {tagsView ? <Tag history={history} menu={menu} onMenuClick={onMenuClick} /> : null}
+          {tagsView ? <Tag location={location} history={history} menu={menu} onMenuClick={onMenuClick} /> : null}
           {pageHeader ? pageHeader(selectedMenus, location) : null}
           <div
             className="hi-theme__content"
