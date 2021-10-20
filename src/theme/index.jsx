@@ -78,8 +78,8 @@ const Layout = ({
     _history[historyType] = historyForLayout.current
   }
   return (
-    <KeepAliveProvider isExistKeepAlive={isExistKeepAlive}>
-      <Router history={historyForLayout.current}>
+    <Router history={historyForLayout.current}>
+      <KeepAliveProvider isExistKeepAlive={isExistKeepAlive}>
         <Route
           path="/"
           render={(props) => (
@@ -111,8 +111,8 @@ const Layout = ({
             />
           )}
         />
-      </Router>
-    </KeepAliveProvider>
+      </KeepAliveProvider>
+    </Router>
   )
 }
 
