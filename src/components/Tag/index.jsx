@@ -5,13 +5,13 @@ import { findMenu } from '../../util/common.js'
 import './style/index.js'
 
 const prefix = 'theme-nav-bar'
-const Tag = ({ menu, history, onMenuClick }) => {
+const Tag = ({ menu, history, location, onMenuClick }) => {
   const [historyPaths, setHistoryPaths] = useState({})
   const [activePath, setActivePath] = useState('')
   const mergeRouter = useRef()
   useEffect(() => {
     // 默认进入执行一次
-    const { pathname } = window.location
+    const { pathname } = location
     if (!historyPaths[pathname]) {
       const menuInfo = findMenu(pathname, menu)
       mergeRouter.current = Object.assign({}, { ...mergeRouter.current }, { [pathname]: menuInfo })
