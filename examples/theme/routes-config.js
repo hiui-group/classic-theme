@@ -43,6 +43,7 @@ const config = [
         path: '/audio',
         icon: 'file-exe',
         component: SoundBox,
+        keepAlive: true,
         // authority: ['admain'],
         children: [{ name: '小爱', path: '/xiaoai', component: XiaoAi, authority: [3] }]
       },

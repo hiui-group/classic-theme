@@ -97,6 +97,7 @@ class App extends Component {
         authority={[1, 2]}
         // fallback="/404"
         type="genuine"
+        historyType="hashHistory"
         tagsView
         apperance={{ color: 'light' }}
         // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
