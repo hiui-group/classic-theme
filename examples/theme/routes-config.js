@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import KeepAliveTest from './KeepAliveTest'
 import Page2 from './page2'
@@ -9,7 +9,12 @@ const CC = () => (
     <div style={{ width: 1100 }} />
   </div>
 )
-const RedMi = () => <div>红米手机</div>
+const RedMi = () => {
+  useEffect(() => {
+    console.log('Mounted')
+  }, [])
+  return <div>红米手机</div>
+}
 const BlackShark = (props) => {
   return <div>黑鲨手机</div>
 }
