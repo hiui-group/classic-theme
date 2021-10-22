@@ -55,6 +55,7 @@ const config = [
     name: '测试KeepAlive',
     path: '/test-KeepAliveTest',
     keepAlive: true,
+    unmountOnTagClose: true,
     component: KeepAliveTest
   },
   {

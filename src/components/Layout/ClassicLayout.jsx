@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useCallback, useMemo, useRef } from 'react'
 import Header from '../Header'
 import Sider from '../Sider'
 import { Route, Redirect, Switch } from 'react-router-dom'
@@ -9,6 +9,7 @@ import { getRoutes, filterMenu, checkAuth } from '../../util/common'
 import useMenuCalculator from '../../hooks/useMenuCalculator'
 import _ from 'lodash'
 import Tag from '../Tag'
+import { useCacheContext } from '../../keep-alive/CacheContext'
 
 const ClassicLayout = ({
   apperance,
@@ -52,6 +53,17 @@ const ClassicLayout = ({
     const __siderMenu = _.cloneDeep(siderMenu)
     return filterMenu(__siderMenu, authority)
   }, [siderMenu, authority])
+
+  const { unmount } = useCacheContext()
+
+  const handleTagClose = useCallback(
+    ({ path, unmountOnClose }) => {
+      if (unmountOnClose) {
+        unmount(path)
+      }
+    },
+    [unmount]
+  )
 
   return [
     !isWithoutLayout && (
@@ -98,8 +110,17 @@ const ClassicLayout = ({
           />
         )}
         <div className="hi-theme__wrapper">
-          {tagsView ? <Tag location={location} history={history} menu={menu} onMenuClick={onMenuClick} /> : null}
+          {tagsView ? (
+            <Tag
+              location={location}
+              history={history}
+              menu={menu}
+              onMenuClick={onMenuClick}
+              onTagClose={handleTagClose}
+            />
+          ) : null}
           {pageHeader ? pageHeader(selectedMenus, location) : null}
+
           <div
             className="hi-theme__content"
             style={{ padding: apperance.contentPadding, background: apperance.contentBackground }}
