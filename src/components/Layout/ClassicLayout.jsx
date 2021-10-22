@@ -57,8 +57,8 @@ const ClassicLayout = ({
   const { unmount } = useCacheContext()
 
   const handleTagClose = useCallback(
-    ({ path, unmountOnClose }) => {
-      if (unmountOnClose) {
+    ({ path, unmountOnTagClose }) => {
+      if (unmountOnTagClose) {
         unmount(path)
       }
     },
