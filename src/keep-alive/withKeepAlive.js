@@ -12,7 +12,6 @@ const withKeepAlive = (OldComponent, { cacheId = window.location.pathname }) => 
         const doms = cacheState.doms
         doms.forEach((dom) => ref.current.appendChild(dom))
       } else {
-        // console.log('withKeepAlive effect')
         mount({ cacheId, element: <OldComponent {...props} dispatch={dispatch} /> })
       }
     }, [cacheStates, dispatch, mount, props])
