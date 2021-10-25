@@ -41,7 +41,8 @@ const ClassicLayout = ({
   const mainMenu = useMainMenu(menu, authority)
   const { currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
     menu,
-    { location, history },
+    location,
+    history,
     fallback,
     onMenuClick
   )

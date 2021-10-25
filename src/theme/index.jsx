@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, useMemo } from 'react'
 import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory, createHashHistory } from 'history'
 import { KeepAliveProvider, withKeepAlive } from '../keep-alive'
@@ -42,9 +42,9 @@ const Layout = ({
   theme
 }) => {
   // 获取是否存在keepAlive的路由
-  const [isExistKeepAlive, setIsExistKeepAlive] = useState(false)
-  useEffect(() => {
-    setIsExistKeepAlive(existKeepAliveRouter(routes, withKeepAlive))
+
+  const isExistKeepAlive = useMemo(() => {
+    return existKeepAliveRouter(routes, withKeepAlive)
   }, [routes])
 
   const [viewSize, setViewSize] = useState('large')
