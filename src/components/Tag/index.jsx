@@ -5,7 +5,7 @@ import { findMenu } from '../../util/common.js'
 import './style/index.js'
 
 const prefix = 'theme-nav-bar'
-const Tag = ({ menu, history, location, onMenuClick }) => {
+const Tag = ({ menu, history, location, onMenuClick, onTagClose }) => {
   const [historyPaths, setHistoryPaths] = useState({})
   const [activePath, setActivePath] = useState('')
   const mergeRouter = useRef()
@@ -39,11 +39,17 @@ const Tag = ({ menu, history, location, onMenuClick }) => {
   const [nextPath, setNextPath] = useState(activePath)
   const [updateCount, forceUpdate] = useReducer((v) => v + 1, 0)
 
+  const [pathToClose, setPathToClose] = useState(null)
+
   const deleteItem = useCallback(
     (path, prePath, nextPath, isActive) => {
       const _historyPaths = _.cloneDeep(historyPaths)
+      const pathToClose = _historyPaths[path]
+
       delete _historyPaths[path]
       setHistoryPaths(_historyPaths)
+      // 强制在下一次 render 阶段等当前路由丢失后，再触发 onTagClose，避免重复 mount 触发
+      setPathToClose(pathToClose)
 
       if (isActive) {
         const _nextPath = prePath || nextPath || ''
@@ -63,6 +69,16 @@ const Tag = ({ menu, history, location, onMenuClick }) => {
       history.replace(nextPath)
     }
   }, [nextPath, updateCount])
+
+  const onTagCloseRef = useRef(onTagClose)
+  onTagCloseRef.current = onTagClose
+
+  useEffect(() => {
+    if (pathToClose && onTagCloseRef.current) {
+      onTagCloseRef.current(pathToClose)
+      setPathToClose(null)
+    }
+  }, [pathToClose])
 
   const historyPathsKeys = Object.keys(historyPaths)
   const isTabAlone = historyPathsKeys.length === 1

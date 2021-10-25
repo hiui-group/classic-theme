@@ -4,7 +4,7 @@ import { Grid, Button, Radio, Input, Form, Select, Cascader } from '@hi-ui/hiui'
 class KeepAliveTest extends React.Component {
   constructor(props) {
     super(props)
-    console.log('props', props)
+    console.log('KeepAliveTest constructor --------------', props)
     this.form = React.createRef()
     this.state = {
       form: {

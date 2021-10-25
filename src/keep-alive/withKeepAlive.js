@@ -15,6 +15,7 @@ const withKeepAlive = (OldComponent, { cacheId = window.location.pathname }) => 
         mount({ cacheId, element: <OldComponent {...props} dispatch={dispatch} /> })
       }
     }, [cacheStates, dispatch, mount, props])
+
     return <div id={`keepalive_${cacheId}`} ref={ref} />
   }
   return keepAliveWrapper

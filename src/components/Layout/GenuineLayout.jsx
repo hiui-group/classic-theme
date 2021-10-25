@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import Header from '../Header'
 import Sider from '../Sider'
 import Footer from '../Footer'
@@ -9,6 +9,7 @@ import { getRoutes, filterMenu, checkAuth } from '../../util/common'
 import useMenuCalculator from '../../hooks/useMenuCalculator'
 import _ from 'lodash'
 import Tag from '../Tag'
+import { useCacheContext } from '../../keep-alive/CacheContext'
 
 const GenuineLayout = ({
   apperance,
@@ -68,6 +69,18 @@ const GenuineLayout = ({
     return filterMenu(_menu, authority)
   }, [menu, authority])
 
+  const { unmount } = useCacheContext()
+
+  const handleTagClose = useCallback(
+    ({ path, unmountOnTagClose }) => {
+      console.log(path)
+      if (unmountOnTagClose) {
+        unmount(path)
+      }
+    },
+    [unmount]
+  )
+
   return [
     (!isWithoutLayout && (
       <div key="container" className={`hi-theme--genuine theme__${theme}`}>
@@ -95,7 +108,15 @@ const GenuineLayout = ({
         <div className={ClassNames('hi-theme__container')}>
           {_header}
           <div className="hi-theme__wrapper">
-            {tagsView ? <Tag location={location} history={history} menu={menu} onMenuClick={onMenuClick} /> : null}
+            {tagsView ? (
+              <Tag
+                location={location}
+                history={history}
+                menu={menu}
+                onMenuClick={onMenuClick}
+                onTagClose={handleTagClose}
+              />
+            ) : null}
             {pageHeader ? pageHeader(selectedMenus, location) : null}
             <div
               className={ClassNames('hi-theme__content', {

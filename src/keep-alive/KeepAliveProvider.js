@@ -1,10 +1,11 @@
-import React, { useReducer, useCallback } from 'react'
+import React, { useReducer, useCallback, useMemo } from 'react'
 import CacheContext from './CacheContext'
 import cacheReducer from './cacheReducer'
 import * as cacheTypes from './cache-types'
 function KeepAliveProvider(props) {
   const { isExistKeepAlive } = props
   const [cacheStates, dispatch] = useReducer(cacheReducer, {})
+
   const mount = useCallback(
     ({ cacheId, element }) => {
       if (cacheStates[cacheId]) {
@@ -20,10 +21,30 @@ function KeepAliveProvider(props) {
     },
     [cacheStates]
   )
+
+  const unmountComponentByCacheId = useCallback(
+    (cacheId) => {
+      const cacheInstance = cacheStates[cacheId]
+      if (cacheInstance) {
+        dispatch({ type: cacheTypes.DESTROY, payload: { cacheId } })
+      }
+    },
+    [cacheStates]
+  )
+
+  const providedValue = useMemo(
+    () => ({
+      cacheStates,
+      mount,
+      unmount: unmountComponentByCacheId
+    }),
+    [cacheStates, mount, unmountComponentByCacheId]
+  )
+
   return !isExistKeepAlive ? (
     <>{props.children}</>
   ) : (
-    <CacheContext.Provider value={{ mount, cacheStates }}>
+    <CacheContext.Provider value={providedValue}>
       {props.children}
       {Object.values(cacheStates)
         .filter((cacheState) => cacheState.status !== cacheTypes.DESTROY)

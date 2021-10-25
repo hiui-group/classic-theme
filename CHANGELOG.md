@@ -1,6 +1,10 @@
 # 更新日志
 
 
+## 3.6.0
+
+- 添加 unmountOnTagClose props，支持 keepAlive 模式下点击 tag 关闭触发组件实例销毁  [#85](https://github.com/XiaoMi/hiui/issues/85)
+
 ## 3.5.4
 
 - 修复 keepAlive 组件内部使用 Link 刷新导致 Provider 数据无法获取 [#81](https://github.com/XiaoMi/hiui/issues/81)
