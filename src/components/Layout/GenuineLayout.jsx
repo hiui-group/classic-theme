@@ -39,11 +39,13 @@ const GenuineLayout = ({
 }) => {
   const { currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
     menu,
-    { location, history },
+    location,
+    history,
     fallback,
     onMenuClick
   )
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
+
   const _header = header === null || header || (
     <Header
       toolbar={toolbar}

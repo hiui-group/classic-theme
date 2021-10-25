@@ -1,10 +1,10 @@
 import { isEqual, cloneDeep } from 'lodash'
-import { useCallback, useState, useLayoutEffect } from 'react'
+import { useCallback, useState, useLayoutEffect, useMemo } from 'react'
 import { findMenu, getAncestor, getDefaultActiveMenu } from '../util/common'
 
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
-const useMenuCalculator = (menu, { location, history }, fallback, onMenuClick) => {
+const useMenuCalculator = (menu, location, history, fallback, onMenuClick) => {
   const getCurrentMenu = useCallback(
     (menu) => {
       if (menu && menu.length > 0) {
@@ -20,7 +20,6 @@ const useMenuCalculator = (menu, { location, history }, fallback, onMenuClick) =
     [location.pathname, fallback]
   )
 
-  const [currentMenu, setCurrentMenu] = useState(() => getCurrentMenu(cloneDeep(menu)))
   const [selectedMenus, setselectedMenus] = useState([])
 
   const onSelectMenu = useCallback(
@@ -47,9 +46,13 @@ const useMenuCalculator = (menu, { location, history }, fallback, onMenuClick) =
 
     if (nextMenu) {
       onSelectMenu(nextMenu, !findMenu(location.pathname, _menu))
-      setCurrentMenu(nextMenu)
     }
-  }, [location.pathname, menu, onSelectMenu])
+  }, [location.pathname, menu, onSelectMenu, getCurrentMenu])
+
+  const currentMenu = useMemo(() => {
+    const _menu = cloneDeep(menu)
+    return getCurrentMenu(_menu)
+  }, [getCurrentMenu, menu])
 
   return { currentMenu, selectedMenus, onSelectMenu, defaultPath: getDefaultActiveMenu(menu).path }
 }
