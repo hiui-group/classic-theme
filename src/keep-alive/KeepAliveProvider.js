@@ -8,7 +8,6 @@ function KeepAliveProvider(props) {
 
   const mount = useCallback(
     ({ cacheId, element }) => {
-      // console.log('mount', cacheId, element)
       if (cacheStates[cacheId]) {
         const cacheState = cacheStates[cacheId]
         if (cacheState.status === cacheTypes.DESTROY) {
@@ -25,7 +24,6 @@ function KeepAliveProvider(props) {
 
   const unmountComponentByCacheId = useCallback(
     (cacheId) => {
-      // console.log('unmountComponentByCacheId', cacheId, cacheStates)
       const cacheInstance = cacheStates[cacheId]
       if (cacheInstance) {
         dispatch({ type: cacheTypes.DESTROY, payload: { cacheId } })
