@@ -4,14 +4,16 @@ import { findMenu, getAncestor, getDefaultActiveMenu } from '../util/common'
 
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
-const useMenuCalculator = (menu, location, history, fallback, onMenuClick) => {
+const useMenuCalculator = (menu, location, history, fallback, onMenuClick, disabledAutoFallback) => {
   const getCurrentMenu = useCallback(
     (menu) => {
       if (menu && menu.length > 0) {
         const _currentMenu =
           location.pathname === '/'
-            ? findMenu(location.pathname, menu) || getDefaultActiveMenu(menu)
-            : findMenu(location.pathname, menu) || findMenu(fallback, menu) || getDefaultActiveMenu(menu)
+            ? findMenu(location.pathname, menu) || (disabledAutoFallback ? null : getDefaultActiveMenu(menu))
+            : findMenu(location.pathname, menu) ||
+              findMenu(fallback, menu) ||
+              (disabledAutoFallback ? null : getDefaultActiveMenu(menu))
 
         return _currentMenu
       }
@@ -54,7 +56,12 @@ const useMenuCalculator = (menu, location, history, fallback, onMenuClick) => {
     return getCurrentMenu(_menu)
   }, [getCurrentMenu, menu])
 
-  return { currentMenu, selectedMenus, onSelectMenu, defaultPath: getDefaultActiveMenu(menu).path }
+  return {
+    currentMenu,
+    selectedMenus,
+    onSelectMenu,
+    defaultPath: disabledAutoFallback ? null : getDefaultActiveMenu(menu).path
+  }
 }
 
 export default useMenuCalculator

@@ -20,6 +20,7 @@ const GenuineLayout = ({
   login,
   toolbar,
   fallback,
+  disabledAutoFallback,
   siderTopRender,
   siderBottomRender,
   footer,
@@ -43,7 +44,8 @@ const GenuineLayout = ({
     location,
     history,
     fallback,
-    onMenuClick
+    onMenuClick,
+    disabledAutoFallback
   )
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
 
@@ -135,11 +137,13 @@ const GenuineLayout = ({
                     />
                   ) : null
                 })}
-                <Redirect
-                  to={{
-                    pathname: location.pathname === '/' ? defaultPath : fallback || defaultPath
-                  }}
-                />
+                {typeof fallback === 'string' || typeof defaultPath === 'string' ? (
+                  <Redirect
+                    to={{
+                      pathname: location.pathname === '/' ? defaultPath : fallback || defaultPath
+                    }}
+                  />
+                ) : null}
               </Switch>
             </div>
             {footer && <Footer footer={footer} />}

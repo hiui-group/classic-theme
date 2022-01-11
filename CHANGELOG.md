@@ -1,9 +1,13 @@
 # 更新日志
 
+## 3.7.0
+
+- 添加 disabledAutoFallback props，支持禁用自动 fallback 到第一个有效路由 [#88](https://github.com/XiaoMi/hiui/issues/88)
+- 优化 支持 React.lazy 模式和 keepAlive 模式兼容 [#87](https://github.com/XiaoMi/hiui/issues/87)
 
 ## 3.6.0
 
-- 添加 unmountOnTagClose props，支持 keepAlive 模式下点击 tag 关闭触发组件实例销毁  [#85](https://github.com/XiaoMi/hiui/issues/85)
+- 添加 unmountOnTagClose props，支持 keepAlive 模式下点击 tag 关闭触发组件实例销毁 [#85](https://github.com/XiaoMi/hiui/issues/85)
 
 ## 3.5.4
 

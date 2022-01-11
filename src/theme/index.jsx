@@ -30,6 +30,7 @@ const Layout = ({
   siderBottomRender,
   accordion,
   fallback,
+  disabledAutoFallback = false,
   footer,
   defaultExpandAll,
   pageHeader,
@@ -98,6 +99,7 @@ const Layout = ({
               accordion={accordion}
               onMenuClick={onMenuClick}
               fallback={fallback}
+              disabledAutoFallback={disabledAutoFallback}
               defaultExpandAll={defaultExpandAll}
               pageHeader={pageHeader}
               onToggle={onToggle}
