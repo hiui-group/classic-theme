@@ -109,6 +109,9 @@ class App extends Component {
           onMenuClick={(item) => {
             console.log('item', item)
           }}
+          fallback={'/iot'}
+          // basename={'basename'}
+          // disabledAutoFallback
         />
       </React.Suspense>
     )
