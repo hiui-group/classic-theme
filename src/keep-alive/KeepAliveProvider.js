@@ -56,6 +56,21 @@ function KeepAliveProvider(props) {
               ref={(dom) => {
                 const cacheState = cacheStates[cacheId]
                 if (dom && (!cacheState.doms || cacheState.status === cacheTypes.DESTROY)) {
+                  // 修复异步加载组件时无法收集 dom 渲染
+                  const observer = new MutationObserver(() => {
+                    const doms = Array.from(dom.childNodes)
+
+                    if (doms.length > 0) {
+                      dispatch({ type: cacheTypes.CREATED, payload: { cacheId, doms } })
+                    }
+                  })
+
+                  observer.observe(dom, {
+                    // attributes: true,
+                    // subtree: true,
+                    childList: true
+                  })
+
                   const doms = Array.from(dom.childNodes)
                   dispatch({ type: cacheTypes.CREATED, payload: { cacheId, doms } })
                 }

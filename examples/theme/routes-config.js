@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { Icon } from '@hi-ui/hiui'
 import KeepAliveTest from './KeepAliveTest'
 import Page2 from './page2'
+import LazyComponent from './LazyComponent'
 
 const CC = () => (
   <div>
@@ -9,12 +11,14 @@ const CC = () => (
     <div style={{ width: 1100 }} />
   </div>
 )
-const RedMi = () => {
+
+const RedMi = (props) => {
   useEffect(() => {
-    console.log('Mounted')
+    console.log('Mounted', props)
   }, [])
-  return <div>红米手机</div>
+  return <div onClick={() => props.history.push('/test-KeepAliveTest')}>红米手机</div>
 }
+
 const BlackShark = (props) => {
   return <div>黑鲨手机</div>
 }
@@ -34,14 +38,15 @@ const XiaoAi = () => <div>xiaoai</div>
 
 // const KeepAlivePage = withKeepAlive(Page, { cacheId: 'page' })
 // const KeepAlivePage2 = withKeepAlive(Page2, { cacheId: 'page2' })
+const LazyCom = React.lazy(() => import('./LazyComponent'))
 
 const config = [
   {
-    name: '智能硬件',
+    name: <span>智能硬件</span>,
     path: '/iot',
     authority: [1],
     component: Iot,
-    icon: <span>🐂</span>,
+    icon: <Icon name="info-circle" />,
     children: [
       {
         name: '音响',
@@ -53,7 +58,15 @@ const config = [
         children: [{ name: '小爱', path: '/xiaoai', component: XiaoAi, authority: [3] }]
       },
       { name: '扫地机器人', path: '/robot', component: Robot, authority: [1, 2] },
-      { path: '/robot-detail/:id', name: '测试详情tab', hideInMenu: true, component: RobotDetail }
+      { path: '/robot-detail/:id', name: '测试详情tab', hideInMenu: true, component: RobotDetail },
+      {
+        name: 'LazyComponent',
+        path: '/lazy-test',
+        icon: 'file-exe',
+        component: LazyCom,
+        // component: LazyComponent,
+        keepAlive: true
+      }
     ]
   },
   {

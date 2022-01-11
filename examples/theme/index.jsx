@@ -85,28 +85,32 @@ class App extends Component {
   // }
   render() {
     return (
-      <Theme
-        // routes={this.state.routeConfig}
-        routes={_routeConfig}
-        logo={logoConfig}
-        // siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
-        login={loginConfig}
-        // type="classic"
-        // header={null}
-        // theme={'orange'}
-        authority={[1, 2]}
-        // fallback="/404"
-        type="genuine"
-        historyType="hashHistory"
-        tagsView
-        apperance={{ color: 'light' }}
-        // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
-        accordion={false}
-        toolbar={toolbar2}
-        onMenuClick={(item) => {
-          console.log('item', item)
-        }}
-      />
+      <React.Suspense fallback={<div>loading</div>}>
+        <Theme
+          // routes={this.state.routeConfig}
+          routes={_routeConfig}
+          logo={logoConfig}
+          // siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
+          login={loginConfig}
+          // type="classic"
+          // header={null}
+          // theme={'orange'}
+          authority={[1, 2]}
+          // fallback="/404"
+          // type="genuine"
+          // historyType="browserHistory"
+          type="classic"
+          historyType="hashHistory"
+          // tagsView
+          apperance={{ color: 'light' }}
+          // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
+          accordion={false}
+          toolbar={toolbar2}
+          onMenuClick={(item) => {
+            console.log('item', item)
+          }}
+        />
+      </React.Suspense>
     )
   }
 }
