@@ -1,5 +1,9 @@
 # 更新日志
 
+## 3.7.1
+
+- 修复 loginConfig props 中 icon 配置失效，icon 不展示 [#100](https://github.com/XiaoMi/hiui/issues/100)
+
 ## 3.7.0
 
 - 添加 disabledAutoFallback props，支持禁用自动 fallback 到第一个有效路由 [#88](https://github.com/XiaoMi/hiui/issues/88)
