@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Icon } from '@hi-ui/hiui'
 import KeepAliveTest from './KeepAliveTest'
 import Page2 from './page2'
-import LazyComponent from './LazyComponent'
+// import LazyComponent from './LazyComponent'
 
 const CC = () => (
   <div>
@@ -42,25 +42,42 @@ const LazyCom = React.lazy(() => import('./LazyComponent'))
 
 const config = [
   {
-    name: <span>智能硬件</span>,
-    path: '/iot',
+    name: <span>首页</span>,
+    path: '/home',
     authority: [1],
     component: Iot,
     icon: <Icon name="info-circle" />,
     children: [
       {
-        name: '音响',
-        path: '/audio',
+        name: '工作台',
+        path: '/workbench',
         icon: 'file-exe',
         component: SoundBox,
         keepAlive: true,
         // authority: ['admain'],
-        children: [{ name: '小爱', path: '/xiaoai', component: XiaoAi, authority: [3] }]
+        children: [
+          {
+            name: 'Dashboard',
+            path: '/dashboard',
+            component: XiaoAi,
+            authority: [3]
+          }
+        ]
       },
-      { name: '扫地机器人', path: '/robot', component: Robot, authority: [1, 2] },
-      { path: '/robot-detail/:id', name: '测试详情tab', hideInMenu: true, component: RobotDetail },
       {
-        name: 'LazyComponent',
+        name: '详情页',
+        path: '/detail',
+        component: Robot,
+        authority: [1, 2]
+      },
+      {
+        path: '/robot-detail/:id',
+        name: '隐藏详情页',
+        hideInMenu: true,
+        component: RobotDetail
+      },
+      {
+        name: '懒加载页面',
         path: '/lazy-test',
         icon: 'file-exe',
         component: LazyCom,
@@ -70,14 +87,14 @@ const config = [
     ]
   },
   {
-    name: '测试KeepAlive',
+    name: 'KeepAlive',
     path: '/test-KeepAliveTest',
     keepAlive: true,
     unmountOnTagClose: true,
     component: KeepAliveTest
   },
   {
-    name: '测试popper2',
+    name: '电脑',
     path: '/test-popper2',
     component: Page2
   },
@@ -91,7 +108,12 @@ const config = [
         children: [{ name: '小米CC', path: '/cc', component: CC }]
       },
       { name: '红米', path: '/red-mi', component: RedMi, withoutLayout: true },
-      { name: '黑鲨', path: '/black-shark', component: BlackShark, extraData: { abc: 1 } }
+      {
+        name: '黑鲨',
+        path: '/black-shark',
+        component: BlackShark,
+        extraData: { abc: 1 }
+      }
     ]
   },
   {

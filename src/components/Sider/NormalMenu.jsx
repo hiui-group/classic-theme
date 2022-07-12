@@ -49,7 +49,7 @@ const NormalMenu = ({
             onSelectMenu(menu)
           }
         }}
-        style={{ paddingLeft: level * 16 }}
+        style={{ paddingLeft: level * 12, paddingRight: 8 }}
         className={classNames('menu__title', {
           'menu__title--active':
             selectedMenus &&
@@ -59,9 +59,9 @@ const NormalMenu = ({
             menu.id === (selectedMenus && selectedMenus.map((sm) => sm.id)[selectedMenus.length - 1])
         })}
       >
-        <span>
+        <span className="menu__title__text">
           {typeof menu.icon === 'string' ? <Icon name={menu.icon} /> : menu.icon}
-          {menu.name}
+          <span>{menu.name}</span>
         </span>
 
         {menu.children && menu.children.length > 0 && (

@@ -172,7 +172,10 @@ const Sider = ({
         {siderTopRender && siderTopRender(mini)}
         {siderMenu.length > 0 && (
           <div className="sider__menu">
-            <div style={{ height: '100%', overflowY: 'scroll', width: `calc(100% + ${scrollBarSize.current}px)` }}>
+            <div
+              className="sider__menu__scroller"
+              style={{ height: '100%', overflowY: 'scroll', width: `calc(100% + ${scrollBarSize.current}px)` }}
+            >
               {mini
                 ? renderMiniChildren(siderMenu, selectedMenus)
                 : renderChildren(siderMenu, selectedMenus, 1, expandedId)}

@@ -1,4 +1,4 @@
-@import '@hi-ui/core-css/index.scss';
+@import '@hi-ui/core-css/lib/index.scss';
 
 .hi-logo {
   box-sizing: border-box;
@@ -43,8 +43,8 @@
   }
 
   &__title {
-    font-size: $font-size-large;
-    font-weight: $font-weight-bold;
+    font-size: use-text-size('lg');
+    font-weight: use-text-weight('semibold');
     white-space: nowrap;
     color: #fff;
   }

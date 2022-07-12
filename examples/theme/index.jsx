@@ -95,11 +95,11 @@ class App extends Component {
           // type="classic"
           // header={null}
           // theme={'orange'}
-          authority={[1, 2]}
+          authority={[1, 2, 3]}
           // fallback="/404"
-          // type="genuine"
+          type="genuine"
           // historyType="browserHistory"
-          type="classic"
+          // type="classic"
           historyType="hashHistory"
           // tagsView
           apperance={{ color: 'light' }}

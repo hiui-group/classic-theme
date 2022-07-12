@@ -1,4 +1,4 @@
-@import '@hi-ui/core-css/index.scss';
+@import '@hi-ui/core-css/lib/index.scss';
 
 .theme-nav-bar {
   height: 42px;
@@ -43,19 +43,19 @@
     flex-shrink: 0;
 
     &:hover:not(.theme-nav-bar_tag--active) {
-      color: use-color('primary');
-      border-color: use-color('primary');
+      color: use-color-mode('primary');
+      border-color: use-color-mode('primary');
 
       .theme-nav-bar_icon {
         path {
-          fill: use-color('primary');
+          fill: use-color-mode('primary');
         }
       }
     }
 
     &--active {
       color: #fff;
-      background: use-color('primary-60');
+      background: use-color-mode('primary', 600);
       border-color: transparent;
 
       .theme-nav-bar_icon {

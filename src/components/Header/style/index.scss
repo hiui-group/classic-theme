@@ -1,4 +1,4 @@
-@import '@hi-ui/core-css/index.scss';
+@import '@hi-ui/core-css/lib/index.scss';
 
 .login__menu--top {
   background: #fff;
@@ -13,7 +13,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  font-size: $font-size-normal;
+  font-size: use-text-size('md');
   box-sizing: border-box;
   z-index: 11;
 
@@ -48,15 +48,6 @@
     .active-main-menu {
       background: #fff;
       position: relative;
-
-      &::after {
-        content: '';
-        height: 2px;
-        width: 100%;
-        background: use-color('primary');
-        bottom: 0;
-        position: absolute;
-      }
     }
 
     .sider__toggle {
@@ -153,14 +144,14 @@
         transition: color 0.3s;
 
         &:hover {
-          color: use-color('primary');
+          color: use-color-mode('primary');
         }
       }
     }
 
     .active-main-menu {
       a {
-        color: use-color('primary');
+        color: use-color-mode('primary');
       }
     }
   }

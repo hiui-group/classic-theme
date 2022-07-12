@@ -1,4 +1,4 @@
-@import '@hi-ui/core-css/index.scss';
+@import '@hi-ui/core-css/lib/index.scss';
 
 ul {
   li {
@@ -33,11 +33,11 @@ ul {
       transition: all 0.3s;
 
       &--active {
-        color: use-color('primary');
+        color: use-color-mode('primary');
       }
 
       &:hover {
-        color: use-color('primary');
+        color: use-color-mode('primary');
       }
     }
   }
@@ -79,7 +79,7 @@ ul {
 
     .sider__toggle {
       &:hover {
-        color: use-color('primary');
+        color: use-color-mode('primary');
       }
     }
 
@@ -89,8 +89,13 @@ ul {
 
     .sider__menu {
       .menu__leaf-title--active {
-        background: use-color('primary-20');
-        color: use-color('primary');
+        background: use-color-mode('primary', 50);
+        color: use-color-mode('primary');
+
+        &:hover {
+          background: use-color-mode('primary', 50);
+          color: use-color-mode('primary');
+        }
       }
     }
   }
@@ -111,7 +116,7 @@ ul {
     .sider__menu {
       .menu__leaf-title--active {
         background: #2e343d;
-        color: use-color('primary');
+        color: use-color-mode('primary');
       }
     }
   }
@@ -154,7 +159,7 @@ ul {
         }
 
         &:hover {
-          color: use-color('primary');
+          color: use-color-mode('primary');
         }
       }
     }
@@ -162,7 +167,7 @@ ul {
 
   .sider__menu {
     flex: 1;
-    padding: 16px 0;
+    padding: 8px 0;
     box-sizing: border-box;
     overflow: hidden;
 
@@ -170,32 +175,45 @@ ul {
       width: 100%;
     }
 
+    &-item {
+      // item 空白空隙
+      margin-top: 8px;
+    }
+
     .menu__title {
-      height: 48px;
-      padding-right: 16px;
+      height: 40px;
+      // padding-right: 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       white-space: nowrap;
       cursor: pointer;
       transition: all 0.3s;
+      border-radius: 4px;
       overflow: hidden;
 
-      .hi-theme-icon {
-        margin-right: 4px;
-      }
-
       &:hover {
-        color: use-color('primary');
+        background: use-color('gray', 100);
       }
 
       &--active {
-        color: use-color('primary');
+        color: use-color-mode('primary');
+      }
+
+      &__text {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
       }
     }
 
     .menu__leaf-title--active {
-      color: use-color('primary');
+      color: use-color-mode('primary');
+      background: use-color-mode('primary', 50);
+
+      &:hover {
+        background: use-color-mode('primary', 50);
+      }
     }
   }
 
@@ -249,7 +267,7 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background 0.3s;
+    transition: color 0.3s;
     flex-shrink: 0;
   }
 
@@ -263,5 +281,10 @@ ul {
     overflow: hidden;
     white-space: nowrap;
     transition: background 0.3s;
+  }
+
+  .sider__menu__scroller > .sider__menu-item {
+    padding-left: 8px;
+    padding-right: 8px;
   }
 }
