@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import Theme, { history } from '../../src/theme'
-import _routeConfig from './routes-config'
-import { Input, Icon, Select } from '@hi-ui/hiui'
+import Theme from '../../src/theme' // , { history }
+// import _routeConfig from './routes-config'
+import _routeConfig from './routes-config-v4'
+import { Input } from '@hi-ui/hiui'
+import { UserOutlined } from '@hi-ui/icons'
 
-// const KeepAliveHome = withKeepAlive(Home, { cacheId: 'Home' })
-// const KeepAliveUserList = withKeepAlive(UserList, { cacheId: 'UserList', scroll: true })
-// const KeepAliveUserAdd = withKeepAlive(UserAdd, { cacheId: 'UserAdd' })
+const TV = () => <div>小米电视</div>
 
 const logoConfig = {
   logoUrl: 'https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05',
@@ -15,61 +15,36 @@ const logoConfig = {
 
 const loginConfig = {
   name: 'Mi Guest',
-  icon: 'user',
+  icon: <UserOutlined />,
   children: [
-    <div key="1" style={{ textAlign: 'center', margin: 4, width: '100px' }}>
+    <div key="1" style={{ textAlign: 'center', margin: '4px 0', width: 100 }}>
       <a href="#info">个人信息</a>
     </div>,
-    <div key="2" style={{ textAlign: 'center', margin: 4, width: 100 }}>
+    <div key="2" style={{ textAlign: 'center', margin: '4px 0', width: 100 }}>
       <a href="#logout">注销</a>
     </div>
   ]
 }
 // eslint-disable-next-line no-unused-vars
 const toolbar = [
-  <Input key="1" style={{ width: 200 }} />,
-  <Icon key="2" name="prompt" />,
-  <Select
-    key="3"
-    type="single"
-    clearable={false}
-    style={{ width: 200 }}
-    onChange={() => {
-      history.browserHistory.push('/cc')
-    }}
-    data={[
-      { title: '电视', id: '3', disabled: true },
-      { title: '手机', id: '2' },
-      { title: '笔记本', id: '4', disabled: true },
-      { title: '生活周边', id: '5' },
-      { title: '办公', id: '6' }
-    ]}
-  />
+  <Input key="1" style={{ width: 200 }} />
+  // <Select
+  //   key="3"
+  //   clearable={false}
+  //   style={{ width: 200, marginLeft: 8 }}
+  //   onChange={() => {
+  //     history.browserHistory.push('/cc')
+  //   }}
+  //   data={[
+  //     { title: '电视', id: '3', disabled: true },
+  //     { title: '手机', id: '2' },
+  //     { title: '笔记本', id: '4', disabled: true },
+  //     { title: '生活周边', id: '5' },
+  //     { title: '办公', id: '6' }
+  //   ]}
+  // />
 ]
-const toolbar2 = (
-  <div style={{ flex: 1 }}>
-    <Input key="1" style={{ width: 200 }} />
-    <Icon key="2" name="prompt" />
-    <Select
-      type="single"
-      clearable={false}
-      style={{ width: 200 }}
-      onChange={() => {
-        console.log('>>>>>', history)
-        history.browserHistory.push('/cc')
-      }}
-      data={[
-        { title: '电视', id: '3', disabled: true },
-        { title: '手机', id: '2' },
-        { title: '笔记本', id: '4', disabled: true },
-        { title: '生活周边', id: '5' },
-        { title: '办公', id: '6' }
-      ]}
-    />
-  </div>
-)
 
-const TV = () => <div>小米电视</div>
 class App extends Component {
   constructor(props) {
     super(props)
@@ -105,11 +80,18 @@ class App extends Component {
           apperance={{ color: 'light' }}
           // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
           accordion={false}
-          toolbar={toolbar2}
+          toolbar={<div>{toolbar}</div>}
+          // toolbar={
+          //   <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
+          //     <SettingOutlined key={1} />
+          //     <BellOutlined key={2} />
+          //   </div>
+          // }
           onMenuClick={(item) => {
             console.log('item', item)
           }}
           fallback={'/iot'}
+          // viewSize="small"
           // basename={'basename'}
           // disabledAutoFallback
         />

@@ -17,33 +17,33 @@ class KeepAliveTest extends React.Component {
       options: [
         {
           id: '手机',
-          content: '手机',
+          title: '手机',
           children: [
             {
               id: '小米',
-              content: '小米',
+              title: '小米',
               children: [
                 {
                   id: '小米3',
-                  content: '小米3'
+                  title: '小米3'
                 },
                 {
                   id: '小米4',
-                  content: '小米4'
+                  title: '小米4'
                 }
               ]
             },
             {
               id: '红米',
-              content: '红米',
+              title: '红米',
               children: [
                 {
                   id: '红米3',
-                  content: '红米3'
+                  title: '红米3'
                 },
                 {
                   id: '红米4',
-                  content: '红米4'
+                  title: '红米4'
                 }
               ]
             }
@@ -51,15 +51,15 @@ class KeepAliveTest extends React.Component {
         },
         {
           id: '电视',
-          content: '电视',
+          title: '电视',
           children: [
             {
               id: '小米电视4A',
-              content: '小米电视4A'
+              title: '小米电视4A'
             },
             {
               id: '小米电视4C',
-              content: '小米电视4C'
+              title: '小米电视4C'
             }
           ]
         }
@@ -129,12 +129,24 @@ class KeepAliveTest extends React.Component {
     const Col = Grid.Col
     const FormItem = Form.Item
     return (
-      <div style={{ background: '#fff', height: '100vh', padding: '10px' }}>
+      <div style={{ background: '#fff', padding: '10px' }}>
         <h2>keep-alive</h2>
         <p>设置该页面为 keepAlive 状态为true时候，会缓存该页面实例</p>
         <Row>
           <Col span={12}>
-            <Form ref={this.form} rules={this.state.rules} labelWidth="80" labelPlacement="right">
+            <Form
+              ref={this.form}
+              rules={this.state.rules}
+              initialValues={{
+                name: '',
+                count: 0,
+                store: '',
+                region: '',
+                category: ''
+              }}
+              labelWidth="80"
+              labelPlacement="right"
+            >
               <FormItem label="名称" field="name">
                 <Input placeholder="请输入" />
               </FormItem>
@@ -150,7 +162,6 @@ class KeepAliveTest extends React.Component {
                     { title: '生活周边', id: '5' },
                     { title: '办公', id: '6' }
                   ]}
-                  type="multiple"
                   searchable
                   showCheckAll
                   placeholder="请选择"
@@ -170,19 +181,27 @@ class KeepAliveTest extends React.Component {
                 />
               </FormItem>
               <FormItem label="地区" field="region">
-                <Radio.Group data={['北京', '上海', '重庆']} />
+                <Radio.Group
+                  data={[
+                    { id: 'beijing', title: '北京' },
+                    { id: 'shanghai', title: '上海' },
+                    { id: 'chongqing', title: '重庆' }
+                  ]}
+                />
               </FormItem>
 
               <FormItem>
-                <Button type="primary" onClick={this.handleSubmit.bind(this)}>
-                  提交
-                </Button>
-                <Button type="line" onClick={this.cancelSubmit.bind(this)}>
-                  重置
-                </Button>
-                <Button type="line" onClick={this.clearValidates.bind(this)}>
-                  清除校验信息
-                </Button>
+                <div>
+                  <Button type="primary" onClick={this.handleSubmit.bind(this)}>
+                    提交
+                  </Button>
+                  <Button type="default" onClick={this.cancelSubmit.bind(this)}>
+                    重置
+                  </Button>
+                  <Button type="default" onClick={this.clearValidates.bind(this)}>
+                    清除校验信息
+                  </Button>
+                </div>
               </FormItem>
             </Form>
           </Col>
@@ -191,4 +210,5 @@ class KeepAliveTest extends React.Component {
     )
   }
 }
+
 export default KeepAliveTest

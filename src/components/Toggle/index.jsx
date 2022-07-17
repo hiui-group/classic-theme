@@ -1,5 +1,5 @@
 import React from 'react'
-import Icon from '../icon'
+import { MenuOutlined } from '@hi-ui/icons'
 
 const Toggle = ({ collapsed, show, onToggle, icon }) => {
   return show ? (
@@ -10,7 +10,7 @@ const Toggle = ({ collapsed, show, onToggle, icon }) => {
         onToggle(_collapsed)
       }}
     >
-      <Icon name={icon || (collapsed ? 'menu-unfold' : 'menu-fold')} />
+      {icon || <MenuOutlined />}
     </div>
   ) : null
 }

@@ -34,11 +34,11 @@
     height: 30px;
     line-height: 30px;
     border: 1px solid #d8dce5;
-    color: #333;
+    color: #1f2733;
     background: #fff;
     padding: 0 8px;
     font-size: 12px;
-    border-radius: 2px;
+    border-radius: 4px;
     margin-left: 6px;
     flex-shrink: 0;
 
@@ -55,7 +55,7 @@
 
     &--active {
       color: #fff;
-      background: use-color-mode('primary', 600);
+      background-color: use-color-mode('primary', 600);
       border-color: transparent;
 
       .theme-nav-bar_icon {
