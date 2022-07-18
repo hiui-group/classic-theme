@@ -105,23 +105,14 @@ ul {
   &--dark {
     background: #1f2733 !important;
     box-shadow: 0 2px 6px rgba(#1f2733, 0.35);
-    color: #fff;
+    color: #dfe2e8;
 
     .hi-logo__title {
-      color: #fff;
-    }
-
-    .sider__footer {
-      // background-color: #1f2733;
+      color: #dfe2e8;
     }
 
     .sider__menu {
-      color: #fff;
-
-      // .menu__leaf-title--active {
-      //   background: #2e343d;
-      //   color: use-color-mode('primary');
-      // }
+      color: #dfe2e8;
     }
 
     .hi-v4-menu--vertical .hi-v4-menu-item__inner:not(.hi-v4-menu-item__inner--active):hover {

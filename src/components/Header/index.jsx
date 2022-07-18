@@ -6,7 +6,7 @@ import './style/index'
 import Toggle from '../Toggle'
 import { Avatar, Menu } from '@hi-ui/hiui'
 import { cx, isArrayNonEmpty } from '@hi-ui/utils'
-import { CaretDownFilled } from '@hi-ui/icons'
+import { DownOutlined } from '@hi-ui/icons'
 
 const Header = ({
   mainMenu,
@@ -94,11 +94,9 @@ const Header = ({
             >
               {login.name ? (
                 <>
-                  <div style={{ display: 'inline-flex', gap: 4, alignItems: 'center' }}>
-                    <Avatar icon={login.icon} src={login.avatar} size={20} />
-                    <span>{login.name}</span>
-                  </div>
-                  <CaretDownFilled />
+                  <Avatar icon={login.icon} src={login.avatar} size={20} />
+                  <span>{login.name}</span>
+                  <DownOutlined />
                 </>
               ) : (
                 <Avatar icon={login.icon} src={login.avatar} size={34} />

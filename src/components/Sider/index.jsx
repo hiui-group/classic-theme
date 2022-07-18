@@ -6,7 +6,7 @@ import _ from 'lodash'
 import Drawer from '@hi-ui/drawer'
 import Popper from '@hi-ui/popper'
 import Menu from '@hi-ui/menu'
-import { CaretRightFilled } from '@hi-ui/icons'
+import { RightOutlined } from '@hi-ui/icons'
 import { cloneTree, findNodeById, isNullish, visitTree } from '@hi-ui/utils'
 import { Avatar } from '@hi-ui/hiui'
 
@@ -141,7 +141,7 @@ const Sider = ({
                                 <>
                                   {login.name ? <span className="sider__login-name">{login.name}</span> : null}
                                   <span className="sider__login-action">
-                                    <CaretRightFilled />
+                                    <RightOutlined />
                                   </span>
                                 </>
                               )}
@@ -222,7 +222,7 @@ const Sider = ({
                               <>
                                 <span className="sider__login-name">{login.name}</span>
                                 <span className="sider__login-action">
-                                  <CaretRightFilled />
+                                  <RightOutlined />
                                 </span>
                               </>
                             )}

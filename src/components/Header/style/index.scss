@@ -60,23 +60,23 @@
   &--dark {
     background: #1f2733 !important;
     box-shadow: 0 2px 6px rgba(#1f2733, 0.35);
-    color: #fff;
+    color: #dfe2e8;
 
     .hi-theme__toolbar {
-      color: #fff;
+      color: #dfe2e8;
     }
 
     .hi-logo__title {
-      color: #fff;
+      color: #dfe2e8;
     }
 
     .login__wrapper {
-      color: #fff;
+      color: #dfe2e8;
     }
 
     .main-menu-item {
       a {
-        color: #fff;
+        color: #dfe2e8;
       }
     }
 
@@ -91,7 +91,7 @@
     }
 
     .hi-theme__menu {
-      color: #fff;
+      color: #dfe2e8;
     }
   }
 
@@ -99,6 +99,7 @@
     padding: 0 12px;
     cursor: pointer;
     font-size: 20px;
+    color: #5f6a7a;
   }
 
   .login__wrapper {
@@ -106,6 +107,9 @@
     margin-left: 20px;
     margin-right: 24px;
     cursor: pointer;
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
 
     & > .hi-theme-icon {
       margin-right: 6px;
