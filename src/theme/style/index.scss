@@ -1,5 +1,5 @@
 @import './base.scss';
-@import './core-css/index.scss';
+@import '@hi-ui/core-css/index.scss';
 
 :root {
   @include get-vars();
