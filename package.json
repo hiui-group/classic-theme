@@ -31,6 +31,7 @@
   "dependencies": {
     "@babel/runtime": "^7.18.6",
     "@hi-ui/core-css": "^4.0.0",
+    "@hi-ui/utils": "^4.0.0",
     "classnames": "^2.2.6",
     "history": "^4.9.0",
     "lodash": "^4.17.11",
@@ -48,7 +49,6 @@
     "@hi-ui/core": "^4.0.0",
     "@hi-ui/hiui": "^4.0.0",
     "@hi-ui/icons": "^4.0.0",
-    "@hi-ui/utils": "^4.0.0",
     "autoprefixer": "^8.3.0",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^8.0.5",
