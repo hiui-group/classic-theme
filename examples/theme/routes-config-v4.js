@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import KeepAliveTest from './KeepAliveTest'
 import Page2 from './page2'
 // import LazyComponent from './LazyComponent'
+import { AppStoreOutlined, UserOutlined, SunOutlined, PadOutlined } from '@hi-ui/icons'
 
 const CC = () => (
   <div>
@@ -46,12 +47,11 @@ const config = [
     path: '/home',
     authority: [1],
     component: Iot,
-    // icon: <Icon name="info-circle" />,
+    icon: <AppStoreOutlined />,
     children: [
       {
         name: '工作台',
         path: '/workbench',
-        icon: 'file-exe',
         component: SoundBox,
         keepAlive: true,
         // authority: ['admain'],
@@ -79,7 +79,6 @@ const config = [
       {
         name: '懒加载页面',
         path: '/lazy-test',
-        icon: 'file-exe',
         component: LazyCom,
         // component: LazyComponent,
         keepAlive: true
@@ -88,6 +87,7 @@ const config = [
   },
   {
     name: 'KeepAlive',
+    icon: <PadOutlined />,
     path: '/test-KeepAliveTest',
     keepAlive: true,
     unmountOnTagClose: true,
@@ -96,15 +96,15 @@ const config = [
   {
     name: '电脑',
     path: '/test-popper2',
+    icon: <SunOutlined />,
     component: Page2
   },
   {
     name: '手机',
-    icon: <span>👿</span>,
+    icon: <UserOutlined />,
     children: [
       {
         name: '小米',
-        icon: <span>🐂</span>,
         children: [{ name: '小米CC', path: '/cc', component: CC }]
       },
       { name: '红米', path: '/red-mi', component: RedMi, withoutLayout: true },
@@ -115,6 +115,41 @@ const config = [
         extraData: { abc: 1 }
       }
     ]
+  },
+  {
+    name: '导航菜单1',
+    icon: <UserOutlined />,
+    component: Fallback
+  },
+  {
+    name: '导航菜单2',
+    icon: <UserOutlined />,
+    path: 'https://github.com/XiaoMi/hiui'
+  },
+  {
+    name: '导航菜单3',
+    icon: <UserOutlined />,
+    component: Fallback
+  },
+  {
+    name: '导航菜单4',
+    icon: <UserOutlined />,
+    component: Fallback
+  },
+  {
+    name: '导航菜单5',
+    icon: <UserOutlined />,
+    component: Fallback
+  },
+  {
+    name: '导航菜单6',
+    icon: <UserOutlined />,
+    component: Fallback
+  },
+  {
+    name: '导航菜单7',
+    icon: <UserOutlined />,
+    component: Fallback
   },
   {
     path: '/404',

@@ -1,4 +1,4 @@
-@import '@hi-ui/core-css/index.scss';
+@import '@hi-ui/core-css/lib/index.scss';
 
 .hi-logo {
   box-sizing: border-box;
@@ -9,7 +9,7 @@
   transition: width 0.3s;
 
   &--mini {
-    width: 48px;
+    width: 56px;
     padding: 0 4px !important;
   }
 
@@ -23,7 +23,7 @@
   }
 
   .hi-theme__sider--mini & {
-    width: 48px;
+    width: 56px;
     padding: 0;
     justify-content: center;
 
@@ -43,9 +43,10 @@
   }
 
   &__title {
-    font-size: $font-size-large;
-    font-weight: $font-weight-bold;
+    font-size: use-text-size('lg');
+    font-weight: use-text-weight('semibold');
     white-space: nowrap;
     color: #fff;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(31, 39, 51, 0.1);
   }
 }

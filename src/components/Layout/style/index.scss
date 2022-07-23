@@ -1,5 +1,5 @@
-@import '@hi-ui/core-css/lib/i18n/zh-CN.scss';
-@import '@hi-ui/core-css/index.scss';
+// @import '@hi-ui/core-css/lib/i18n/zh-CN.scss';
+@import '@hi-ui/core-css/lib/index.scss';
 
 .hi-theme--classic {
   position: relative;
@@ -7,6 +7,8 @@
   height: calc(100vh - 64px);
   box-sizing: border-box;
   margin-top: 64px;
+  z-index: 0;
+  overflow: hidden;
 
   .hi-theme__sider {
     box-shadow: 1px 0 4px rgba(0, 21, 41, 0.08);
@@ -18,18 +20,9 @@
 
     .sider__menu {
       .menu__leaf-title--active {
-        background: use-color('primary-20');
-        color: use-color('primary');
+        background: use-color-mode('primary', 50);
+        color: use-color-mode('primary');
         position: relative;
-
-        &::after {
-          content: '';
-          height: 48px;
-          width: 4px;
-          background: use-color('primary');
-          left: 0;
-          position: absolute;
-        }
       }
     }
   }
@@ -44,6 +37,8 @@
   .hi-theme__content {
     flex: 1;
     overflow: auto;
+    background: #f5f7fa;
+    padding: 24px 20px 12px;
   }
 }
 
@@ -87,6 +82,8 @@
     .hi-theme__content {
       flex: 1;
       overflow: auto;
+      background: #f5f7fa;
+      padding: 24px 20px 12px;
     }
 
     .hi-theme--no-header {
@@ -100,7 +97,13 @@
     box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
     .hi-theme__toolbar {
-      color: #333;
+      color: #1f2733;
+      flex-shrink: 0;
+    }
+
+    .login__wrapper {
+      flex-shrink: 0;
+      width: 100%;
     }
   }
 

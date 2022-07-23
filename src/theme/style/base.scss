@@ -1,4 +1,4 @@
-$min-page-width: 1260px !default;
+$min-page-width: 900px !default;
 $line-height-normal: 1.5 !default;
 $font-size-normal: 14px !default;
 // Fonts
@@ -357,12 +357,11 @@ template {
   display: none;
 }
 
-// TODO: 待优化
 body {
-  min-width: $min-page-width;
+  // min-width: $min-page-width;
   font: #{$font-size-normal}/#{$line-height-normal} $font-family-base;
   background-color: #fff;
-  color: #333;
+  color: #1f2733;
 }
 
 a {

@@ -75,7 +75,6 @@ const GenuineLayout = ({
 
   const handleTagClose = useCallback(
     ({ path, unmountOnTagClose }) => {
-      console.log(path)
       if (unmountOnTagClose) {
         unmount(path)
       }

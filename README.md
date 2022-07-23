@@ -146,7 +146,7 @@ History[`${your history type}`].push()
 | 属性名            | 描述                                     | 类型      | 默认值 |
 | ----------------- | ---------------------------------------- | --------- | ------ |
 | name              | 菜单名称                                 | string    | -      |
-| icon              | 菜单 icon                                | string    | -      |
+| icon              | 菜单 icon                                | ReactNode | -      |
 | children          | 子菜单配置项                             | Route[]   | -      |
 | path              | 菜单跳转路径                             | string    | -      |
 | exact             | 菜单跳转路径是否严格匹配对应的 component | boolean   | true   |
@@ -176,8 +176,9 @@ History[`${your history type}`].push()
 
 ### type: Login
 
-| 属性名   | 描述          | 类型        | 默认值 |
-| -------- | ------------- | ----------- | ------ |
-| name     | 登录用户姓名  | string      | -      |
-| icon     | 登录用户 icon | string      | -      |
-| children | 登录菜单项    | ReactNode[] | -      |
+| 属性名   | 描述               | 类型        | 默认值 |
+| -------- | ------------------ | ----------- | ------ |
+| name     | 登录用户姓名       | string      | -      |
+| avatar   | 头像图片的链接地址 | string      | -      |
+| icon     | 登录用户 icon      | ReactNode   | -      |
+| children | 登录菜单项         | ReactNode[] | -      |

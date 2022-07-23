@@ -74,6 +74,7 @@ const ClassicLayout = ({
         key="header"
         mainMenu={mainMenu}
         activeMainMenu={activeMainMenu}
+        onSelectMenu={onSelectMenu}
         location={location}
         logo={logo}
         login={login}

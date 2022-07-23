@@ -1,13 +1,12 @@
 import React, { useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
-import Icon from '../icon'
 import Logo from '../Logo'
-import Popper from '../popper'
+import Popper from '@hi-ui/popper'
 import ClassNames from 'classnames'
 import './style/index'
 import Toggle from '../Toggle'
-
-const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
+import { Avatar, Menu } from '@hi-ui/hiui'
+import { cx, isArrayNonEmpty } from '@hi-ui/utils'
+import { DownOutlined } from '@hi-ui/icons'
 
 const Header = ({
   mainMenu,
@@ -20,7 +19,7 @@ const Header = ({
   setSiderVisible,
   siderVisible,
   type,
-  onMenuClick,
+  onSelectMenu,
   theme,
   color,
   tagsView,
@@ -29,8 +28,22 @@ const Header = ({
 }) => {
   const [loginVisible, setLoginVisible] = useState(false)
   const popperRef = useRef(null)
-  const loginRef = useRef(null)
   const logoConfig = typeof logo === 'function' ? logo(mini) : logo
+
+  const [loginElement, setLoginElement] = useState(null)
+
+  const mainMenuMemo = React.useMemo(() => {
+    if (!isArrayNonEmpty(mainMenu)) return []
+
+    return mainMenu.map((item) => {
+      return {
+        ...item,
+        title: item.name,
+        children: undefined
+      }
+    })
+  }, [mainMenu])
+
   return (
     <div>
       <div
@@ -43,7 +56,7 @@ const Header = ({
         {viewSize === 'small' && (
           <Toggle
             show
-            icon="menu"
+            // icon="menu"
             collapsed={!siderVisible}
             onToggle={() => {
               if (setSiderVisible) {
@@ -52,58 +65,51 @@ const Header = ({
             }}
           />
         )}
+
         {((logo && type === 'classic') || (logo && type === 'genuine' && viewSize === 'small')) && (
           <Logo {...logoConfig} mini={viewSize === 'small'} layout="horizontal" />
         )}
 
-        {mainMenu && (
-          <ul className={`hi-theme__menu theme__${theme}`} style={{ flex: toolbar ? '0 0 auto' : 1 }}>
-            {mainMenu.map((menu) => (
-              <li
-                key={menu.id}
-                className={ClassNames('main-menu-item', {
-                  'active-main-menu': activeMainMenu && menu.id === activeMainMenu.id
-                })}
-                onClick={() => {
-                  onMenuClick && onMenuClick(menu)
-                }}
-              >
-                {menu.path.match(reg) ? (
-                  <a href={menu.path} target={menu.target || '_blank'}>
-                    {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
-                    {menu.name}
-                  </a>
-                ) : (
-                  <Link to={menu.path}>
-                    {menu.icon && <Icon name={menu.icon} style={{ marginRight: 4 }} />}
-                    {menu.name}
-                  </Link>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
+        {isArrayNonEmpty(mainMenu) ? (
+          <Menu
+            className={cx('hi-theme__menu', theme && `theme__${theme}`)}
+            placement="horizontal"
+            data={mainMenuMemo}
+            activeId={activeMainMenu ? activeMainMenu.id : ''}
+            onClick={(nextId) => {
+              const menuItem = mainMenu.find((item) => item.id === nextId)
+              onSelectMenu && onSelectMenu(menuItem)
+            }}
+          />
+        ) : null}
         {toolbar && <div className="hi-theme__toolbar">{toolbar}</div>}
         {login && (
           <React.Fragment>
             <div
               className={'login__wrapper'}
-              ref={loginRef}
+              ref={setLoginElement}
               onClick={(e) => {
                 setLoginVisible(!loginVisible)
               }}
             >
-              {typeof menu.icon === 'string' ? <Icon name={menu.icon} style={{ marginRight: 4 }} /> : menu.icon}
-              {login.name}
-              <Icon name={'caret-down'} />
+              {login.name ? (
+                <>
+                  <Avatar icon={login.icon} src={login.avatar} size={20} />
+                  <span>{login.name}</span>
+                  <DownOutlined />
+                </>
+              ) : (
+                <Avatar icon={login.icon} src={login.avatar} size={34} />
+              )}
             </div>
+
             <Popper
-              show={loginVisible}
-              attachEle={loginRef.current}
+              visible={loginVisible}
+              attachEl={loginElement}
               zIndex={1050}
               placement="bottom-end"
-              width={false}
-              onClickOutside={() => {
+              // width={false}
+              onClose={() => {
                 setLoginVisible(false)
               }}
             >

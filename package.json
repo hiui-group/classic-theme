@@ -1,6 +1,6 @@
 {
   "name": "@hi-ui/classic-theme",
-  "version": "3.7.0",
+  "version": "4.0.0",
   "description": "Classic theme for HIUI",
   "main": "./es/index.js",
   "scripts": {
@@ -29,14 +29,15 @@
   "author": "HIUI <mi-hiui@xiaomi.com>",
   "license": "MIT",
   "dependencies": {
+    "@babel/runtime": "^7.18.6",
+    "@hi-ui/core-css": "^4.0.0",
     "classnames": "^2.2.6",
     "history": "^4.9.0",
     "lodash": "^4.17.11",
     "react-router": "^4.3.1",
     "react-router-config": "^4.4.0-beta.8",
     "react-router-dom": "^4.2.2",
-    "react-transition-group": "^4.4.1",
-    "@hi-ui/core-css": "^3.0.0-alpha.1"
+    "react-transition-group": "^4.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -44,7 +45,10 @@
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
-    "@hi-ui/hiui": "^3.6.0",
+    "@hi-ui/core": "^4.0.0",
+    "@hi-ui/hiui": "^4.0.0",
+    "@hi-ui/icons": "^4.0.0",
+    "@hi-ui/utils": "^4.0.0",
     "autoprefixer": "^8.3.0",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^8.0.5",
@@ -96,7 +100,11 @@
   },
   "peerDependencies": {
     "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react-dom": ">=16.8.0",
+    "@hi-ui/core": ">=4.0.0",
+    "@hi-ui/hiui": ">=4.0.0",
+    "@hi-ui/icons": ">=4.0.0",
+    "@hi-ui/utils": ">=4.0.0"
   },
   "lint-staged": {
     "*.{js,jsx}": [
