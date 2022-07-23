@@ -1,5 +1,9 @@
 # 更新日志
 
+## 4.0.0
+
+- HiUI4 大版本更新
+
 ## 3.7.0
 
 - 添加 disabledAutoFallback props，支持禁用自动 fallback 到第一个有效路由 [#88](https://github.com/XiaoMi/hiui/issues/88)
