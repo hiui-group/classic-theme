@@ -121,8 +121,6 @@ History[`${your history type}`].push()
 | dynamic           | 开启动态布局                                    | boolean                                                    | true                        |
 | tagsView          | 开启页面顶部标签页视图                          | boolean                                                    | false                       |
 | routes            | 路由配置项                                      | Route[]                                                    | -                           |
-| logo              | 系统 logo                                       | ReactNode                                                  | -                           |
-| login             | 系统登录配置项                                  | ReactNode                                                  | -                           |
 | historyType       | 路由跳转类型                                    | 'hashHistory' \| 'browserHistory'                          | 'browserHistory'            |
 | header            | genuine 类型下的顶部功能栏                      | ReactNode \| null                                          | 不传时默认为主题自带 header |
 | apperance         | 主题外观配置项                                  | Apperance                                                  | {color:'dark'}              |
@@ -153,7 +151,7 @@ History[`${your history type}`].push()
 | component         | 菜单对应页面组件                         | ReactNode | -      |
 | withoutLayout     | 页面组件渲染时，不显示顶部导航栏和侧边栏 | boolean   | false  |
 | extraData         | 向路由匹配的页面组件注入额外的数据       | object    | -      |
-| authority         | 允许访问该路由的权限                     | string[]  | -      |
+| authority         | 允许访问该路由的权限（和 Theme 中的 authority 配置的内容能够匹配上） | string[]  | -      |
 | keepAlive         | 缓存组件实例                             | boolean   | false  |
 | hideInMenu        | 设置 true 强制在菜单中隐藏展示           | boolean   | false  |
 | unmountOnTagClose | 点击 tag 关闭时销毁组件实例              | boolean   | false  |
