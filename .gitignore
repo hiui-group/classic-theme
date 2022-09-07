@@ -9,6 +9,7 @@ es/
 .settings/
 .vscode/
 .tmp/
+.history/
 
 # Dev dependencies and cache files
 node_modules/

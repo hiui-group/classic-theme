@@ -11,7 +11,7 @@ const cwd = process.cwd()
 const libDir = path.join(cwd, 'lib')
 const esDir = path.join(cwd, 'es')
 
-const compile = modules => {
+const compile = (modules) => {
   rimraf.sync(modules !== false ? libDir : esDir)
   const sass = gulp
     .src(['src/**/*.scss', '!src/**/_*.scss'])
@@ -20,13 +20,14 @@ const compile = modules => {
         // this.push(file.clone())
         if (file.path.match(/\/style\/.*\.scss$/)) {
           transformSass(file.path)
-            .then(css => {
-              file.contents = Buffer.from(css)
+            .then((css) => {
+              // 将 css 内容中多余的 @use 'sass:map'; 内容删除
+              file.contents = Buffer.from(css.replace(/@use 'sass:map';/g, ''))
               file.path = file.path.replace(/\.scss$/, '.css')
               this.push(file)
               next()
             })
-            .catch(e => {
+            .catch((e) => {
               console.error(e)
             })
         } else {
@@ -47,17 +48,19 @@ const compile = modules => {
         plugins: [['transform-remove-console', { exclude: ['error', 'warn'] }]]
       })
     )
-    .pipe(through2.obj(function (file, encoding, next) {
-      if (file.path.match(/\/.*\.js$/)) {
-        const cssContent = file.contents.toString().replace(/\.scss/g, '.css')
-        file.contents = Buffer.from(cssContent)
-        this.push(file)
-        next()
-      } else {
-        this.push(file)
-        next()
-      }
-    }))
+    .pipe(
+      through2.obj(function (file, encoding, next) {
+        if (file.path.match(/\/.*\.js$/)) {
+          const cssContent = file.contents.toString().replace(/\.scss/g, '.css')
+          file.contents = Buffer.from(cssContent)
+          this.push(file)
+          next()
+        } else {
+          this.push(file)
+          next()
+        }
+      })
+    )
     .pipe(gulp.dest(modules === false ? esDir : libDir))
   return merge2([sass, assets, js])
 }
