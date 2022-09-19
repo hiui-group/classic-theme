@@ -1,5 +1,9 @@
 # 更新日志
 
+## 4.0.2
+
+- Sider 增加 activeId 参数，修复 tagsView 模式下菜单联动问题 [#113](https://github.com/hiui-group/classic-theme/issues/113)
+
 ## 4.0.0
 
 - HiUI4 大版本更新
