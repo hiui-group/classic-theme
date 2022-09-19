@@ -111,6 +111,7 @@ const ClassicLayout = ({
             color={apperance.color}
             container={containerRef.current}
             defaultToggle={defaultToggle}
+            activeId={currentMenu.id}
           />
         )}
         <div className="hi-theme__wrapper">
