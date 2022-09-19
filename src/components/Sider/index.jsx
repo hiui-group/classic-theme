@@ -38,7 +38,8 @@ const Sider = ({
   type,
   container,
   theme,
-  defaultToggle
+  defaultToggle,
+  activeId
 }) => {
   const [mini, toggleMini] = useState(defaultToggle === 'mini' || false)
   const [expandedIds, setExpandedIds] = useState([])
@@ -114,6 +115,7 @@ const Sider = ({
                 expandedIds={mini ? undefined : expandedIds}
                 onExpand={setExpandedIds}
                 data={siderMenuMemo}
+                activeId={activeId}
                 onClick={(menuId) => {
                   if (onSelectMenu) {
                     onSelectMenu(findNodeById(siderMenuMemo, menuId))

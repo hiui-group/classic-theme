@@ -104,6 +104,7 @@ const GenuineLayout = ({
             type={type}
             color={apperance.color}
             defaultToggle={defaultToggle}
+            activeId={currentMenu.id}
           />
         )}
         <div className={ClassNames('hi-theme__container')}>
