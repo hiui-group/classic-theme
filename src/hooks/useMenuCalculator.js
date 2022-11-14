@@ -43,7 +43,7 @@ const useMenuCalculator = (menu, location, history, fallback, onMenuClick, disab
   )
 
   useLayoutEffect(() => {
-    const _menu = cloneDeep(menu)
+    const _menu = menu
     const nextMenu = getCurrentMenu(_menu)
 
     if (nextMenu) {
