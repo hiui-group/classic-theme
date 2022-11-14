@@ -8,7 +8,7 @@ import Popper from '@hi-ui/popper'
 import Menu from '@hi-ui/menu'
 import { RightOutlined } from '@hi-ui/icons'
 import { cloneTree, findNodeById, isNullish, visitTree } from '@hi-ui/utils'
-import { Avatar } from '@hi-ui/hiui'
+import Avatar from '@hi-ui/avatar'
 
 const getId = (menu, array = []) => {
   menu.forEach((m) => {
