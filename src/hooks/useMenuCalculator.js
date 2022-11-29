@@ -1,6 +1,6 @@
 import { isEqual, cloneDeep } from 'lodash'
 import { useCallback, useState, useLayoutEffect, useMemo } from 'react'
-import { findMenu, getAncestor, getDefaultActiveMenu } from '../util/common'
+import { findMenu, getAncestor, getDefaultActiveMenu, getNamedParent } from '../util/common'
 
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
@@ -56,7 +56,16 @@ const useMenuCalculator = (menu, location, history, fallback, onMenuClick, disab
     return getCurrentMenu(_menu)
   }, [getCurrentMenu, menu])
 
+  const activeMenuId = useMemo(() => {
+    if (!currentMenu.name) {
+      return getNamedParent(currentMenu.path, menu).id
+    } else {
+      return currentMenu.id
+    }
+  }, [menu, currentMenu.id, find])
+
   return {
+    activeMenuId,
     currentMenu,
     selectedMenus,
     onSelectMenu,
