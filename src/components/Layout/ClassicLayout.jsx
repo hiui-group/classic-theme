@@ -40,7 +40,7 @@ const ClassicLayout = ({
 }) => {
   const containerRef = useRef(null)
   const mainMenu = useMainMenu(menu, authority)
-  const { currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
+  const { activeMenuId, currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
     menu,
     location,
     history,
@@ -111,7 +111,7 @@ const ClassicLayout = ({
             color={apperance.color}
             container={containerRef.current}
             defaultToggle={defaultToggle}
-            activeId={currentMenu.id}
+            activeId={activeMenuId}
           />
         )}
         <div className="hi-theme__wrapper">

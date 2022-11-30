@@ -66,6 +66,17 @@ export const getAncestor = (path, data, arr = []) => {
   }
   return arr
 }
+
+// 寻找某一节点具有 name 属性的祖先节点
+export const getNamedParent = (path, data) => {
+  const parent = getParent(path, data)
+  if (!parent.name) {
+    return getNamedParent(parent.path, data)
+  } else {
+    return parent
+  }
+}
+
 // 寻找默认需要高亮的菜单
 export const getDefaultActiveMenu = (menu, idx = 0) => {
   if (!!menu && menu.length > 0) {

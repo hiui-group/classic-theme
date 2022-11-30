@@ -39,7 +39,7 @@ const GenuineLayout = ({
   tagsView,
   defaultToggle
 }) => {
-  const { currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
+  const { activeMenuId, currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
     menu,
     location,
     history,
@@ -104,7 +104,7 @@ const GenuineLayout = ({
             type={type}
             color={apperance.color}
             defaultToggle={defaultToggle}
-            activeId={currentMenu.id}
+            activeId={activeMenuId}
           />
         )}
         <div className={ClassNames('hi-theme__container')}>
