@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 // import { Icon } from '@hi-ui/hiui'
 import KeepAliveTest from './KeepAliveTest'
 import Page2 from './page2'
 // import LazyComponent from './LazyComponent'
+import Button from '@hi-ui/button'
 import { AppStoreOutlined, UserOutlined, SunOutlined, PadOutlined } from '@hi-ui/icons'
 
 const CC = () => (
@@ -14,10 +15,11 @@ const CC = () => (
 )
 
 const RedMi = (props) => {
+  const navigate = useNavigate()
   useEffect(() => {
     console.log('Mounted', props)
   }, [])
-  return <div onClick={() => props.history.push('/test-KeepAliveTest')}>红米手机</div>
+  return <Button onClick={() => navigate('/test-KeepAliveTest')}>红米手机</Button>
 }
 
 const BlackShark = (props) => {
@@ -117,45 +119,9 @@ const config = [
     ]
   },
   {
-    name: '导航菜单1',
-    icon: <UserOutlined />,
-    component: Fallback
-  },
-  {
-    name: '导航菜单2',
-    icon: <UserOutlined />,
-    path: 'https://github.com/XiaoMi/hiui'
-  },
-  {
-    name: '导航菜单3',
-    icon: <UserOutlined />,
-    component: Fallback
-  },
-  {
-    name: '导航菜单4',
-    icon: <UserOutlined />,
-    component: Fallback
-  },
-  {
-    name: '导航菜单5',
-    icon: <UserOutlined />,
-    component: Fallback
-  },
-  {
-    name: '导航菜单6',
-    icon: <UserOutlined />,
-    component: Fallback
-  },
-  {
-    name: '导航菜单7',
-    icon: <UserOutlined />,
-    component: Fallback
-  },
-  {
     path: '/404',
     component: Fallback
   }
-  // { name: '电视', path: '/tv', component: TV },
 ]
 
 export default config

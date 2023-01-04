@@ -37,10 +37,13 @@ const Header = ({
     if (!isArrayNonEmpty(mainMenu)) return []
 
     return mainMenu.map((item) => {
+      const { id, title, icon, path, disabled } = item
       return {
-        ...item,
-        title: item.name,
-        children: undefined
+        id,
+        title,
+        icon,
+        path,
+        disabled
       }
     })
   }, [mainMenu])

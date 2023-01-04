@@ -1,4 +1,4 @@
-import { matchPath } from 'react-router'
+import { matchPath } from 'react-router-dom'
 
 export const transformConfig = (config, parentId) => {
   config.forEach((c, index) => {
@@ -13,15 +13,7 @@ export const transformConfig = (config, parentId) => {
 export const findMenu = (path, data) => {
   let node
   data.forEach((d, index) => {
-    if (
-      path !== undefined &&
-      (d.pathname === path ||
-        d.path === path ||
-        matchPath(path, {
-          path: d.path || d.pathname,
-          exact: true
-        }))
-    ) {
+    if (path !== undefined && (d.pathname === path || d.path === path || matchPath(path, d.path || d.pathname || ''))) {
       node = d
     } else {
       if (d.children && findMenu(path, d.children)) {
@@ -39,13 +31,7 @@ export const getParent = (path, data) => {
     if (item.children) {
       if (
         item.children.some(
-          (child) =>
-            child.path === path ||
-            matchPath(path, {
-              path: child.path,
-              exact: true
-            }) ||
-            child.id === path
+          (child) => child.path === path || matchPath(path, child.path || child.pathname || '') || child.id === path
         )
       ) {
         parent = item

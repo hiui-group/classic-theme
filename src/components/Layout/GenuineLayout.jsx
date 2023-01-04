@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import Header from '../Header'
 import Sider from '../Sider'
 import Footer from '../Footer'
-import { Route, Redirect, Switch } from 'react-router-dom'
+import { Route, Navigate, Routes, useLocation } from 'react-router-dom'
 import ClassNames from 'classnames'
 import './style/index'
 import { getRoutes, filterMenu, checkAuth } from '../../util/common'
@@ -14,7 +14,6 @@ import { useCacheContext } from '../../keep-alive/CacheContext'
 const GenuineLayout = ({
   apperance,
   menu,
-  location,
   history,
   logo,
   login,
@@ -39,14 +38,15 @@ const GenuineLayout = ({
   tagsView,
   defaultToggle
 }) => {
-  const { activeMenuId, currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
+  const location = useLocation()
+  const { activeMenuId, currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator({
     menu,
     location,
     history,
     fallback,
     onMenuClick,
     disabledAutoFallback
-  )
+  })
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
 
   const _header = header === null || header || (
@@ -82,83 +82,85 @@ const GenuineLayout = ({
     [unmount]
   )
 
-  return [
-    (!isWithoutLayout && (
-      <div key="container" className={`hi-theme--genuine theme__${theme}`}>
-        {menu.length > 0 && (
-          <Sider
-            siderMenu={_siderMenu}
-            selectedMenus={selectedMenus}
-            onSelectMenu={onSelectMenu}
-            login={login}
-            defaultExpandAll={defaultExpandAll}
-            siderTopRender={siderTopRender}
-            siderBottomRender={siderBottomRender}
-            logo={logo}
-            accordion={accordion}
-            theme={theme}
-            onToggle={onToggle}
-            viewSize={viewSize}
-            siderVisible={siderVisible}
-            setSiderVisible={setSiderVisible}
-            type={type}
-            color={apperance.color}
-            defaultToggle={defaultToggle}
-            activeId={activeMenuId}
-          />
-        )}
-        <div className={ClassNames('hi-theme__container')}>
-          {_header}
-          <div className="hi-theme__wrapper">
-            {tagsView ? (
-              <Tag
-                location={location}
-                history={history}
-                menu={menu}
-                onMenuClick={onMenuClick}
-                onTagClose={handleTagClose}
-              />
-            ) : null}
-            {pageHeader ? pageHeader(selectedMenus, location) : null}
-            <div
-              className={ClassNames('hi-theme__content', {
-                'hi-theme--no-header': header === null
-              })}
-              style={{ padding: apperance.contentPadding, background: apperance.contentBackground }}
-            >
-              <Switch>
-                {routes.map((route, index) => {
-                  return checkAuth(authority, route.authority) ? (
-                    <Route
-                      key={index}
-                      path={route.path}
-                      render={(props) => <route.component {...props} extraData={route.extraData} />}
-                      exact={!!route.exact}
-                    />
-                  ) : null
-                })}
-                {typeof fallback === 'string' || typeof defaultPath === 'string' ? (
-                  <Redirect
-                    to={{
-                      pathname: location.pathname === '/' ? defaultPath : fallback || defaultPath
-                    }}
+  return !isWithoutLayout ? (
+    <div key="container" className={`hi-theme--genuine theme__${theme}`}>
+      {menu.length > 0 && (
+        <Sider
+          siderMenu={_siderMenu}
+          selectedMenus={selectedMenus}
+          onSelectMenu={onSelectMenu}
+          login={login}
+          defaultExpandAll={defaultExpandAll}
+          siderTopRender={siderTopRender}
+          siderBottomRender={siderBottomRender}
+          logo={logo}
+          accordion={accordion}
+          theme={theme}
+          onToggle={onToggle}
+          viewSize={viewSize}
+          siderVisible={siderVisible}
+          setSiderVisible={setSiderVisible}
+          type={type}
+          color={apperance.color}
+          defaultToggle={defaultToggle}
+          activeId={activeMenuId}
+        />
+      )}
+      <div className={ClassNames('hi-theme__container')}>
+        {_header}
+        <div className="hi-theme__wrapper">
+          {tagsView ? (
+            <Tag
+              location={location}
+              history={history}
+              menu={menu}
+              onMenuClick={onMenuClick}
+              onTagClose={handleTagClose}
+            />
+          ) : null}
+          {pageHeader ? pageHeader(selectedMenus, location) : null}
+          <div
+            className={ClassNames('hi-theme__content', {
+              'hi-theme--no-header': header === null
+            })}
+            style={{
+              padding: apperance.contentPadding,
+              background: apperance.contentBackground
+            }}
+          >
+            <Routes>
+              {routes.map((route, index) => {
+                return checkAuth(authority, route.authority) ? (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    element={<route.component extraData={route.extraData} />}
+                    exact={!!route.exact}
                   />
-                ) : null}
-              </Switch>
-            </div>
-            {footer && <Footer footer={footer} />}
+                ) : null
+              })}
+              {typeof fallback === 'string' || typeof defaultPath === 'string' ? (
+                <Route
+                  path="*"
+                  element={<Navigate to={location.pathname === '/' ? defaultPath : fallback || defaultPath} />}
+                />
+              ) : null}
+            </Routes>
           </div>
+          {footer && <Footer footer={footer} />}
         </div>
       </div>
-    )) || (
+    </div>
+  ) : (
+    <Routes>
       <Route
         key="withoutLayout"
         path={currentMenu && currentMenu.path}
-        component={currentMenu && currentMenu.component}
+        element={currentMenu && <currentMenu.component />}
         exact={!!currentMenu && currentMenu.exact}
       />
-    )
-  ]
+    </Routes>
+  )
 }
 
 export default GenuineLayout

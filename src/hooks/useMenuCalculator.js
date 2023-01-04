@@ -1,10 +1,13 @@
 import { isEqual, cloneDeep } from 'lodash'
 import { useCallback, useState, useLayoutEffect, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { findMenu, getAncestor, getDefaultActiveMenu, getNamedParent } from '../util/common'
 
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
-const useMenuCalculator = (menu, location, history, fallback, onMenuClick, disabledAutoFallback) => {
+const useMenuCalculator = ({ menu, location, fallback, onMenuClick, disabledAutoFallback }) => {
+  const navigate = useNavigate()
+
   const getCurrentMenu = useCallback(
     (menu) => {
       if (menu && menu.length > 0) {
@@ -22,19 +25,19 @@ const useMenuCalculator = (menu, location, history, fallback, onMenuClick, disab
     [location.pathname, fallback]
   )
 
-  const [selectedMenus, setselectedMenus] = useState([])
+  const [selectedMenus, setSelectedMenus] = useState([])
 
   const onSelectMenu = useCallback(
     (selectMenu, doNavigate = true) => {
       const _selectedMenus = getAncestor(selectMenu.path, menu).reverse().concat(selectMenu)
       if (!isEqual(selectedMenus, _selectedMenus)) {
-        setselectedMenus(_selectedMenus)
+        setSelectedMenus(_selectedMenus)
       }
       if (doNavigate) {
         if (selectMenu.path.match(reg)) {
           window.open(selectMenu.path, selectMenu.target || '_blank')
         } else {
-          history.push(selectMenu.path)
+          navigate(selectMenu.path)
         }
         onMenuClick && onMenuClick(selectMenu)
       }
@@ -47,7 +50,7 @@ const useMenuCalculator = (menu, location, history, fallback, onMenuClick, disab
     const nextMenu = getCurrentMenu(_menu)
 
     if (nextMenu) {
-      onSelectMenu(nextMenu, !findMenu(location.pathname, _menu))
+      onSelectMenu(nextMenu, false)
     }
   }, [location.pathname, menu, onSelectMenu, getCurrentMenu])
 

@@ -20,6 +20,20 @@ const getId = (menu, array = []) => {
   return array
 }
 
+const convertMenuData = (arr) => {
+  return arr?.map((item) => {
+    const { id, title, icon, path, disabled, children } = item
+    return {
+      id,
+      title,
+      icon,
+      path,
+      disabled,
+      children: convertMenuData(children)
+    }
+  })
+}
+
 const Sider = ({
   siderMenu,
   siderTopRender,
@@ -80,11 +94,11 @@ const Sider = ({
       visitTree(menuData, (node) => {
         node.title = node.name
       })
-      return menuData
+      return convertMenuData(menuData)
     }
     return []
   }, [siderMenu])
-
+  console.log('siderMenuMemo', siderMenuMemo)
   return (
     <>
       <div
