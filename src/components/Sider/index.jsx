@@ -9,6 +9,7 @@ import Menu from '@hi-ui/menu'
 import { RightOutlined } from '@hi-ui/icons'
 import { cloneTree, findNodeById, isNullish, visitTree } from '@hi-ui/utils'
 import Avatar from '@hi-ui/avatar'
+import { convertMenuData } from '../../util/common'
 
 const getId = (menu, array = []) => {
   menu.forEach((m) => {
@@ -80,7 +81,7 @@ const Sider = ({
       visitTree(menuData, (node) => {
         node.title = node.name
       })
-      return menuData
+      return convertMenuData(menuData)
     }
     return []
   }, [siderMenu])
