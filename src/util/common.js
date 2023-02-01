@@ -70,6 +70,7 @@ export const getAncestor = (path, data, arr = []) => {
 // 寻找某一节点具有 name 属性的祖先节点
 export const getNamedParent = (path, data) => {
   const parent = getParent(path, data)
+  if (!parent) return null
   if (!parent.name) {
     return getNamedParent(parent.path, data)
   } else {

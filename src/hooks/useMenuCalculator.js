@@ -58,7 +58,7 @@ const useMenuCalculator = (menu, location, history, fallback, onMenuClick, disab
 
   const activeMenuId = useMemo(() => {
     if (!currentMenu.name) {
-      return getNamedParent(currentMenu.path, menu).id
+      return getNamedParent(currentMenu.path, menu)?.id ?? ''
     } else {
       return currentMenu.id
     }
