@@ -8,7 +8,7 @@ import { UserOutlined } from '@hi-ui/icons'
 const TV = () => <div>小米电视</div>
 
 const logoConfig = {
-  logoUrl: 'https://xiaomi.github.io/hiui/static/img/logo.png?241e0618fe55d933c280e38954edea05',
+  logoUrl: 'https://xiaomi.github.io/hiui/logo.png?241e0618fe55d933c280e38954edea05',
   name: <span>HIUI Theme</span>,
   url: 'https://xiaomi.github.io/hiui/#/'
 }
@@ -79,7 +79,7 @@ class App extends Component {
           // tagsView
           apperance={{ color: 'light' }}
           // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
-          accordion={false}
+          // accordion={false}
           toolbar={<div>{toolbar}</div>}
           // toolbar={
           //   <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
