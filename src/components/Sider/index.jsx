@@ -98,7 +98,7 @@ const Sider = ({
     }
     return []
   }, [siderMenu])
-  console.log('siderMenuMemo', siderMenuMemo)
+
   return (
     <>
       <div
