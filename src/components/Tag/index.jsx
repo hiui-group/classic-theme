@@ -5,7 +5,8 @@ import { findMenu } from '../../util/common.js'
 import './style/index.js'
 
 const prefix = 'theme-nav-bar'
-const Tag = ({ menu, history, location, onMenuClick, onTagClose }) => {
+const prefixContent = prefix + '__content'
+const Tag = ({ menu, history, location, onMenuClick, onTagClose, extra }) => {
   const [historyPaths, setHistoryPaths] = useState({})
   const [activePath, setActivePath] = useState('')
   const mergeRouter = useRef()
@@ -85,50 +86,50 @@ const Tag = ({ menu, history, location, onMenuClick, onTagClose }) => {
 
   return (
     <div className={prefix}>
-      {historyPathsKeys.map((key, index) => {
-        const { path, name } = historyPaths[key]
-        const prePath = historyPathsKeys[index - 1]
-        const nextPath = historyPathsKeys[index + 1]
-        const isActive = key === activePath
-        return (
-          <span
-            className={classNames(`${prefix}_tag`, { [`${prefix}_tag--active`]: isActive })}
-            key={path + index}
-            onClick={() => {
-              history.push(key)
-              onMenuClick && onMenuClick(historyPaths[key])
-            }}
-          >
-            <span>{name}</span>
-            {isTabAlone ? null : (
-              <span
-                className={`${prefix}_icon`}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  deleteItem(key, prePath, nextPath, isActive)
-                }}
-              >
-                <svg
-                  t="1624244997818"
-                  className="icon"
-                  viewBox="0 0 1024 1024"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  p-id="8674"
-                  width="14"
-                  height="14"
+      <div className={prefixContent}>
+        {historyPathsKeys.map((key, index) => {
+          const { path, name } = historyPaths[key]
+          const prePath = historyPathsKeys[index - 1]
+          const nextPath = historyPathsKeys[index + 1]
+          const isActive = key === activePath
+          return (
+            <span
+              className={classNames(`${prefixContent}_tag`, { [`${prefixContent}_tag--active`]: isActive })}
+              key={path + index}
+              onClick={() => {
+                history.push(key)
+                onMenuClick && onMenuClick(historyPaths[key])
+              }}
+            >
+              <span>{name}</span>
+              {isTabAlone ? null : (
+                <span
+                  className={`${prefixContent}_icon`}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    deleteItem(key, prePath, nextPath, isActive)
+                  }}
                 >
-                  <path
-                    d="M834.44 234.814a8 8 0 0 1 0 11.314L568.568 512 834.44 777.872a8 8 0 0 1 0 11.314l-45.254 45.254a8 8 0 0 1-11.314 0L512 568.568 246.128 834.44a8 8 0 0 1-11.314 0L189.56 789.186a8 8 0 0 1 0-11.314L455.432 512 189.56 246.128a8 8 0 0 1 0-11.314l45.254-45.254a8 8 0 0 1 11.314 0L512 455.43 777.872 189.56a8 8 0 0 1 11.314 0l45.254 45.254z"
-                    p-id="8675"
-                    fill="#1F2733"
-                  ></path>
-                </svg>
-              </span>
-            )}
-          </span>
-        )
-      })}
+                  <svg
+                    className="icon"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                  >
+                    <path
+                      d="M834.44 234.814a8 8 0 0 1 0 11.314L568.568 512 834.44 777.872a8 8 0 0 1 0 11.314l-45.254 45.254a8 8 0 0 1-11.314 0L512 568.568 246.128 834.44a8 8 0 0 1-11.314 0L189.56 789.186a8 8 0 0 1 0-11.314L455.432 512 189.56 246.128a8 8 0 0 1 0-11.314l45.254-45.254a8 8 0 0 1 11.314 0L512 455.43 777.872 189.56a8 8 0 0 1 11.314 0l45.254 45.254z"
+                      fill="#1F2733"
+                    ></path>
+                  </svg>
+                </span>
+              )}
+            </span>
+          )
+        })}
+      </div>
+      <div className={prefix + '__extra'}>{extra}</div>
     </div>
   )
 }

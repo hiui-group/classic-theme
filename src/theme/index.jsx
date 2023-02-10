@@ -41,6 +41,7 @@ const Layout = ({
   defaultToggle,
   onMenuClick,
   tagsView,
+  tagsViewExtra,
   theme
 }) => {
   // 获取是否存在keepAlive的路由
@@ -110,6 +111,7 @@ const Layout = ({
               defaultToggle={defaultToggle}
               theme={theme}
               tagsView={tagsView}
+              tagsViewExtra={tagsViewExtra}
               {...props}
             />
           )}

@@ -37,6 +37,7 @@ const GenuineLayout = ({
   onMenuClick,
   theme,
   tagsView,
+  tagsViewExtra,
   defaultToggle
 }) => {
   const { activeMenuId, currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator(
@@ -115,6 +116,7 @@ const GenuineLayout = ({
                 location={location}
                 history={history}
                 menu={menu}
+                extra={tagsViewExtra}
                 onMenuClick={onMenuClick}
                 onTagClose={handleTagClose}
               />

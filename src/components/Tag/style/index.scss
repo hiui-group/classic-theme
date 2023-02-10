@@ -4,6 +4,14 @@
   height: 42px;
   display: flex;
   align-items: center;
+  overflow-x: hidden;
+}
+
+.theme-nav-bar__content {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  flex: 1;
   overflow-x: auto;
 
   // 自定义 scrollbar 样式，避免 window bar 过宽下难以点击 tag 操作
@@ -42,11 +50,11 @@
     margin-left: 6px;
     flex-shrink: 0;
 
-    &:hover:not(.theme-nav-bar_tag--active) {
+    &:hover:not(.theme-nav-bar__content_tag--active) {
       color: use-color-mode('primary');
       border-color: use-color-mode('primary');
 
-      .theme-nav-bar_icon {
+      .theme-nav-bar__content_icon {
         path {
           fill: use-color-mode('primary');
         }
@@ -58,7 +66,7 @@
       background-color: use-color-mode('primary', 600);
       border-color: transparent;
 
-      .theme-nav-bar_icon {
+      .theme-nav-bar__content_icon {
         path {
           fill: rgb(250, 240, 240);
         }
