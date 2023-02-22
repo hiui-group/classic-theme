@@ -8,6 +8,7 @@ import Avatar from '@hi-ui/avatar'
 import Menu from '@hi-ui/menu'
 import { cx, isArrayNonEmpty } from '@hi-ui/utils'
 import { DownOutlined } from '@hi-ui/icons'
+import { convertMenuData } from '../../util/common'
 
 const Header = ({
   mainMenu,
@@ -36,16 +37,7 @@ const Header = ({
   const mainMenuMemo = React.useMemo(() => {
     if (!isArrayNonEmpty(mainMenu)) return []
 
-    return mainMenu.map((item) => {
-      const { id, title, icon, path, disabled } = item
-      return {
-        id,
-        title,
-        icon,
-        path,
-        disabled
-      }
-    })
+    return convertMenuData(mainMenu, false)
   }, [mainMenu])
 
   return (

@@ -56,6 +56,7 @@ export const getAncestor = (path, data, arr = []) => {
 // 寻找某一节点具有 name 属性的祖先节点
 export const getNamedParent = (path, data) => {
   const parent = getParent(path, data)
+  if (!parent) return null
   if (!parent.name) {
     return getNamedParent(parent.path, data)
   } else {
@@ -178,4 +179,21 @@ export const existKeepAliveRouter = (routes, withKeepAlive) => {
   }
   getKeepAlive(routes)
   return isExist
+}
+
+/**
+ * 菜单数据转换，去掉多余字段（多余字段赋给 Menu 组件时会有错误提示）
+ */
+export const convertMenuData = (menu, needChildren = true) => {
+  return menu?.map((item) => {
+    const { id, name, icon, path = '', disabled, children } = item
+    return {
+      id,
+      title: name,
+      icon,
+      path,
+      disabled,
+      children: needChildren ? convertMenuData(children, needChildren) : undefined
+    }
+  })
 }
