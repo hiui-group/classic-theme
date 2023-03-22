@@ -80,12 +80,12 @@ const Layout = ({
   const historyForLayout = useRef(null)
 
   if (!historyForLayout.current) {
-    historyForLayout.current = historyGenerator[historyType]({ basename })
+    historyForLayout.current = historyGenerator[historyType]()
     _history[historyType] = historyForLayout.current
   }
 
   return (
-    <Router history={historyForLayout.current}>
+    <Router history={historyForLayout.current} basename={basename}>
       <KeepAliveProvider isExistKeepAlive={isExistKeepAlive}>
         <Routes>
           <Route
