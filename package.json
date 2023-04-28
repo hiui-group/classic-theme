@@ -1,8 +1,13 @@
 {
   "name": "@hi-ui/classic-theme",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "description": "Classic theme for HIUI",
-  "main": "./es/index.js",
+  "main": "./lib/index.js",
+  "module": "./es/index.js",
+  "files": [
+    "lib",
+    "es"
+  ],
   "scripts": {
     "test": "node_modules/.bin/standard && node_modules/.bin/stylelint --config .stylelintrc 'src/**/*.scss'",
     "fix": "node_modules/.bin/standard --fix && node_modules/.bin/stylelint --config .stylelintrc 'src/**/*.scss' --fix",
