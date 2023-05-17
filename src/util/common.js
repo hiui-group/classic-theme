@@ -13,7 +13,18 @@ export const transformConfig = (config, parentId) => {
 export const findMenu = (path, data) => {
   let node
   data.forEach((d, index) => {
-    if (path !== undefined && (d.pathname === path || d.path === path || matchPath(path, d.path || d.pathname || ''))) {
+    if (
+      path !== undefined &&
+      (d.pathname === path ||
+        d.path === path ||
+        matchPath(
+          {
+            path: d.path || d.pathname || '',
+            caseSensitive: true
+          },
+          path
+        ))
+    ) {
       node = d
     } else {
       if (d.children && findMenu(path, d.children)) {
@@ -30,9 +41,19 @@ export const getParent = (path, data) => {
   data.forEach((item) => {
     if (item.children) {
       if (
-        item.children.some(
-          (child) => child.path === path || matchPath(path, child.path || child.pathname || '') || child.id === path
-        )
+        item.children.some((child) => {
+          return (
+            child.path === path ||
+            matchPath(
+              {
+                path: child.path || child.pathname || '',
+                caseSensitive: true
+              },
+              path
+            ) ||
+            child.id === path
+          )
+        })
       ) {
         parent = item
       } else if (getParent(path, item.children)) {

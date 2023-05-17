@@ -70,13 +70,15 @@ const config = [
         name: '详情页',
         path: '/detail',
         component: Robot,
-        authority: [1, 2]
-      },
-      {
-        path: '/robot-detail/:id',
-        name: '隐藏详情页',
-        hideInMenu: true,
-        component: RobotDetail
+        authority: [1, 2],
+        children: [
+          {
+            path: '/robot-detail/:id',
+            name: '隐藏详情页',
+            hideInMenu: true,
+            component: RobotDetail
+          }
+        ]
       },
       {
         name: '懒加载页面',
