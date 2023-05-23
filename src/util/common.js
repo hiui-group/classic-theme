@@ -37,6 +37,8 @@ export const findMenu = (path, data) => {
 
 // 寻找某一节点的父节点
 export const getParent = (path, data) => {
+  if (!path || !data) return null
+
   let parent
   data.forEach((item) => {
     if (item.children) {
