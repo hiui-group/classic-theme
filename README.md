@@ -171,6 +171,7 @@ History[`${your history type}`].push()
 | name    | 系统名称           | string | -      |
 | logoUrl | logo 图片地址      | string | -      |
 | url     | 点击 logo 跳转地址 | string | -      |
+| extra   | 自定义内容        | ReactNode | -      |
 
 ### type: Login
 

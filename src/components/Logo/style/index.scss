@@ -1,12 +1,29 @@
 @import '@hi-ui/core-css/lib/index.scss';
 
+.hi-theme__header {
+  .hi-logo-wrapper {
+    display: flex;
+    align-items: center;
+    min-width: 216px;
+  }
+}
+
+.hi-theme__sider {
+  .hi-logo-wrapper {
+    width: 216px;
+  }
+}
+
+.hi-logo-wrapper {
+  transition: width 0.3s;
+  overflow: hidden;
+}
+
 .hi-logo {
   box-sizing: border-box;
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  width: 216px;
-  transition: width 0.3s;
 
   &--mini {
     width: 56px;

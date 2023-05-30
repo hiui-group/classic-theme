@@ -67,14 +67,13 @@ class App extends Component {
           logo={logoConfig}
           // siderTopRender={(mini) => (mini ? <div>X</div> : <div>XData</div>)}
           login={loginConfig}
-          // type="classic"
           // header={null}
           // theme={'orange'}
           authority={[1, 2, 3]}
           // fallback="/404"
           type="genuine"
-          // historyType="browserHistory"
           // type="classic"
+          // historyType="browserHistory"
           // historyType="hashHistory"
           // tagsView
           apperance={{ color: 'light' }}
