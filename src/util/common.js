@@ -184,7 +184,9 @@ export const existKeepAliveRouter = (routes, withKeepAlive) => {
       const { path, component, children, keepAlive, scroll } = router
       isExist = isExist || keepAlive
       if (keepAlive && path) {
-        router.component = withKeepAlive(component, { cacheId: path, scroll })
+        router.originalComponent = router.originalComponent ?? component
+        router.component = withKeepAlive(router.originalComponent, { cacheId: path, scroll })
+        router.test = path
       }
       if (children) {
         getKeepAlive(children)
