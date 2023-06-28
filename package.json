@@ -1,6 +1,6 @@
 {
   "name": "@hi-ui/classic-theme",
-  "version": "4.1.0-alpha.4",
+  "version": "4.1.0",
   "description": "Classic theme for HIUI",
   "main": "./lib/index.js",
   "module": "./es/index.js",
