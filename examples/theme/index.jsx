@@ -90,6 +90,7 @@ class App extends Component {
           onMenuClick={(item) => {
             console.log('item', item)
           }}
+          // onToggle={console.log}
           fallback={'/iot'}
           // viewSize="small"
           // basename={'basename'}
