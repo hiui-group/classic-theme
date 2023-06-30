@@ -72,6 +72,9 @@ const Sider = ({
       return _.uniq(expandedIds.concat(selectedMenus.map((sm) => sm.id).slice(0, selectedMenus.length - 1)))
     })
   }, [selectedMenus])
+  useEffect(() => {
+    onToggle?.(!mini)
+  }, [mini])
 
   const logoConfig = typeof logo === 'function' ? logo(mini) : logo
 
