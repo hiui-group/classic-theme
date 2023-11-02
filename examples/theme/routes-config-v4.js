@@ -105,7 +105,7 @@ const config = [
     children: [
       {
         name: '小米',
-        children: [{ name: '小米CC', path: '/cc', component: CC }]
+        children: [{ name: '小米CC', path: '/cc', component: CC, target: '_blank' }]
       },
       { name: '红米', path: '/red-mi', component: RedMi, withoutLayout: true },
       {

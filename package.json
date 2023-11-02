@@ -1,6 +1,6 @@
 {
   "name": "@hi-ui/classic-theme",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "Classic theme for HIUI",
   "main": "./lib/index.js",
   "module": "./es/index.js",
@@ -120,5 +120,8 @@
       "stylelint --config .stylelintrc  --fix",
       "git add"
     ]
+  },
+  "engines": {
+    "dev-node": "11.x"
   }
 }
