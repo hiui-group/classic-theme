@@ -184,7 +184,9 @@ export const existKeepAliveRouter = (routes, withKeepAlive) => {
       const { path, component, children, keepAlive, scroll } = router
       isExist = isExist || keepAlive
       if (keepAlive && path) {
-        router.component = withKeepAlive(component, { cacheId: path, scroll })
+        router.originalComponent = router.originalComponent ?? component
+        router.component = withKeepAlive(router.originalComponent, { cacheId: path, scroll })
+        router.test = path
       }
       if (children) {
         getKeepAlive(children)
@@ -200,14 +202,28 @@ export const existKeepAliveRouter = (routes, withKeepAlive) => {
  */
 export const convertMenuData = (menu, needChildren = true) => {
   return menu?.map((item) => {
-    const { id, name, icon, path = '', disabled, children } = item
+    const { id, name, icon, path = '', disabled, target, children } = item
     return {
       id,
       title: name,
       icon,
       path,
       disabled,
+      target,
       children: needChildren ? convertMenuData(children, needChildren) : undefined
     }
   })
+}
+
+export const parsePath = ({ path, basename, historyType }) => {
+  const { origin } = location
+  let _path = ''
+
+  if (historyType === 'browserHistory') {
+    _path = basename && basename !== '/' ? `/${basename}${path}` : path
+  } else {
+    _path = basename && basename !== '/' ? `/#/${basename}${path}` : `/#${path}`
+  }
+
+  return `${origin}${_path}`
 }

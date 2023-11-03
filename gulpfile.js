@@ -12,7 +12,8 @@ const libDir = path.join(cwd, 'lib')
 const esDir = path.join(cwd, 'es')
 
 const compile = (modules) => {
-  rimraf.sync(modules !== false ? libDir : esDir)
+  rimraf.sync(modules === false ? esDir : libDir)
+
   const sass = gulp
     .src(['src/**/*.scss', '!src/**/_*.scss'])
     .pipe(
@@ -40,11 +41,24 @@ const compile = (modules) => {
   const assets = gulp
     .src(['src/**/*.@(png|svg|eot|ttf|woff|woff2|otf)'])
     .pipe(gulp.dest(modules === false ? esDir : libDir))
+
   const js = gulp
     .src(['src/**/*.js', 'src/**/*.jsx'])
     .pipe(
       babel({
-        presets: ['@babel/preset-env', '@babel/preset-react'],
+        presets: [
+          ...(modules === false
+            ? [
+                [
+                  '@babel/preset-env',
+                  {
+                    modules: false
+                  }
+                ]
+              ]
+            : ['@babel/preset-env']),
+          '@babel/preset-react'
+        ],
         plugins: [['transform-remove-console', { exclude: ['error', 'warn'] }]]
       })
     )
@@ -65,7 +79,12 @@ const compile = (modules) => {
   return merge2([sass, assets, js])
 }
 
-gulp.task('compile', () => compile(false))
+gulp.task('compile', () => {
+  // 构建 cjs 模块
+  compile(true)
+  // 构建 esm 模块
+  compile(false)
+})
 
 gulp.task('default', () => {
   runSequence('compile')

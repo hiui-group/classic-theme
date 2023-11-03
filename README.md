@@ -156,6 +156,7 @@ History[`${your history type}`].push()
 | keepAlive         | 缓存组件实例                             | boolean   | false  |
 | hideInMenu        | 设置 true 强制在菜单中隐藏展示           | boolean   | false  |
 | unmountOnTagClose | 点击 tag 关闭时销毁组件实例              | boolean   | false  |
+| target            | 是否新标签打开路由            | HTMLAttributeAnchorTarget | - |
 
 ### type: Apperance
 

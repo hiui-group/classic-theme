@@ -1,10 +1,19 @@
 import { isEqual, cloneDeep } from 'lodash'
 import { useCallback, useState, useLayoutEffect, useMemo } from 'react'
-import { findMenu, getAncestor, getDefaultActiveMenu, getNamedParent } from '../util/common'
+import { findMenu, getAncestor, getDefaultActiveMenu, getNamedParent, parsePath } from '../util/common'
 
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
-const useMenuCalculator = (menu, location, history, fallback, onMenuClick, disabledAutoFallback) => {
+const useMenuCalculator = ({
+  menu,
+  location,
+  history,
+  fallback,
+  onMenuClick,
+  disabledAutoFallback,
+  basename,
+  historyType
+}) => {
   const getCurrentMenu = useCallback(
     (menu) => {
       if (menu && menu.length > 0) {
@@ -27,12 +36,16 @@ const useMenuCalculator = (menu, location, history, fallback, onMenuClick, disab
   const onSelectMenu = useCallback(
     (selectMenu, doNavigate = true) => {
       const _selectedMenus = getAncestor(selectMenu.path, menu).reverse().concat(selectMenu)
+
       if (!isEqual(selectedMenus, _selectedMenus)) {
         setselectedMenus(_selectedMenus)
       }
+
       if (doNavigate) {
         if (selectMenu.path.match(reg)) {
           window.open(selectMenu.path, selectMenu.target || '_blank')
+        } else if (selectMenu.target) {
+          window.open(parsePath({ path: selectMenu.path, basename, historyType }), selectMenu.target)
         } else {
           history.push(selectMenu.path)
         }
@@ -57,12 +70,13 @@ const useMenuCalculator = (menu, location, history, fallback, onMenuClick, disab
   }, [getCurrentMenu, menu])
 
   const activeMenuId = useMemo(() => {
-    if (!currentMenu.name) {
+    if (!currentMenu) return ''
+    if (!currentMenu.name || currentMenu.hideInMenu) {
       return getNamedParent(currentMenu.path, menu)?.id ?? ''
     } else {
       return currentMenu.id
     }
-  }, [menu, currentMenu.id, find])
+  }, [menu, currentMenu?.id, find])
 
   return {
     activeMenuId,

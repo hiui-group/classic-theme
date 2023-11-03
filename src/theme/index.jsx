@@ -112,6 +112,8 @@ const Layout = ({
               theme={theme}
               tagsView={tagsView}
               tagsViewExtra={tagsViewExtra}
+              basename={basename}
+              historyType={historyType}
               {...props}
             />
           )}
