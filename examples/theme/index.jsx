@@ -89,6 +89,8 @@ class App extends Component {
           onMenuClick={(item) => {
             console.log('item', item)
           }}
+          onToggle={(d) => console.log('onToggle', d)}
+          siderBottomRender={(mini) => (mini ? <div>Y</div> : <div>YData</div>)}
           fallback={'/home'}
           // viewSize="small"
           // basename={'basename'}
