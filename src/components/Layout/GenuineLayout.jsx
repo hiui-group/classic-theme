@@ -37,6 +37,7 @@ const GenuineLayout = ({
   onMenuClick,
   theme,
   tagsView,
+  tagsViewExtra,
   defaultToggle,
   basename,
   historyType
@@ -119,6 +120,7 @@ const GenuineLayout = ({
                 location={location}
                 history={history}
                 menu={menu}
+                extra={tagsViewExtra}
                 onMenuClick={onMenuClick}
                 onTagClose={handleTagClose}
               />

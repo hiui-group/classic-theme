@@ -120,6 +120,7 @@ History[`${your history type}`].push()
 | type              | 主题类型                                        | 'classic' \| 'genuine'                                     | 'classic'                   |
 | dynamic           | 开启动态布局                                    | boolean                                                    | true                        |
 | tagsView          | 开启页面顶部标签页视图                          | boolean                                                    | false                       |
+| tagsViewExtra     | tagsView 的扩展区域                           | ReactNode                                                  | -                       |
 | routes            | 路由配置项                                      | Route[]                                                    | -                           |
 | historyType       | 路由跳转类型                                    | 'hashHistory' \| 'browserHistory'                          | 'browserHistory'            |
 | header            | genuine 类型下的顶部功能栏                      | ReactNode \| null                                          | 不传时默认为主题自带 header |
