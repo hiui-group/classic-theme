@@ -1,12 +1,16 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react'
-import { unstable_HistoryRouter as Router, Routes, Route } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  createHashRouter,
+  Route,
+  createRoutesFromElements,
+  RouterProvider
+} from 'react-router-dom'
 import { createBrowserHistory, createHashHistory } from 'history'
 import { KeepAliveProvider, withKeepAlive } from '../keep-alive'
-
+import { transformConfig, existKeepAliveRouter } from '../util/common'
 import layout from '../components/Layout'
 import './style/index'
-
-import { transformConfig, existKeepAliveRouter } from '../util/common'
 
 const _history = {}
 export const history = _history
@@ -16,7 +20,16 @@ const historyGenerator = {
   hashHistory: createHashHistory
 }
 
-const defaultAppearance = { contentBackground: undefined, contentPadding: undefined, color: 'dark' }
+const routerGenerator = {
+  browserHistory: createBrowserRouter,
+  hashHistory: createHashRouter
+}
+
+const defaultAppearance = {
+  contentBackground: undefined,
+  contentPadding: undefined,
+  color: 'dark'
+}
 
 const Layout = ({
   historyType = 'browserHistory',
@@ -45,7 +58,6 @@ const Layout = ({
   theme
 }) => {
   // 获取是否存在keepAlive的路由
-
   const isExistKeepAlive = useMemo(() => {
     return existKeepAliveRouter(routes, withKeepAlive)
   }, [routes])
@@ -77,51 +89,56 @@ const Layout = ({
   }, [dynamic, defaultToggle])
 
   const Layout = layout[type]
-  const historyForLayout = useRef(null)
+  const createRouterRef = useRef(null)
 
-  if (!historyForLayout.current) {
-    historyForLayout.current = historyGenerator[historyType]()
-    _history[historyType] = historyForLayout.current
+  if (!createRouterRef.current) {
+    createRouterRef.current = routerGenerator[historyType]
+    _history[historyType] = historyGenerator[historyType]()
   }
 
-  return (
-    <Router history={historyForLayout.current} basename={basename}>
-      <KeepAliveProvider isExistKeepAlive={isExistKeepAlive}>
-        <Routes>
-          <Route
-            path="*"
-            element={
-              <Layout
-                viewSize={viewSize}
-                menu={transformConfig(routes)}
-                siderTopRender={siderTopRender}
-                siderBottomRender={siderBottomRender}
-                toolbar={toolbar}
-                footer={footer}
-                type={type}
-                apperance={Object.assign({}, defaultAppearance, apperance)}
-                logo={logo}
-                login={login}
-                header={header}
-                accordion={accordion}
-                onMenuClick={onMenuClick}
-                fallback={fallback}
-                disabledAutoFallback={disabledAutoFallback}
-                defaultExpandAll={defaultExpandAll}
-                pageHeader={pageHeader}
-                onToggle={onToggle}
-                authority={authority}
-                setSiderVisible={setSiderVisible}
-                siderVisible={siderVisible}
-                defaultToggle={defaultToggle}
-                theme={theme}
-                tagsView={tagsView}
-              />
-            }
+  const router = createRouterRef.current(
+    createRoutesFromElements(
+      <Route
+        path="*"
+        element={
+          <Layout
+            viewSize={viewSize}
+            menu={transformConfig(routes)}
+            siderTopRender={siderTopRender}
+            siderBottomRender={siderBottomRender}
+            toolbar={toolbar}
+            footer={footer}
+            type={type}
+            apperance={Object.assign({}, defaultAppearance, apperance)}
+            logo={logo}
+            login={login}
+            header={header}
+            accordion={accordion}
+            onMenuClick={onMenuClick}
+            fallback={fallback}
+            disabledAutoFallback={disabledAutoFallback}
+            defaultExpandAll={defaultExpandAll}
+            pageHeader={pageHeader}
+            onToggle={onToggle}
+            authority={authority}
+            setSiderVisible={setSiderVisible}
+            siderVisible={siderVisible}
+            defaultToggle={defaultToggle}
+            theme={theme}
+            tagsView={tagsView}
           />
-        </Routes>
-      </KeepAliveProvider>
-    </Router>
+        }
+      />
+    ),
+    {
+      basename: basename.indexOf('/') !== 0 ? `/${basename}` : basename
+    }
+  )
+
+  return (
+    <KeepAliveProvider isExistKeepAlive={isExistKeepAlive}>
+      <RouterProvider router={router} />
+    </KeepAliveProvider>
   )
 }
 

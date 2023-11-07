@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useMatches } from 'react-router-dom'
 // import { Icon } from '@hi-ui/hiui'
 import KeepAliveTest from './KeepAliveTest'
 import Page2 from './page2'
@@ -15,6 +15,7 @@ const CC = () => (
 )
 
 const RedMi = (props) => {
+  console.log('matches', useMatches())
   const navigate = useNavigate()
   useEffect(() => {
     console.log('Mounted', props)
