@@ -33,7 +33,7 @@ const defaultAppearance = {
 
 const Layout = ({
   historyType = 'browserHistory',
-  basename = '/',
+  basename: basenameProp = '/',
   routes = [],
   type = 'classic',
   apperance,
@@ -57,6 +57,8 @@ const Layout = ({
   tagsView,
   theme
 }) => {
+  const basename = basenameProp.startsWith('/') ? basenameProp : `/${basenameProp}`
+
   // 获取是否存在keepAlive的路由
   const isExistKeepAlive = useMemo(() => {
     return existKeepAliveRouter(routes, withKeepAlive)
@@ -131,7 +133,7 @@ const Layout = ({
       />
     ),
     {
-      basename: basename.indexOf('/') !== 0 ? `/${basename}` : basename
+      basename
     }
   )
 

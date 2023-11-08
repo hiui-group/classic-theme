@@ -1,9 +1,20 @@
 import React, { Component } from 'react'
-import Theme from '../../src/theme' // , { history }
+import { Theme, basenameFallbackPolyfill } from '../../src' // , { history }
 // import _routeConfig from './routes-config'
 import _routeConfig from './routes-config-v4'
 import { Input } from '@hi-ui/hiui'
 import { UserOutlined } from '@hi-ui/icons'
+
+const basename = '/'
+const fallback = '/home'
+const historyType = 'browserHistory'
+
+// 当配置了basename后，需要调用该方法做兼容处理
+basenameFallbackPolyfill({
+  basename,
+  fallback,
+  historyType
+})
 
 const TV = () => <div>小米电视</div>
 
@@ -75,6 +86,7 @@ class App extends Component {
           // type="classic"
           // historyType="browserHistory"
           // historyType="hashHistory"
+          historyType={historyType}
           // tagsView
           apperance={{ color: 'light' }}
           // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
@@ -91,9 +103,9 @@ class App extends Component {
           }}
           onToggle={(d) => console.log('onToggle', d)}
           siderBottomRender={(mini) => (mini ? <div>Y</div> : <div>YData</div>)}
-          fallback={'/home'}
+          fallback={fallback}
           // viewSize="small"
-          // basename={'basename'}
+          basename={basename}
           // disabledAutoFallback
         />
       </React.Suspense>
