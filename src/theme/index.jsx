@@ -128,6 +128,8 @@ const Layout = ({
             defaultToggle={defaultToggle}
             theme={theme}
             tagsView={tagsView}
+            basename={basename}
+            historyType={historyType}
           />
         }
       />

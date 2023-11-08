@@ -35,7 +35,9 @@ const ClassicLayout = ({
   onMenuClick,
   theme,
   tagsView,
-  defaultToggle
+  defaultToggle,
+  basename,
+  historyType
 }) => {
   const location = useLocation()
   const containerRef = useRef(null)
@@ -46,7 +48,9 @@ const ClassicLayout = ({
     history,
     fallback,
     onMenuClick,
-    disabledAutoFallback
+    disabledAutoFallback,
+    basename,
+    historyType
   })
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
   const activeMainMenu = selectedMenus[0]

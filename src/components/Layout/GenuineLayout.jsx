@@ -36,7 +36,9 @@ const GenuineLayout = ({
   onMenuClick,
   theme,
   tagsView,
-  defaultToggle
+  defaultToggle,
+  basename,
+  historyType
 }) => {
   const location = useLocation()
   const { activeMenuId, currentMenu, selectedMenus, onSelectMenu, defaultPath } = useMenuCalculator({
@@ -45,7 +47,9 @@ const GenuineLayout = ({
     history,
     fallback,
     onMenuClick,
-    disabledAutoFallback
+    disabledAutoFallback,
+    basename,
+    historyType
   })
   const isWithoutLayout = currentMenu && currentMenu.withoutLayout
 

@@ -1,11 +1,11 @@
 import { isEqual, cloneDeep } from 'lodash'
 import { useCallback, useState, useLayoutEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { findMenu, getAncestor, getDefaultActiveMenu, getNamedParent } from '../util/common'
+import { findMenu, getAncestor, getDefaultActiveMenu, getNamedParent, parsePath } from '../util/common'
 
 const reg = /(http|https):\/\/([\w.]+\/?)\S*/gi
 
-const useMenuCalculator = ({ menu, location, fallback, onMenuClick, disabledAutoFallback }) => {
+const useMenuCalculator = ({ menu, location, fallback, onMenuClick, disabledAutoFallback, basename, historyType }) => {
   const navigate = useNavigate()
 
   const getCurrentMenu = useCallback(
@@ -36,6 +36,8 @@ const useMenuCalculator = ({ menu, location, fallback, onMenuClick, disabledAuto
       if (doNavigate) {
         if (selectMenu.path.match(reg)) {
           window.open(selectMenu.path, selectMenu.target || '_blank')
+        } else if (selectMenu.target) {
+          window.open(parsePath({ path: selectMenu.path, basename, historyType }), selectMenu.target)
         } else {
           navigate(selectMenu.path)
         }
