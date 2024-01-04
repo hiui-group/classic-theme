@@ -64,6 +64,7 @@ ul {
   z-index: 12;
   position: sticky;
   top: 0;
+  border-right: 1px solid #dfe2e8;
 
   svg.hi-theme-icon {
     height: 16px;
@@ -72,7 +73,6 @@ ul {
 
   &--light {
     background: #fff !important;
-    box-shadow: 1px 0 4px rgba(0, 21, 41, 0.08);
     color: #1f2733;
 
     .sider__footer {
@@ -104,7 +104,6 @@ ul {
 
   &--dark {
     background: #1f2733 !important;
-    box-shadow: 0 2px 6px rgba(#1f2733, 0.35);
     color: #dfe2e8;
 
     .hi-logo__title {
