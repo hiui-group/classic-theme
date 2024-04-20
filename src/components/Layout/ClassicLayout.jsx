@@ -36,6 +36,7 @@ const ClassicLayout = ({
   onMenuClick,
   theme,
   tagsView,
+  tagsViewExtra,
   defaultToggle,
   basename,
   historyType
@@ -86,6 +87,7 @@ const ClassicLayout = ({
         toolbar={toolbar}
         menu={menu}
         tagsView={tagsView}
+        tagsViewExtra={tagsViewExtra}
         history={history}
         onMenuClick={onMenuClick}
         type={type}
@@ -124,6 +126,7 @@ const ClassicLayout = ({
               location={location}
               history={history}
               menu={menu}
+              extra={tagsViewExtra}
               onMenuClick={onMenuClick}
               onTagClose={handleTagClose}
             />

@@ -77,6 +77,7 @@ class App extends Component {
           // type="classic"
           historyType="hashHistory"
           // tagsView
+          // tagsViewExtra={<div style={{ padding: '0 1em' }}>extra content</div>}
           apperance={{ color: 'light' }}
           // apperance={{ contentBackground: '#fff', contentPadding: 0 }}
           // accordion={false}
