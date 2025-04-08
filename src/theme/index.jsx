@@ -31,6 +31,12 @@ const defaultAppearance = {
   color: 'dark'
 }
 
+export let router = null
+
+export const navigate = (path, options = {}) => {
+  router.navigate(path, options)
+}
+
 const Layout = ({
   historyType = 'browserHistory',
   basename: basenameProp = '/',
@@ -98,7 +104,7 @@ const Layout = ({
     _history[historyType] = historyGenerator[historyType]()
   }
 
-  const router = createRouterRef.current(
+  router = createRouterRef.current(
     createRoutesFromElements(
       <Route
         path="*"
