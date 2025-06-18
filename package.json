@@ -1,6 +1,6 @@
 {
   "name": "@hi-ui/classic-theme",
-  "version": "5.0.0-alpha.9",
+  "version": "5.0.0-canary.0",
   "description": "Classic theme for HIUI",
   "main": "./lib/index.js",
   "module": "./es/index.js",
@@ -33,13 +33,16 @@
   ],
   "author": "HIUI <mi-hiui@xiaomi.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=11.15.0"
+  },
   "dependencies": {
     "@babel/runtime": "^7.18.6",
     "@hi-ui/avatar": "^5.0.0-canary.0",
-    "@hi-ui/core-css": "^4.0.0",
-    "@hi-ui/drawer": "^5.0.0-canary.0",
+    "@hi-ui/core-css": "^5.0.0-canary.3",
+    "@hi-ui/drawer": "^5.0.0-canary.2",
     "@hi-ui/icons": "^5.0.0-canary.0",
-    "@hi-ui/menu": "^5.0.0-canary.0",
+    "@hi-ui/menu": "^5.0.0-canary.1",
     "@hi-ui/popover": "^5.0.0-canary.0",
     "@hi-ui/utils": "^5.0.0-canary.0",
     "classnames": "^2.2.6",
@@ -55,7 +58,7 @@
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "@hi-ui/core": "^5.0.0-canary.0",
-    "@hi-ui/hiui": "^5.0.0-canary.0",
+    "@hi-ui/hiui": "^5.0.0-canary.11",
     "autoprefixer": "^8.3.0",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^8.0.5",
